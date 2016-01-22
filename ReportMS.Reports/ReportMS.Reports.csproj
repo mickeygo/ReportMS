@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{CC6F8325-6E3A-48FE-B398-0AE00BC4FA97}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ReportMS.Reports</RootNamespace>
+    <AssemblyName>ReportMS.Reports</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DataTables\DataTables.cs" />
+    <Compile Include="Dao\DatabaseReader.cs" />
+    <Compile Include="Managers\IReportRead.cs" />
+    <Compile Include="Managers\ReportReadManager.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Dao\DataDao.cs" />
+    <Compile Include="Dao\EnvironmentConnectionString.cs" />
+    <Compile Include="Dao\IDataDao.cs" />
+    <Compile Include="ReadModel\ReportData.cs" />
+    <Compile Include="ReadModel\ReportDataType.cs" />
+    <Compile Include="Dao\ReportOperationSymbol.cs" />
+    <Compile Include="Dao\ReportSqlWrapper.cs" />
+    <Compile Include="Dao\SelectClauseBuildMode.cs" />
+    <Compile Include="Dao\SqlBag.cs" />
+    <Compile Include="Dao\SqlOperator.cs" />
+    <Compile Include="Dao\SqlParameterBuilder.cs" />
+    <Compile Include="Dao\SqlSelectClauseBuilder.cs" />
+    <Compile Include="Dao\SqlWhereClauseBuilder.cs" />
+    <Compile Include="Services\ReportQueryServiceContract.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Gear.Infrastructure.Caching\Gear.Infrastructure.Caching.csproj">
+      <Project>{56acc5d0-5f01-4361-a499-4b05017fe62c}</Project>
+      <Name>Gear.Infrastructure.Caching</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Gear.Infrastructure.Container\Gear.Infrastructure.Container.csproj">
+      <Project>{0fa5a667-5f31-4288-b6fc-9d0ecb73aec5}</Project>
+      <Name>Gear.Infrastructure.Container</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Gear.Infrastructure.Repository\Gear.Infrastructure.Repository.csproj">
+      <Project>{9c61c13a-7b48-47bd-a338-82d139ab6718}</Project>
+      <Name>Gear.Infrastructure.Repository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Gear.Infrastructure.Storage\Gear.Infrastructure.Storage.csproj">
+      <Project>{8d98b656-8f48-4f7b-ae1c-b2e9deb5d9ae}</Project>
+      <Name>Gear.Infrastructure.Storage</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Gear.Infrastructure.Web\Gear.Infrastructure.Web.csproj">
+      <Project>{1a34f17f-35ff-44d3-b978-8ca7afdf9b21}</Project>
+      <Name>Gear.Infrastructure.Web</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Gear.Infrastructure\Gear.Infrastructure.csproj">
+      <Project>{944395e6-31aa-4a13-a663-bc7315d8a46f}</Project>
+      <Name>Gear.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Gear.Utility\Gear.Utility.csproj">
+      <Project>{83879e93-71ed-418e-a6d2-1e107a14cdc4}</Project>
+      <Name>Gear.Utility</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ReportMS.DataTransferObjects\ReportMS.DataTransferObjects.csproj">
+      <Project>{6184f145-317d-48ca-816c-da52539d8768}</Project>
+      <Name>ReportMS.DataTransferObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ReportMS.ServiceContracts\ReportMS.ServiceContracts.csproj">
+      <Project>{02a668b3-aeb6-4525-bbb2-74b6bacdae59}</Project>
+      <Name>ReportMS.ServiceContracts</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

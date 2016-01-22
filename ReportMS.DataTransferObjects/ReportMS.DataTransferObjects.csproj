@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6184F145-317D-48CA-816C-DA52539D8768}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ReportMS.DataTransferObjects</RootNamespace>
+    <AssemblyName>ReportMS.DataTransferObjects</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper, Version=4.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\AutoMapper.4.1.1\lib\portable-net45+win+wpa81+wp80+MonoAndroid10+Xamarin.iOS10+MonoTouch10\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DtoInitializer\DtoMapperInitializer.cs" />
+    <Compile Include="Dtos\ActionRoleDto.cs" />
+    <Compile Include="Dtos\ActionsDto.cs" />
+    <Compile Include="Dtos\MenuDto.cs" />
+    <Compile Include="Dtos\MenuRoleDto.cs" />
+    <Compile Include="Dtos\ReportDto.cs" />
+    <Compile Include="Dtos\ReportFieldDto.cs" />
+    <Compile Include="Dtos\ReportGroupDto.cs" />
+    <Compile Include="Dtos\ReportGroupItemDto.cs" />
+    <Compile Include="Dtos\ReportGroupItemFieldDto.cs" />
+    <Compile Include="Dtos\ReportGroupRoleDto.cs" />
+    <Compile Include="Dtos\RoleDto.cs" />
+    <Compile Include="Dtos\TenantDto.cs" />
+    <Compile Include="Dtos\UserDto.cs" />
+    <Compile Include="Dtos\UserRoleDto.cs" />
+    <Compile Include="FaultData.cs" />
+    <Compile Include="Profiles\ActionRoleMapperProfile.cs" />
+    <Compile Include="Profiles\ActionsMapperProfile.cs" />
+    <Compile Include="Profiles\MenuMapperProfile.cs" />
+    <Compile Include="Profiles\MenuRoleMapperProfile.cs" />
+    <Compile Include="Profiles\ReportGroupMapperProfile.cs" />
+    <Compile Include="Profiles\ReportGroupRoleMapperProfile.cs" />
+    <Compile Include="Profiles\ReportMapperProfile.cs" />
+    <Compile Include="Profiles\RoleMapperProfile.cs" />
+    <Compile Include="Profiles\TenantMapperProfile.cs" />
+    <Compile Include="Profiles\UserMapperProfile.cs" />
+    <Compile Include="Profiles\UserRoleMapperProfile.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Gear.Infrastructure\Gear.Infrastructure.csproj">
+      <Project>{944395e6-31aa-4a13-a663-bc7315d8a46f}</Project>
+      <Name>Gear.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Gear.Utility\Gear.Utility.csproj">
+      <Project>{83879e93-71ed-418e-a6d2-1e107a14cdc4}</Project>
+      <Name>Gear.Utility</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ReportMS.Domain\ReportMS.Domain.csproj">
+      <Project>{d4188f80-f5c2-468b-bb85-64221d75eba5}</Project>
+      <Name>ReportMS.Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

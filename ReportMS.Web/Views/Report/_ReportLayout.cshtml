@@ -1,0 +1,175 @@
+﻿@{
+    ViewBag.Title = "Report";
+}
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/report")
+    <script>
+        $(document).on("click", "div[data-field=true] [data-field-target]", function(e) {
+            var transfer = new ReportTransfer(this, "#reportcondition");
+            transfer.generate();
+        });
+
+        $(document).on("click", "[data-condition=true] [data-condition-del=true]", function(e) {
+            var transfer = new ReportTransfer();
+            transfer.delete(this);
+        });
+
+        function doExportExcel(element) {
+            var executeUrl = $(element).attr("data-download-url");
+            var download = new ReportDownload(executeUrl);
+            return download.downLoad();
+        }
+
+        //
+        function search() {
+            showTable();
+        }
+
+        function showTable() {
+            var report = new ReportTable("#report_table");
+            report.showTable("@Url.Action("GetDataSet")", 256);
+        }
+    </script>
+}
+
+<div id="layout">
+    <div class="panel">
+        <div class="container-fluid">
+            <div class="row">
+                <div style="width: 22.22%; float: left;">
+                    <div style="border: 1px solid #ddd; height: 200px;">
+                        <div class="span span-default">
+                            <div class="panel-body">
+                                <div id="report_menu">
+                                    <script type="text/jsx">
+                                        var ReportSelect = React.createClass({
+                                            getInitialState: function() {
+                                                return {reports: [], reportId: ""};
+                                            },
+                                            componentDidMount: function() {
+                                                var url = "@Url.Action("GetReports")";
+                                                var datas = [];
+                                        
+                                                $.ajax({
+                                                    async: false,
+                                                    method: "POST",
+                                                    url: url,
+                                                    dataType: "json"
+                                                }).done(function(data){
+                                                    if(data.status === "success") {
+                                                        datas = data.reports;
+                                                    }
+                                                });
+                                        
+                                                this.setState({reports: datas});
+                                            },
+                                            componentWillUpdate: function(nextProps, nextState){
+                                                var url = "@Url.Action("GetFields")";
+                                                var value = nextState.reportId;
+                                                var reportField = new ReportField("report_field");
+                                                if (value !== "") {
+                                                    $.post(url, { reportId: value }, function (data) {
+                                                        if (data.status === "success") {
+                                                            var fields = data.fileds;
+                                                            reportField.generateFields(fields);
+                                                        }
+                                                    }).fail(function () {
+                                                        alert("Get report information failure.");
+                                                    });
+                                                } else {
+                                                    reportField.destoryFields();
+                                                }
+                                                
+                                                var reportCondition = new ReportTransfer();
+                                                reportCondition.destoryConditions();
+                                        
+                                                var report = new ReportTable();
+                                                report.destoryTable();
+                                            },
+                                            handleChange: function(event) {
+                                                var value = event.target.value;
+                                                this.setState({reportId: value});
+                                            },
+                                            render: function() {
+                                                var options = [];
+                                                options.push(<option value="">-----</option>);
+                                                this.state.reports.forEach(function(report){
+                                                    options.push(
+                                                        <option value={report.ID}>{report.DisplayName}</option>
+                                                    );
+                                                });
+                                                
+                                                return (<select id="reportList" data-report-option="table" onChange={this.handleChange}>{options}</select>);
+                                            }
+                                        });
+                                        
+                                        React.render(
+                                            <ReportSelect />,
+                                            document.getElementById('report_menu')
+                                        );
+                                    </script>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="width: 77.77%; float: left;">
+                    <div style="border: 1px solid #ddd; height: 200px; overflow-y: auto;">
+                        <div class="span span-default">
+                            <div class="panel-body">
+                                <div id="report_condition">
+                                    <div id="reportcondition">
+                                    </div>
+                                    <div class="text-right">
+                                        <button type="button" class="btn btn-primary btn-xs" onclick=" search(); ">Search</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div style="width: 22.22%; float: left;">
+                    <div style="border: 1px solid #ddd; height: 400px; overflow-y: auto;">
+                        <div class="span span-default">
+                            <div class="panel-body">
+                                <div id="report_field">
+                                    <div>
+                                        <input type="checkbox" id="checkAll" onclick=" toggleCheckAllField(this); " />
+                                        <label for="checkAll">SelectAll</label>
+                                    </div>
+                                    <hr />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="width: 77.77%; float: left;">
+                    <div style="border: 1px solid #ddd; height: 400px; overflow-y: auto;">
+                        <div class="span span-default">
+                            <div class="panel-body">
+                                <div class="ibox">
+                                    <div class="ibox-title">
+                                        <div class="ibox-tools rboor">
+                                            <a href="@Url.Action("ExportExcel")" data-download-url="@Url.Action("SaveExcel")" class="btn btn-primary btn-xs" target="_blank"
+                                               onclick="return doExportExcel(this);">
+                                                <span class="glyphicon glyphicon-download-alt"></span> Export Excel
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="ibox-content">
+                                        <div id="report_table">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

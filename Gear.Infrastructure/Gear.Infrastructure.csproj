@@ -1,0 +1,160 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{944395E6-31AA-4A13-A663-BC7315D8A46F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Gear.Infrastructure</RootNamespace>
+    <AssemblyName>Gear.Infrastructure</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Messaging" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AggregateRoot.cs" />
+    <Compile Include="Application\App.cs" />
+    <Compile Include="Application\AppBootstrapper.cs" />
+    <Compile Include="Application\AppRuntime.cs" />
+    <Compile Include="Application\IApp.cs" />
+    <Compile Include="Authentication\AuthenticationData.cs" />
+    <Compile Include="Authentication\IAuthentication.cs" />
+    <Compile Include="Bus\BusException.cs" />
+    <Compile Include="Bus\EventBus.cs" />
+    <Compile Include="Bus\IBus.cs" />
+    <Compile Include="Bus\IEventBus.cs" />
+    <Compile Include="Bus\MSMQBusOptions.cs" />
+    <Compile Include="Bus\MSMQEventBus.cs" />
+    <Compile Include="Caching\CacheManager.cs" />
+    <Compile Include="Caching\CacheOptions.cs" />
+    <Compile Include="Caching\CachingAttribute.cs" />
+    <Compile Include="Caching\CachingMethod.cs" />
+    <Compile Include="Caching\ICacheProvider.cs" />
+    <Compile Include="Configurations\CacheConfiguration.cs" />
+    <Compile Include="Configurations\ConfigurationOptions.cs" />
+    <Compile Include="Configurations\EmailClientConfiguration.cs" />
+    <Compile Include="Configurations\Fluent\CacheConfigurator.cs" />
+    <Compile Include="Configurations\Fluent\Configurator.cs" />
+    <Compile Include="Configurations\Fluent\MailConfigurator.cs" />
+    <Compile Include="Configurations\Fluent\SystemAdminConfigurator.cs" />
+    <Compile Include="Configurations\SystemAdminConfiguration.cs" />
+    <Compile Include="DisposableObject.cs" />
+    <Compile Include="Entity.cs" />
+    <Compile Include="Events\ActionDelegatedEventHandler.cs" />
+    <Compile Include="Events\DomainEvent.cs" />
+    <Compile Include="Events\EventAggregator.cs" />
+    <Compile Include="Events\IDomainEventHandler.cs" />
+    <Compile Include="Events\ParallelExecutionAttribute.cs" />
+    <Compile Include="Events\IDomainEvent.cs" />
+    <Compile Include="Events\IEvent.cs" />
+    <Compile Include="Events\IEventAggregator.cs" />
+    <Compile Include="Events\IEventHandler.cs" />
+    <Compile Include="Generators\IdentityGenerator.cs" />
+    <Compile Include="Generators\IIdentityGenerator.cs" />
+    <Compile Include="Generators\ISequenceGenerator.cs" />
+    <Compile Include="Generators\SequenceGenerator.cs" />
+    <Compile Include="Generators\SequentialIdentityGenerator.cs" />
+    <Compile Include="IAggregateRoot.cs" />
+    <Compile Include="IApplicationQueryService.cs" />
+    <Compile Include="IApplicationService.cs" />
+    <Compile Include="IApplicationStartup.cs" />
+    <Compile Include="IEntity.cs" />
+    <Compile Include="InfrastructureException.cs" />
+    <Compile Include="IObjectContainer.cs" />
+    <Compile Include="IServiceLocator.cs" />
+    <Compile Include="IUnitOfWork.cs" />
+    <Compile Include="Net\Mail\MailAudit.cs" />
+    <Compile Include="Net\Mail\MailManager.cs" />
+    <Compile Include="Net\Mail\MailMessageManager.cs" />
+    <Compile Include="MultiTenancy\IMayHaveTenant.cs" />
+    <Compile Include="MultiTenancy\IMustHaveTenant.cs" />
+    <Compile Include="ObjectContainer.cs" />
+    <Compile Include="PagedResult.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\IRepository.cs" />
+    <Compile Include="Repositories\IRepositoryContext.cs" />
+    <Compile Include="Repositories\ISoftDelete.cs" />
+    <Compile Include="Repositories\Repository.cs" />
+    <Compile Include="Repositories\RepositoryContext.cs" />
+    <Compile Include="Repositories\RepositoryException.cs" />
+    <Compile Include="Serialization\IObjectSerializer.cs" />
+    <Compile Include="Serialization\ObjectBinarySerializer.cs" />
+    <Compile Include="Serialization\ObjectDataContractSerializer.cs" />
+    <Compile Include="Serialization\ObjectJsonSerializer.cs" />
+    <Compile Include="Serialization\ObjectXmlSerializer.cs" />
+    <Compile Include="Serialization\SerializationException.cs" />
+    <Compile Include="ServiceLocator.cs" />
+    <Compile Include="Specifications\AndNotSpecification.cs" />
+    <Compile Include="Specifications\AndSpecification.cs" />
+    <Compile Include="Specifications\AnySpecification.cs" />
+    <Compile Include="Specifications\CompositeSpecification.cs" />
+    <Compile Include="Specifications\ExpressionFuncExtender.cs" />
+    <Compile Include="Specifications\ExpressionSpecification.cs" />
+    <Compile Include="Specifications\ICompositeSpecification.cs" />
+    <Compile Include="Specifications\ISpecification.cs" />
+    <Compile Include="Specifications\NoneSpecification.cs" />
+    <Compile Include="Specifications\NotSpecification.cs" />
+    <Compile Include="Specifications\OrSpecification.cs" />
+    <Compile Include="Specifications\ParameterRebinder.cs" />
+    <Compile Include="Specifications\Specification.cs" />
+    <Compile Include="Storage\Builder\SqlSelectClauseBuilder.cs" />
+    <Compile Include="Storage\Builder\SqlSelectCountClauseBuilder.cs" />
+    <Compile Include="Storage\Builder\SqlSelectPagingClauseBuilder.cs" />
+    <Compile Include="Storage\IStorage.cs" />
+    <Compile Include="Storage\IStorageProvider.cs" />
+    <Compile Include="Storage\SortOrder.cs" />
+    <Compile Include="Storage\StorageConfiguration.cs" />
+    <Compile Include="Storage\StorageException.cs" />
+    <Compile Include="Storage\StorageManager.cs" />
+    <Compile Include="Storage\StorageProvider.cs" />
+    <Compile Include="Transactions\DistributedTransactionCoordinator.cs" />
+    <Compile Include="Transactions\ITransactionCoordinator.cs" />
+    <Compile Include="Transactions\SuppressedTransactionCoordinator.cs" />
+    <Compile Include="Transactions\TransactionCoordinator.cs" />
+    <Compile Include="Transactions\TransactionCoordinatorFactory.cs" />
+    <Compile Include="Utils.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Readme.txt" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

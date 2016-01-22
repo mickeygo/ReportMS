@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D4188F80-F5C2-468B-BB85-64221D75EBA5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ReportMS.Domain</RootNamespace>
+    <AssemblyName>ReportMS.Domain</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DomainException.cs" />
+    <Compile Include="Models\AccountModule\ActionRole.cs" />
+    <Compile Include="Models\AccountModule\Actions.cs" />
+    <Compile Include="Models\AccountModule\Menu.cs" />
+    <Compile Include="Models\AccountModule\MenuRole.cs" />
+    <Compile Include="Models\AccountModule\UserRole.cs" />
+    <Compile Include="Models\ReportModule\ReportAggregate\Report.cs" />
+    <Compile Include="Models\ReportModule\ReportAggregate\Database.cs" />
+    <Compile Include="Models\ReportModule\ReportAggregate\ReportField.cs" />
+    <Compile Include="Models\ReportModule\ReportGroupAggregate\ReportGroup.cs" />
+    <Compile Include="Models\ReportModule\ReportGroupAggregate\ReportGroupItem.cs" />
+    <Compile Include="Models\ReportModule\ReportGroupAggregate\ReportGroupItemField.cs" />
+    <Compile Include="Models\ReportModule\ReportGroupAggregate\ReportGroupRole.cs" />
+    <Compile Include="Models\TenantModule\Tenant.cs" />
+    <Compile Include="Models\AccountModule\Role.cs" />
+    <Compile Include="Models\AccountModule\User.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\IActionRepository.cs" />
+    <Compile Include="Repositories\IActionRoleRepository.cs" />
+    <Compile Include="Repositories\IMenuRepository.cs" />
+    <Compile Include="Repositories\IMenuRoleRepository.cs" />
+    <Compile Include="Repositories\IReportGroupItemRepository.cs" />
+    <Compile Include="Repositories\IReportGroupRepository.cs" />
+    <Compile Include="Repositories\IReportGroupRoleRepository.cs" />
+    <Compile Include="Repositories\IReportRepository.cs" />
+    <Compile Include="Repositories\IRoleRepository.cs" />
+    <Compile Include="Repositories\ITenantRepository.cs" />
+    <Compile Include="Repositories\IUserRepository.cs" />
+    <Compile Include="Repositories\IUserRoleRepository.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Events\Handlers\" />
+    <Folder Include="Factories\" />
+    <Folder Include="Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Gear.Infrastructure\Gear.Infrastructure.csproj">
+      <Project>{944395e6-31aa-4a13-a663-bc7315d8a46f}</Project>
+      <Name>Gear.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Gear.Utility\Gear.Utility.csproj">
+      <Project>{83879e93-71ed-418e-a6d2-1e107a14cdc4}</Project>
+      <Name>Gear.Utility</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

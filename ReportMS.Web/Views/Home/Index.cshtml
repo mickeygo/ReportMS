@@ -1,0 +1,67 @@
+﻿@using ReportMS.DataTransferObjects.Dtos
+@model IEnumerable<TenantDto>
+
+@{
+    ViewBag.Title = "Home";
+
+    var row = 0;
+    var count = 4;
+}
+
+@if (Model.Any())
+{
+    var tenantTotalCount = Model.Count();
+    if (tenantTotalCount <= count)
+    {
+        @RenderOneRowTenants(Model)
+    }
+    else
+    {
+        for (var i = 0; i < Model.Count(); i += count)
+        {
+            if (i%count == 0)
+            {
+                var tenants = Model.Skip(row).Take(count);
+                @RenderTenants(tenants, count)
+
+                row += count;
+            }
+        }
+    }
+}
+
+@helper RenderTenants(IEnumerable<TenantDto> tenants, int colnum)
+{
+    var totalCols = 12;
+    var tenantsTotalCols = tenants.Count();
+    var currentCols = tenantsTotalCols > colnum ? tenantsTotalCols : colnum;
+    var width = totalCols / currentCols;
+
+    @RenderRowTenants(tenants, width)
+}
+
+@helper RenderOneRowTenants(IEnumerable<TenantDto> tenants)
+{
+    var totalCols = 12;
+    var width = totalCols/tenants.Count();
+
+    @RenderRowTenants(tenants, width)
+}
+
+@helper RenderRowTenants(IEnumerable<TenantDto> tenants, int width)
+{
+    var colWidthCss = string.Format("col-md-{0}", width.ToString());
+    <div class="row">
+        @foreach (var tenant in tenants)
+        {
+            <div class="@colWidthCss">
+                <div class="jumbotron">
+                    <p class="lead">@Html.DisplayFor(m => tenant.Description)</p>
+                    <p>
+                        <a href="@Url.Action("Index", "Report", new {tenant = tenant.TenantName})" class="btn btn-primary">@tenant.DisplayName &raquo;</a>
+                    </p>
+                </div>
+            </div>
+        }
+    </div>
+}

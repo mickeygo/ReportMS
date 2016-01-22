@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{4C31C8AD-C70C-481C-8F0B-B592C7541D4E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ReportMS.Domain.Repositories</RootNamespace>
+    <AssemblyName>ReportMS.Domain.Repositories</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="EntityFramework\DbContextInitializer\RmsDbContextInitializer.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\ActionEntityTypeConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\ActionRoleEntityTypeConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\DatabaseComplexTypeConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\ReportGroupEntityTypeConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\MenuEntityTypeConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\MenuRoleEntityTypeConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\ReportFieldEntityTypeConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\ReportEntityTypeConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\ReportGroupItemEntityTypeConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\ReportGroupItemFieldEntityTypeConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\ReportGroupRoleEntityTypeConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\RoleEntityTypeConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\TenantEntityTypeConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\UserEntityTypeConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\UserRoleEntityTypeConfiguration.cs" />
+    <Compile Include="EntityFramework\Repository\ActionRepository.cs" />
+    <Compile Include="EntityFramework\Repository\ActionRoleRepository.cs" />
+    <Compile Include="EntityFramework\Repository\MenuRepository.cs" />
+    <Compile Include="EntityFramework\Repository\MenuRoleRepository.cs" />
+    <Compile Include="EntityFramework\Repository\ReportGroupItemRepository.cs" />
+    <Compile Include="EntityFramework\Repository\ReportGroupRepository.cs" />
+    <Compile Include="EntityFramework\Repository\ReportGroupRoleRepository.cs" />
+    <Compile Include="EntityFramework\Repository\ReportRepository.cs" />
+    <Compile Include="EntityFramework\Repository\RoleRepository.cs" />
+    <Compile Include="EntityFramework\Repository\TenantRepository.cs" />
+    <Compile Include="EntityFramework\Repository\UserRepository.cs" />
+    <Compile Include="EntityFramework\Repository\UserRoleRepository.cs" />
+    <Compile Include="EntityFramework\RmsDbContext.cs" />
+    <Compile Include="EnvironmentConnection.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Gear.Infrastructure.Repository\Gear.Infrastructure.Repository.csproj">
+      <Project>{9c61c13a-7b48-47bd-a338-82d139ab6718}</Project>
+      <Name>Gear.Infrastructure.Repository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Gear.Infrastructure\Gear.Infrastructure.csproj">
+      <Project>{944395e6-31aa-4a13-a663-bc7315d8a46f}</Project>
+      <Name>Gear.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Gear.Utility\Gear.Utility.csproj">
+      <Project>{83879e93-71ed-418e-a6d2-1e107a14cdc4}</Project>
+      <Name>Gear.Utility</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ReportMS.Domain\ReportMS.Domain.csproj">
+      <Project>{d4188f80-f5c2-468b-bb85-64221d75eba5}</Project>
+      <Name>ReportMS.Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Specifications\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
