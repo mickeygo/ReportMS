@@ -40,7 +40,6 @@ namespace ReportMS.ServiceContracts
         [FaultContract(typeof(FaultData))]
         ReportDto GetReport(Guid reportId, bool includeFields = true);
 
-
         /// <summary>
         /// 获取在指定角色中的指定报表。
         /// 会根据不同的角色，指定每个报表所显示的字段
