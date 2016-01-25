@@ -41,7 +41,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Services\ReportService.cs" />
+    <Compile Include="Services\RoleService.cs" />
     <Compile Include="Services\TenantService.cs" />
+    <Compile Include="Services\UserService.cs" />
     <Compile Include="TransferExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

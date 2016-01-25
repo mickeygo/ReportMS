@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Web.Mvc;
+using Gear.Infrastructure.Authentication;
 using Gear.Infrastructure.Web.Authorization;
 using Gear.Infrastructure.Web.Membership;
 using Gear.Infrastructure.Web.MultiTenancy;
@@ -12,6 +13,12 @@ namespace Gear.Infrastructure.Web.Controllers
     /// </summary>
     public abstract class GearController : Controller
     {
+        #region
+
+        private IAuthentication _authentication;
+
+        #endregion
+
         #region Public Properties
 
         /// <summary>
@@ -28,6 +35,17 @@ namespace Gear.Infrastructure.Web.Controllers
         public bool IsAdministrator
         {
             get { return MemberManager.IsCurrentLoginUserInAdministrator(); }
+        }
+
+        /// <summary>
+        /// 获取当前登录人员信息
+        /// </summary>
+        public IAuthentication LoginUser
+        {
+            get
+            {
+                return this._authentication ?? (this._authentication = OwinAuthenticationManager.OwinAuthentication);
+            }
         }
 
         /// <summary>
@@ -53,10 +71,8 @@ namespace Gear.Infrastructure.Web.Controllers
                 return;
             }
 
-            var authentication = OwinAuthenticationManager.OwinAuthentication;
-
             // authentication
-            if (!authentication.Identity.IsAuthenticated)
+            if (!this.LoginUser.Identity.IsAuthenticated)
             {
                 var requestUrl = filterContext.HttpContext.Request.RawUrl ?? String.Empty;
                 filterContext.Result = this.RedirectToAction("Login", "Account", new { area = String.Empty, returnUrl = requestUrl });

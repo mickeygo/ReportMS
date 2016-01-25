@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="IReportQueryService.cs" />
     <Compile Include="IReportService.cs" />
+    <Compile Include="IRoleService.cs" />
     <Compile Include="ITenantService.cs" />
     <Compile Include="IUserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

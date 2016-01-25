@@ -71,6 +71,8 @@
     <Compile Include="Controllers\ControllerExtensions.cs" />
     <Compile Include="Controllers\GearController.cs" />
     <Compile Include="Authorization\ClaimManager.cs" />
+    <Compile Include="Extensions\HttpRequestExtensions.cs" />
+    <Compile Include="Extensions\MvcHttpRequestExtensions.cs" />
     <Compile Include="Membership\ILogin.cs" />
     <Compile Include="Membership\IMembership.cs" />
     <Compile Include="Membership\LoginProvider.cs" />
@@ -89,6 +91,7 @@
     <Compile Include="Sessions\ISessionProvider.cs" />
     <Compile Include="Sessions\SessionExtensions.cs" />
     <Compile Include="Sessions\SessionManager.cs" />
+    <Compile Include="Utility\HttpRequestHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Gear.Infrastructure\Gear.Infrastructure.csproj">

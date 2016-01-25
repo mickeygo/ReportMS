@@ -20,9 +20,9 @@ namespace Gear.Infrastructure.Web.Authorization
         #region Public Methods
 
         /// <summary>
-        /// 验证登录
+        /// 登入
         /// </summary>
-        /// <param name="ticket">验证票据</param>
+        /// <param name="ticket">身份验证票据</param>
         public static void SignIn(OwinAuthenticationTicket ticket)
         {
             var authentication = GetAuthentication();
@@ -30,10 +30,10 @@ namespace Gear.Infrastructure.Web.Authorization
         }
 
         /// <summary>
-        /// 验证登出
+        /// 登出
         /// </summary>
         /// <param name="properties">用于存储验证会话的相关属性对象</param>
-        /// <param name="authenticationTypes">验证类型</param>
+        /// <param name="authenticationTypes">身份验证类型</param>
         public static void SignOut(AuthenticationProperties properties, params string[] authenticationTypes)
         {
             var authentication = GetAuthentication();
@@ -41,9 +41,9 @@ namespace Gear.Infrastructure.Web.Authorization
         }
 
         /// <summary>
-        /// 验证登出
+        /// 登出
         /// </summary>
-        /// <param name="authenticationTypes">验证类型</param>
+        /// <param name="authenticationTypes">身份验证类型</param>
         public static void SingOut(params string[] authenticationTypes)
         {
             var authentication = GetAuthentication();

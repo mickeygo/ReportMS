@@ -71,11 +71,7 @@
     <Compile Include="IO\Excels\IExcel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Algorithms\" />
-    <Folder Include="TypeConverter\" />
-    <Folder Include="Utils\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>

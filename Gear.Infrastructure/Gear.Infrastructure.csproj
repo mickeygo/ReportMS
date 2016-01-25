@@ -44,6 +44,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AggregateRoot.cs" />
+    <Compile Include="Algorithms\Cryptography\AESCrypto.cs" />
+    <Compile Include="Algorithms\Cryptography\DESCrypto.cs" />
+    <Compile Include="Algorithms\Cryptography\MD5Crypto.cs" />
     <Compile Include="Application\App.cs" />
     <Compile Include="Application\AppBootstrapper.cs" />
     <Compile Include="Application\AppRuntime.cs" />
@@ -143,7 +146,7 @@
     <Compile Include="Transactions\SuppressedTransactionCoordinator.cs" />
     <Compile Include="Transactions\TransactionCoordinator.cs" />
     <Compile Include="Transactions\TransactionCoordinatorFactory.cs" />
-    <Compile Include="Utils.cs" />
+    <Compile Include="Utility\Utils.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Readme.txt" />

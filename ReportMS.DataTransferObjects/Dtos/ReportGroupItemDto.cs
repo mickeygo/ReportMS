@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-using System.ServiceModel;
 
 namespace ReportMS.DataTransferObjects.Dtos
 {
     /// <summary>
     /// 报表分组明细项 Dto
     /// </summary>
-    [ServiceContract]
+    [DataContract]
     public class ReportGroupItemDto
     {
         /// <summary>

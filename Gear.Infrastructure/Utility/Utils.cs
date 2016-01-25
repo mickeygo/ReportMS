@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 using System.Text;
 using Gear.Infrastructure.Serialization;
 
-namespace Gear.Infrastructure
+namespace Gear.Infrastructure.Utility
 {
 
     /// <summary>

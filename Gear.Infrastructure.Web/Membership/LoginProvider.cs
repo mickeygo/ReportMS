@@ -14,10 +14,9 @@ namespace Gear.Infrastructure.Web.Membership
         /// <summary>
         /// 创建 Cookie
         /// </summary>
-        protected void CreateCookie()
+        protected virtual void CreateCookie()
         {
-            var authenticationTicket = this.CreateAuthenticationTicket();
-            OwinAuthenticationManager.SignIn(authenticationTicket);
+            OwinAuthenticationManager.SignIn(this.AuthenticationTicket);
         }
 
         /// <summary>
@@ -30,8 +29,8 @@ namespace Gear.Infrastructure.Web.Membership
         /// <summary>
         /// 清空 Cookie
         /// </summary>
-        /// <param name="authenticationType"></param>
-        protected virtual void ClearCookie(string authenticationType)
+        /// <param name="authenticationType">要清除的验证类型</param>
+        protected virtual void ClearCookie(params string[] authenticationType)
         {
             OwinAuthenticationManager.SingOut(authenticationType);
         }
@@ -40,7 +39,7 @@ namespace Gear.Infrastructure.Web.Membership
         /// 清除 Session
         /// </summary>
         /// <param name="sessions">要清楚的 Session 名称集合</param>
-        protected void ClearSessions(params string[] sessions)
+        protected virtual void ClearSessions(params string[] sessions)
         {
             var sessionManager = SessionManager.Instance;
             foreach (var session in sessions)
@@ -50,7 +49,7 @@ namespace Gear.Infrastructure.Web.Membership
         /// <summary>
         /// 清除所有的 Session
         /// </summary>
-        protected void ClearAllSession()
+        protected virtual void ClearAllSession()
         {
             SessionManager.Instance.Clear();
         }
@@ -60,10 +59,9 @@ namespace Gear.Infrastructure.Web.Membership
         #region Abstract Methods
 
         /// <summary>
-        /// 创建身份验证票据
+        /// 获取身份验证票据
         /// </summary>
-        /// <returns>身份验证票据</returns>
-        protected abstract OwinAuthenticationTicket CreateAuthenticationTicket();
+        public OwinAuthenticationTicket AuthenticationTicket { get; protected set; }
 
         #endregion
     }

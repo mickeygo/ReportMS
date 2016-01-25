@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Runtime.Serialization;
-using System.ServiceModel;
 
 namespace ReportMS.DataTransferObjects.Dtos
 {
     /// <summary>
     /// 报表分组项明细报表中的字段 Dto
     /// </summary>
-    [ServiceContract]
+    [DataContract]
     public class ReportGroupItemFieldDto
     {
         /// <summary>

@@ -1,5 +1,6 @@
 ﻿using System;
 using Gear.Infrastructure.Generators;
+using Gear.Infrastructure.Utility;
 
 namespace Gear.Infrastructure
 {

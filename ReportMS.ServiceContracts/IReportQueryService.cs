@@ -8,7 +8,8 @@ using ReportMS.DataTransferObjects.Dtos;
 namespace ReportMS.ServiceContracts
 {
     /// <summary>
-    /// 表示实现此接口类为 Report 查询类
+    /// 表示实现此接口类为 Report 查询类。
+    /// 查询报表及字段，也可以根据角色来查询报表及其限制的字段
     /// </summary>
     [ServiceContract]
     public interface IReportQueryService : IApplicationQueryService
@@ -41,7 +42,7 @@ namespace ReportMS.ServiceContracts
         ReportDto GetReport(Guid reportId, bool includeFields = true);
 
         /// <summary>
-        /// 获取在指定角色中的指定报表。
+        /// 获取在指定角色中的指定报表, 包含字段.
         /// 会根据不同的角色，指定每个报表所显示的字段
         /// </summary>
         /// <param name="roleId">指定的角色 Id</param>

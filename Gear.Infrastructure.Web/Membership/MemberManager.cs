@@ -17,7 +17,6 @@ namespace Gear.Infrastructure.Web.Membership
 
         #endregion
 
-        
         #region Static Public Methods
 
         /// <summary>

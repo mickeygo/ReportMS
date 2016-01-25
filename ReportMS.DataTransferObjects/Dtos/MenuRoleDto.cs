@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Runtime.Serialization;
-using System.ServiceModel;
 
 namespace ReportMS.DataTransferObjects.Dtos
 {
     /// <summary>
     /// 菜单角色 Dto
     /// </summary>
-    [ServiceContract]
+    [DataContract]
     public class MenuRoleDto
     {
         /// <summary>

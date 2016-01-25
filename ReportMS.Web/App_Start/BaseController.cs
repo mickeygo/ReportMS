@@ -2,6 +2,7 @@
 using Gear.Infrastructure.Web.Controllers;
 using ReportMS.DataTransferObjects.Dtos;
 using ReportMS.Web.Client.Tenancy;
+using ReportMS.Web.Client.Membership;
 
 namespace ReportMS.Web
 {
@@ -13,6 +14,7 @@ namespace ReportMS.Web
         #region Private fields
 
         private TenantDto _tenant;
+        private RoleDto _roleOfTenant;
 
         #endregion
 
@@ -24,6 +26,14 @@ namespace ReportMS.Web
         public TenantDto Tenant
         {
             get { return this._tenant ?? (this._tenant = this.GetTenant()); }
+        }
+
+        /// <summary>
+        /// 获取登录的用户在当前租户中的角色的详细信息（多租户）
+        /// </summary>
+        public RoleDto RoleOfTenant
+        {
+            get { return this._roleOfTenant ?? (this._roleOfTenant = this.GetRoleOfTenant()); }
         }
 
         #endregion
@@ -56,6 +66,19 @@ namespace ReportMS.Web
         {
             var tenantOwer = new TenantOwner(this.RouteData);
             return tenantOwer.GetCurrentTenant();
+        }
+
+        private RoleDto GetRoleOfTenant()
+        {
+            if (this.Tenant == null)
+                return null;
+
+            var userId = this.LoginUser.NameIdentifier;
+            if (!userId.HasValue)
+                return null;
+
+            var tenantId = this.Tenant.ID;
+            return UserManager.Instance.GetRoleOfTenant(userId.Value, tenantId);
         }
 
         #endregion

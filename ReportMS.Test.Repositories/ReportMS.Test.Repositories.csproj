@@ -70,7 +70,6 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="BootStrap.cs" />
     <Compile Include="EntityFramework\ActionRepositoryTest.cs" />
     <Compile Include="EntityFramework\ActionRoleRepositoryTest.cs" />
     <Compile Include="EntityFramework\MenuRepositoryTest.cs" />

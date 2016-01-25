@@ -74,6 +74,16 @@
           LastKnownLocation="Package_1043.uml" />
       </annotatedElements>
     </comment>
+    <comment
+      Id="583142df-28ad-4375-936f-17016d8b2d60">
+      <body>1、一个用户在每个租户中只会有一种角色</body>
+      <annotatedElements>
+        <classMoniker
+          Id="a3906fec-5716-48e3-a009-af476af1dadb"
+          LastKnownName="User"
+          LastKnownLocation="Package_1043.uml" />
+      </annotatedElements>
+    </comment>
   </ownedCommentsInternal>
   <packagedElements>
     <packageHasNamedElement>

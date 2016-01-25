@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Runtime.Serialization;
-using System.ServiceModel;
 
 namespace ReportMS.DataTransferObjects.Dtos
 {
     /// <summary>
     /// 报表分组对应的角色 Dto
     /// </summary>
-    [ServiceContract]
+    [DataContract]
     public class ReportGroupRoleDto
     {
         /// <summary>

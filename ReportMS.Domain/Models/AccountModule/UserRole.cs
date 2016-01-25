@@ -18,7 +18,7 @@ namespace ReportMS.Domain.Models.AccountModule
         /// <summary>
         /// 获取用户
         /// </summary>
-        public virtual User User { get; set; }
+        public virtual User User { get; private set; }
 
         /// <summary>
         /// 获取角色 ID
@@ -39,7 +39,7 @@ namespace ReportMS.Domain.Models.AccountModule
         /// 获取创建时间
         /// </summary>
         public DateTime? CreatedDate { get; private set; }
-        
+
         #endregion
 
         #region Ctor

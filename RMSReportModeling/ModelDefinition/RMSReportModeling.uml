@@ -14,6 +14,18 @@
           LastKnownLocation="Package_1043.uml" />
       </annotatedElements>
     </comment>
+    <comment
+      Id="605cab81-aadf-47d3-9b57-08caa6fbf22d">
+      <body>1、按租户中的角色，来获取报表分组
+2、查找报表组，不涉及到租户（Tenant），租户只用来限定用户的角色
+</body>
+      <annotatedElements>
+        <classMoniker
+          Id="04f2b37a-8515-4408-b87a-e99d296526f3"
+          LastKnownName="ReportGroupInRole"
+          LastKnownLocation="Package_1427.uml" />
+      </annotatedElements>
+    </comment>
   </ownedCommentsInternal>
   <profileInstances>
     <packageHasProfileInstances
@@ -339,13 +351,13 @@
     <packageHasNamedElement>
       <packageMoniker
         Id="55a53b7e-9a9c-4c01-83eb-5be13916c206"
-        LastKnownName="SubcriberContext"
+        LastKnownName="SubcriberBoundedContext"
         LastKnownLocation="Package_1041.uml" />
     </packageHasNamedElement>
     <packageHasNamedElement>
       <packageMoniker
         Id="735a6f6e-6867-49b2-8217-81f8fca3c6af"
-        LastKnownName="UserContext"
+        LastKnownName="UserBoundedContext"
         LastKnownLocation="Package_1043.uml" />
     </packageHasNamedElement>
     <packageHasNamedElement>
@@ -357,7 +369,7 @@
     <packageHasNamedElement>
       <packageMoniker
         Id="fc76c77d-e2a1-4593-b642-616ac33abf68"
-        LastKnownName="ReportContext"
+        LastKnownName="ReportBoundedContext"
         LastKnownLocation="Package_1427.uml" />
     </packageHasNamedElement>
     <packageHasNamedElement>

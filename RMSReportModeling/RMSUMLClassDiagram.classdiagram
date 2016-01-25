@@ -1,5 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <logicalClassDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" dslVersion="1.0.0.0" Id="831822b5-8614-442f-95a7-a95946082b6b" name="RMSUMLClassDiagram" linkedPackageId="869da762-0565-429d-a7d5-894054d6b8b4" xmlns="http://schemas.microsoft.com/dsltools/LogicalClassDesigner">
+  <ownedCommentsInternal>
+    <comment Id="fd15210c-cc65-4ac3-864c-45cea8e17ab2">
+      <elementDefinition Id="583142df-28ad-4375-936f-17016d8b2d60" />
+      <body>1、一个用户在每个租户中只会有一种角色</body>
+      <annotatedElements>
+        <classMoniker Id="12fa0e45-a2be-42e5-8526-1f3b7879afd5" LastKnownName="User" />
+      </annotatedElements>
+    </comment>
+    <comment Id="e7dd395b-9d26-49dc-b6e7-06881b653c7e">
+      <elementDefinition Id="605cab81-aadf-47d3-9b57-08caa6fbf22d" />
+      <body>1、按租户中的角色，来获取报表分组
+2、查找报表组，不涉及到租户（Tenant），租户只用来限定用户的角色
+</body>
+      <annotatedElements>
+        <classMoniker Id="c2204e55-7f53-4075-b2cb-070716d6c02d" LastKnownName="ReportGroupInRole" />
+      </annotatedElements>
+    </comment>
+  </ownedCommentsInternal>
   <packagedElements>
     <logicalClassDesignerModelHasPackages>
       <package Id="340f968a-09f4-4030-bbfb-8ebda05ad944" name="SubcriberBoundedContext">
