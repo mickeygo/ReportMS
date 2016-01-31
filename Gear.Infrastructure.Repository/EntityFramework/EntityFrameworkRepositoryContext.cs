@@ -1,11 +1,13 @@
 ﻿using System.Data.Entity;
 using System.Threading;
 using Gear.Infrastructure.Repositories;
+using System.Threading.Tasks;
 
 namespace Gear.Infrastructure.Repository.EntityFramework
 {
     /// <summary>
-    /// 表示为 Microsoft EntityFramework 仓储上下文
+    /// 表示为基于 Microsoft EntityFramework 仓储上下文。
+    /// 使用 EntityFramework 的 DbContext 上下文管理对象
     /// </summary>
     public class EntityFrameworkRepositoryContext : RepositoryContext, IEntityFrameworkRepositoryContext
     {
@@ -90,6 +92,17 @@ namespace Gear.Infrastructure.Repository.EntityFramework
         {
             if (!this.Committed)
                 this.localDbContext.Value.SaveChanges();
+        }
+
+        /// <summary>
+        /// 异步提交工作单元
+        /// </summary>
+        /// <param name="cancellationToken">取消操作</param>
+        /// <returns>Task</returns>
+        public override async Task CommitAsync(CancellationToken cancellationToken)
+        {
+            if (!this.Committed)
+                await this.localDbContext.Value.SaveChangesAsync(cancellationToken);
         }
 
         /// <summary>

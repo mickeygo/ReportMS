@@ -61,6 +61,8 @@ namespace ReportMS.Domain.Models.TenantModule
 
         private Tenant()
         {
+            this.CreatedDate = DateTime.Now;
+
             this.GenerateNewIdentity();
             this.Enable();
         }
@@ -72,20 +74,32 @@ namespace ReportMS.Domain.Models.TenantModule
         /// <param name="displayName">租户显示名</param>
         /// <param name="description">租户描述</param>
         /// <param name="createdBy">创建人</param>
-        /// <param name="createdDate">创建时间</param>
-        public Tenant(string tenantName, string displayName, string description, string createdBy, DateTime? createdDate)
+        public Tenant(string tenantName, string displayName, string description, string createdBy)
             : this()
         {
             this.TenantName = tenantName;
             this.DisplayName = displayName;
             this.Description = description;
             this.CreatedBy = createdBy;
-            this.CreatedDate = createdDate;
         }
 
         #endregion
 
         #region Public Methods
+
+        /// <summary>
+        /// 更新租户信息
+        /// </summary>
+        /// <param name="displayName">租户显示名</param>
+        /// <param name="description">租户描述</param>
+        /// <param name="updatedBy">更新人</param>
+        public void UpdateTenant(string displayName, string description, string updatedBy)
+        {
+            this.DisplayName = displayName;
+            this.Description = description;
+            this.UpdatedBy = updatedBy;
+            this.UpdatedDate = DateTime.Now;
+        }
 
         /// <summary>
         /// 启用租户

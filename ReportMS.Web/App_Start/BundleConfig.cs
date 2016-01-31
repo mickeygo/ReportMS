@@ -8,7 +8,9 @@ namespace ReportMS.Web
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"));
+                        "~/Scripts/jquery-{version}.js",
+                        "~/Scripts/jquery.unobtrusive-ajax.js",
+                        "~/Scripts/jquery.form.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
@@ -32,11 +34,9 @@ namespace ReportMS.Web
             RegistersReactBundles(bundles); // react
             RegisterDataTablesBundles(bundles); // dataTables
 
-            // startup
             RegistersStartupBundles(bundles); // startup
-            
-            // 
             RegistersReportBundles(bundles); // Report
+            RegistersMenuBundles(bundles); // menu
         }
 
         #region Required
@@ -56,10 +56,11 @@ namespace ReportMS.Web
         static void RegisterDataTablesBundles(BundleCollection bundles)
         {
             bundles.Add(new StyleBundle("~/Content/dataTables").Include(
-                "~/Content/DataTables/css/jquery.dataTables.css"));
+                "~/Content/DataTables/css/dataTables.bootstrap.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/dataTables").Include(
-                        "~/Scripts/DataTables/jquery.dataTables.js"));
+                        "~/Scripts/DataTables/jquery.dataTables.js",
+                        "~/Scripts/DataTables/dataTables.bootstrap.js"));
         }
 
         // Register es-shim
@@ -85,10 +86,11 @@ namespace ReportMS.Web
 
         static void RegistersStartupBundles(BundleCollection bundles)
         {
-            bundles.Add(new StyleBundle("~/bundles/startupUi").Include(
-                "~/Content/component.css"));
+            bundles.Add(new StyleBundle("~/bundles/startupui").Include(
+                "~/Content/layout.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/startup").Include(
+                "~/Js/jquery.dialog.js",
                 "~/Js/startup.js"));
         }
 
@@ -98,6 +100,13 @@ namespace ReportMS.Web
             bundles.Add(new ScriptBundle("~/bundles/report").Include(
                 "~/Js/reportTable.js",
                 "~/Js/reportTransfer.js"));
+        }
+
+        static void RegistersMenuBundles(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/bundles/menu").Include(
+                "~/Js/equalHeight.js",
+                "~/Js/jquery.tabSlideOut.v1.3.js"));
         }
 
         #endregion

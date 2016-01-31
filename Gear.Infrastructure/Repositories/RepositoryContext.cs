@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -6,16 +7,24 @@ using System.Threading.Tasks;
 namespace Gear.Infrastructure.Repositories
 {
     /// <summary>
-    /// 仓储上下文基类
+    /// 仓储上下文基类。
+    /// 用于存储要 Add、Update 和 Delete 的对象，以便在 Commit 时一次性做处理
     /// </summary>
     public abstract class RepositoryContext : DisposableObject, IRepositoryContext
     {
         #region Private Fields
 
         private readonly Guid id = Guid.NewGuid();
-        private readonly ThreadLocal<Dictionary<Guid, object>> localNewCollection = new ThreadLocal<Dictionary<Guid, object>>(() => new Dictionary<Guid, object>());
-        private readonly ThreadLocal<Dictionary<Guid, object>> localModifiedCollection = new ThreadLocal<Dictionary<Guid, object>>(() => new Dictionary<Guid, object>());
-        private readonly ThreadLocal<Dictionary<Guid, object>> localDeletedCollection = new ThreadLocal<Dictionary<Guid, object>>(() => new Dictionary<Guid, object>());
+
+        private readonly ThreadLocal<ConcurrentDictionary<Guid, object>> localNewCollection =
+            new ThreadLocal<ConcurrentDictionary<Guid, object>>(() => new ConcurrentDictionary<Guid, object>());
+
+        private readonly ThreadLocal<ConcurrentDictionary<Guid, object>> localModifiedCollection =
+            new ThreadLocal<ConcurrentDictionary<Guid, object>>(() => new ConcurrentDictionary<Guid, object>());
+
+        private readonly ThreadLocal<ConcurrentDictionary<Guid, object>> localDeletedCollection =
+            new ThreadLocal<ConcurrentDictionary<Guid, object>>(() => new ConcurrentDictionary<Guid, object>());
+
         private readonly ThreadLocal<bool> localCommitted = new ThreadLocal<bool>(() => true);
 
         #endregion
@@ -98,11 +107,12 @@ namespace Gear.Infrastructure.Repositories
             if (obj.ID.Equals(Guid.Empty))
                 throw new ArgumentException("The ID of the object is empty.", "obj");
             if (this.localModifiedCollection.Value.ContainsKey(obj.ID))
-                throw new InvalidOperationException("The object cannot be registered as a new object since it was marked as modified.");
+                throw new InvalidOperationException(
+                    "The object cannot be registered as a new object since it was marked as modified.");
             if (this.localNewCollection.Value.ContainsKey(obj.ID))
                 throw new InvalidOperationException("The object has already been registered as a new object.");
 
-            this.localNewCollection.Value.Add(obj.ID, obj);
+            this.localNewCollection.Value.TryAdd(obj.ID, obj);
             this.localCommitted.Value = false;
         }
 
@@ -111,15 +121,18 @@ namespace Gear.Infrastructure.Repositories
         /// </summary>
         /// <typeparam name="TAggregateRoot">要注册的实例类型</typeparam>
         /// <param name="obj">要修改的对象</param>
-        public virtual void RegisterModified<TAggregateRoot>(TAggregateRoot obj) where TAggregateRoot : class, IAggregateRoot
+        public virtual void RegisterModified<TAggregateRoot>(TAggregateRoot obj)
+            where TAggregateRoot : class, IAggregateRoot
         {
             if (obj.ID.Equals(Guid.Empty))
                 throw new ArgumentException("The ID of the object is empty.", "obj");
             if (this.localDeletedCollection.Value.ContainsKey(obj.ID))
-                throw new InvalidOperationException("The object cannot be registered as a modified object since it was marked as deleted.");
+                throw new InvalidOperationException(
+                    "The object cannot be registered as a modified object since it was marked as deleted.");
 
-            if (!this.localModifiedCollection.Value.ContainsKey(obj.ID) && !this.localNewCollection.Value.ContainsKey(obj.ID))
-                this.localModifiedCollection.Value.Add(obj.ID, obj);
+            if (!this.localModifiedCollection.Value.ContainsKey(obj.ID) &&
+                !this.localNewCollection.Value.ContainsKey(obj.ID))
+                this.localModifiedCollection.Value.TryAdd(obj.ID, obj);
             this.localCommitted.Value = false;
         }
 
@@ -128,22 +141,25 @@ namespace Gear.Infrastructure.Repositories
         /// </summary>
         /// <typeparam name="TAggregateRoot">要注册的实例类型</typeparam>
         /// <param name="obj">要删除的对象</param>
-        public virtual void RegisterDeleted<TAggregateRoot>(TAggregateRoot obj) where TAggregateRoot : class, IAggregateRoot
+        public virtual void RegisterDeleted<TAggregateRoot>(TAggregateRoot obj)
+            where TAggregateRoot : class, IAggregateRoot
         {
             if (obj.ID.Equals(Guid.Empty))
                 throw new ArgumentException("The ID of the object is empty.", "obj");
 
             if (this.localNewCollection.Value.ContainsKey(obj.ID))
             {
-                if (localNewCollection.Value.Remove(obj.ID))
+                object localObject;
+                if (localNewCollection.Value.TryRemove(obj.ID, out localObject))
                     return;
             }
 
-            var removedFromModified = this.localModifiedCollection.Value.Remove(obj.ID);
+            object modifiedObject;
+            var removedFromModified = this.localModifiedCollection.Value.TryRemove(obj.ID, out modifiedObject);
             var addedToDeleted = false;
             if (!this.localDeletedCollection.Value.ContainsKey(obj.ID))
             {
-                this.localDeletedCollection.Value.Add(obj.ID, obj);
+                this.localDeletedCollection.Value.TryAdd(obj.ID, obj);
                 addedToDeleted = true;
             }
             this.localCommitted.Value = !(removedFromModified || addedToDeleted);
@@ -176,9 +192,9 @@ namespace Gear.Infrastructure.Repositories
         /// 异步提交工作单元
         /// </summary>
         /// <returns>Task</returns>
-        public Task CommitAsync()
+        public async Task CommitAsync()
         {
-            return this.CommitAsync(CancellationToken.None);
+            await this.CommitAsync(CancellationToken.None);
         }
 
         /// <summary>
@@ -186,10 +202,7 @@ namespace Gear.Infrastructure.Repositories
         /// </summary>
         /// <param name="cancellationToken">取消操作</param>
         /// <returns>Task</returns>
-        public virtual Task CommitAsync(CancellationToken cancellationToken)
-        {
-            return Task.Factory.StartNew(Commit, cancellationToken);
-        }
+        public abstract Task CommitAsync(CancellationToken cancellationToken);
 
         /// <summary>
         /// 回滚工作单元

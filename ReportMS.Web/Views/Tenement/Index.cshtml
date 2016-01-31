@@ -1,0 +1,96 @@
+﻿@using ReportMS.DataTransferObjects.Dtos
+@model IEnumerable<TenantDto>
+
+@{
+    ViewBag.Title = "Tenement";
+}
+
+@section scripts
+{
+    <script>
+        function createTenantSuccess(data) {
+            if (data.status === "success") {
+                
+            } else {
+                alert(data.message);
+            }
+        }
+
+        function modifyTenantSuccess(data) {
+            if (data.status === "success") {
+
+            } else {
+                alert(data.message);
+            }
+        }
+
+        function deleteTenant(element) {
+            if (!confirm("Are you want to delete ?"))
+                return false;
+
+            var url = $.attr("data-href");
+            var id = $.attr("data-tenantId");
+            $.post(url, { tenantId : id }, function(data) {
+                if (data.status === "success")
+                    reloadTenant();
+            });
+            return true;
+        }
+
+        function reloadTenant() {
+            var href = "@Url.Action("Index")";
+
+            $("#tenant").load(href, function (data) {
+                if (data === "") {
+                    alert("Load organizaitons failure.");
+                }
+            });
+        }
+    </script>
+}
+
+@Html.Navigate("Tenement")
+
+<div>
+    <div class="ibox-title">
+        <div class="ibox-tools rboor">
+            <a class="btn btn-primary btn-xs" data-dialog="true" data-ajax-form="true" data-dialog-href="@Url.Action("Create")" data-dialog-title="Create Tenant"
+               data-ajax-success="createTenantSuccess" data-ajax-failure="createTenantFailure">
+                <span class="glyphicon glyphicon-plus"></span> Add New
+            </a>
+        </div>
+    </div>
+
+    @if (Model.HasAny())
+    {
+        <table id="tenant" class="table table-hover table-striped table-bordered">
+            <thead>
+            <tr>
+                <th>Tenant</th>
+                <th>DisplayName</th>
+                <th>Description</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(m => item.TenantName)</td>
+                    <td>@Html.DisplayFor(m => item.DisplayName)</td>
+                    <td>@Html.DisplayFor(m => item.Description)</td>
+                    <td>
+                        <a class="btn btn-primary btn-xs" data-dialog="true" data-ajax-form="true" data-dialog-href="@Url.Action("Edit", new {tenantId = item.ID})" 
+                           data-dialog-title="Edit Tenant" data-ajax-success="modifyTenantSuccess" data-ajax-failure="modifyTenantFailure">
+                            <span class="glyphicon glyphicon-edit"></span>
+                        </a>
+                        <a class="btn btn-danger btn-xs" data-href="@Url.Action("Delete")" data-tenantId="@item.ID" onclick="deleteTenant(this);">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </a>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    }
+</div>

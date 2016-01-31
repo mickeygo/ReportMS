@@ -112,6 +112,14 @@ function ReportTable(container, table) {
         return columnsData != undefined && columnsData.length > 0;
     }
 
+    this.addCssForTable = function(id) {
+        var dtId = (id === undefined ? this.table : id) + "_wrapper";
+        var css = "table table-bordered table-striped table-hover";
+        $(dtId + " table[role=grid]").addClass(function (index, currentClass) {
+            $(this).addClass(css);
+        });
+    }
+
     var scrollY = this.scrollYHeight;
     this.showTableOption = function (id, url, postData, columnsData, scrollYHeight) {
         if (!checkColumnsData(columnsData)) {
@@ -142,6 +150,8 @@ function ReportTable(container, table) {
             },
             columns: columnsData
         });
+
+        this.addCssForTable(id);
     }
 
     this.showTable = function (url, scrollYHeight) {
@@ -182,7 +192,7 @@ function ReportField(container) {
     this.container = "#" + container;
 
     var fieldHtml = function (name, displayName, format, key) {
-        var $content = $("<div class=\"col-md-8\"></div>");
+        var $content = $("<div class=\"col-md-9\"></div>");
         var $contentInput = $("<input type=\"checkbox\"></div>");
         $contentInput.attr({ "id": name, "data-field-key": key, "data-field-name": name, "data-field-text": displayName, "data-field-format": format });
         var $contentLabel = $("<label></label>");
@@ -191,7 +201,7 @@ function ReportField(container) {
         $contentInput.appendTo($content);
         $contentLabel.appendTo($content);
 
-        var $plus = $("<div class=\"col-md-2\"></div>");
+        var $plus = $("<div class=\"col-md-1\"></div>");
         var $plusSpan = $("<span class=\"glyphicon glyphicon-plus\"></span>");
         $plusSpan.attr("data-field-target", name);
         $plusSpan.appendTo($plus);

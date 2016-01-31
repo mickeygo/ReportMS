@@ -1,0 +1,397 @@
+﻿@charset "utf-8";
+
+/*----------------------------------------
+  Reset
+----------------------------------------*/
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, caption, p  {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	background: transparent;
+	list-style-type:none;
+}
+
+/*----------------------------------------
+  Basic
+----------------------------------------*/
+
+html {
+    position: relative;
+}
+body {
+    color: #555;
+    font-family: Arial, Helvetica, "微軟正黑體", "Microsoft JhengHei", sans-serif;
+    font-size: 13px;
+    padding: 0;
+    margin: 0;
+}
+ul, ol, dl, h1, h2, h3, h4, h5, h6 {
+	padding: 0;
+	margin: 0;
+}
+td, th, div {
+	font-size: 100%;
+}
+a img {
+	border: none;
+}
+a:link, a:visited, a:hover, a:active, a:focus {
+	text-decoration: none;
+}
+br {
+	height: 1px;
+	font-size: 1px;
+}
+.clear {
+	clear: both;
+	display: block;
+}
+.clearfix:after {
+    content: ".";
+    display: block;
+    clear: both;
+    visibility: hidden;
+    line-height: 0;
+    height: 0;
+}
+.clearfix {
+	/*display: inline-block;*/  /* modify by gang.yang, clear*/
+}
+html[xmlns] .clearfix {
+	display: block;
+}
+* html .clearfix {
+	height: 1%;
+}
+.more {
+    display: block;
+    float: right;
+    margin: 0 5px 0 0;
+}
+* a {
+    color: #004280;
+}
+
+/* HEADER
+----------------------------------------------------------- */
+.header-bg {
+	background:url(../Content/themes/header-bg.jpg) repeat-x top;
+}
+.header {
+    width: 960px;
+    height: 106px;
+    margin: 0 auto;
+    padding: 30px 0 0 0;
+}
+.logo {
+    float: left;
+    padding: 0 0 10px 0;
+}
+.Log-out{
+	float:right;
+	padding:10px 0 0 0;
+}
+.Log-out span{
+	padding: 0 0 0 10px;
+}
+.ez-nav {
+    width: 960px;
+    margin: 0 auto;
+    padding: 0 0 0 0;
+}
+.ez-nav ul {
+    float: left;
+}
+.ez-nav li {
+    float: left;
+    display: block;
+    padding: 9px 20px 5px 0; /*padding:10px 20px 5px 0;*/
+    color: #747474;
+}
+.ez-nav li a:link{
+	/*color:#747474;*/ /* modify by gang.yang, clear*/
+}
+.ez-nav li a:hover{
+	color:#004280;
+}
+.search-box {
+    float: right;
+    padding: 4px 0 0 0; /*padding:7px 0 0 0;*/
+    display: table-cell;
+}
+.search-box input{
+	vertical-align: middle;
+}
+
+/*----------------------------------------
+  main-menu
+----------------------------------------*/
+.main-content-wrapper {
+    position: relative;
+    padding: 20px 0 0 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 500px;
+    /*margin-bottom:40px;*/
+}
+.main-menu {
+    position: absolute;
+    width: 210px;
+    height: auto;
+    display: block;
+}
+.main-menu-title {
+    font-size: 20px;
+    color: #555555;
+    padding: 10px 0 10px 20px;
+    background: #efedee url(../Content/themes/main-menu-title.jpg) bottom repeat-x;
+}
+.main-menu-title a {
+    color: #555555;
+    text-decoration: none;
+}
+.main-menu-title a:hover{
+	text-decoration:none !important;
+}
+.main-content {
+    position: relative;
+    width: 960px;
+    margin: 0 auto;
+    display: block;
+    padding: 0 0 10px 0;
+}
+
+/*----------------------------------------
+  Content
+----------------------------------------*/
+
+.breadcrumb-trail {
+    width: 100%;
+    height: 20px;
+    padding: 0 0 5px 0;
+    border-bottom: 4px solid #efeeee;
+    list-style-type: none;
+    margin-bottom: 25px;
+}
+.breadcrumb-trail li {
+    float: left;
+    padding: 0 2px;
+    font-weight: bold;
+}
+.web-title {
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 24px;
+    color: #333333;
+    border-left: 8px solid #004280;
+    padding: 0 0 0 20px;
+    margin-bottom: 30px;
+}
+h1 {
+    font-size: 18px;
+    line-height: 18px;
+    color: #555555;
+    padding: 0 0 0 0;
+    margin-bottom: 25px;
+    font-weight: bolder;
+}/*page-title*/
+h2 {
+    font-size: 15px;
+    font-weight: normal;
+    line-height: 15px;
+    color: #555555;
+    border-bottom: 3px solid #004280;
+    padding: 0 0 10px 0;
+    margin-bottom: 20px;
+}/*side-title*/
+h3 {
+    font-size: 15px;
+    font-weight: normal;
+    line-height: 15px;
+    color: #555555;
+    padding: 0 0 10px 0;
+    margin-bottom: 20px;
+}
+.under-line{
+	border-bottom:3px solid #004280;
+	
+}
+	
+/*----------------------------------------
+  Footer
+----------------------------------------*/
+
+.footer-bg {
+    height: 35px;
+    display: block;
+    background: #e5e5e5;
+    margin: 20px 0 20px 0;
+}
+.footer {
+    height: 35px;
+    width: 960px;
+    display: block;
+    margin: 0 auto;
+    padding: 10px 5px 0 5px;
+}
+.Copyright {
+    float: left;
+}
+.footer-nav {
+    float: right;
+}
+.footer-nav span {
+    padding: 0 0 0 10px;
+}
+
+/*----------------------------------------
+  Main-menu Slide Panel for JQ
+----------------------------------------*/
+.slide-out-div {
+    background: #efeeee;
+    border-right: 5px solid #8297b3;
+    display: block;
+    /*height:auto;*/
+    height: inherit;
+    z-index: 999;
+}
+.slide-out-div a {
+	text-decoration: none;
+	outline: none;
+	font-weight: normal;
+}
+.slide-out-div a:hover, .slide-out-div a:active, .slide-out-div a:focus {
+	color: #004280;
+	text-decoration: underline;
+}
+
+/*.slide-out-div br {
+	height: 1px;
+	font-size: 1px;
+}*/
+
+.slide-out-div .clear {
+	background: none;
+	border: 0;
+	clear: both;
+	display: block;
+	float: none;
+	font-size: 0;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	visibility: hidden;
+	width: 0;
+	height: 0;
+}
+/*----------------------------------------
+  Contact Advantech Slide Panel
+----------------------------------------*/
+.slide-out-div {
+	width: 210px;
+	background: #efeeee;
+}
+.slide-out-div .handle {
+	/*
+	margin-top: -5px;
+	margin-left: -5px;
+	/*	
+	transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+	
+	width: 155px;
+	height: 30px;
+	line-height: 30px;
+	padding: 0 0 0 10px;
+	margin-top: 62px;
+	margin-left: 63px;
+	
+	background-color: #18548b;
+	color: #fff;
+	font-size: 15px;
+    font-family: inherit;
+    */
+}
+/*
+.handle:hover, .handle:active, .handle:focus {
+	text-decoration: none;
+}
+*/
+
+.slide-out-div .panel-left {
+    background: #efeeee;
+    border-right: 5px solid #8297b3;
+    display: block;
+    float: left;
+    width: 210px;
+    /* height:inherit;*/
+    padding: 0 0 0 0;
+    /*overflow-y:auto; 
+    overflow-x:hidden;	*/
+}
+.slide-out-div .panel-left ul,
+.slide-out-div .panel-left ul li{
+	margin: 0;	
+	display: block;
+}
+
+.slide-out-div .panel-left > ul > li {
+    list-style: none;
+    line-height: 30px;
+    padding: 0 0 0 0;
+    border-bottom: 1px solid #dddddd;
+}
+.slide-out-div .panel-left > ul > li > a:link {
+    display: block;
+    padding-left: 20px;
+    color: #004280;
+    font-size: 13px;
+    font-weight: bold;
+    height: 30px;
+    width: 190px;
+}
+.slide-out-div .panel-left > ul > li > a:hover {
+    color: #fff;
+    background: #004280;
+    text-decoration: none;
+}
+.slide-out-div .panel-left .sub-menu {
+    background: url(../Content/themes/menu-arrow-3.png) 180px 10px no-repeat;
+}
+.slide-out-div .panel-left .sub-menu > a:hover {
+    background: #004280 url(../Content/themes/menu-arrow-4.png) 180px 10px no-repeat;
+}
+.slide-out-div .panel-left .sub-menu-item {
+    padding: 5px 0;
+    list-style-type: none;
+    background: #f6f5f5;
+    border-top: 1px solid #dddddd;
+}
+.slide-out-div .panel-left .sub-menu-item li a {
+    margin-left: 30px;
+    color: #333333;
+    font-size: 12px;
+}
+
+/*  jquery-ui-accordion.js----------------
+-----------------------------------------*/
+/*
+ul#accordion li.ui-accordion-selected a.heading, ul#accordion li.current a.heading{
+	color: #fff;
+	text-decoration:none;
+	background:#004280 url(/images/menu-arrow-2.png) 180px 10px no-repeat;
+}
+
+/*-----------------------------------------*/
+#accordion .ui-state-active {
+    color: #fff;
+    text-decoration: none;
+    background: #004280 url(../Content/themes/menu-arrow-2.png) 180px 10px no-repeat !important;
+}

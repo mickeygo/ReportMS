@@ -1,5 +1,7 @@
-﻿using System.Web.Mvc;
+﻿using System.Text;
+using System.Web.Mvc;
 using Gear.Infrastructure.Web.Authorization;
+using Gear.Infrastructure.Web.Json;
 
 namespace Gear.Infrastructure.Web.Controllers
 {
@@ -44,6 +46,27 @@ namespace Gear.Infrastructure.Web.Controllers
             var m_area = controller.RouteData.DataTokens["area"] as string;
 
             return true;
+        }
+
+        /// <summary>
+        /// Json 序列化
+        /// </summary>
+        /// <param name="controller">Controller</param>
+        /// <param name="data">要序列化的数据</param>
+        /// <param name="contentType">输出响应的 Context MIME</param>
+        /// <param name="contentEncoding">序列化后的内容编码</param>
+        /// <param name="behavior">请求 Json 序列化的行为</param>
+        /// <returns>基于 Newtonsoft 的 JsonResult</returns>
+        public static NewtonsoftJsonResult JsonSerialize(this Controller controller, object data, string contentType,
+            Encoding contentEncoding, JsonRequestBehavior behavior)
+        {
+            return new NewtonsoftJsonResult
+            {
+                Data = data,
+                ContentType = contentType,
+                ContentEncoding = contentEncoding,
+                JsonRequestBehavior = behavior
+            };
         }
 
         #endregion

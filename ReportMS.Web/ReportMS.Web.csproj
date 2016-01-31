@@ -177,7 +177,6 @@
     <Compile Include="App_Start\BootStrapper.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
-    <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
@@ -186,12 +185,10 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
+    <Compile Include="Controllers\Manages\TenementController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -200,7 +197,6 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\component.css" />
     <Content Include="Content\DataTables\css\autoFill.bootstrap.css" />
     <Content Include="Content\DataTables\css\autoFill.bootstrap.min.css" />
     <Content Include="Content\DataTables\css\autoFill.dataTables.css" />
@@ -301,6 +297,7 @@
     <Content Include="Content\jquery-ui-1.10.0.custom.css" />
     <Content Include="Content\jquery-ui-timepicker-addon.css" />
     <Content Include="Content\jquery-ui-timepicker-addon.min.css" />
+    <Content Include="Content\layout.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -334,6 +331,20 @@
     <Content Include="Content\themes\base\tabs.css" />
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="Content\themes\btn_arrow.gif" />
+    <Content Include="Content\themes\CIS_Advantech.gif" />
+    <Content Include="Content\themes\contact-callback.gif" />
+    <Content Include="Content\themes\contact-emailus.gif" />
+    <Content Include="Content\themes\contact-livechat.gif" />
+    <Content Include="Content\themes\contact-qq.gif" />
+    <Content Include="Content\themes\contact_tab.gif" />
+    <Content Include="Content\themes\header-bg.jpg" />
+    <Content Include="Content\themes\main-menu-title.jpg" />
+    <Content Include="Content\themes\main-menu.png" />
+    <Content Include="Content\themes\menu-arrow-2.png" />
+    <Content Include="Content\themes\menu-arrow-3.png" />
+    <Content Include="Content\themes\menu-arrow-4.png" />
+    <Content Include="Content\themes\menu-arrow.png" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -350,7 +361,14 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Js\equalHeight.js" />
+    <Content Include="Js\jquery.tabSlideOut.v1.3.js" />
+    <Content Include="Js\jquery.upload.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="TestPage.html" />
     <Content Include="Views\Report\_ReportLayout.cshtml" />
+    <Content Include="Js\jquery.dialog.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Js\reportTable.js" />
     <Content Include="Js\reportTransfer.js" />
@@ -492,26 +510,16 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
-    <Content Include="Views\Account\ConfirmEmail.cshtml" />
-    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
-    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
-    <Content Include="Views\Account\ForgotPassword.cshtml" />
-    <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
-    <Content Include="Views\Account\ResetPassword.cshtml" />
-    <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
-    <Content Include="Views\Account\SendCode.cshtml" />
-    <Content Include="Views\Account\VerifyCode.cshtml" />
-    <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
-    <Content Include="Views\Manage\ChangePassword.cshtml" />
-    <Content Include="Views\Manage\Index.cshtml" />
-    <Content Include="Views\Manage\ManageLogins.cshtml" />
-    <Content Include="Views\Manage\SetPassword.cshtml" />
-    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
-    <Content Include="Views\Shared\Lockout.cshtml" />
-    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Shared\Permission.cshtml" />
+    <Content Include="Views\Shared\_Layout_Footer.cshtml" />
+    <Content Include="Views\Shared\_Layout_Header.cshtml" />
+    <Content Include="Views\Manage\Menu.cshtml" />
+    <Content Include="Views\Tenement\Index.cshtml" />
+    <Content Include="Views\Shared\_Layout_Miscellaneous.cshtml" />
+    <Content Include="Views\Tenement\Create.cshtml" />
+    <Content Include="Views\Tenement\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

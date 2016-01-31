@@ -1,25 +1,37 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Report Manager System" />
     <title>@ViewBag.Title - RMS</title>
     @Styles.Render("~/Content/css")
     @Styles.Render("~/bundles/modernizr")
     @Styles.Render("~/Content/jqueryui")
     @Styles.Render("~/Content/dataTables")
-    @Styles.Render("~/bundles/startupUi")
+    @Styles.Render("~/bundles/startupui")
     @RenderSection("styles", false)
-    <meta name="description" content="The description of my page" />
 </head>
 <body>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
+    <header>
+        @Html.Partial("_Layout_Header")
+    </header>
+
+    <nav>
+        @Html.Action("Menu", "Manage")
+    </nav>
+
+    <div class="main-content-wrapper">
+        <div class="main-content">
+            <div class="web-title">RMS</div>
+
+            @RenderBody()
+        </div>
     </div>
+
+    <footer>
+        @Html.Partial("_Layout_Footer")
+    </footer>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryval")
@@ -28,10 +40,12 @@
     @Scripts.Render("~/bundles/esShim")
     @Scripts.Render("~/bundles/react")
     @Scripts.Render("~/bundles/dataTables")
+    @Scripts.Render("~/bundles/menu")
     @Scripts.Render("~/bundles/startup")
     @RenderSection("scripts", false)
 
-    <!-- Monitor -->
-    @StackExchange.Profiling.MiniProfiler.RenderIncludes()
+    <section>
+        @Html.Partial("_Layout_Miscellaneous")
+    </section>
 </body>
 </html>

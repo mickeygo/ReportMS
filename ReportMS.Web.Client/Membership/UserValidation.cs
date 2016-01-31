@@ -44,11 +44,12 @@ namespace ReportMS.Web.Client.Membership
             if (!CheckNotNullOfNameAndPwd())
                 return false;
 
-            var user = this.GetUserInfo(this._userName);
+            var userName = this._userName.ToLower();
+            var user = this.GetUserInfo(userName);
             if (user == null)
                 return false;
 
-            var encryptedPwd = this.EncryptPassword(this._userName, this._password);
+            var encryptedPwd = this.EncryptPassword(userName, this._password);
             return encryptedPwd.Equals(user.Password, StringComparison.OrdinalIgnoreCase);
         }
 
@@ -61,7 +62,8 @@ namespace ReportMS.Web.Client.Membership
             if (!CheckNotNullOfNameAndPwd())
                 return false;
 
-            return this.ValidateUseMembershipRPC(this._userName, this._password, HttpRequestHelper.GetClientHostIP());
+            var userName = this._userName.ToLower();
+            return this.ValidateUseMembershipRPC(userName, this._password, HttpRequestHelper.GetClientHostIP());
         }
 
         #endregion

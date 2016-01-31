@@ -24,7 +24,7 @@ namespace Gear.Infrastructure.Algorithms.Cryptography
             var desKey = GenerateSecretkey(scrambledKey);
             var data = Encoding.UTF8.GetBytes(encryptString);
 
-            using (var des = new DESCryptoServiceProvider())
+            using (var des = DES.Create())
             using (var mstream = new MemoryStream())
             using (var cstream = new CryptoStream(mstream, des.CreateEncryptor(desKey, keysIV), CryptoStreamMode.Write))
             {
@@ -48,7 +48,7 @@ namespace Gear.Infrastructure.Algorithms.Cryptography
             // 转码方式与加密时相同
             var data = Convert.FromBase64String(decryptString);
 
-            using (var des = new DESCryptoServiceProvider())
+            using (var des = DES.Create())
             using (var mstream = new MemoryStream())
             using (var cstream = new CryptoStream(mstream, des.CreateDecryptor(desKey, keysIV), CryptoStreamMode.Write))
             {

@@ -15,16 +15,18 @@ namespace Gear.Infrastructure.Algorithms.Cryptography
         /// <returns>加密后的字符串，以十六进制呈现</returns>
         public static string Encrypt(string encryptString)
         {
-            var md5 = MD5.Create();
-            var datas = md5.ComputeHash(Encoding.Unicode.GetBytes(encryptString));
-
-            var builder = new StringBuilder();
-            foreach (var data in datas)
+            using (var md5 = MD5.Create())
             {
-                builder.Append(data.ToString("x2")); // 每个字符以两位的形式的十六进制输出
-            }
+                var datas = md5.ComputeHash(Encoding.Unicode.GetBytes(encryptString));
 
-            return builder.ToString();
+                var builder = new StringBuilder();
+                foreach (var data in datas)
+                {
+                    builder.Append(data.ToString("x2")); // 每个字符以两位的形式的十六进制输出
+                }
+
+                return builder.ToString();
+            }
         }
     }
 }

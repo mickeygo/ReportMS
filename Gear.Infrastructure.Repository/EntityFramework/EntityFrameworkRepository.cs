@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading;
+using System.Threading.Tasks;
 using Gear.Infrastructure.Repositories;
 using Gear.Infrastructure.Repository.EntityFramework.Extensions;
 using Gear.Infrastructure.Specifications;
@@ -9,7 +12,7 @@ using Gear.Infrastructure.Storage;
 namespace Gear.Infrastructure.Repository.EntityFramework
 {
     /// <summary>
-    /// 表示为 Microsoft EntityFramework 仓储
+    /// 表示为基于 Microsoft EntityFramework 仓储。使用 EntityFrameworkRepositoryContext 上下文管理对象
     /// </summary>
     /// <typeparam name="TAggregateRoot">聚合根类型</typeparam>
     public class EntityFrameworkRepository<TAggregateRoot> : Repository<TAggregateRoot>
@@ -90,10 +93,21 @@ namespace Gear.Infrastructure.Repository.EntityFramework
         /// 从仓储中获取聚合实例
         /// </summary>
         /// <param name="key">聚合根的标识符</param>
-        /// <returns>聚合根</returns>
+        /// <returns>聚合根对象</returns>
         protected override TAggregateRoot DoGetByKey(Guid key)
         {
             return this.efContext.Context.Set<TAggregateRoot>().First(p => p.ID == key);
+        }
+
+        /// <summary>
+        /// 异步从仓储中获取聚合实例
+        /// </summary>
+        /// <param name="key">聚合根的标识符</param>
+        /// <param name="cancellationToken">取消通知</param>
+        /// <returns>聚合根对象</returns>
+        protected async Task<TAggregateRoot> DoGetByKeyAsync(Guid key, CancellationToken cancellationToken)
+        {
+            return await this.efContext.Context.Set<TAggregateRoot>().FirstAsync(p => p.ID == key, cancellationToken);
         }
 
         /// <summary>
@@ -265,10 +279,21 @@ namespace Gear.Infrastructure.Repository.EntityFramework
         /// 从仓储中查找指定的聚合根对象
         /// </summary>
         /// <param name="specification">聚合根要匹配的规约</param>
-        /// <returns>聚合根</returns>
+        /// <returns>聚合根对象</returns>
         protected override TAggregateRoot DoFind(ISpecification<TAggregateRoot> specification)
         {
-            return this.efContext.Context.Set<TAggregateRoot>().Where(specification.IsSatisfiedBy).FirstOrDefault();
+            return this.efContext.Context.Set<TAggregateRoot>().FirstOrDefault(specification.IsSatisfiedBy);
+        }
+
+        /// <summary>
+        /// 异步从仓储中查找指定的聚合根对象
+        /// </summary>
+        /// <param name="specification">聚合根要匹配的规约</param>
+        /// <param name="cancellationToken">异步取消操作</param>
+        /// <returns>聚合根对象</returns>
+        protected async Task<TAggregateRoot> DoFindAsync(ISpecification<TAggregateRoot> specification, CancellationToken cancellationToken)
+        {
+            return await this.efContext.Context.Set<TAggregateRoot>().FirstOrDefaultAsync(specification.GetExpression(), cancellationToken);
         }
 
         /// <summary>
@@ -292,10 +317,10 @@ namespace Gear.Infrastructure.Repository.EntityFramework
                     eagerLoadingPath = this.GetEagerLoadingPath(eagerLoadingProperty);
                     dbquery = dbquery.Include(eagerLoadingPath);
                 }
-                return dbquery.Where(specification.GetExpression()).FirstOrDefault();
+                return dbquery.FirstOrDefault(specification.GetExpression());
             }
 
-            return dbset.Where(specification.GetExpression()).FirstOrDefault();
+            return dbset.FirstOrDefault(specification.GetExpression());
         }
 
         /// <summary>
@@ -306,6 +331,17 @@ namespace Gear.Infrastructure.Repository.EntityFramework
         protected override bool DoExists(ISpecification<TAggregateRoot> specification)
         {
             return this.efContext.Context.Set<TAggregateRoot>().Any(specification.IsSatisfiedBy);
+        }
+
+        /// <summary>
+        /// 异步检查是否在仓储中存在满足规约的聚合根
+        /// </summary>
+        /// <param name="specification">聚合根要匹配的规约</param>
+        /// <param name="cancellationToken">取消操作</param>
+        /// <returns>True 表示存在，false 表示不存在</returns>
+        protected async Task<bool> DoExistsAsync(ISpecification<TAggregateRoot> specification, CancellationToken cancellationToken)
+        {
+            return await this.efContext.Context.Set<TAggregateRoot>().AnyAsync(specification.GetExpression(), cancellationToken);
         }
 
         /// <summary>

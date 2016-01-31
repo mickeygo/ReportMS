@@ -56,10 +56,12 @@
         {
             <div class="@colWidthCss">
                 <div class="jumbotron">
-                    <p class="lead">@Html.DisplayFor(m => tenant.Description)</p>
-                    <p>
+                    <p style="text-align: center;">
                         <a href="@Url.Action("Index", "Report", new {tenant = tenant.TenantName})" class="btn btn-primary">@tenant.DisplayName &raquo;</a>
                     </p>
+                    <div style="margin: 20px 10px 10px 10px;">
+                        @Html.DisplayFor(m => tenant.Description)
+                    </div>
                 </div>
             </div>
         }

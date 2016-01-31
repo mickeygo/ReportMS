@@ -25,8 +25,8 @@ namespace Gear.Infrastructure.Algorithms.Cryptography
         private static string Encrypt(string encryptString, byte[] key, byte[] iv)
         {
             var datas = Encoding.UTF8.GetBytes(encryptString);
-            var aes = Aes.Create();
 
+            using (var aes = Aes.Create())
             using (var memoryStream = new MemoryStream())
             using (var cryptoStream = new CryptoStream(memoryStream, aes.CreateEncryptor(key, iv), CryptoStreamMode.Write))
             {
@@ -52,8 +52,8 @@ namespace Gear.Infrastructure.Algorithms.Cryptography
         private static string Decrypt(string decryptString, byte[] key, byte[] iv)
         {
             var datas = Convert.FromBase64String(decryptString);
-            var aes = Aes.Create();
 
+            using (var aes = Aes.Create())
             using (var memoryStream = new MemoryStream())
             using (var cryptoStream = new CryptoStream(memoryStream, aes.CreateDecryptor(key, iv), CryptoStreamMode.Write))
             {
@@ -71,13 +71,14 @@ namespace Gear.Infrastructure.Algorithms.Cryptography
         /// <returns></returns>
         private static Tuple<byte[], byte[]> GenerateSecretkey(string scrambledKey)
         {
-            var sha256 = SHA256.Create();
-            var md5 = MD5.Create();
+            using (var sha256 = SHA256.Create())
+            using (var md5 = MD5.Create())
+            {
+                var key = sha256.ComputeHash(Encoding.UTF8.GetBytes(scrambledKey));
+                var iv = md5.ComputeHash(Encoding.UTF8.GetBytes(scrambledKey));
 
-            var key = sha256.ComputeHash(Encoding.UTF8.GetBytes(scrambledKey));
-            var iv = md5.ComputeHash(Encoding.UTF8.GetBytes(scrambledKey));
-
-            return Tuple.Create(key, iv);
+                return Tuple.Create(key, iv);
+            }
         }
     }
 }

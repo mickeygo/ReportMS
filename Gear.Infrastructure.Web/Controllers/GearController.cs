@@ -1,7 +1,8 @@
-﻿using System;
+﻿using System.Text;
 using System.Web.Mvc;
 using Gear.Infrastructure.Authentication;
 using Gear.Infrastructure.Web.Authorization;
+using Gear.Infrastructure.Web.Json;
 using Gear.Infrastructure.Web.Membership;
 using Gear.Infrastructure.Web.MultiTenancy;
 using Gear.Infrastructure.Web.Outputs;
@@ -38,7 +39,7 @@ namespace Gear.Infrastructure.Web.Controllers
         }
 
         /// <summary>
-        /// 获取当前登录人员信息
+        /// 获取当前登录人员信息。包括当前的验证信息
         /// </summary>
         public IAuthentication LoginUser
         {
@@ -60,31 +61,51 @@ namespace Gear.Infrastructure.Web.Controllers
 
         #region Protected Methods
 
-        protected virtual void DoAuthorization(AuthorizationContext filterContext)
+        /// <summary>
+        /// 基于 Newtonsoft 的 Json 序列化
+        /// </summary>
+        /// <param name="data">要序列化的数据</param>
+        /// <returns>基于 Newtonsoft 的 JsonResult</returns>
+        protected NewtonsoftJsonResult NewtonsoftJson(object data)
         {
-            var actionDescriptor = filterContext.ActionDescriptor;
-            var controllerDescriptor = actionDescriptor.ControllerDescriptor;
+            return this.NewtonsoftJson(data, JsonRequestBehavior.DenyGet);
+        }
 
-            if (actionDescriptor.IsDefined(typeof(AllowAnonymousAttribute), true)
-                || controllerDescriptor.IsDefined(typeof(AllowAnonymousAttribute), true))
-            {
-                return;
-            }
+        /// <summary>
+        /// 基于 Newtonsoft 的 Json 序列化
+        /// </summary>
+        /// <param name="data">要序列化的数据</param>
+        /// <param name="behavior">请求 Json 序列化的行为</param>
+        /// <returns>基于 Newtonsoft 的 JsonResult</returns>
+        protected NewtonsoftJsonResult NewtonsoftJson(object data, JsonRequestBehavior behavior)
+        {
+            return this.NewtonsoftJson(data, null, behavior);
+        }
 
-            // authentication
-            if (!this.LoginUser.Identity.IsAuthenticated)
-            {
-                var requestUrl = filterContext.HttpContext.Request.RawUrl ?? String.Empty;
-                filterContext.Result = this.RedirectToAction("Login", "Account", new { area = String.Empty, returnUrl = requestUrl });
-                
-                return;
-            }
+        /// <summary>
+        /// 基于 Newtonsoft 的 Json 序列化
+        /// </summary>
+        /// <param name="data">要序列化的数据</param>
+        /// <param name="contentType">输出响应的 Context MIME</param>
+        /// <param name="behavior">请求 Json 序列化的行为</param>
+        /// <returns>基于 Newtonsoft 的 JsonResult</returns>
+        protected NewtonsoftJsonResult NewtonsoftJson(object data, string contentType, JsonRequestBehavior behavior)
+        {
+            return this.NewtonsoftJson(data, contentType, null, behavior);
+        }
 
-            // authorization
-            var action = this.RouteData.Values["action"] as string;
-            var controller = this.RouteData.Values["controller"] as string;
-            var area = this.RouteData.DataTokens["area"] as string;
-
+        /// <summary>
+        /// 基于 Newtonsoft 的 Json 序列化
+        /// </summary>
+        /// <param name="data">要序列化的数据</param>
+        /// <param name="contentType">输出响应的 Context MIME</param>
+        /// <param name="contentEncoding">序列化后的内容编码</param>
+        /// <param name="behavior">请求 Json 序列化的行为</param>
+        /// <returns>基于 Newtonsoft 的 JsonResult</returns>
+        protected NewtonsoftJsonResult NewtonsoftJson(object data, string contentType,
+            Encoding contentEncoding, JsonRequestBehavior behavior)
+        {
+            return this.JsonSerialize(data, contentType, contentEncoding, behavior);
         }
 
         #endregion

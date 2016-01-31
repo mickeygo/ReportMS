@@ -53,6 +53,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Algorithms\Cryptography\MD5Test.cs" />
     <Compile Include="Configurations\CacheConfigurationTest.cs" />
     <Compile Include="Configurations\MailConfigurationTest.cs" />
     <Compile Include="Configurations\SystemAdminConfigurationTest.cs" />

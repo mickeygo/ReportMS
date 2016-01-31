@@ -1,0 +1,23 @@
+﻿<div class="header-bg">
+    <div class="header">
+        <div class="logo"><img width="380" height="35" src="@Url.Content("~/Content/themes/CIS_Advantech.gif")"></div>
+        <div class="Log-out"> 
+            <span><a href="http://employeezone.advantech.com.tw">Employee Portal</a></span> 
+            <span> | </span> 
+            <span>@Html.ActionLink("Log Out", "LogOff", "Account", new { area = "" }, null)</span> 
+        </div>
+        <p class="clear"></p>
+        <div class="ez-nav clearfix">
+            <ul>
+                <li><span><a href="http://employeezone.advantech.com.tw/net">Employee Home</a></span></li>
+                <li><span><a href="http://employeezone.advantech.com.tw/net/Work">Work</a></span></li>
+                <li><span><a href="http://employeezone.advantech.com.tw/net/Career">Career</a></span></li>
+                <li><span><a href="http://employeezone.advantech.com.tw/net/life">Life</a></span></li>
+            </ul>
+            <div class="search-box clearfix">
+                <input name="keywords" id="Text1" type="text">
+                <input name="SearchBtn" id="Header_Corp1_SearchBtn" type="image" src="@Url.Content("~/Content/themes/btn_arrow.gif")">
+            </div>
+        </div>
+    </div>
+</div>

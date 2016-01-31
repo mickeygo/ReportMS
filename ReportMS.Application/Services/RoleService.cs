@@ -21,11 +21,15 @@ namespace ReportMS.Application.Services
 
         #endregion
 
+        #region Ctor
+         
         public RoleService(IMenuRoleRepository menuRoleRepository, IActionRoleRepository actionRoleRepository)
         {
             this._menuRoleRepository = menuRoleRepository;
             this._actionRoleRepository = actionRoleRepository;
         }
+
+        #endregion
 
         #region IRoleService Members
 

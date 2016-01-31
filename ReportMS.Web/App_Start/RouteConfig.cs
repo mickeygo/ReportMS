@@ -12,8 +12,8 @@ namespace ReportMS.Web
             // Tenant_default
             routes.MapRoute(
                 name: "Tenant_default",
-                url: "{tenant}/{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                url: "tenant-{tenant}/{controller}/{action}/{id}",
+                defaults: new {controller = "Home", action = "Index", id = UrlParameter.Optional}
                 );
 
             // Default

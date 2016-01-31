@@ -1,0 +1,23 @@
+﻿@using ReportMS.DataTransferObjects.Dtos
+@model IEnumerable<MenuDto>
+
+<div class="main-menu">
+    <div class="slide-out-div">
+        <a class="handle" href="#">Menu</a>
+        <p class="main-menu-title"><a href="#">RMS</a></p>
+        <div class="panel-left">
+            <ul id="accordion">
+                <li><a class="sub-menu-link" href="#">报表查询</a></li>
+                <li><a class="sub-menu-link" href="#">订阅</a></li>
+                <li class="sub-menu">
+                    <a href="#" class="heading">系統管理</a>
+                    <ul class="sub-menu-item">
+                        <li><a href="#">用户权限设定</a></li>
+                        <li><a href="#">报表设定</a></li>
+                        <li><a href="#">租户设定</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
