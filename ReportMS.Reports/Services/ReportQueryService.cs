@@ -10,7 +10,7 @@ namespace ReportMS.Reports.Services
     /// <summary>
     /// 报表查询服务
     /// </summary>
-    public class ReportQueryServiceContract : IReportQueryService
+    public class ReportQueryService : IReportQueryService
     {
         #region IReportQueryServiceContract Members
 

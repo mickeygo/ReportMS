@@ -3,7 +3,8 @@
 namespace Gear.Infrastructure.Repositories
 {
     /// <summary>
-    /// 表示实现接口的类是仓储上下文
+    /// 表示实现接口的类是仓储上下文。
+    /// 用于 注册新的、要更改的 或 要删除的 数据，并作用于工作单元
     /// </summary>
     public interface IRepositoryContext : IUnitOfWork, IDisposable
     {

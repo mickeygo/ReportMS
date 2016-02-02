@@ -84,6 +84,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attributes\HandleExceptionAttribute.cs" />
     <Compile Include="Authorization\OwinAuthenticationTicket.cs" />
     <Compile Include="Authorization\OwinAuthentication.cs" />
     <Compile Include="Authorization\OwinAuthenticationManager.cs" />

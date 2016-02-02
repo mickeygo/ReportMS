@@ -59,7 +59,8 @@
     <Compile Include="Dao\SqlParameterBuilder.cs" />
     <Compile Include="Dao\SqlSelectClauseBuilder.cs" />
     <Compile Include="Dao\SqlWhereClauseBuilder.cs" />
-    <Compile Include="Services\ReportQueryServiceContract.cs" />
+    <Compile Include="Services\ReportQueryService.cs" />
+    <Compile Include="Services\ReportSchemaQueryService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Gear.Infrastructure.Caching\Gear.Infrastructure.Caching.csproj">

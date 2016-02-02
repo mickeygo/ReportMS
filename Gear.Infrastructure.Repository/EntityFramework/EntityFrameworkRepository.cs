@@ -12,7 +12,8 @@ using Gear.Infrastructure.Storage;
 namespace Gear.Infrastructure.Repository.EntityFramework
 {
     /// <summary>
-    /// 表示为基于 Microsoft EntityFramework 仓储。使用 EntityFrameworkRepositoryContext 上下文管理对象
+    /// 表示为基于 Microsoft EntityFramework 仓储。
+    /// 使用 EntityFrameworkRepositoryContext 上下文管理对象
     /// </summary>
     /// <typeparam name="TAggregateRoot">聚合根类型</typeparam>
     public class EntityFrameworkRepository<TAggregateRoot> : Repository<TAggregateRoot>
@@ -29,7 +30,7 @@ namespace Gear.Infrastructure.Repository.EntityFramework
         /// <summary>
         /// 初始化一个新的<c>EntityFrameworkRepository</c>实例
         /// </summary>
-        /// <param name="context">仓储上下文</param>
+        /// <param name="context">仓储上下文。为 EntityFrameworkRepositoryContext 上下文</param>
         public EntityFrameworkRepository(IRepositoryContext context)
             : base(context)
         {

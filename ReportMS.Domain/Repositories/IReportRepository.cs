@@ -1,4 +1,5 @@
-﻿using Gear.Infrastructure.Repositories;
+﻿using System;
+using Gear.Infrastructure.Repositories;
 using ReportMS.Domain.Models.ReportModule.ReportAggregate;
 
 namespace ReportMS.Domain.Repositories
@@ -8,5 +9,10 @@ namespace ReportMS.Domain.Repositories
     /// </summary>
     public interface IReportRepository : IRepository<Report>
     {
+        /// <summary>
+        /// 移除报表中指定的字段
+        /// </summary>
+        /// <param name="fieldId">要移除的字段 Id</param>
+        void RemoveFiled(Guid fieldId);
     }
 }

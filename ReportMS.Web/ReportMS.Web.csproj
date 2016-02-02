@@ -181,9 +181,11 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="App_Start\BaseController.cs" />
+    <Compile Include="Attributes\RoleAttribute.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\Manages\ReportManageController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\Manages\TenementController.cs" />
     <Compile Include="Global.asax.cs">
@@ -520,6 +522,8 @@
     <Content Include="Views\Shared\_Layout_Miscellaneous.cshtml" />
     <Content Include="Views\Tenement\Create.cshtml" />
     <Content Include="Views\Tenement\Edit.cshtml" />
+    <Content Include="Views\ReportManage\TableSchema.cshtml" />
+    <Content Include="Views\ReportManage\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

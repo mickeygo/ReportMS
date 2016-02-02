@@ -58,10 +58,10 @@ namespace ReportMS.Application.Services
             return tenant.MapAs<TenantDto>();
         }
 
-        public void DeleteTenant(Guid tenantId)
+        public void DeleteTenant(Guid tenantId, string disableBy)
         {
             var tenant = this._tenantRepository.GetByKey(tenantId);
-            tenant.Disable();
+            tenant.Disable(disableBy);
             this._tenantRepository.Update(tenant);
         }
 

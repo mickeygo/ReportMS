@@ -61,8 +61,9 @@ namespace ReportMS.ServiceContracts
         /// 更新租户信息
         /// </summary>
         /// <param name="tenantId">要删除的租户 Id</param>
+        /// <param name="disableBy">删除此租户的操作人</param>
         [OperationContract]
         [FaultContract(typeof(FaultData))]
-        void DeleteTenant(Guid tenantId);
+        void DeleteTenant(Guid tenantId, string disableBy);
     }
 }

@@ -29,7 +29,7 @@ namespace Gear.Infrastructure.Repository.EntityFramework
         #region Override Methods
 
         /// <summary>
-        /// 注册一个新的实例到仓储上下文
+        /// 重写，在 EntityFramework 的 DbContext 对象中注册一个新的实例到仓储上下文
         /// </summary>
         /// <typeparam name="TAggregateRoot">要注册的实例类型</typeparam>
         /// <param name="obj">要添加的对象</param>
@@ -40,7 +40,7 @@ namespace Gear.Infrastructure.Repository.EntityFramework
         }
 
         /// <summary>
-        /// 注册一个要修改的实例到仓储上下文
+        /// 重写，在 EntityFramework 的 DbContext 对象中注册一个要修改的实例到仓储上下文
         /// </summary>
         /// <typeparam name="TAggregateRoot">要注册的实例类型</typeparam>
         /// <param name="obj">要修改的对象</param>
@@ -51,7 +51,7 @@ namespace Gear.Infrastructure.Repository.EntityFramework
         }
 
         /// <summary>
-        /// 注册一个要删除的实例到仓储上下文
+        /// 重写，在 EntityFramework 的 DbContext 对象中注册一个要删除的实例到仓储上下文
         /// </summary>
         /// <typeparam name="TAggregateRoot">要注册的实例类型</typeparam>
         /// <param name="obj">要删除的对象</param>
@@ -66,7 +66,7 @@ namespace Gear.Infrastructure.Repository.EntityFramework
         #region IEntityFrameworkRepositoryContext Members
 
         /// <summary>
-        /// 获取 Database 上下文
+        /// 获取当前仓储上下文所使用的 Entity Framework的<see cref="DbContext"/>实例。
         /// </summary>
         public DbContext Context
         {
@@ -116,7 +116,8 @@ namespace Gear.Infrastructure.Repository.EntityFramework
         #endregion
 
         /// <summary>
-        /// 释放资源,释放资源之前，会将没有提交的工作单元提交
+        /// 释放资源.
+        /// 释放资源之前，若工作单元有注册对象但还没有提交，会提交此工作单元
         /// </summary>
         /// <param name="disposing"><see cref="System.Boolean"/>是否需要显示地释放资料</param>
         protected override void Dispose(bool disposing)

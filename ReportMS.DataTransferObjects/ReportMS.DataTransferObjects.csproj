@@ -49,6 +49,7 @@
     <Compile Include="DtoInitializer\DtoMapperInitializer.cs" />
     <Compile Include="Dtos\ActionRoleDto.cs" />
     <Compile Include="Dtos\ActionsDto.cs" />
+    <Compile Include="Dtos\DatabaseSchemaDto.cs" />
     <Compile Include="Dtos\MenuDto.cs" />
     <Compile Include="Dtos\MenuRoleDto.cs" />
     <Compile Include="Dtos\ReportDto.cs" />
@@ -58,6 +59,7 @@
     <Compile Include="Dtos\ReportGroupItemFieldDto.cs" />
     <Compile Include="Dtos\ReportGroupRoleDto.cs" />
     <Compile Include="Dtos\RoleDto.cs" />
+    <Compile Include="Dtos\TableSchemaDto.cs" />
     <Compile Include="Dtos\TenantDto.cs" />
     <Compile Include="Dtos\UserDto.cs" />
     <Compile Include="Dtos\UserRoleDto.cs" />

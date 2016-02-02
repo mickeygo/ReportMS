@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Text.RegularExpressions;
 using Gear.Infrastructure;
 using Gear.Infrastructure.Repositories;
@@ -68,16 +69,15 @@ namespace ReportMS.Domain.Models.ReportModule.ReportAggregate
 
         #region Ctor
 
-        private Report()
+        /// <summary>
+        /// Lazy 加载，需设置为公开的默认构造函数,不要直接调用
+        /// </summary>
+        public Report()
         {
-            this.GenerateNewIdentity();
-            this.Enable();
-
-            this.CreatedDate = DateTime.Now;
         }
 
         /// <summary>
-        /// 创建<c>Report</c>对象
+        /// 创建一个新的<c>Report</c>对象
         /// </summary>
         /// <param name="reportName">报表名</param>
         /// <param name="displayName">报表显示名</param>
@@ -92,7 +92,7 @@ namespace ReportMS.Domain.Models.ReportModule.ReportAggregate
         }
 
         /// <summary>
-        /// 创建<c>Report</c>对象
+        /// 创建一个新的<c>Report</c>对象
         /// </summary>
         /// <param name="reportName">报表名</param>
         /// <param name="displayName">报表显示名</param>
@@ -107,6 +107,10 @@ namespace ReportMS.Domain.Models.ReportModule.ReportAggregate
             this.Description = description;
             this.Database = database;
             this.CreatedBy = createdBy;
+            this.CreatedDate = DateTime.Now;
+
+            this.GenerateNewIdentity();
+            this.Enable();
         }
 
         #endregion
@@ -114,11 +118,58 @@ namespace ReportMS.Domain.Models.ReportModule.ReportAggregate
         #region Public Methods
 
         /// <summary>
+        /// 更新<c>Report</c>对象
+        /// </summary>
+        /// <param name="displayName">报表显示名</param>
+        /// <param name="description">报表描述</param>
+        /// <param name="dbName">报表所在 DB</param>
+        /// <param name="schema">报表所在 DB 的 schema</param>
+        /// <param name="updatedBy">更新人</param>
+        public void UpdateReport(string displayName, string description, string dbName, string schema, string updatedBy)
+        {
+            this.Database = new Database(dbName, schema);
+
+            this.DisplayName = displayName;
+            this.Description = description;
+            this.UpdatedBy = updatedBy;
+            this.UpdatedDate = DateTime.Now;
+        }
+
+        /// <summary>
+        /// 添加报表字段集合
+        /// </summary>
+        /// <param name="fields">报表字段集合</param>
+        public void AddFields(IEnumerable<ReportField> fields)
+        {
+            foreach (var field in fields)
+            {
+                this.AddField(field);
+            }
+        }
+
+        /// <summary>
+        /// 添加报表字段
+        /// </summary>
+        /// <param name="field">报表字段</param>
+        public void AddField(ReportField field)
+        {
+            if (this.Fields == null)
+                this.Fields = new List<ReportField>();
+
+            if (this.Fields.Any(f => f.ID == field.ID))
+                return;
+
+            field.AttachToParent(this.ID);
+            this.Fields.Add(field);
+        }
+
+        /// <summary>
         /// 启用报表
         /// </summary>
         public void Enable()
         {
-            this.Enabled = true;
+            if (!this.Enabled)
+                this.Enabled = true;
         }
 
         /// <summary>
@@ -126,7 +177,8 @@ namespace ReportMS.Domain.Models.ReportModule.ReportAggregate
         /// </summary>
         public void Disable()
         {
-            this.Enabled = false;
+            if (this.Enabled)
+                this.Enabled = false;
         }
 
         /// <summary>

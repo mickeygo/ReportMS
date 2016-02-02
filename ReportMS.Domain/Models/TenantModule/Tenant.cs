@@ -113,6 +113,17 @@ namespace ReportMS.Domain.Models.TenantModule
         /// <summary>
         /// 禁用租户
         /// </summary>
+        /// <param name="disabledBy">禁用此租户的操作人</param>
+        public void Disable(string disabledBy)
+        {
+            this.Disable();
+            this.UpdatedBy = disabledBy;
+            this.UpdatedDate = DateTime.Now;
+        }
+
+        /// <summary>
+        /// 禁用租户
+        /// </summary>
         public void Disable()
         {
             if (this.Enabled)

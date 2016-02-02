@@ -1,4 +1,5 @@
-﻿using Gear.Infrastructure.Repositories;
+﻿using System;
+using Gear.Infrastructure.Repositories;
 using Gear.Infrastructure.Repository.EntityFramework;
 using Gear.Infrastructure.Specifications;
 using ReportMS.Domain.Models.TenantModule;
@@ -23,7 +24,7 @@ namespace ReportMS.Domain.Repositories.EntityFramework.Repository
         /// <returns>与租户名匹配的租户</returns>
         public Tenant GetTenant(string tenantName)
         {
-            var findTenantByNameSpec = Specification<Tenant>.Eval(s => s.TenantName == tenantName);
+            var findTenantByNameSpec = Specification<Tenant>.Eval(s => s.TenantName.Equals(tenantName, StringComparison.OrdinalIgnoreCase));
             return this.DoFind(findTenantByNameSpec);
         }
 

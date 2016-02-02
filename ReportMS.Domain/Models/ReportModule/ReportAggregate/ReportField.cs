@@ -67,10 +67,11 @@ namespace ReportMS.Domain.Models.ReportModule.ReportAggregate
 
         #region Ctor
 
-        private ReportField()
+        /// <summary>
+        /// Lazy 加载，需设置为公开的默认构造函数,不要直接调用
+        /// </summary>
+        public ReportField()
         {
-            this.GenerateNewIdentity();
-            this.CreatedDate = DateTime.Now;
         }
 
         /// <summary>
@@ -91,11 +92,23 @@ namespace ReportMS.Domain.Models.ReportModule.ReportAggregate
             this.DataType = dataType;
             this.Sort = sort;
             this.CreatedBy = createdBy;
+            this.CreatedDate = DateTime.Now;
+
+            this.GenerateNewIdentity();
         }
 
         #endregion
 
         #region Public Methods
+
+        /// <summary>
+        /// 将从表附加到主表中（将字段附加到报表中）
+        /// </summary>
+        /// <param name="reportId">报表 Id</param>
+        public void AttachToParent(Guid reportId)
+        {
+            this.ReportId = reportId;
+        }
 
         /// <summary>
         /// 验证字段名是否有效

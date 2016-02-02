@@ -8,7 +8,7 @@ namespace Gear.Infrastructure.Repositories
 {
     /// <summary>
     /// 仓储上下文基类。
-    /// 用于存储要 Add、Update 和 Delete 的对象，以便在 Commit 时一次性做处理
+    /// 用于 注册新的、要更改的 或 要删除的 数据，并作用于工作单元
     /// </summary>
     public abstract class RepositoryContext : DisposableObject, IRepositoryContext
     {

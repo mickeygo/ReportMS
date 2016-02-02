@@ -1,0 +1,82 @@
+﻿@using ReportMS.DataTransferObjects.Dtos
+@model IEnumerable<ReportDto>
+
+@{
+    ViewBag.Title = "Report Manage";
+}
+
+@section scripts
+{
+    <script>
+        
+    </script>
+}
+
+@Html.Navigate("Manage", "Report")
+
+<div>
+    <div></div>
+
+    <div>
+        @if (Model.HasAny())
+        {
+            <table id="table_report" class="table table-bordered table-striped table-hover">
+                <thead>
+                <tr>
+                    <th>ReportName</th>
+                    <th>DisplayName</th>
+                    <th>Description</th>
+                    <th>Database</th>
+                    <th>Schema</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(m => item.ReportName)</td>
+                        <td>@Html.DisplayFor(m => item.DisplayName)</td>
+                        <td>@Html.DisplayFor(m => item.Description)</td>
+                        <td>@Html.DisplayFor(m => item.Database)</td>
+                        <td>@Html.DisplayFor(m => item.Schema)</td>
+                        <td>
+                            <a class="btn btn-primary btn-xs" data-dialog="true" data-ajax-form="true" data-dialog-href=""
+                               data-dialog-title="Edit Report" data-ajax-success="modifyReportSuccess" data-ajax-failure="modifyReportFailure">
+                                <span class="glyphicon glyphicon-edit"></span>
+                            </a>
+                            <a class="btn btn-danger btn-xs" data-href="" data-report-id="" onclick="">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </a>
+                            <a class="btn btn-info btn-xs" data-href="" data-report-id="" onclick="">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </a>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+
+    <table class="table table-bordered table-striped table-hover">
+        <thead>
+            <tr>
+                <th>DisplayName</th>
+                <th>DataType</th>
+                <th>Sort</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.SelectMany(s => s.Fields))
+            {
+                <tr>
+                    <td>@Html.DisplayFor(m => item.DisplayName)</td>
+                    <td>@Html.DisplayFor(m => item.DataType)</td>
+                    <td>@Html.DisplayFor(m => item.Sort)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+        }
+    </div>
+</div>
+

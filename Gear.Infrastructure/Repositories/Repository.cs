@@ -7,7 +7,8 @@ using Gear.Infrastructure.Specifications;
 namespace Gear.Infrastructure.Repositories
 {
     /// <summary>
-    /// 仓储基类
+    /// 仓储基类.
+    /// 作为不同 ORM 或 ADO 类型的仓储上下文派生的基类
     /// </summary>
     /// <typeparam name="TKey">聚合根的标识符</typeparam>
     /// <typeparam name="TAggregateRoot">聚合根对象</typeparam>
@@ -25,7 +26,7 @@ namespace Gear.Infrastructure.Repositories
         /// <summary>
         /// 初始化<c>Repository</c>实例
         /// </summary>
-        /// <param name="context">于仓储的仓储上下文</param>
+        /// <param name="context">仓储上下文对象</param>
         protected Repository(IRepositoryContext context)
         {
             this.context = context;
@@ -219,7 +220,8 @@ namespace Gear.Infrastructure.Repositories
         #region IRepository<TKey,TAggregateRoot> Members
 
         /// <summary>
-        /// 获取一个已被附加的仓储上下文实例
+        /// 获取当前被附加的仓储上下文实例。
+        /// 该仓储上下文用于注册新增的、要更新的或要删除的对象，作用于工作单元
         /// </summary>
         public IRepositoryContext Context
         {

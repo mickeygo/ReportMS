@@ -15,6 +15,8 @@ namespace ReportMS.DataTransferObjects.Profiles
             AutoMapperAdapter.Register<Report, ReportDto>()
                 .ForMember(d => d.Database, o => o.MapFrom(s => s.Database.Name))
                 .ForMember(d => d.Schema, o => o.MapFrom(s => s.Database.Schema));
+
+            AutoMapperAdapter.Register<ReportField, ReportFieldDto>();
         }
     }
 }

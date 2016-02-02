@@ -65,7 +65,8 @@ namespace ReportMS.Web.Controllers.Manages
         {
             using (var service = ServiceLocator.Instance.Resolve<ITenantService>())
             {
-                service.DeleteTenant(tenantId);
+                var disableBy = this.LoginUser.Identity.Name;
+                service.DeleteTenant(tenantId, disableBy);
                 return Json(true);
             }
         }
