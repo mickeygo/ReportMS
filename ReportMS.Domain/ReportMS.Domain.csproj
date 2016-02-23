@@ -46,6 +46,7 @@
     <Compile Include="Models\AccountModule\Menu.cs" />
     <Compile Include="Models\AccountModule\MenuRole.cs" />
     <Compile Include="Models\AccountModule\UserRole.cs" />
+    <Compile Include="Models\ReportModule\DatabaseAggregate\Database.cs" />
     <Compile Include="Models\ReportModule\ReportAggregate\Report.cs" />
     <Compile Include="Models\ReportModule\ReportAggregate\Database.cs" />
     <Compile Include="Models\ReportModule\ReportAggregate\ReportField.cs" />

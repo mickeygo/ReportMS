@@ -6,7 +6,8 @@ using System.Web;
 namespace Gear.Infrastructure.Web.Extensions
 {
     /// <summary>
-    ///  Web 请求的扩展类
+    /// Web 请求的扩展类。
+    /// 针对 System.Web.HttpRequest 进行相关的扩展
     /// </summary>
     public static class HttpRequestExtensions
     {
@@ -142,7 +143,9 @@ namespace Gear.Infrastructure.Web.Extensions
         /// <returns>完整主机头</returns>
         public static string GetFullHost(this HttpRequest request)
         {
-            return !request.Url.IsDefaultPort ? string.Format("{0}:{1}", request.Url.Host, request.Url.Port.ToString()) : request.Url.Host;
+            return !request.Url.IsDefaultPort
+                ? string.Format("{0}:{1}", request.Url.Host, request.Url.Port.ToString())
+                : request.Url.Host;
         }
 
         /// <summary>

@@ -81,6 +81,7 @@
     <Compile Include="Membership\UserValidation.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\RegisterViewModel.cs" />
+    <Compile Include="Models\ReportModifyViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Roles\RoleManager.cs" />
     <Compile Include="Service References\MembershipWebService\Reference.cs">

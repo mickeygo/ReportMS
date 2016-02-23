@@ -16,7 +16,8 @@ namespace ReportMS.Domain.Models.ReportModule.ReportAggregate
         #region Properties
 
         /// <summary>
-        /// 获取报表名
+        /// 获取报表名。
+        /// 此报表名为要查询的 Table / View 名
         /// </summary>
         public string ReportName { get; private set; }
 
@@ -36,7 +37,7 @@ namespace ReportMS.Domain.Models.ReportModule.ReportAggregate
         public Database Database { get; private set; }
 
         /// <summary>
-        /// 获取一个<see cref="System.Boolean"/>值,表示报表组是否可用
+        /// 获取一个<see cref="System.Boolean"/>值,表示此报表是否可用
         /// </summary>
         public bool Enabled { get; private set; }
 
@@ -85,7 +86,8 @@ namespace ReportMS.Domain.Models.ReportModule.ReportAggregate
         /// <param name="dbName">报表所在 DB</param>
         /// <param name="schema">报表所在 DB 的 schema</param>
         /// <param name="createdBy">创建人</param>
-        public Report(string reportName, string displayName, string description, string dbName, string schema, string createdBy)
+        public Report(string reportName, string displayName, string description, string dbName, string schema,
+            string createdBy)
             : this(reportName, displayName, description, null, createdBy)
         {
             this.Database = new Database(dbName, schema);
@@ -203,9 +205,9 @@ namespace ReportMS.Domain.Models.ReportModule.ReportAggregate
             if (String.IsNullOrWhiteSpace(this.DisplayName))
                 yield return new ValidationResult("The report display name is null or empty.");
 
-            var hasDatabaseValue = this.Database != null &&
-                                   !String.IsNullOrWhiteSpace(this.Database.Name) &&
-                                   !String.IsNullOrWhiteSpace(this.Database.Name);
+            var hasDatabaseValue = this.Database != null
+                                   && !String.IsNullOrWhiteSpace(this.Database.Name)
+                                   && !String.IsNullOrWhiteSpace(this.Database.Name);
             if (!hasDatabaseValue)
                 yield return new ValidationResult("The report database value is null or empty.");
 

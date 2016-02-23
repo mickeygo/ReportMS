@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Gear.Infrastructure.Repositories;
 using Gear.Infrastructure.Repository.EntityFramework;
 using ReportMS.Domain.Models.ReportModule.ReportAggregate;
@@ -18,7 +19,14 @@ namespace ReportMS.Domain.Repositories.EntityFramework.Repository
         {
             var context = this.EFContext.Context.Set<ReportField>();
             var field = context.Find(fieldId);
-            context.Remove(field);
+            if (field != null)
+                context.Remove(field);
+        }
+
+        public void RemoveFileds(IEnumerable<ReportField> fields)
+        {
+            var context = this.EFContext.Context.Set<ReportField>();
+            context.RemoveRange(fields);
         }
     }
 }

@@ -8,16 +8,57 @@
 @section scripts
 {
     <script>
-        
+        function createReportSuccess(data) {
+            if (data.status === "success") {
+                reloadReport();
+            } else {
+                alert(data.message);
+            }
+        }
+
+        function modifyReportSuccess(data) {
+            if (data.status === "success") {
+                reloadReport();
+            } else {
+                alert(data.message);
+            }
+        }
+
+        function deleteReport(element) {
+            if (!confirm("Are you want to delete it ?"))
+                return false;
+
+            var url = $(element).attr("data-href");
+            var id = $(element).attr("data-report-id");
+            $.post(url, { reportId: id }, function (data) {
+                if (data.status === "success")
+                    reloadReport();
+                else
+                    alert(data.message);
+            });
+            return true;
+        }
+
+        function reloadReport() {
+            var href = "@Url.Action("Index")" + " #table_report";
+            $("#retport").load(href);
+        }
     </script>
 }
 
 @Html.Navigate("Manage", "Report")
 
 <div>
-    <div></div>
+    <div class="ibox-title">
+        <div class="ibox-tools rboor">
+            <a class="btn btn-primary btn-xs" data-dialog="true" data-ajax-form="true" data-dialog-href="@Url.Action("CreateReport")" data-dialog-title="Create Report"
+               data-ajax-success="createReportSuccess" data-ajax-failure="createReportFailure">
+                <span class="glyphicon glyphicon-plus"></span> Add Report
+            </a>
+        </div>
+    </div>
 
-    <div>
+    <div id="retport">
         @if (Model.HasAny())
         {
             <table id="table_report" class="table table-bordered table-striped table-hover">
@@ -41,41 +82,18 @@
                         <td>@Html.DisplayFor(m => item.Database)</td>
                         <td>@Html.DisplayFor(m => item.Schema)</td>
                         <td>
-                            <a class="btn btn-primary btn-xs" data-dialog="true" data-ajax-form="true" data-dialog-href=""
+                            <a class="btn btn-primary btn-xs" data-dialog="true" data-ajax-form="true" data-dialog-href="@Url.Action("EditReport", new {reportId = item.ID})"
                                data-dialog-title="Edit Report" data-ajax-success="modifyReportSuccess" data-ajax-failure="modifyReportFailure">
                                 <span class="glyphicon glyphicon-edit"></span>
                             </a>
-                            <a class="btn btn-danger btn-xs" data-href="" data-report-id="" onclick="">
+                            <a class="btn btn-danger btn-xs" data-href="@Url.Action("DeleteReport")" data-report-id="@item.ID" onclick="deleteReport(this);">
                                 <span class="glyphicon glyphicon-remove"></span>
-                            </a>
-                            <a class="btn btn-info btn-xs" data-href="" data-report-id="" onclick="">
-                                <span class="glyphicon glyphicon-plus"></span>
                             </a>
                         </td>
                     </tr>
                 }
                 </tbody>
             </table>
-
-    <table class="table table-bordered table-striped table-hover">
-        <thead>
-            <tr>
-                <th>DisplayName</th>
-                <th>DataType</th>
-                <th>Sort</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.SelectMany(s => s.Fields))
-            {
-                <tr>
-                    <td>@Html.DisplayFor(m => item.DisplayName)</td>
-                    <td>@Html.DisplayFor(m => item.DataType)</td>
-                    <td>@Html.DisplayFor(m => item.Sort)</td>
-                </tr>
-            }
-        </tbody>
-    </table>
         }
     </div>
 </div>

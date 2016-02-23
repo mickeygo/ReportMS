@@ -524,6 +524,8 @@
     <Content Include="Views\Tenement\Edit.cshtml" />
     <Content Include="Views\ReportManage\TableSchema.cshtml" />
     <Content Include="Views\ReportManage\Index.cshtml" />
+    <Content Include="Views\ReportManage\EditReport.cshtml" />
+    <Content Include="Views\ReportManage\CreateReport.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -7,7 +7,7 @@ using Gear.Infrastructure.Specifications;
 namespace Gear.Infrastructure.Repositories
 {
     /// <summary>
-    /// 表示仓储的接口
+    /// 表示要实现此接口的类为仓储
     /// </summary>
     /// <typeparam name="TKey">聚合根键值的类型</typeparam>
     /// <typeparam name="TAggregateRoot">领域聚合根类型</typeparam>
@@ -184,14 +184,14 @@ namespace Gear.Infrastructure.Repositories
         void Update(TAggregateRoot aggregateRoot);
 
         /// <summary>
-        /// 从存储中移除聚合根
+        /// 从仓储中移除聚合根
         /// </summary>
         /// <param name="aggregateRoot">要移除的聚合根</param>
         void Remove(TAggregateRoot aggregateRoot);
     }
 
     /// <summary>
-    /// 表示仓储的接口
+    /// 表示要实现此接口的类为仓储
     /// </summary>
     /// <typeparam name="TAggregateRoot">领域聚合根类型</typeparam>
     public interface IRepository<TAggregateRoot> : IRepository<Guid, TAggregateRoot>

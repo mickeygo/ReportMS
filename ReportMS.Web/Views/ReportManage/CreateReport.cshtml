@@ -1,0 +1,45 @@
+﻿@model ReportMS.DataTransferObjects.Dtos.ReportDto
+
+<div>
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-group">
+            <label class="col-md-3 control-label" for="ReportName">Report Name</label>
+            <div class="col-md-9">
+                @Html.TextBoxFor(m => m.ReportName, new { @class = "form-control", required = "", data_format = "string", maxlength = "40" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 control-label" for="DisplayName">Display Name</label>
+            <div class="col-md-9">
+                @Html.TextBoxFor(m => m.DisplayName, new { @class = "form-control", required = "", maxlength = "80" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 control-label" for="Database">Database</label>
+            <div class="col-md-9">
+                @Html.TextBoxFor(m => m.Database, new { @class = "form-control", maxlength = "20" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 control-label" for="Schema">Schema</label>
+            <div class="col-md-9">
+                @Html.TextBoxFor(m => m.Schema, new { @class = "form-control", @readonly = "readonly", maxlength = "10" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 control-label" for="Description">Description</label>
+            <div class="col-md-9">
+                @Html.TextAreaFor(m => m.Description, new {@class = "form-control", maxlength = "100"})
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-3 col-md-9">
+                <input type="submit" value="submit" class="btn btn-primary"
+                       onclick="return confirm('After submitted, the report name would not allowed modified, are you want to continue submit ?');" />
+            </div>
+        </div>
+    }
+</div>
+

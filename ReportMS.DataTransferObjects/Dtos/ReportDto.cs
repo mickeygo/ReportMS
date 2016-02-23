@@ -11,13 +11,14 @@ namespace ReportMS.DataTransferObjects.Dtos
     public class ReportDto
     {
         /// <summary>
-        /// 获取或设置 ID
+        /// 获取或设置 ID.
         /// </summary>
         [DataMember]
         public Guid ID { get; set; }
 
         /// <summary>
-        /// 获取或设置报表名
+        /// 获取或设置报表名.
+        /// 此报表名为要查询的 Table / View 名
         /// </summary>
         [DataMember]
         public string ReportName { get; set; }

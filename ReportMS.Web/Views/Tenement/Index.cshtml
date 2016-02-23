@@ -29,7 +29,7 @@
                 return false;
 
             var url = $(element).attr("data-href");
-            var id = $(element).attr("data-tenantId");
+            var id = $(element).attr("data-tenant-id");
             $.post(url, { tenantId : id }, function(data) {
                 if (data.status === "success")
                     reloadTenant();
@@ -80,7 +80,7 @@
                                    data-dialog-title="Edit Tenant" data-ajax-success="modifyTenantSuccess" data-ajax-failure="modifyTenantFailure">
                                     <span class="glyphicon glyphicon-edit"></span>
                                 </a>
-                                <a class="btn btn-danger btn-xs" data-href="@Url.Action("Delete")" data-tenantid="@item.ID" onclick="deleteTenant(this);">
+                                <a class="btn btn-danger btn-xs" data-href="@Url.Action("Delete")" data-tenant-id="@item.ID" onclick="deleteTenant(this);">
                                     <span class="glyphicon glyphicon-remove"></span>
                                 </a>
                             </td>

@@ -8,7 +8,7 @@
         #region Properties
 
         /// <summary>
-        /// 数据库名
+        /// 数据库连接名
         /// </summary>
         public string Name { get; private set; }
 
