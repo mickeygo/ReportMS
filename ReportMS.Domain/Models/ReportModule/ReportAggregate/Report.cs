@@ -138,6 +138,20 @@ namespace ReportMS.Domain.Models.ReportModule.ReportAggregate
         }
 
         /// <summary>
+        /// 更新<c>Report</c>对象
+        /// </summary>
+        /// <param name="displayName">报表显示名</param>
+        /// <param name="description">报表描述</param>
+        /// <param name="updatedBy">更新人</param>
+        public void UpdateReport(string displayName, string description, string updatedBy)
+        {
+            this.DisplayName = displayName;
+            this.Description = description;
+            this.UpdatedBy = updatedBy;
+            this.UpdatedDate = DateTime.Now;
+        }
+
+        /// <summary>
         /// 添加报表字段集合
         /// </summary>
         /// <param name="fields">报表字段集合</param>

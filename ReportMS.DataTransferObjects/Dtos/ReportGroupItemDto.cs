@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace ReportMS.DataTransferObjects.Dtos
 {
     /// <summary>
-    /// 报表分组明细项 Dto
+    /// 报表分组详细信息
     /// </summary>
     [DataContract]
     public class ReportGroupItemDto
@@ -23,45 +22,15 @@ namespace ReportMS.DataTransferObjects.Dtos
         public Guid ReportGroupId { get; set; }
 
         /// <summary>
-        /// 获取或设置报表 ID
+        /// 获取或设置报表配置 Id
         /// </summary>
         [DataMember]
-        public Guid ReportId { get; set; }
+        public Guid ReportProfileId { get; set; }
 
         /// <summary>
-        /// 获取或设置一个<see cref="System.Boolean"/>值,表示报表组是否可用
+        /// 获取或设置报表配置
         /// </summary>
         [DataMember]
-        public bool Enabled { get; set; }
-
-        /// <summary>
-        /// 获取或设置创建人
-        /// </summary>
-        [DataMember]
-        public string CreatedBy { get; set; }
-
-        /// <summary>
-        /// 获取或设置创建时间
-        /// </summary>
-        [DataMember]
-        public DateTime? CreatedDate { get; set; }
-
-        /// <summary>
-        /// 获取或设置更新人
-        /// </summary>
-        [DataMember]
-        public string UpdatedBy { get; set; }
-
-        /// <summary>
-        /// 获取或设置创建时间
-        /// </summary>
-        [DataMember]
-        public DateTime? UpdatedDate { get; set; }
-
-        /// <summary>
-        /// 获取或设置报表组项字段集合
-        /// </summary>
-        [DataMember]
-        public ICollection<ReportGroupItemFieldDto> ReportGroupItemFields { get; set; }
+        public ReportProfileDto ReportProfile { get; set; }
     }
 }

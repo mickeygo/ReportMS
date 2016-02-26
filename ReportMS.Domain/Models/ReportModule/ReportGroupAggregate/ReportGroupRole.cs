@@ -47,14 +47,15 @@ namespace ReportMS.Domain.Models.ReportModule.ReportGroupAggregate
 
         #region Ctor
 
-        private ReportGroupRole()
+        /// <summary>
+        /// 初始化一个新的<c>ReportGroupRole</c>实例。 仅供 Lazy 使用
+        /// </summary>
+        public ReportGroupRole()
         {
-            this.GenerateNewIdentity();
-            this.CreatedDate = DateTime.Now;
         }
 
         /// <summary>
-        /// 创建一个新的<c>ReportGroupRole</c>实例
+        /// 初始化一个新的<c>ReportGroupRole</c>实例
         /// </summary>
         /// <param name="reportGroupId">报表组 Id</param>
         /// <param name="roleId">角色 Id</param>
@@ -65,6 +66,9 @@ namespace ReportMS.Domain.Models.ReportModule.ReportGroupAggregate
             this.ReportGroupId = reportGroupId;
             this.RoleId = roleId;
             this.CreatedBy = createdBy;
+            this.CreatedDate = DateTime.Now;
+
+            this.GenerateNewIdentity();
         }
 
         #endregion

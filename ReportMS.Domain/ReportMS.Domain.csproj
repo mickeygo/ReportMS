@@ -52,8 +52,9 @@
     <Compile Include="Models\ReportModule\ReportAggregate\ReportField.cs" />
     <Compile Include="Models\ReportModule\ReportGroupAggregate\ReportGroup.cs" />
     <Compile Include="Models\ReportModule\ReportGroupAggregate\ReportGroupItem.cs" />
-    <Compile Include="Models\ReportModule\ReportGroupAggregate\ReportGroupItemField.cs" />
     <Compile Include="Models\ReportModule\ReportGroupAggregate\ReportGroupRole.cs" />
+    <Compile Include="Models\ReportModule\ReportProfileAggregate\ReportProfile.cs" />
+    <Compile Include="Models\ReportModule\ReportProfileAggregate\ReportProfileField.cs" />
     <Compile Include="Models\TenantModule\Tenant.cs" />
     <Compile Include="Models\AccountModule\Role.cs" />
     <Compile Include="Models\AccountModule\User.cs" />
@@ -62,9 +63,9 @@
     <Compile Include="Repositories\IActionRoleRepository.cs" />
     <Compile Include="Repositories\IMenuRepository.cs" />
     <Compile Include="Repositories\IMenuRoleRepository.cs" />
-    <Compile Include="Repositories\IReportGroupItemRepository.cs" />
     <Compile Include="Repositories\IReportGroupRepository.cs" />
     <Compile Include="Repositories\IReportGroupRoleRepository.cs" />
+    <Compile Include="Repositories\IReportProfileRepository.cs" />
     <Compile Include="Repositories\IReportRepository.cs" />
     <Compile Include="Repositories\IRoleRepository.cs" />
     <Compile Include="Repositories\ITenantRepository.cs" />

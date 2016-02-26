@@ -62,33 +62,57 @@ namespace ReportMS.Domain.Models.ReportModule.ReportGroupAggregate
 
         #region Ctor
 
-        private ReportGroup()
+        /// <summary>
+        /// 初始化一个新的<c>ReportGroup</c>实例。仅供 Lazy 使用
+        /// </summary>
+        public ReportGroup()
         {
-            this.GenerateNewIdentity();
-            this.Enable();
-
-            this.CreatedDate = DateTime.Now;
         }
 
         /// <summary>
-        /// 生成一个新的<c>ReportGroup</c>实例
+        /// 初始化一个新的<c>ReportGroup</c>实例
         /// </summary>
         /// <param name="name">报表组的名称</param>
         /// <param name="displayName">报表组的显示名称</param>
         /// <param name="description">报表组的描述</param>
         /// <param name="createdBy">创建人</param>
         public ReportGroup(string name, string displayName, string description, string createdBy)
-            : this()
         {
             this.GroupName = name;
             this.DisplayName = displayName;
             this.Description = description;
             this.CreatedBy = createdBy;
+            this.CreatedDate = DateTime.Now;
+
+            this.GenerateNewIdentity();
+            this.Enable();
         }
 
         #endregion
 
         #region Public Methods
+
+        /// <summary>
+        /// 添加报表分组项集合
+        /// </summary>
+        /// <param name="items">要添加的报表分组项集合</param>
+        public void AddGroupItems(IEnumerable<ReportGroupItem> items)
+        {
+            this.EnsureNotNullOfReportGroupItems();
+            this.EnsureParenetIdOfReportGroupItems(items);
+            ((List<ReportGroupItem>)this.ReportGroupItems).AddRange(items);
+        }
+
+        /// <summary>
+        /// 添加报表分组项
+        /// </summary>
+        /// <param name="item">要添加的报表分组项</param>
+        public void AddGroupItem(ReportGroupItem item)
+        {
+            this.EnsureNotNullOfReportGroupItems();
+            this.EnsureParenetIdOfReportGroupItem(item);
+            this.ReportGroupItems.Add(item);
+        }
 
         /// <summary>
         /// 启用报表组
@@ -106,6 +130,28 @@ namespace ReportMS.Domain.Models.ReportModule.ReportGroupAggregate
         {
             if (this.Enabled)
                 this.Enabled = false;
+        }
+
+        #endregion
+
+        #region Private Methods
+
+        private void EnsureNotNullOfReportGroupItems()
+        {
+            if (this.ReportGroupItems == null)
+                this.ReportGroupItems = new List<ReportGroupItem>();
+        }
+
+        private void EnsureParenetIdOfReportGroupItems(IEnumerable<ReportGroupItem> items)
+        {
+            foreach (var item in items)
+                this.EnsureParenetIdOfReportGroupItem(item);
+        }
+
+        private void EnsureParenetIdOfReportGroupItem(ReportGroupItem item)
+        {
+            if (item.ReportGroupId != this.ID)
+                item.AttachToParent(this.ID);
         }
 
         #endregion

@@ -83,7 +83,7 @@
                         <td>@Html.DisplayFor(m => item.Schema)</td>
                         <td>
                             <a class="btn btn-primary btn-xs" data-dialog="true" data-ajax-form="true" data-dialog-href="@Url.Action("EditReport", new {reportId = item.ID})"
-                               data-dialog-title="Edit Report" data-ajax-success="modifyReportSuccess" data-ajax-failure="modifyReportFailure">
+                               data-dialog-title="Edit Report" data-ajax-success="modifyReportSuccess">
                                 <span class="glyphicon glyphicon-edit"></span>
                             </a>
                             <a class="btn btn-danger btn-xs" data-href="@Url.Action("DeleteReport")" data-report-id="@item.ID" onclick="deleteReport(this);">

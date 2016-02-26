@@ -66,34 +66,42 @@ namespace ReportMS.Web.Controllers.Manages
         [ValidateAntiForgeryToken]
         public ActionResult EditReport(ReportModifyViewModel model, IEnumerable<string> colunms)
         {
-            var reportDto = model.Report;
-            using (var service = ServiceLocator.Instance.Resolve<IReportService>())
+            try
             {
-                // modify the report header
-                var report = service.FindReport(reportDto.ID);
-
-                // modify the report fields (add / remove)
-                if (colunms == null)
-                    return Json(true);
-
-                var tableSchemas = this.GetTableSchema(report.Database, report.ReportName);
-
-                // firstly remove all，then add and sort
                 var creator = this.LoginUser.Identity.Name;
-                var addingFileds = (from table in tableSchemas
-                    where colunms.Contains(table.ColunmName)
-                    select new ReportFieldDto
-                    {
-                        FieldName = table.ColunmName,
-                        DisplayName = table.ColunmName,
-                        DataType = table.DataType,
-                        CreatedBy = creator
-                    });
+                var reportDto = model.Report;
+                using (var service = ServiceLocator.Instance.Resolve<IReportService>())
+                {
+                    // modify the report header
+                    service.UpdateReportHeader(reportDto.ID, reportDto.DisplayName, reportDto.Description, creator);
 
-                service.RemoveAllThenAddFields(reportDto.ID, addingFileds);
+                    // modify the report fields (add / remove)
+                    if (colunms == null)
+                        return Json(true);
+
+                    var report = service.FindReport(reportDto.ID);
+                    var tableSchemas = this.GetTableSchema(report.Database, report.ReportName);
+
+                    // firstly remove all，then add and sort
+                    var addingFileds = (from table in tableSchemas
+                        where colunms.Contains(table.ColunmName)
+                        select new ReportFieldDto
+                        {
+                            FieldName = table.ColunmName,
+                            DisplayName = table.ColunmName,
+                            DataType = table.DataType,
+                            CreatedBy = creator
+                        });
+
+                    service.RemoveAllThenAddFields(reportDto.ID, addingFileds);
+                }
+
+                return Json(true);
             }
-
-            return Json(true);
+            catch (Exception)
+            {
+                return Json(false, "Update the report failure.");
+            }
         }
 
         [HttpPost]

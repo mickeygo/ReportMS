@@ -49,13 +49,16 @@ namespace ReportMS.ServiceContracts
         ReportDto CreateReport(ReportDto reportDto);
 
         /// <summary>
-        /// 更新报表
+        /// 更新报表头.
+        /// 仅仅更新 DisplayName 和 Description
         /// </summary>
-        /// <param name="reportDto">要更新的报表</param>
-        /// <returns>返回更新后的报表对象</returns>
+        /// <param name="reportId">要更新的报表 Id</param>
+        /// <param name="displayName">要更新的显示名</param>
+        /// <param name="description">要更新的报表描述</param>
+        /// <param name="updatedBy">更新人</param>
         [OperationContract]
         [FaultContract(typeof(FaultData))]
-        ReportDto UpdateReport(ReportDto reportDto);
+        void UpdateReportHeader(Guid reportId, string displayName, string description, string updatedBy);
 
         /// <summary>
         /// 删除报表

@@ -75,7 +75,7 @@
     <Compile Include="EntityFramework\MenuRepositoryTest.cs" />
     <Compile Include="EntityFramework\MenuRoleRepositoryTest.cs" />
     <Compile Include="EntityFramework\ReportAggregateRepositoryTest.cs" />
-    <Compile Include="EntityFramework\ReportGroupItemRepositoryTest.cs" />
+    <Compile Include="EntityFramework\ReportProfileRepositoryTest.cs" />
     <Compile Include="EntityFramework\ReportGroupRepositoryTest.cs" />
     <Compile Include="EntityFramework\ReportGroupRoleRepositoryTest.cs" />
     <Compile Include="EntityFramework\RoleRepositoryTest.cs" />

@@ -1,0 +1,42 @@
+﻿@using ReportMS.DataTransferObjects.Dtos
+@model ReportGroupDto
+
+@{
+    var index = 1;
+}
+
+<div>
+    @if (Model.ReportGroupItems.HasAny())
+    {
+        <table class="table table-bordered table-striped table-hover">
+            <thead>
+            <tr>
+                <th>No.</th>
+                <th>Report Name</th>
+                <th>Description</th>
+                <th></th>
+            </tr>
+            </thead>
+            @foreach (var item in Model.ReportGroupItems)
+            {
+                <tbody>
+                <tr>
+                    <td>@(index++)</td>
+                    <td>@Html.DisplayFor(m => item.ReportProfile.Report.DisplayName)</td>
+                    <td>@Html.DisplayFor(m => item.ReportProfile.Report.Description)</td>
+                    <td>
+                        <a class="btn btn-danger btn-xs" data-href="@Url.Action("DeleteGroupItem")" data-repgroup-id="@item.ID" onclick="deleteReportGroupItem(this);">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            }
+        </table>
+    }
+    else
+    {
+        <div>Not any report group item.</div>        
+    }
+</div>
+

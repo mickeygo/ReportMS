@@ -19,19 +19,17 @@ namespace ReportMS.Application.Services
         private readonly IReportRepository _reportRepository;
         private readonly IReportGroupRoleRepository _reportGroupRoleRepository;
         private readonly IReportGroupRepository _reportGroupRepository;
-        private readonly IReportGroupItemRepository _reportGroupItemRepository;
 
         #endregion
 
         #region Ctor
 
         public ReportService(IReportRepository reportRepository, IReportGroupRoleRepository reportGroupRoleRepository,
-            IReportGroupRepository reportGroupRepository, IReportGroupItemRepository reportGroupItemRepository)
+            IReportGroupRepository reportGroupRepository)
         {
             this._reportRepository = reportRepository;
             this._reportGroupRoleRepository = reportGroupRoleRepository;
             this._reportGroupRepository = reportGroupRepository;
-            this._reportGroupItemRepository = reportGroupItemRepository;
         }
 
         #endregion
@@ -63,16 +61,14 @@ namespace ReportMS.Application.Services
             return report.MapAs<ReportDto>();
         }
 
-        public ReportDto UpdateReport(ReportDto reportDto)
+        public void UpdateReportHeader(Guid reportId, string displayName, string description, string updatedBy)
         {
-            var report = this._reportRepository.GetByKey(reportDto.ID);
-            if (report == null) 
-                return null;
+            var report = this._reportRepository.GetByKey(reportId);
+            if (report == null)
+                return;
 
-            report.UpdateReport(reportDto.DisplayName, reportDto.Description, reportDto.Database, reportDto.Schema,
-                reportDto.UpdatedBy);
-
-            return report.MapAs<ReportDto>();
+            report.UpdateReport(displayName, description, updatedBy);
+            this._reportRepository.Update(report);
         }
 
         public void DeleteReport(Guid reportId)
@@ -122,8 +118,6 @@ namespace ReportMS.Application.Services
                 this._reportGroupRoleRepository.Context.Dispose();
             if (this._reportGroupRepository != null)
                 this._reportGroupRepository.Context.Dispose();
-            if (this._reportGroupItemRepository != null)
-                this._reportGroupItemRepository.Context.Dispose();
         }
 
         #endregion

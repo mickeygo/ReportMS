@@ -1,16 +1,15 @@
 ﻿using System.Linq;
 using Gear.Infrastructure.Repository.EntityFramework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ReportMS.Domain.Models.ReportModule.ReportGroupAggregate;
-using ReportMS.Domain.Repositories;
 using ReportMS.Domain.Repositories.EntityFramework;
 using ReportMS.Test.Common;
 using Gear.Infrastructure;
+using ReportMS.Domain.Models.ReportModule.ReportProfileAggregate;
 
 namespace ReportMS.Test.Repositories.EntityFramework
 {
     [TestClass]
-    public class ReportGroupItemRepositoryTest
+    public class ReportProfileRepositoryTest
     {
         [TestInitialize]
         public void Initialize()
@@ -23,7 +22,7 @@ namespace ReportMS.Test.Repositories.EntityFramework
         {
             using (var repositoryContext = new EntityFrameworkRepositoryContext(new RmsDbContext("rms")))
             {
-                var reportGroupItems = repositoryContext.Context.Set<ReportGroupItem>().ToList();
+                var reportGroupItems = repositoryContext.Context.Set<ReportProfile>().ToList();
                 Assert.IsNotNull(reportGroupItems);
             }
         }
@@ -33,19 +32,9 @@ namespace ReportMS.Test.Repositories.EntityFramework
         {
             using (var repositoryContext = new EntityFrameworkRepositoryContext(new RmsDbContext("rms")))
             {
-                var reportGroupItems = repositoryContext.Context.Set<ReportGroupItemField>().ToList();
+                var reportGroupItems = repositoryContext.Context.Set<ReportProfileField>().ToList();
                 Assert.IsNotNull(reportGroupItems);
             }
-        }
-
-        [TestMethod]
-        public void Repository_Test()
-        {
-            var repository = ServiceLocator.Instance.Resolve<IReportGroupItemRepository>();
-            var reportGroupItems = repository.FindAll().ToList();
-            repository.Context.Dispose();
-
-            Assert.IsNotNull(reportGroupItems);
         }
     }
 }

@@ -36,10 +36,11 @@ namespace ReportMS.Reports.Services
             var sqlQuery = new StringBuilder();
             sqlQuery.AppendLine("SELECT rep.ReportId AS ID, rep.ReportName, rep.DisplayName, rep.Description, rep.Database_Name AS [Database], rep.Database_Schema AS [Schema] ");
             sqlQuery.AppendLine(" FROM  RMS_Role ro ");
-            sqlQuery.AppendLine("   INNER JOIN RMS_ReportGroupRole rgr ON rgr.RoleId = ro.RoleId ");
-            sqlQuery.AppendLine("   INNER JOIN RMS_ReportGroup rg ON rg.ReportGroupId = rgr.ReportGroupId ");
-            sqlQuery.AppendLine("   INNER JOIN RMS_ReportGroupItem rgi ON rgi.ReportGroupId = rg.ReportGroupId ");
-            sqlQuery.AppendLine("   INNER JOIN RMS_Report rep ON rep.ReportId = rgi.ReportId ");
+            sqlQuery.AppendLine("       INNER JOIN RMS_ReportGroupRole rgr ON rgr.RoleId = ro.RoleId ");
+            sqlQuery.AppendLine("       INNER JOIN RMS_ReportGroup rg ON rg.ReportGroupId = rgr.ReportGroupId ");
+            sqlQuery.AppendLine("       INNER JOIN RMS_ReportGroupItem rgi ON rgi.ReportGroupId = rg.ReportGroupId ");
+            sqlQuery.AppendLine("       INNER JOIN RMS_ReportProfile rp ON rp.ReportProfileId = rgi.ReportProfileId ");
+            sqlQuery.AppendLine("       INNER JOIN RMS_Report rep ON rep.ReportId = rp.ReportId ");
             sqlQuery.AppendLine(" WHERE ro.Enabled = 1 AND rep.Enabled = 1 ");
             sqlQuery.AppendLine("   AND ro.RoleId = @RoleId ");
 
@@ -77,11 +78,12 @@ namespace ReportMS.Reports.Services
         /// <returns>报表</returns>
         public ReportDto GetReport(Guid roleId, Guid reportId)
         {
-            var report = this.GetReport(reportId, false);
+            var report = this.GetReport(reportId, false);  // 获取报表头
             if (report == null)
                 return null;
 
-            var fields = this.GetReportFields(roleId, reportId);
+            // 获取报表字段，并进行筛选
+            var fields = this.GetReportFields(roleId, reportId);  
             report.Fields = fields;
 
             return report;
@@ -95,7 +97,7 @@ namespace ReportMS.Reports.Services
         {
             var sqlQuery = "SELECT ReportFieldId AS ID, ReportId, FieldName, DisplayName, DataType, Sort ";
             sqlQuery += " FROM  RMS_ReportField ";
-            sqlQuery += " WHERE ReportId = @ReportId";
+            sqlQuery += " WHERE ReportId = @ReportId ";
             sqlQuery += " ORDER BY Sort";
             return DatabaseReader.Default.Reader.Select<ReportFieldDto>(sqlQuery, new { ReportId = reportId });
         }
@@ -105,12 +107,14 @@ namespace ReportMS.Reports.Services
             var sqlQuery = new StringBuilder();
             sqlQuery.AppendLine("SELECT rf.ReportFieldId AS ID, rf.ReportId, rf.FieldName, rf.DisplayName, rf.DataType, rf.Sort ");
             sqlQuery.AppendLine(" FROM  RMS_Role ro ");
-            sqlQuery.AppendLine("   INNER JOIN RMS_ReportGroupRole rgr ON rgr.RoleId = ro.RoleId ");
-            sqlQuery.AppendLine("   INNER JOIN RMS_ReportGroup rg ON rg.ReportGroupId = rgr.ReportGroupId ");
-            sqlQuery.AppendLine("   INNER JOIN RMS_ReportGroupItem rgi ON rgi.ReportGroupId = rg.ReportGroupId ");
-            sqlQuery.AppendLine("   INNER JOIN RMS_ReportGroupItemField rgif ON rgif.ReportGroupItemId = rgi.ReportGroupItemId ");
-            sqlQuery.AppendLine("   INNER JOIN RMS_Report rep ON rep.ReportId = rgi.ReportId ");
-            sqlQuery.AppendLine(" WHERE ro.Enabled = 1 AND rep.Enabled = 1 ");
+            sqlQuery.AppendLine("       INNER JOIN RMS_ReportGroupRole rgr ON rgr.RoleId = ro.RoleId ");
+            sqlQuery.AppendLine("       INNER JOIN RMS_ReportGroup rg ON rg.ReportGroupId = rgr.ReportGroupId ");
+            sqlQuery.AppendLine("       INNER JOIN RMS_ReportGroupItem rgi ON rgi.ReportGroupId = rg.ReportGroupId ");
+            sqlQuery.AppendLine("       INNER JOIN RMS_ReportProfile rp ON rp.ReportProfileId = rgi.ReportProfileId");
+            sqlQuery.AppendLine("       INNER JOIN RMS_ReportProfileField rpf ON rpf.ReportProfileId = rp.ReportProfileId ");
+            sqlQuery.AppendLine("       INNER JOIN RMS_Report rep ON rep.ReportId = rp.ReportId ");
+            sqlQuery.AppendLine("       INNER JOIN RMS_ReportField rf ON rf.ReportId = rep.ReportId AND rf.FieldName = rpf.FieldName ");
+            sqlQuery.AppendLine(" WHERE ro.Enabled = 1 AND rg.Enabled = 1 AND rp.Enabled = 1 AND rep.Enabled = 1 ");
             sqlQuery.AppendLine("   AND ro.RoleId = @RoleId AND rep.ReportId = @ReportId");
 
             return DatabaseReader.Default.Reader.Select<ReportFieldDto>(sqlQuery.ToString(), new { RoleId = roleId, ReportId = reportId });

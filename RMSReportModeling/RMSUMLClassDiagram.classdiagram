@@ -640,13 +640,6 @@
               <classMoniker Id="9ee7fe35-8a2a-4688-8d1e-1acd144313a5" LastKnownName="ReportGroup" />
             </annotatedElements>
           </comment>
-          <comment Id="b0a82ad1-122d-422e-8f1e-9a401c627a58">
-            <elementDefinition Id="8d5d6ce8-dcdb-4bb2-96b7-97b0037ce2ee" />
-            <body>AggregateRoot</body>
-            <annotatedElements>
-              <classMoniker Id="e6afa702-93b4-4d29-b006-f1be940a581f" LastKnownName="ReportGroupItem" />
-            </annotatedElements>
-          </comment>
           <comment Id="739dcd62-e8c6-4139-a644-df25e2c59446">
             <elementDefinition Id="f9e746d1-1464-4623-8af1-5f9e634a3800" />
             <body>AggregateRoot</body>
@@ -661,6 +654,13 @@
               <classMoniker Id="934032f9-b61e-4b67-b30c-192038591892" LastKnownName="Report" />
             </annotatedElements>
           </comment>
+          <comment Id="346c4252-c263-493f-a448-c071c765a45e">
+            <elementDefinition Id="fe78a93e-d918-4a9c-89e3-7b7c4f03c3fb" />
+            <body>AggregateRoot</body>
+            <annotatedElements>
+              <classMoniker Id="a5364157-2dd8-4871-98bb-755c33a9ac38" LastKnownName="ReportProfile" />
+            </annotatedElements>
+          </comment>
         </ownedCommentsInternal>
         <elementDefinition Id="fc76c77d-e2a1-4593-b642-616ac33abf68" />
         <packagedElements>
@@ -668,31 +668,31 @@
             <class Id="9ee7fe35-8a2a-4688-8d1e-1acd144313a5" name="ReportGroup" isAbstract="false" isLeaf="false" isActiveClass="false">
               <elementDefinition Id="351a0b1c-a0b2-4733-bc29-4641955e9a70" />
               <targetEnds>
-                <association Id="fecca5ec-a4bf-44df-94a3-6e60b1e89c55" isDerived="false" sourceEndRoleName="ReportGroup" targetEndRoleName="ReportInReportGroup" isLeaf="false" isAbstract="false">
-                  <classMoniker Id="e6afa702-93b4-4d29-b006-f1be940a581f" LastKnownName="ReportGroupItem" />
+                <association Id="ada39c09-4961-49e7-8c57-b6635fe88a0c" isDerived="false" sourceEndRoleName="" targetEndRoleName="" isLeaf="false" isAbstract="false">
+                  <classMoniker Id="7cdc14e6-01c5-452a-a7e7-5c9d25eebff0" LastKnownName="ReportGroupItem" />
                   <relationshipOwnedElementsInternal>
                     <associationHasOwnedEnds>
-                      <memberEnd Id="001569f4-cee7-4695-81e1-6c179f65e3ef" name="ReportGroup" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Shared" isComposite="false" isNavigableOwned="false">
-                        <elementDefinition Id="e207097f-5dfa-488e-9eb4-4da8da9e675a" />
+                      <memberEnd Id="86618337-62e7-41c2-8138-00e5b6e32a07" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Shared" isComposite="false" isNavigableOwned="false">
+                        <elementDefinition Id="1ccc2873-7d7a-4595-8d87-70b437b50836" />
                       </memberEnd>
                     </associationHasOwnedEnds>
                     <associationHasOwnedEnds>
-                      <memberEnd Id="34496c6f-8f89-44f7-9f25-8325acb030ba" name="ReportInReportGroup" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                      <memberEnd Id="9ad46518-3e69-4788-8d4e-7867591d7303" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
                         <lowerValueInternal>
-                          <literalString Id="1615d957-b12b-495c-98ed-cf09c7fa5f42" name="Lower" value="m">
-                            <elementDefinition Id="540e49fd-869b-43b8-9e7c-18fcb2dbfece" />
+                          <literalString Id="bb0191f3-ddc1-4458-b3ca-8525afdfbce9" name="Lower" value="n">
+                            <elementDefinition Id="b36acf07-2fbc-49bd-84bf-02e51d8a3701" />
                           </literalString>
                         </lowerValueInternal>
                         <upperValueInternal>
-                          <literalString Id="8e0d1fda-f051-4eaf-a3bf-035e00702896" name="Upper" value="m">
-                            <elementDefinition Id="9e4f5ca9-bcf1-48e0-be1b-7837fb1defcb" />
+                          <literalString Id="26d4b5d4-7007-4962-bfb1-385980212a03" name="Upper" value="n">
+                            <elementDefinition Id="08f34692-795c-4b87-a74a-9481e42165ad" />
                           </literalString>
                         </upperValueInternal>
-                        <elementDefinition Id="da5a9f3e-685f-4deb-8bcc-6705414bf48b" />
+                        <elementDefinition Id="116ef7c2-83e8-4217-8b55-8c154ea35946" />
                       </memberEnd>
                     </associationHasOwnedEnds>
                   </relationshipOwnedElementsInternal>
-                  <elementDefinition Id="9a4bb162-1217-4845-9ded-15a97c242de1" />
+                  <elementDefinition Id="8feca094-416b-49b2-8229-97cb9e965429" />
                 </association>
               </targetEnds>
               <ownedAttributesInternal>
@@ -707,82 +707,6 @@
                 </property>
                 <property Id="8215189c-9ce7-4903-aae4-98f9c16b4efd" name="Description" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
                   <elementDefinition Id="1e428ad8-1d3a-4ce4-bb0b-a46b7c88e292" />
-                </property>
-              </ownedAttributesInternal>
-            </class>
-          </packageHasNamedElement>
-          <packageHasNamedElement>
-            <class Id="e6afa702-93b4-4d29-b006-f1be940a581f" name="ReportGroupItem" isAbstract="false" isLeaf="false" isActiveClass="false">
-              <elementDefinition Id="362a6055-e6bb-4862-87ce-0b9096826e25" />
-              <targetEnds>
-                <association Id="44b6dd2e-2d1c-4b5b-9c98-255b7cfb628d" isDerived="false" sourceEndRoleName="" targetEndRoleName="" isLeaf="false" isAbstract="false">
-                  <classMoniker Id="934032f9-b61e-4b67-b30c-192038591892" LastKnownName="Report" />
-                  <relationshipOwnedElementsInternal>
-                    <associationHasOwnedEnds>
-                      <memberEnd Id="84789891-d0cf-42a2-9b64-8c6c4e0612e5" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
-                        <elementDefinition Id="a630af48-4ae1-4442-ae44-8d6f36a93be3" />
-                      </memberEnd>
-                    </associationHasOwnedEnds>
-                    <associationHasOwnedEnds>
-                      <memberEnd Id="51042240-f54c-4fcb-be2d-ee3f8a91b3f9" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-                        <elementDefinition Id="67bbf183-4bc1-4c62-9aac-8f9b258f74e4" />
-                      </memberEnd>
-                    </associationHasOwnedEnds>
-                  </relationshipOwnedElementsInternal>
-                  <elementDefinition Id="dcc4bee6-2ad0-4f7d-8956-c309ab450e7f" />
-                </association>
-                <association Id="0d6d73dc-08f7-4236-9a2d-51f18254ed9f" isDerived="false" sourceEndRoleName="ReportGroupList" targetEndRoleName="ReportGroupFieldDetail" isLeaf="false" isAbstract="false">
-                  <classMoniker Id="a11a105b-2537-4c12-a1d0-c3d73943611b" LastKnownName="ReportGroupItemField" />
-                  <relationshipOwnedElementsInternal>
-                    <associationHasOwnedEnds>
-                      <memberEnd Id="38396a50-2800-4b4c-a4de-558adc33977c" name="ReportGroupList" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Shared" isComposite="false" isNavigableOwned="false">
-                        <elementDefinition Id="a4f131cc-b390-41db-a894-98472d7e3b36" />
-                      </memberEnd>
-                    </associationHasOwnedEnds>
-                    <associationHasOwnedEnds>
-                      <memberEnd Id="e861363e-81d2-46c3-994a-46062b2ad57d" name="ReportGroupFieldDetail" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-                        <lowerValueInternal>
-                          <literalString Id="807f3465-ae6a-4700-a7b5-221b060a3f6e" name="Lower" value="n">
-                            <elementDefinition Id="c3dd6146-b865-4165-9c8b-ba536072f84c" />
-                          </literalString>
-                        </lowerValueInternal>
-                        <upperValueInternal>
-                          <literalString Id="18e48295-9abc-493d-bcef-c959615ac5d8" name="Upper" value="n">
-                            <elementDefinition Id="6c0ccf4c-ed34-4332-96a7-bb6f5b9e7595" />
-                          </literalString>
-                        </upperValueInternal>
-                        <elementDefinition Id="bcc78eb4-d823-458d-837b-96ac0ac0600c" />
-                      </memberEnd>
-                    </associationHasOwnedEnds>
-                  </relationshipOwnedElementsInternal>
-                  <elementDefinition Id="a368be99-b4fa-4c6a-a49d-928b2a2b01d7" />
-                </association>
-              </targetEnds>
-              <ownedAttributesInternal>
-                <property Id="0abc24e4-96c5-46d9-ae5b-24989b175aa2" name="ID" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-                  <elementDefinition Id="d3d49707-b7d0-4a98-b7fc-ae08ba6c841f" />
-                </property>
-                <property Id="dca4c34d-0bdc-41e9-94dc-cb530ba61593" name="ReportId" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-                  <elementDefinition Id="1ef3d573-7eca-4224-84ea-4147f8df0cf5" />
-                </property>
-                <property Id="b2b67bcf-fa8b-4a9a-91f5-4fe71e5a57a6" name="ReportGroupId" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-                  <elementDefinition Id="ab7de96b-1ab3-45e1-a687-5b9a5e78461e" />
-                </property>
-              </ownedAttributesInternal>
-            </class>
-          </packageHasNamedElement>
-          <packageHasNamedElement>
-            <class Id="a11a105b-2537-4c12-a1d0-c3d73943611b" name="ReportGroupItemField" isAbstract="false" isLeaf="false" isActiveClass="false">
-              <elementDefinition Id="0f8d6fa9-c152-4211-bf73-6c63d2066f37" />
-              <ownedAttributesInternal>
-                <property Id="68731aca-5007-4ba0-af05-fc2b672d1451" name="ID" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-                  <elementDefinition Id="e1765fb6-7b56-4a6f-b38f-ced769545887" />
-                </property>
-                <property Id="fec8f3b1-d7e5-41c1-a578-107a9f9cf0e1" name="ReportFieldName" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-                  <elementDefinition Id="2def703b-f333-428a-938d-e545dcbcc5fb" />
-                </property>
-                <property Id="e39a5c16-cb30-4f03-96f1-b9e172a561d1" name="ReportGroupItemId" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-                  <elementDefinition Id="967f1aab-f798-4c36-bf8b-e1f6f820533f" />
                 </property>
               </ownedAttributesInternal>
             </class>
@@ -936,6 +860,122 @@
                 </property>
                 <property Id="32ab3f17-8514-4c1a-8f7c-946537b75d4a" name="Description" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
                   <elementDefinition Id="502eba6f-8aa2-4546-9aee-2a9b735f30e4" />
+                </property>
+              </ownedAttributesInternal>
+            </class>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <class Id="7cdc14e6-01c5-452a-a7e7-5c9d25eebff0" name="ReportGroupItem" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="6decf7b4-b06a-437d-8132-1e9cade6c3b7" />
+              <targetEnds>
+                <association Id="f92f1696-777b-4b9f-b94d-453214fd9933" isDerived="false" sourceEndRoleName="" targetEndRoleName="" isLeaf="false" isAbstract="false">
+                  <classMoniker Id="a5364157-2dd8-4871-98bb-755c33a9ac38" LastKnownName="ReportProfile" />
+                  <relationshipOwnedElementsInternal>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="680d5204-bbce-4c65-91c5-e2b3efd4f94f" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                        <elementDefinition Id="be6a3368-48f3-42e3-995e-6068a14a96ec" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="2529300d-8ffa-4061-9e75-1a07091c85ab" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                        <elementDefinition Id="5980f102-bc88-4e23-90d6-31a830df0261" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                  </relationshipOwnedElementsInternal>
+                  <elementDefinition Id="03d784d9-fc7b-437a-8400-cc618e0fba46" />
+                </association>
+              </targetEnds>
+              <ownedAttributesInternal>
+                <property Id="724ec1b2-2f03-428b-a130-603905e60153" name="ID" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="a4148aed-acb2-4f1d-922f-2582458aecb1" />
+                </property>
+                <property Id="9029c73e-d9cc-46e1-8d0f-dde22cd4b19f" name="ReportGroupId" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="16f75541-c83d-4e0c-b475-1e264d6ae66a" />
+                </property>
+                <property Id="bba27c8a-0c87-4664-9ae5-f471674d7529" name="ReportProfileId" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="8ca5ab16-e37e-4c04-ad58-8056e5c9d219" />
+                </property>
+              </ownedAttributesInternal>
+            </class>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <class Id="a5364157-2dd8-4871-98bb-755c33a9ac38" name="ReportProfile" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="9f25e199-86ae-4e38-a984-a0cf79fb7f9d" />
+              <targetEnds>
+                <association Id="621f2255-fc26-4c9c-8353-20b8ec3c69de" isDerived="false" sourceEndRoleName="" targetEndRoleName="" isLeaf="false" isAbstract="false">
+                  <classMoniker Id="753acb83-c75c-4dab-95a4-17b670fcacd1" LastKnownName="ReportProfileField" />
+                  <relationshipOwnedElementsInternal>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="460a1548-c9ba-4c5f-a775-23b59559acef" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Shared" isComposite="false" isNavigableOwned="false">
+                        <elementDefinition Id="ced61525-a7f6-458f-9807-c1c62644a932" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="065c0520-29d7-461b-a4ea-0b091f54d8fd" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                        <lowerValueInternal>
+                          <literalString Id="941be392-1e05-4956-a5fb-70b122b9f300" name="Lower" value="n">
+                            <elementDefinition Id="3869c78d-3dfa-4cd1-ad24-b41c06141139" />
+                          </literalString>
+                        </lowerValueInternal>
+                        <upperValueInternal>
+                          <literalString Id="e7b1c528-6c40-4112-bc6a-3fbd53769164" name="Upper" value="n">
+                            <elementDefinition Id="7b4c9e64-d50e-459c-84a6-e6e37eb3cf99" />
+                          </literalString>
+                        </upperValueInternal>
+                        <elementDefinition Id="78efbd53-59bb-4d8b-a85f-f83d8dc6481e" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                  </relationshipOwnedElementsInternal>
+                  <elementDefinition Id="00a6f5af-f76c-46d7-8c1f-d01404bb311c" />
+                </association>
+                <association Id="414f894a-63a9-4a27-9faf-e54c59e26e0c" isDerived="false" sourceEndRoleName="" targetEndRoleName="" isLeaf="false" isAbstract="false">
+                  <classMoniker Id="934032f9-b61e-4b67-b30c-192038591892" LastKnownName="Report" />
+                  <relationshipOwnedElementsInternal>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="d1ce3ecd-d5bc-4ec1-a1e4-137ac59c135f" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                        <elementDefinition Id="ed135b6d-0174-4b64-b9be-7d2a1ebe4d7a" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="2640c1f0-86bc-4f7e-8c2f-5c30b23fc973" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                        <elementDefinition Id="d9e3aaa6-1951-4339-9744-d2894173f0c0" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                  </relationshipOwnedElementsInternal>
+                  <elementDefinition Id="ed7928f5-b689-45f8-adc5-58eecbf08e33" />
+                </association>
+              </targetEnds>
+              <ownedAttributesInternal>
+                <property Id="e6d3cdce-2362-431c-a691-6b63d90ad978" name="ID" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="bcaed5f6-f2d5-4e4d-ba30-a73bf31d4e49" />
+                </property>
+                <property Id="c240b56b-577b-4ca8-8565-8edf3810b117" name="ReportId" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="0972b456-dc56-4ea6-85a7-f3e5750ca12f" />
+                </property>
+                <property Id="830baa39-f989-485c-9727-cde6e946f25c" name="Name" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="74a6bc92-8fa3-4505-a18c-91482a79ec21" />
+                </property>
+                <property Id="393086ed-3a6c-420a-9c69-0185fece09b7" name="Description" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="f61fe6e0-18ac-4eb9-aece-dd8e6bb8253a" />
+                </property>
+                <property Id="c1bf0e08-8bb8-4563-9d98-6d8c123f8591" name="Enabled" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="270f35a8-e755-4c5e-9a18-f8708dcb0e15" />
+                </property>
+              </ownedAttributesInternal>
+            </class>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <class Id="753acb83-c75c-4dab-95a4-17b670fcacd1" name="ReportProfileField" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="50fc16f7-e6d4-419f-8ba6-1ec8dfff641f" />
+              <ownedAttributesInternal>
+                <property Id="891b90e7-4132-4eb8-b52f-d34a0e29eb6e" name="ID" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="51c192a3-ec98-4fa1-9844-ae2840499633" />
+                </property>
+                <property Id="9e37a232-f5c1-40c9-8398-32d5949fa324" name="ReportProfileId" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="0ad1b155-d6b6-4c7c-89f7-a8073bdc6b82" />
+                </property>
+                <property Id="4391c4d9-c3dc-4a02-b7e5-35cdc8f83bcf" name="FieldName" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="c941311d-96e0-4bd1-90f6-bc73f71b7b96" />
                 </property>
               </ownedAttributesInternal>
             </class>

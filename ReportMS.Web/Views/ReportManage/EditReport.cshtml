@@ -12,16 +12,6 @@
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(m => m.Report.Database, new { @class = "col-md-3 control-label" })
-            <div class="col-md-3">
-                @Html.TextBoxFor(m => m.Report.Database, new { @class = "form-control", maxlength = "20" })
-            </div>
-            @Html.LabelFor(m => m.Report.Schema, new { @class = "col-md-2 control-label" })
-            <div class="col-md-3">
-                @Html.TextBoxFor(m => m.Report.Schema, new { @class = "form-control", @readonly = "readonly", maxlength = "10" })
-            </div>
-        </div>
-        <div class="form-group">
             @Html.LabelFor(m => m.Report.Description, new { @class = "col-md-3 control-label" })
             <div class="col-md-9">
                 @Html.TextAreaFor(m => m.Report.Description, new { @class = "form-control", maxlength = "100" })

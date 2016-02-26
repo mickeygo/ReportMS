@@ -13,7 +13,6 @@ namespace ReportMS.Domain.Repositories.EntityFramework.ModelConfigurations
             this.HasKey(p => p.ID);
             this.Property(p => p.ID).HasColumnName("ReportGroupItemId");
             this.HasRequired(p => p.ReportGroup);
-            this.HasRequired(p => p.Report);
 
             this.ToTable("RMS_ReportGroupItem");
         }

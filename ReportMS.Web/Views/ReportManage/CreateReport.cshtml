@@ -17,19 +17,19 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="col-md-3 control-label" for="Database">Database</label>
+            @Html.LabelFor(m => m.Database, new { @class = "col-md-3 control-label" })
             <div class="col-md-9">
                 @Html.TextBoxFor(m => m.Database, new { @class = "form-control", maxlength = "20" })
             </div>
         </div>
         <div class="form-group">
-            <label class="col-md-3 control-label" for="Schema">Schema</label>
+            @Html.LabelFor(m => m.Schema, new { @class = "col-md-3 control-label" })
             <div class="col-md-9">
                 @Html.TextBoxFor(m => m.Schema, new { @class = "form-control", @readonly = "readonly", maxlength = "10" })
             </div>
         </div>
         <div class="form-group">
-            <label class="col-md-3 control-label" for="Description">Description</label>
+            @Html.LabelFor(m => m.Description, new { @class = "col-md-3 control-label" })
             <div class="col-md-9">
                 @Html.TextAreaFor(m => m.Description, new {@class = "form-control", maxlength = "100"})
             </div>
@@ -37,7 +37,7 @@
         <div class="form-group">
             <div class="col-md-offset-3 col-md-9">
                 <input type="submit" value="submit" class="btn btn-primary"
-                       onclick="return confirm('After submitted, the report name would not allowed modified, are you want to continue submit ?');" />
+                       onclick="return confirm('After submitted, the report name and database would not allowed modified, are you want to continue submit ?');" />
             </div>
         </div>
     }

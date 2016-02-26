@@ -1,0 +1,108 @@
+﻿@using ReportMS.DataTransferObjects.Dtos
+@model IEnumerable<ReportGroupDto>
+
+@{
+    ViewBag.Title = "Report Group Manage";
+}
+
+@section scripts {
+    <script>
+        $("table tbody").on("click", "td[data-details-control=true]", function() {
+            var tr = $(this).closest("tr");
+            var len = tr.children().length;
+            if ($(this).hasClass("details-control-open")) {
+                var td = $("<td colspan=" + len + "></td>");
+                var url = $(this).attr("data-href");
+                td.load(url);
+                var row = $("<tr></tr>").append(td);
+                tr.after(row);
+                $(this).removeClass("details-control-open").addClass("details-control-close");
+            } else {
+                tr.next().remove();
+                $(this).removeClass("details-control-close").addClass("details-control-open");
+            }
+        });
+
+        function createGroupSuccess(data) {
+            if (data.status === "success") {
+                reloadReportGroup();
+            } else {
+                alert(data.message);
+            }
+        }
+
+        function addGroupItemsSuccess(data) {
+
+        }
+
+        function deleteReportGroupItem(element) {
+            var url = $(this).attr("data-href");
+            var id = $(this).attr("data-repgroup-id");
+
+            $.post(url, { reportGroupId: id }, function(data) {
+                if (data.status === "success") {
+                    ($(this).parents("tbody")[0]).remove();
+                } else {
+                    alert(data.message);
+                }
+            });
+        }
+
+        function reloadReportGroup() {
+
+        }
+    </script>
+}
+
+@Html.Navigate("Manage", "Report Group")
+
+<div>
+    <div class="ibox-title">
+        <div class="ibox-tools rboor">
+            <a class="btn btn-primary btn-xs" data-dialog="true" data-ajax-form="true" data-dialog-href="@Url.Action("CreateGroup")" data-dialog-title="Create Report Group"
+               data-ajax-success="createGroupSuccess" data-ajax-failure="createGroupFailure">
+                <span class="glyphicon glyphicon-plus"></span> Add Report Group
+            </a>
+        </div>
+    </div>
+
+    <div id="reportgroup">
+        @if (Model.HasAny())
+        {
+            <table class="table table-bordered table-striped table-hover">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th></th>
+                </tr>
+                </thead>
+                @foreach (var item in Model)
+                {
+                    <tbody>
+                    <tr>
+                        <td data-details-control="true" class="details-control-open" data-href="@Url.Action("FindGroup", new { reportGroupId = item.ID })"></td>
+                        <td>@Html.DisplayFor(m => item.DisplayName)</td>
+                        <td>@Html.DisplayFor(m => item.Description)</td>
+                        <td>
+                            <a class="btn btn-primary btn-xs" data-dialog="true" data-ajax-form="true" data-dialog-href=""
+                               data-dialog-title="" data-ajax-success="">
+                                <span class="glyphicon glyphicon-edit"></span>
+                            </a>
+                            <a class="btn btn-danger btn-xs" data-href="" data-repgroup-id="" onclick="">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </a>
+                            <a class="btn btn-info btn-xs" data-dialog="true" data-ajax-form="true" data-dialog-href="@Url.Action("AddGroupItem", new { reportGroupId = item.ID })"
+                               data-dialog-title="Add Report Group Items" data-ajax-success="addGroupItemsSuccess"
+                               data-toggle="tooltip" title="Add report group item">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                }
+            </table>
+        }
+    </div>
+</div>

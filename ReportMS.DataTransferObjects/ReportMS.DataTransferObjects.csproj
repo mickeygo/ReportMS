@@ -56,8 +56,9 @@
     <Compile Include="Dtos\ReportFieldDto.cs" />
     <Compile Include="Dtos\ReportGroupDto.cs" />
     <Compile Include="Dtos\ReportGroupItemDto.cs" />
-    <Compile Include="Dtos\ReportGroupItemFieldDto.cs" />
+    <Compile Include="Dtos\ReportProfileDto.cs" />
     <Compile Include="Dtos\ReportGroupRoleDto.cs" />
+    <Compile Include="Dtos\ReportProfileFieldDto.cs" />
     <Compile Include="Dtos\RoleDto.cs" />
     <Compile Include="Dtos\TableSchemaDto.cs" />
     <Compile Include="Dtos\TenantDto.cs" />
@@ -71,6 +72,7 @@
     <Compile Include="Profiles\ReportGroupMapperProfile.cs" />
     <Compile Include="Profiles\ReportGroupRoleMapperProfile.cs" />
     <Compile Include="Profiles\ReportMapperProfile.cs" />
+    <Compile Include="Profiles\ReportProfileMapperProfile.cs" />
     <Compile Include="Profiles\RoleMapperProfile.cs" />
     <Compile Include="Profiles\TenantMapperProfile.cs" />
     <Compile Include="Profiles\UserMapperProfile.cs" />

@@ -185,7 +185,9 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\Manages\ReportGroupManageController.cs" />
     <Compile Include="Controllers\Manages\ReportManageController.cs" />
+    <Compile Include="Controllers\Manages\ReportProfileManageController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\Manages\TenementController.cs" />
     <Compile Include="Global.asax.cs">
@@ -290,6 +292,8 @@
     <Content Include="Content\DataTables\css\select.jqueryui.min.css" />
     <Content Include="Content\DataTables\images\details_close.png" />
     <Content Include="Content\DataTables\images\details_open.png" />
+    <Content Include="Content\themes\details_close.png" />
+    <Content Include="Content\themes\details_open.png" />
     <Content Include="Content\DataTables\images\sort_asc.png" />
     <Content Include="Content\DataTables\images\sort_asc_disabled.png" />
     <Content Include="Content\DataTables\images\sort_both.png" />
@@ -526,6 +530,11 @@
     <Content Include="Views\ReportManage\Index.cshtml" />
     <Content Include="Views\ReportManage\EditReport.cshtml" />
     <Content Include="Views\ReportManage\CreateReport.cshtml" />
+    <Content Include="Views\ReportGroupManage\Index.cshtml" />
+    <Content Include="Views\ReportGroupManage\CreateGroup.cshtml" />
+    <Content Include="Views\ReportGroupManage\FindGroup.cshtml" />
+    <Content Include="Views\ReportGroupManage\AddGroupItem.cshtml" />
+    <Content Include="Views\ReportProfileManage\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

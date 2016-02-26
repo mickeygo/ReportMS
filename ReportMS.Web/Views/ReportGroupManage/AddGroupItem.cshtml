@@ -1,0 +1,42 @@
+﻿@using ReportMS.DataTransferObjects.Dtos
+@model IEnumerable<ReportProfileDto>
+
+@{
+    var index = 1;
+}
+
+<div>
+    @if (!Model.HasAny())
+    {
+        <div>Not any report profile item.</div>
+        return;
+    }
+
+    @using (Html.BeginForm(null, null, FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
+    {
+        @Html.AntiForgeryToken()
+        <table>
+            <thead>
+            <tr>
+                <th></th>
+                <th>No.</th>
+                <th>Name</th>
+                <th>Description</th>
+            </tr>
+            </thead>
+            @foreach (var item in Model.OrderBy(p => p.Name))
+            {
+                <tbody>
+                <tr>
+                    <td>
+                        <input type="checkbox" name="profiles" value="@item.ID"/>
+                    </td>
+                    <td>@(index++)</td>
+                    <td>@Html.DisplayFor(m => item.Name)</td>
+                    <td>@Html.DisplayFor(m => item.Description)</td>
+                </tr>
+                </tbody>
+            }
+        </table>
+    }
+</div>

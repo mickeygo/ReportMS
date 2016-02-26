@@ -1,0 +1,60 @@
+﻿@using ReportMS.DataTransferObjects.Dtos
+@model IEnumerable<ReportProfileDto>
+
+@{
+    ViewBag.Title = "Report Group Manage";
+}
+
+@section scripts {
+
+}
+
+@Html.Navigate("Manage", "Report Profile")
+
+<div>
+    <div class="ibox-title">
+        <div class="ibox-tools rboor">
+            <a class="btn btn-primary btn-xs" data-dialog="true" data-ajax-form="true" data-dialog-href="@Url.Action("CreateProfile")" data-dialog-title="Create Report Group"
+               data-ajax-success="createGroupSuccess" data-ajax-failure="createGroupFailure">
+                <span class="glyphicon glyphicon-plus"></span> Add Report Group
+            </a>
+        </div>
+    </div>
+
+    <div>
+        @if (!Model.HasAny())
+        {
+            return;
+        }
+
+        <table class="table table-bordered table-striped table-hover">
+            <thead>
+            <tr>
+                <th></th>
+                <th>Name</th>
+                <th>Description</th>
+                <th></th>
+            </tr>
+            </thead>
+            @foreach (var item in Model)
+            {
+                <tbody>
+                    <tr>
+                        <td data-details-control="true" class="details-control-open" data-href="@Url.Action("FindProfile", new { reportProfileId = item.ID })"></td>
+                        <td>@Html.DisplayFor(m => item.Name)</td>
+                        <td>@Html.DisplayFor(m => item.Description)</td>
+                        <td>
+                            <a class="btn btn-primary btn-xs" data-dialog="true" data-ajax-form="true" data-dialog-href=""
+                               data-dialog-title="" data-ajax-success="">
+                                <span class="glyphicon glyphicon-edit"></span>
+                            </a>
+                            <a class="btn btn-danger btn-xs" data-href="" data-repgroup-id="" onclick="">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            }
+        </table>
+    </div>
+</div>

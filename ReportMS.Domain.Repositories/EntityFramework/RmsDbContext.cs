@@ -54,7 +54,8 @@ namespace ReportMS.Domain.Repositories.EntityFramework
             modelBuilder.Configurations.Add(new DatabaseComplexTypeConfiguration());
             modelBuilder.Configurations.Add(new ReportGroupEntityTypeConfiguration());
             modelBuilder.Configurations.Add(new ReportGroupItemEntityTypeConfiguration());
-            modelBuilder.Configurations.Add(new ReportGroupItemFieldEntityTypeConfiguration());
+            modelBuilder.Configurations.Add(new ReportProfileEntityTypeConfiguration());
+            modelBuilder.Configurations.Add(new ReportProfileFieldEntityTypeConfiguration());
             modelBuilder.Configurations.Add(new ReportGroupRoleEntityTypeConfiguration());
 
             // DynamicFilter

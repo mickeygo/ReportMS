@@ -29,6 +29,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
@@ -58,8 +61,9 @@
     <Compile Include="EntityFramework\ModelConfigurations\ReportFieldEntityTypeConfiguration.cs" />
     <Compile Include="EntityFramework\ModelConfigurations\ReportEntityTypeConfiguration.cs" />
     <Compile Include="EntityFramework\ModelConfigurations\ReportGroupItemEntityTypeConfiguration.cs" />
-    <Compile Include="EntityFramework\ModelConfigurations\ReportGroupItemFieldEntityTypeConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\ReportProfileFieldEntityTypeConfiguration.cs" />
     <Compile Include="EntityFramework\ModelConfigurations\ReportGroupRoleEntityTypeConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\ReportProfileEntityTypeConfiguration.cs" />
     <Compile Include="EntityFramework\ModelConfigurations\RoleEntityTypeConfiguration.cs" />
     <Compile Include="EntityFramework\ModelConfigurations\TenantEntityTypeConfiguration.cs" />
     <Compile Include="EntityFramework\ModelConfigurations\UserEntityTypeConfiguration.cs" />
@@ -68,9 +72,9 @@
     <Compile Include="EntityFramework\Repository\ActionRoleRepository.cs" />
     <Compile Include="EntityFramework\Repository\MenuRepository.cs" />
     <Compile Include="EntityFramework\Repository\MenuRoleRepository.cs" />
-    <Compile Include="EntityFramework\Repository\ReportGroupItemRepository.cs" />
     <Compile Include="EntityFramework\Repository\ReportGroupRepository.cs" />
     <Compile Include="EntityFramework\Repository\ReportGroupRoleRepository.cs" />
+    <Compile Include="EntityFramework\Repository\ReportProfileRepository.cs" />
     <Compile Include="EntityFramework\Repository\ReportRepository.cs" />
     <Compile Include="EntityFramework\Repository\RoleRepository.cs" />
     <Compile Include="EntityFramework\Repository\TenantRepository.cs" />

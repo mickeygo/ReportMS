@@ -15,16 +15,6 @@
       </annotatedElements>
     </comment>
     <comment
-      Id="8d5d6ce8-dcdb-4bb2-96b7-97b0037ce2ee">
-      <body>AggregateRoot</body>
-      <annotatedElements>
-        <classMoniker
-          Id="362a6055-e6bb-4862-87ce-0b9096826e25"
-          LastKnownName="ReportGroupItem"
-          LastKnownLocation="Package_1427.uml" />
-      </annotatedElements>
-    </comment>
-    <comment
       Id="f9e746d1-1464-4623-8af1-5f9e634a3800">
       <body>AggregateRoot</body>
       <annotatedElements>
@@ -54,6 +44,16 @@
           LastKnownLocation="Package_1427.uml" />
       </annotatedElements>
     </comment>
+    <comment
+      Id="fe78a93e-d918-4a9c-89e3-7b7c4f03c3fb">
+      <body>AggregateRoot</body>
+      <annotatedElements>
+        <classMoniker
+          Id="9f25e199-86ae-4e38-a984-a0cf79fb7f9d"
+          LastKnownName="ReportProfile"
+          LastKnownLocation="Package_1427.uml" />
+      </annotatedElements>
+    </comment>
   </ownedCommentsInternal>
   <packagedElements>
     <packageHasNamedElement>
@@ -67,7 +67,7 @@
           <association
             Id="9a4bb162-1217-4845-9ded-15a97c242de1"
             isDerived="false"
-            sourceEndRoleName="ReportGroup"
+            sourceEndRoleName=""
             targetEndRoleName="ReportInReportGroup"
             isLeaf="false"
             isAbstract="false">
@@ -79,7 +79,6 @@
               <associationHasOwnedEnds>
                 <memberEnd
                   Id="e207097f-5dfa-488e-9eb4-4da8da9e675a"
-                  name="ReportGroup"
                   isLeaf="false"
                   isStatic="false"
                   isReadOnly="false"
@@ -111,6 +110,56 @@
                       Id="9e4f5ca9-bcf1-48e0-be1b-7837fb1defcb"
                       name="Upper"
                       value="m" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="8feca094-416b-49b2-8229-97cb9e965429"
+            isDerived="false"
+            sourceEndRoleName=""
+            targetEndRoleName=""
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="6decf7b4-b06a-437d-8132-1e9cade6c3b7"
+              LastKnownName="ReportGroupItem"
+              LastKnownLocation="Package_1427.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="1ccc2873-7d7a-4595-8d87-70b437b50836"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="Shared"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="116ef7c2-83e8-4217-8b55-8c154ea35946"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="b36acf07-2fbc-49bd-84bf-02e51d8a3701"
+                      name="Lower"
+                      value="n" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="08f34692-795c-4b87-a74a-9481e42165ad"
+                      name="Upper"
+                      value="n" />
                   </upperValueInternal>
                 </memberEnd>
               </associationHasOwnedEnds>
@@ -779,6 +828,288 @@
           <property
             Id="502eba6f-8aa2-4546-9aee-2a9b735f30e4"
             name="Description"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+        </ownedAttributesInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="6decf7b4-b06a-437d-8132-1e9cade6c3b7"
+        name="ReportGroupItem"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <targetEnds>
+          <association
+            Id="03d784d9-fc7b-437a-8400-cc618e0fba46"
+            isDerived="false"
+            sourceEndRoleName=""
+            targetEndRoleName=""
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="9f25e199-86ae-4e38-a984-a0cf79fb7f9d"
+              LastKnownName="ReportProfile"
+              LastKnownLocation="Package_1427.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="be6a3368-48f3-42e3-995e-6068a14a96ec"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="5980f102-bc88-4e23-90d6-31a830df0261"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+        <ownedAttributesInternal>
+          <property
+            Id="a4148aed-acb2-4f1d-922f-2582458aecb1"
+            name="ID"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="16f75541-c83d-4e0c-b475-1e264d6ae66a"
+            name="ReportGroupId"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="8ca5ab16-e37e-4c04-ad58-8056e5c9d219"
+            name="ReportProfileId"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+        </ownedAttributesInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="9f25e199-86ae-4e38-a984-a0cf79fb7f9d"
+        name="ReportProfile"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <targetEnds>
+          <association
+            Id="00a6f5af-f76c-46d7-8c1f-d01404bb311c"
+            isDerived="false"
+            sourceEndRoleName=""
+            targetEndRoleName=""
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="50fc16f7-e6d4-419f-8ba6-1ec8dfff641f"
+              LastKnownName="ReportProfileField"
+              LastKnownLocation="Package_1427.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="ced61525-a7f6-458f-9807-c1c62644a932"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="Shared"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="78efbd53-59bb-4d8b-a85f-f83d8dc6481e"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="3869c78d-3dfa-4cd1-ad24-b41c06141139"
+                      name="Lower"
+                      value="n" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="7b4c9e64-d50e-459c-84a6-e6e37eb3cf99"
+                      name="Upper"
+                      value="n" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="ed7928f5-b689-45f8-adc5-58eecbf08e33"
+            isDerived="false"
+            sourceEndRoleName=""
+            targetEndRoleName=""
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="0d996a06-69b1-46f8-97e6-0354a689d162"
+              LastKnownName="Report"
+              LastKnownLocation="Package_1427.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="ed135b6d-0174-4b64-b9be-7d2a1ebe4d7a"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="d9e3aaa6-1951-4339-9744-d2894173f0c0"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+        <ownedAttributesInternal>
+          <property
+            Id="bcaed5f6-f2d5-4e4d-ba30-a73bf31d4e49"
+            name="ID"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="0972b456-dc56-4ea6-85a7-f3e5750ca12f"
+            name="ReportId"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="74a6bc92-8fa3-4505-a18c-91482a79ec21"
+            name="Name"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="f61fe6e0-18ac-4eb9-aece-dd8e6bb8253a"
+            name="Description"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="270f35a8-e755-4c5e-9a18-f8708dcb0e15"
+            name="Enabled"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+        </ownedAttributesInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="50fc16f7-e6d4-419f-8ba6-1ec8dfff641f"
+        name="ReportProfileField"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <ownedAttributesInternal>
+          <property
+            Id="51c192a3-ec98-4fa1-9844-ae2840499633"
+            name="ID"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="0ad1b155-d6b6-4c7c-89f7-a8073bdc6b82"
+            name="ReportProfileId"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="c941311d-96e0-4bd1-90f6-bc73f71b7b96"
+            name="FieldName"
             isLeaf="false"
             isStatic="false"
             isReadOnly="false"

@@ -2,15 +2,14 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Gear.Infrastructure;
-using Gear.Infrastructure.Repositories;
-using ReportMS.Domain.Models.ReportModule.ReportAggregate;
+using ReportMS.Domain.Models.ReportModule.ReportProfileAggregate;
 
 namespace ReportMS.Domain.Models.ReportModule.ReportGroupAggregate
 {
     /// <summary>
     /// 报表分组的详细信息
     /// </summary>
-    public class ReportGroupItem : AggregateRoot, ISoftDelete, IValidatableObject
+    public class ReportGroupItem : AggregateRoot, IValidatableObject
     {
         #region Properties
 
@@ -25,69 +24,37 @@ namespace ReportMS.Domain.Models.ReportModule.ReportGroupAggregate
         public virtual ReportGroup ReportGroup { get; private set; }
 
         /// <summary>
-        /// 获取报表 ID
+        /// 获取报表配置 Id
         /// </summary>
-        public Guid ReportId { get; private set; }
+        public Guid ReportProfileId { get; private set; }
 
         /// <summary>
-        /// 获取报表
+        /// 获取报表配置
         /// </summary>
-        public virtual Report Report { get; private set; }
-
-        /// <summary>
-        /// 获取一个<see cref="System.Boolean"/>值,表示报表组是否可用
-        /// </summary>
-        public bool Enabled { get; private set; }
-
-        /// <summary>
-        /// 获取创建人
-        /// </summary>
-        public string CreatedBy { get; private set; }
-
-        /// <summary>
-        /// 获取创建时间
-        /// </summary>
-        public DateTime? CreatedDate { get; private set; }
-
-        /// <summary>
-        /// 获取更新人
-        /// </summary>
-        public string UpdatedBy { get; private set; }
-
-        /// <summary>
-        /// 获取创建时间
-        /// </summary>
-        public DateTime? UpdatedDate { get; private set; }
-
-        /// <summary>
-        /// 获取报表组项字段集合
-        /// </summary>
-        public virtual ICollection<ReportGroupItemField> ReportGroupItemFields { get; private set; }
+        public virtual ReportProfile ReportProfile { get; private set; }
 
         #endregion
 
         #region Ctor
 
-        private ReportGroupItem()
+        /// <summary>
+        /// 初始化一个新的<c>ReportGroupItem</c>实例，仅供 Lazy 使用
+        /// </summary>
+        public ReportGroupItem()
         {
-            this.GenerateNewIdentity();
-            this.Enable();
-
-            this.CreatedDate = DateTime.Now;
         }
 
         /// <summary>
-        /// 创建一个新的<c>ReportGroupDetail</c>实例
+        /// 初始化一个新的<c>ReportGroupItem</c>实例
         /// </summary>
-        /// <param name="reportGroupId">报表分组的 ID</param>
-        /// <param name="reportId">报表 ID</param>
-        /// <param name="createdBy">创建人</param>
-        public ReportGroupItem(Guid reportGroupId, Guid reportId, string createdBy)
-            : this()
+        /// <param name="reportGroupId">报表分组的 Id</param>
+        /// <param name="reportProfileId">报表配置 Id</param>
+        public ReportGroupItem(Guid reportGroupId, Guid reportProfileId)
         {
             this.ReportGroupId = reportGroupId;
-            this.ReportId = reportId;
-            this.CreatedBy = createdBy;
+            this.ReportProfileId = reportProfileId;
+
+            this.GenerateNewIdentity();
         }
 
         #endregion
@@ -95,21 +62,12 @@ namespace ReportMS.Domain.Models.ReportModule.ReportGroupAggregate
         #region Public Methods
 
         /// <summary>
-        /// 启用报表组项
+        /// 附加到父数据中
         /// </summary>
-        public void Enable()
+        /// <param name="parentId">要附加的父数据 Id</param>
+        public void AttachToParent(Guid parentId)
         {
-            if (!this.Enabled)
-                this.Enabled = true;
-        }
-
-        /// <summary>
-        /// 禁用报表组项
-        /// </summary>
-        public void Disable()
-        {
-            if (this.Enabled)
-                this.Enabled = false;
+            this.ReportGroupId = parentId;
         }
 
         #endregion
@@ -121,8 +79,8 @@ namespace ReportMS.Domain.Models.ReportModule.ReportGroupAggregate
             if (this.ReportGroupId == Guid.Empty)
                 yield return new ValidationResult("The report group id is empty.");
 
-            if (this.ReportId == Guid.Empty)
-                yield return new ValidationResult("The report id is empty.");
+            if (this.ReportProfileId == Guid.Empty)
+                yield return new ValidationResult("The report profile id is empty.");
         }
 
         #endregion

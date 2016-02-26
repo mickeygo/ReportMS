@@ -14,7 +14,6 @@ namespace ReportMS.DataTransferObjects.Profiles
         {
             AutoMapperAdapter.Register<ReportGroup, ReportGroupDto>();
             AutoMapperAdapter.Register<ReportGroupItem, ReportGroupItemDto>();
-            AutoMapperAdapter.Register<ReportGroupItemField, ReportGroupItemFieldDto>();
         }
     }
 }

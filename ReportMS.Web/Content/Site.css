@@ -65,3 +65,13 @@ textarea {
     /*border-style: solid solid none;*/
     border-width: 1px ;
 }
+
+/* control */
+
+.details-control-open {
+    background: url('../Content/themes/details_open.png') no-repeat center center;
+    cursor: pointer;
+}
+.details-control-close {
+    background: url('../Content/themes/details_close.png') no-repeat center center;
+}
