@@ -100,7 +100,8 @@ namespace ReportMS.Domain.Models.ReportModule.ReportGroupAggregate
         {
             this.EnsureNotNullOfReportGroupItems();
             this.EnsureParenetIdOfReportGroupItems(items);
-            ((List<ReportGroupItem>)this.ReportGroupItems).AddRange(items);
+            foreach (var item in items)
+                this.ReportGroupItems.Add(item);
         }
 
         /// <summary>
@@ -112,6 +113,20 @@ namespace ReportMS.Domain.Models.ReportModule.ReportGroupAggregate
             this.EnsureNotNullOfReportGroupItems();
             this.EnsureParenetIdOfReportGroupItem(item);
             this.ReportGroupItems.Add(item);
+        }
+
+        /// <summary>
+        /// 更新报表分组头
+        /// </summary>
+        /// <param name="displayName"></param>
+        /// <param name="description"></param>
+        /// <param name="updatedBy"></param>
+        public void UpdateGroupHeader(string displayName, string description, string updatedBy)
+        {
+            this.DisplayName = displayName;
+            this.Description = description;
+            this.UpdatedBy = updatedBy;
+            this.UpdatedDate = DateTime.Now;
         }
 
         /// <summary>
@@ -139,7 +154,7 @@ namespace ReportMS.Domain.Models.ReportModule.ReportGroupAggregate
         private void EnsureNotNullOfReportGroupItems()
         {
             if (this.ReportGroupItems == null)
-                this.ReportGroupItems = new List<ReportGroupItem>();
+                this.ReportGroupItems = new HashSet<ReportGroupItem>();
         }
 
         private void EnsureParenetIdOfReportGroupItems(IEnumerable<ReportGroupItem> items)

@@ -13,7 +13,7 @@ namespace Gear.Infrastructure.Repository.EntityFramework
 {
     /// <summary>
     /// 表示为基于 Microsoft EntityFramework 仓储。
-    /// 使用 EntityFrameworkRepositoryContext 上下文管理对象
+    /// 使用实现了 IEntityFrameworkRepositoryContext 接口的对象的仓储上下文管理对象,与 DB 操作
     /// </summary>
     /// <typeparam name="TAggregateRoot">聚合根类型</typeparam>
     public class EntityFrameworkRepository<TAggregateRoot> : Repository<TAggregateRoot>

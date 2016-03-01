@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -16,14 +15,14 @@ namespace Gear.Infrastructure.Repositories
 
         private readonly Guid id = Guid.NewGuid();
 
-        private readonly ThreadLocal<ConcurrentDictionary<Guid, object>> localNewCollection =
-            new ThreadLocal<ConcurrentDictionary<Guid, object>>(() => new ConcurrentDictionary<Guid, object>());
+        private readonly ThreadLocal<Dictionary<Guid, object>> localNewCollection =
+            new ThreadLocal<Dictionary<Guid, object>>(() => new Dictionary<Guid, object>());
 
-        private readonly ThreadLocal<ConcurrentDictionary<Guid, object>> localModifiedCollection =
-            new ThreadLocal<ConcurrentDictionary<Guid, object>>(() => new ConcurrentDictionary<Guid, object>());
+        private readonly ThreadLocal<Dictionary<Guid, object>> localModifiedCollection =
+            new ThreadLocal<Dictionary<Guid, object>>(() => new Dictionary<Guid, object>());
 
-        private readonly ThreadLocal<ConcurrentDictionary<Guid, object>> localDeletedCollection =
-            new ThreadLocal<ConcurrentDictionary<Guid, object>>(() => new ConcurrentDictionary<Guid, object>());
+        private readonly ThreadLocal<Dictionary<Guid, object>> localDeletedCollection =
+            new ThreadLocal<Dictionary<Guid, object>>(() => new Dictionary<Guid, object>());
 
         private readonly ThreadLocal<bool> localCommitted = new ThreadLocal<bool>(() => true);
 
@@ -112,7 +111,7 @@ namespace Gear.Infrastructure.Repositories
             if (this.localNewCollection.Value.ContainsKey(obj.ID))
                 throw new InvalidOperationException("The object has already been registered as a new object.");
 
-            this.localNewCollection.Value.TryAdd(obj.ID, obj);
+            this.localNewCollection.Value.Add(obj.ID, obj);
             this.localCommitted.Value = false;
         }
 
@@ -130,9 +129,9 @@ namespace Gear.Infrastructure.Repositories
                 throw new InvalidOperationException(
                     "The object cannot be registered as a modified object since it was marked as deleted.");
 
-            if (!this.localModifiedCollection.Value.ContainsKey(obj.ID) &&
-                !this.localNewCollection.Value.ContainsKey(obj.ID))
-                this.localModifiedCollection.Value.TryAdd(obj.ID, obj);
+            if (!this.localModifiedCollection.Value.ContainsKey(obj.ID)
+                && !this.localNewCollection.Value.ContainsKey(obj.ID))
+                this.localModifiedCollection.Value.Add(obj.ID, obj);
             this.localCommitted.Value = false;
         }
 
@@ -149,17 +148,15 @@ namespace Gear.Infrastructure.Repositories
 
             if (this.localNewCollection.Value.ContainsKey(obj.ID))
             {
-                object localObject;
-                if (localNewCollection.Value.TryRemove(obj.ID, out localObject))
+                if (localNewCollection.Value.Remove(obj.ID))
                     return;
             }
 
-            object modifiedObject;
-            var removedFromModified = this.localModifiedCollection.Value.TryRemove(obj.ID, out modifiedObject);
+            var removedFromModified = this.localModifiedCollection.Value.Remove(obj.ID);
             var addedToDeleted = false;
             if (!this.localDeletedCollection.Value.ContainsKey(obj.ID))
             {
-                this.localDeletedCollection.Value.TryAdd(obj.ID, obj);
+                this.localDeletedCollection.Value.Add(obj.ID, obj);
                 addedToDeleted = true;
             }
             this.localCommitted.Value = !(removedFromModified || addedToDeleted);

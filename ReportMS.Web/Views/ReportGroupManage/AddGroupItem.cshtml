@@ -15,7 +15,7 @@
     @using (Html.BeginForm(null, null, FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
     {
         @Html.AntiForgeryToken()
-        <table>
+        <table class="table table-bordered table-striped table-hover">
             <thead>
             <tr>
                 <th></th>
@@ -38,5 +38,12 @@
                 </tbody>
             }
         </table>
+
+        <div class="form-group">
+            <div class="col-md-offset-5 col-md-12">
+                <input type="submit" value="submit" class="btn btn-primary"/>
+            </div>
+        </div>
+        @Html.Hidden("ReportGroupId", (string)ViewBag.ReportGroupId)
     }
 </div>

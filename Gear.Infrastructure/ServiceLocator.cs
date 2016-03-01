@@ -9,24 +9,26 @@ namespace Gear.Infrastructure
     public sealed class ServiceLocator : IServiceLocator
     {
         #region Private Fields
-        private static readonly IObjectContainer objectContainer = AppRuntime.Instance.CurrentApplication.ObjectContainer;
+
+        private static readonly IObjectContainer objectContainer =
+            AppRuntime.Instance.CurrentApplication.ObjectContainer;
+
         private static readonly ServiceLocator instance = new ServiceLocator();
+
         #endregion
 
         #region Ctor
 
-        /// <summary>
-        /// 初始化<c>ServiceLocator</c>
-        /// </summary>
         private ServiceLocator()
-        { }
+        {
+        }
 
         #endregion
 
         #region IServiceLocator Members
 
         /// <summary>
-        /// 获取当前的<c>ServiceLocator</c>
+        /// 获取当前的<c>ServiceLocator</c>实例
         /// </summary>
         public static ServiceLocator Instance
         {

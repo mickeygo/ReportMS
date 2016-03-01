@@ -1,0 +1,28 @@
+﻿@using ReportMS.DataTransferObjects.Dtos
+@model IEnumerable<RoleDto>
+
+@{
+    ViewBag.Title = "Role Manage";
+}
+
+@section scripts {
+    <script>
+        
+    </script>
+}
+
+@Html.Navigate("Manage", "Role")
+
+<div>
+    <div class="ibox-title">
+        <div class="ibox-tools rboor">
+            <a class="btn btn-primary btn-xs" data-dialog="true" data-ajax-form="true" data-dialog-href="@Url.Action("CreateRole")" data-dialog-title="Create Role"
+               data-ajax-success="createRoleSuccess" data-ajax-failure="createRoleFailure">
+                <span class="glyphicon glyphicon-plus"></span> Add Role
+            </a>
+        </div>
+    </div>
+    <div id="role">
+
+    </div>
+</div>

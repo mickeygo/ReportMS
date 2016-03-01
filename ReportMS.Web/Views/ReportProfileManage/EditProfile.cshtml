@@ -1,0 +1,68 @@
+﻿@using ReportMS.DataTransferObjects.Dtos
+@model ReportProfileDto
+
+@{
+    var profileFields = Model.ReportProfileFields;
+    var reportFields = Model.Report.Fields;
+}
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
+{
+    @Html.AntiForgeryToken()
+    <div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Name, new {@class = "col-md-3 control-label"})
+            <div class="col-md-9">
+                @Html.TextBoxFor(m => m.Name, new { @class = "form-control", required = "", data_format = "string", maxlength = "80", onpaste = "return false;" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Description, new {@class = "col-md-3 control-label"})
+            <div class="col-md-9">
+                @Html.TextAreaFor(m => m.Description, new {@class = "form-control", maxlength = "100"})
+            </div>
+        </div>
+    </div>
+    <div>
+        <table class="table table-bordered table-striped table-hover">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>No.</th>
+                    <th>FieldName</th>
+                    <th>DisplayName</th>
+                    <th>DataType</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in reportFields.OrderBy(f => f.Sort))
+                {
+                    <tr>
+                        <td>
+                            @if (profileFields.Any(p => p.FieldName == item.FieldName))
+                            {
+                                <input type="checkbox" name="fields" value="@item.FieldName" checked="checked"/>
+                            }
+                            else
+                            {
+                                <input type="checkbox" name="fields" value="@item.FieldName"/>
+                            }
+                        </td>
+                        <td>@Html.DisplayFor(m => item.Sort)</td>
+                        <td>@Html.DisplayFor(m => item.FieldName)</td>
+                        <td>@Html.DisplayFor(m => item.DisplayName)</td>
+                        <td>@Html.DisplayFor(m => item.DataType)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-5 col-md-12">
+            <input type="submit" value="submit" class="btn btn-primary" />
+        </div>
+
+        @Html.HiddenFor(m => m.ID)
+    </div>
+}
+

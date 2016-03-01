@@ -18,17 +18,17 @@ namespace ReportMS.Domain.Models.AccountModule
         /// <summary>
         /// 获取角色名
         /// </summary>
-        public string  RoleName { get; private set; }
+        public string RoleName { get; private set; }
 
         /// <summary>
         /// 获取角色显示名称
         /// </summary>
         public string DisplayName { get; private set; }
-        
+
         /// <summary>
         /// 获取角色描述
         /// </summary>
-        public string  Description { get; private set; }
+        public string Description { get; private set; }
 
         #region IMayHaveTenant<Guid> Members
 
@@ -77,12 +77,11 @@ namespace ReportMS.Domain.Models.AccountModule
 
         #region Ctor
 
-        private Role()
+        /// <summary>
+        /// 初始化一个新的<c>Role</c>实例。仅供 Lazy 使用
+        /// </summary>
+        public Role()
         {
-            this.GenerateNewIdentity();
-            this.Enable();
-
-            this.CreatedDate = DateTime.Now;
         }
 
         /// <summary>
@@ -94,13 +93,16 @@ namespace ReportMS.Domain.Models.AccountModule
         /// <param name="tenantId">租户id</param>
         /// <param name="createdBy">创建人</param>
         public Role(string roleName, string displayName, string description, Guid? tenantId, string createdBy)
-            : this()
         {
             this.RoleName = roleName;
             this.DisplayName = displayName;
             this.Description = description;
             this.TenantId = tenantId;
             this.CreatedBy = createdBy;
+            this.CreatedDate = DateTime.Now;
+
+            this.GenerateNewIdentity();
+            this.Enable();
         }
 
         #endregion
@@ -108,7 +110,21 @@ namespace ReportMS.Domain.Models.AccountModule
         #region Public Methods
 
         /// <summary>
-        /// 启用角色
+        /// 更新角色信息
+        /// </summary>
+        /// <param name="displayName">角色显示名</param>
+        /// <param name="description">角色描述</param>
+        /// <param name="updatedBy">更新人</param>
+        public void UpdateRole(string displayName, string description, string updatedBy)
+        {
+            this.DisplayName = displayName;
+            this.Description = description;
+            this.UpdatedBy = updatedBy;
+            this.UpdatedDate = DateTime.Now;
+        }
+
+        /// <summary>
+        /// 启用此角色
         /// </summary>
         public void Enable()
         {

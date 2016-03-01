@@ -46,10 +46,10 @@ namespace ReportMS.Application.Services
             return this._reportRepository.GetByKey(reportId).MapAs<ReportDto>();
         }
 
-        public ReportDto FindReport(string reportName)
+        public bool ExistReport(string reportName)
         {
             var spec = Specification<Report>.Eval(r => r.ReportName.Equals(reportName, StringComparison.OrdinalIgnoreCase));
-            return this._reportRepository.Find(spec).MapAs<ReportDto>();
+            return this._reportRepository.Exist(spec);
         }
 
         public ReportDto CreateReport(ReportDto reportDto)
@@ -86,7 +86,7 @@ namespace ReportMS.Application.Services
             this._reportRepository.RemoveFiled(fieldId);
         }
 
-        public void RemoveAllThenAddFields(Guid reportId, IEnumerable<ReportFieldDto> fieldDtos)
+        public void SetReportFields(Guid reportId, IEnumerable<ReportFieldDto> fieldDtos)
         {
             var report = this._reportRepository.GetByKey(reportId);
             if (report == null)

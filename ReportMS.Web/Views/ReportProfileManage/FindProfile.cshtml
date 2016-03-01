@@ -1,0 +1,42 @@
+﻿@using ReportMS.DataTransferObjects.Dtos
+@model ReportProfileDto
+
+@{
+    var profileFields = Model.ReportProfileFields;
+    var reportFields = Model.Report.Fields;
+}
+
+<div style="max-height: 300px; overflow-y: auto">
+    <table class="table table-bordered table-striped table-hover">
+        <thead>
+            <tr>
+                <th></th>
+                <th>No.</th>
+                <th>FieldName</th>
+                <th>DisplayName</th>
+                <th>DataType</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in reportFields.OrderBy(f => f.Sort))
+            {
+                <tr>
+                    <td>
+                        @if (profileFields.Any(p => p.FieldName == item.FieldName))
+                        {
+                            <input type="checkbox" disabled="disabled" checked="checked" />
+                        }
+                        else
+                        {
+                            <input type="checkbox" disabled="disabled" />
+                        }
+                    </td>
+                    <td>@Html.DisplayFor(m => item.Sort)</td>
+                    <td>@Html.DisplayFor(m => item.FieldName)</td>
+                    <td>@Html.DisplayFor(m => item.DisplayName)</td>
+                    <td>@Html.DisplayFor(m => item.DataType)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -9,7 +9,12 @@ var keycodeExpression = {
     comma: 44,
     minus: 45,
     dot: 46,
-    semicolon: 59
+    semicolon: 59,
+    underline: 95,
+    a: 97,
+    z: 122,
+    A: 65,
+    Z: 90
 };
 
 // Date
@@ -21,12 +26,11 @@ $(document).on("focusin", "input[data-format=date]", function (e) {
 });
 
 // String [0-9a-zA-Z_]
-$(document).on("keypress", "input[data-format=string]", function (e) {
-    return e.keyCode !== keycodeExpression.comma
-            && e.keyCode !== keycodeExpression.semicolon
-            && e.keyCode !== keycodeExpression.whitespace
-            && e.keyCode !== keycodeExpression.enter
-            && e.keyCode !== keycodeExpression.newline;
+$(document).on("keypress", "input[data-format=string]", function(e) {
+    return (keycodeExpression.zero <= e.keyCode && e.keyCode <= keycodeExpression.nine)
+        || (keycodeExpression.a <= e.keyCode && e.keyCode <= keycodeExpression.z)
+        || (keycodeExpression.A <= e.keyCode && e.keyCode <= keycodeExpression.Z)
+        || e.keyCode === keycodeExpression.underline;
 });
 
 // Integer [0-9-]

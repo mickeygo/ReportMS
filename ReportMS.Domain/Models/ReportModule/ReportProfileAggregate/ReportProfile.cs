@@ -93,6 +93,7 @@ namespace ReportMS.Domain.Models.ReportModule.ReportProfileAggregate
             Description = description;
             ReportId = reportId;
             CreatedBy = createdBy;
+            CreatedDate = DateTime.Now;
 
             this.GenerateNewIdentity();
             this.Enable();
@@ -109,7 +110,8 @@ namespace ReportMS.Domain.Models.ReportModule.ReportProfileAggregate
         public void AddProfileFields(IEnumerable<ReportProfileField> fields)
         {
             this.EnsureNotNullOfProfileFields();
-            ((List<ReportProfileField>)this.ReportProfileFields).AddRange(fields);
+            foreach (var field in fields)
+                this.ReportProfileFields.Add(field);
         }
 
         /// <summary>
@@ -120,6 +122,20 @@ namespace ReportMS.Domain.Models.ReportModule.ReportProfileAggregate
         {
             this.EnsureNotNullOfProfileFields();
             this.ReportProfileFields.Add(field);
+        }
+
+        /// <summary>
+        /// 更新报表配置头
+        /// </summary>
+        /// <param name="name">要更新报表配置名</param>
+        /// <param name="description">要更新的报表配置描述</param>
+        /// <param name="updatedBy">更新人</param>
+        public void UpdateProfileHeader(string name, string description, string updatedBy)
+        {
+            this.Name = name;
+            this.Description = description;
+            this.UpdatedBy = UpdatedBy;
+            this.UpdatedDate = DateTime.Now;
         }
 
         /// <summary>
@@ -147,7 +163,7 @@ namespace ReportMS.Domain.Models.ReportModule.ReportProfileAggregate
         private void EnsureNotNullOfProfileFields()
         {
             if (this.ReportProfileFields == null)
-                this.ReportProfileFields = new List<ReportProfileField>();
+                this.ReportProfileFields = new HashSet<ReportProfileField>();
         }
 
         #endregion

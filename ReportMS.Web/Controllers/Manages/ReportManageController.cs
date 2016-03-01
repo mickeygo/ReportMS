@@ -35,9 +35,9 @@ namespace ReportMS.Web.Controllers.Manages
             using (var service = ServiceLocator.Instance.Resolve<IReportService>())
             {
                 // check whether has existed repeat report name
-                var existReport = service.FindReport(model.ReportName);
-                if (existReport != null)
-                    return Json(false, "The report name already exists.");
+                var isExistReport = service.ExistReport(model.ReportName);
+                if (isExistReport)
+                    return Json(false, string.Format("The report name:[{0}] already exists.", model.ReportName));
 
                 // Todo: Check the database can connect successfully
 
@@ -93,7 +93,7 @@ namespace ReportMS.Web.Controllers.Manages
                             CreatedBy = creator
                         });
 
-                    service.RemoveAllThenAddFields(reportDto.ID, addingFileds);
+                    service.SetReportFields(reportDto.ID, addingFileds);
                 }
 
                 return Json(true);

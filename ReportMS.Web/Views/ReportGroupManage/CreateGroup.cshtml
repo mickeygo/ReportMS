@@ -8,7 +8,7 @@
         <div class="form-group">
             <label class="col-md-3 control-label" for="ReportName">Report Name</label>
             <div class="col-md-9">
-                @Html.TextBoxFor(m => m.GroupName, new { @class = "form-control", required = "", data_format = "string", maxlength = "40" })
+                @Html.TextBoxFor(m => m.GroupName, new { @class = "form-control", required = "", data_format = "string", maxlength = "40", onpaste = "return false;" })
             </div>
         </div>
         <div class="form-group">

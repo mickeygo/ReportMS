@@ -84,6 +84,16 @@
           LastKnownLocation="Package_1043.uml" />
       </annotatedElements>
     </comment>
+    <comment
+      Id="e5b45929-668f-48cf-8ccb-e5654bbfb6b1">
+      <body>1、每种 Role 只有一种租户</body>
+      <annotatedElements>
+        <classMoniker
+          Id="8b2a0389-25fb-48be-bd7d-794a7116b1f3"
+          LastKnownName="Role"
+          LastKnownLocation="Package_1043.uml" />
+      </annotatedElements>
+    </comment>
   </ownedCommentsInternal>
   <packagedElements>
     <packageHasNamedElement>
@@ -201,8 +211,8 @@
           <association
             Id="a5678258-df09-4c4b-a652-9f03fff084cc"
             isDerived="false"
-            sourceEndRoleName="UserInRole"
-            targetEndRoleName="UserRole"
+            sourceEndRoleName=""
+            targetEndRoleName=""
             isLeaf="false"
             isAbstract="false">
             <classMoniker
@@ -213,7 +223,6 @@
               <associationHasOwnedEnds>
                 <memberEnd
                   Id="5e06c5f3-01b8-41a0-a877-fe605bc70be6"
-                  name="UserInRole"
                   isLeaf="false"
                   isStatic="false"
                   isReadOnly="false"
@@ -226,7 +235,6 @@
               <associationHasOwnedEnds>
                 <memberEnd
                   Id="7905e7d7-15b0-4227-8981-c2fb28c248e2"
-                  name="UserRole"
                   isLeaf="false"
                   isStatic="false"
                   isReadOnly="false"

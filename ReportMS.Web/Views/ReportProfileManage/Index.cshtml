@@ -2,11 +2,65 @@
 @model IEnumerable<ReportProfileDto>
 
 @{
-    ViewBag.Title = "Report Group Manage";
+    ViewBag.Title = "Report Profile Manage";
 }
 
 @section scripts {
+    <script>
+        $(document).on("click", "table td[data-details-control=true]", function () {
+            var tr = $(this).closest("tr");
+            var len = tr.children().length;
+            if ($(this).hasClass("details-control-open")) {
+                var td = $("<td colspan=" + len + "></td>");
+                var url = $(this).attr("data-href");
+                td.load(url);
+                var row = $("<tr></tr>").append(td);
+                tr.after(row);
+                $(this).removeClass("details-control-open").addClass("details-control-close");
+            } else {
+                tr.next().remove();
+                $(this).removeClass("details-control-close").addClass("details-control-open");
+            }
+        });
 
+        function createProfileSuccess(data) {
+            if (data.status === "success") {
+                reloadReportProfile();
+            } else {
+                alert(data.message);
+            }
+        }
+
+        function modifyReportProfileSuccess(data) {
+            if (data.status === "success") {
+                reloadReportProfile();
+            } else {
+                alert(data.message);
+            }
+        }
+
+        function deleteReportProfile(element) {
+            if (!confirm("Do you want to delete it ?")) {
+                return false;
+            }
+
+            var url = $(element).attr("data-href");
+            var id = $(element).attr("data-repprofile-id");
+            $.post(url, { profileId: id }, function(data) {
+                if (data.status === "success") {
+                    $(element).closest("tbody").remove();
+                } else {
+                    alert(data.message);
+                }
+            });
+            return true;
+        }
+
+        function reloadReportProfile() {
+            var url = "@Url.Action("Index")" + " #reportprofile table";
+            $("#reportprofile").load(url);
+        }
+    </script>
 }
 
 @Html.Navigate("Manage", "Report Profile")
@@ -14,47 +68,46 @@
 <div>
     <div class="ibox-title">
         <div class="ibox-tools rboor">
-            <a class="btn btn-primary btn-xs" data-dialog="true" data-ajax-form="true" data-dialog-href="@Url.Action("CreateProfile")" data-dialog-title="Create Report Group"
-               data-ajax-success="createGroupSuccess" data-ajax-failure="createGroupFailure">
-                <span class="glyphicon glyphicon-plus"></span> Add Report Group
+            <a class="btn btn-primary btn-xs" data-dialog="true" data-ajax-form="true" data-dialog-href="@Url.Action("CreateProfile")" data-dialog-title="Create Report Profile"
+               data-ajax-success="createProfileSuccess" data-ajax-failure="createProfileFailure">
+                <span class="glyphicon glyphicon-plus"></span> Add Report Profile
             </a>
         </div>
     </div>
 
-    <div>
-        @if (!Model.HasAny())
+    <div id="reportprofile">
+        @if (Model.HasAny())
         {
-            return;
-        }
-
-        <table class="table table-bordered table-striped table-hover">
-            <thead>
-            <tr>
-                <th></th>
-                <th>Name</th>
-                <th>Description</th>
-                <th></th>
-            </tr>
-            </thead>
-            @foreach (var item in Model)
-            {
-                <tbody>
+            <table class="table table-bordered table-striped table-hover">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th></th>
+                </tr>
+                </thead>
+                @foreach (var item in Model)
+                {
+                    <tbody>
                     <tr>
-                        <td data-details-control="true" class="details-control-open" data-href="@Url.Action("FindProfile", new { reportProfileId = item.ID })"></td>
+                        <td data-details-control="true" class="details-control-open" data-href="@Url.Action("FindProfile", new {profileId = item.ID})"></td>
                         <td>@Html.DisplayFor(m => item.Name)</td>
                         <td>@Html.DisplayFor(m => item.Description)</td>
                         <td>
-                            <a class="btn btn-primary btn-xs" data-dialog="true" data-ajax-form="true" data-dialog-href=""
-                               data-dialog-title="" data-ajax-success="">
+                            <a class="btn btn-primary btn-xs" data-dialog="true" data-ajax-form="true"
+                               data-dialog-href="@Url.Action("EditProfile", new {profileId = item.ID})"
+                               data-dialog-title="Edit Report Profile" data-ajax-success="modifyReportProfileSuccess">
                                 <span class="glyphicon glyphicon-edit"></span>
                             </a>
-                            <a class="btn btn-danger btn-xs" data-href="" data-repgroup-id="" onclick="">
+                            <a class="btn btn-danger btn-xs" data-href="@Url.Action("DeleteProfile")" data-repprofile-id="@item.ID" onclick=" deleteReportProfile(this); ">
                                 <span class="glyphicon glyphicon-remove"></span>
                             </a>
                         </td>
                     </tr>
-                </tbody>
-            }
-        </table>
+                    </tbody>
+                }
+            </table>
+        }
     </div>
 </div>

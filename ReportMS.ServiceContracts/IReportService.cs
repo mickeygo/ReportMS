@@ -31,13 +31,13 @@ namespace ReportMS.ServiceContracts
         ReportDto FindReport(Guid reportId);
 
         /// <summary>
-        /// 查找指定有效的报表
+        /// 是否存在指定有效的报表
         /// </summary>
         /// <param name="reportName">要查找的报表名</param>
-        /// <returns>报表 Dto 对象</returns>
+        /// <returns>True 表示存在此报表，否则为 false</returns>
         [OperationContract]
         [FaultContract(typeof(FaultData))]
-        ReportDto FindReport(string reportName);
+        bool ExistReport(string reportName);
 
         /// <summary>
         /// 创建报表
@@ -77,12 +77,13 @@ namespace ReportMS.ServiceContracts
         void RemoveField(Guid fieldId);
 
         /// <summary>
+        /// 设置报表中的字段。
         /// 移除报表中所有的字段，然后添加指定的字段到该报表中
         /// </summary>
         /// <param name="reportId">报表 Id</param>
         /// <param name="fieldDtos">要更新的字段</param>
         [OperationContract]
         [FaultContract(typeof(FaultData))]
-        void RemoveAllThenAddFields(Guid reportId, IEnumerable<ReportFieldDto> fieldDtos);
+        void SetReportFields(Guid reportId, IEnumerable<ReportFieldDto> fieldDtos);
     }
 }

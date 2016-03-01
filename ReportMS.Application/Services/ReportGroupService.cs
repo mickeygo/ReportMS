@@ -52,11 +52,40 @@ namespace ReportMS.Application.Services
             return this._reportGroupRepository.GetByKey(reportGroupId).MapAs<ReportGroupDto>();
         }
 
+        public bool ExistReportGroup(string reportGroupName)
+        {
+            var spec =
+                Specification<ReportGroup>.Eval(
+                    r => r.GroupName.Equals(reportGroupName, StringComparison.OrdinalIgnoreCase));
+            return this._reportGroupRepository.Exist(spec);
+        }
+
         public void CreateReportGroup(ReportGroupDto reportGroupDto)
         {
             var reportGroup = new ReportGroup(reportGroupDto.GroupName, reportGroupDto.DisplayName,
                 reportGroupDto.Description, reportGroupDto.CreatedBy);
             this._reportGroupRepository.Add(reportGroup);
+        }
+
+        public void UpdateReportGroup(ReportGroupDto reportGroupDto)
+        {
+            var reportGroup = this._reportGroupRepository.GetByKey(reportGroupDto.ID);
+            if (reportGroup == null)
+                return;
+
+            reportGroup.UpdateGroupHeader(reportGroupDto.DisplayName, reportGroupDto.Description,
+                reportGroupDto.UpdatedBy);
+            this._reportGroupRepository.Update(reportGroup);
+        }
+
+        public void RemoveReportGroup(Guid reportGroupId)
+        {
+            var reportGroup = this._reportGroupRepository.GetByKey(reportGroupId);
+            if (reportGroup == null)
+                return;
+
+            reportGroup.Disable();
+            this._reportGroupRepository.Update(reportGroup);
         }
 
         public void AddReportGroupItems(Guid reportGroupId, IEnumerable<Guid> reportProfileIds)
@@ -66,9 +95,21 @@ namespace ReportMS.Application.Services
                 return;
 
             var items = (from reportProfileId in reportProfileIds
+                where reportGroup.ReportGroupItems.All(i => i.ReportProfileId != reportProfileId)
                 select new ReportGroupItem(reportGroupId, reportProfileId));
 
             reportGroup.AddGroupItems(items);
+            this._reportGroupRepository.Update(reportGroup);
+        }
+
+        public void RemoveReportGroupItem(Guid reportGroupId, Guid reportGroupItemId)
+        {
+            var reportGroup = this._reportGroupRepository.GetByKey(reportGroupId);
+            var item = reportGroup.ReportGroupItems.SingleOrDefault(r => r.ID == reportGroupItemId);
+            if (item == null)
+                return;
+            
+            this._reportGroupRepository.RemoveReportGroupItem(item);
             this._reportGroupRepository.Update(reportGroup);
         }
 

@@ -9,6 +9,9 @@ namespace ReportMS.Web
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            // Attribute Routing
+            routes.MapMvcAttributeRoutes();
+
             // Tenant_default
             routes.MapRoute(
                 name: "Tenant_default",

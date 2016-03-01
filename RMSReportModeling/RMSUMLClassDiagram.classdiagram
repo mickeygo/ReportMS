@@ -24,6 +24,13 @@
         <classMoniker Id="06d53d93-d745-497c-82ad-51038431b894" LastKnownName="Database" />
       </annotatedElements>
     </comment>
+    <comment Id="079c56ec-a07d-4919-b3e9-345f19cef421">
+      <elementDefinition Id="e5b45929-668f-48cf-8ccb-e5654bbfb6b1" />
+      <body>1、每种 Role 只有一种租户</body>
+      <annotatedElements>
+        <classMoniker Id="d868bd64-40c4-4809-acd5-a26bdad6d7f8" LastKnownName="Role" />
+      </annotatedElements>
+    </comment>
   </ownedCommentsInternal>
   <packagedElements>
     <logicalClassDesignerModelHasPackages>
@@ -351,16 +358,16 @@
                   </relationshipOwnedElementsInternal>
                   <elementDefinition Id="37e636da-9ac4-4ade-a36c-60404e4efdbf" />
                 </association>
-                <association Id="0c08a4d6-9123-4c40-961f-9225c2ef8729" isDerived="false" sourceEndRoleName="UserInRole" targetEndRoleName="UserRole" isLeaf="false" isAbstract="false">
+                <association Id="0c08a4d6-9123-4c40-961f-9225c2ef8729" isDerived="false" sourceEndRoleName="" targetEndRoleName="" isLeaf="false" isAbstract="false">
                   <classMoniker Id="d868bd64-40c4-4809-acd5-a26bdad6d7f8" LastKnownName="Role" />
                   <relationshipOwnedElementsInternal>
                     <associationHasOwnedEnds>
-                      <memberEnd Id="345981dd-b4e5-4cff-a7b6-eac18c450830" name="UserInRole" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                      <memberEnd Id="345981dd-b4e5-4cff-a7b6-eac18c450830" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
                         <elementDefinition Id="5e06c5f3-01b8-41a0-a877-fe605bc70be6" />
                       </memberEnd>
                     </associationHasOwnedEnds>
                     <associationHasOwnedEnds>
-                      <memberEnd Id="20c28621-d14b-4550-9119-5c7480b8df79" name="UserRole" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                      <memberEnd Id="20c28621-d14b-4550-9119-5c7480b8df79" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
                         <elementDefinition Id="7905e7d7-15b0-4227-8981-c2fb28c248e2" />
                       </memberEnd>
                     </associationHasOwnedEnds>
