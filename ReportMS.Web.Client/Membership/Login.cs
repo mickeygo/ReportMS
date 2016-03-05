@@ -26,7 +26,7 @@ namespace ReportMS.Web.Client.Membership
         /// <param name="userName">用户名</param>
         /// <param name="password">用户密码</param>
         /// <param name="rememberMe">是否记住用户</param>
-        /// <returns>ture 表示登录成功; false 表示登录失败</returns>
+        /// <returns>true 表示登录成功; false 表示登录失败</returns>
         public bool LogIn(string userName, string password, bool rememberMe)
         {
             var validation = new UserValidation(userName, password);

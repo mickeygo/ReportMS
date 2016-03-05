@@ -1,0 +1,62 @@
+﻿@using ReportMS.DataTransferObjects.Dtos
+@model RoleDto
+
+@{
+    var reportGroups = (IEnumerable<ReportGroupDto>)ViewBag.ReportGroups;
+    var reportGroupsOfRole = (IEnumerable<ReportGroupRoleDto>)ViewBag.ReportGroupsOfRole ?? new List<ReportGroupRoleDto>();
+
+    var index = 1;
+}
+
+<div>
+    @if (!reportGroups.HasAny())
+    {
+        <div>There are not any report group.</div>
+        return;
+    }
+
+    @using (Html.BeginForm(null, null, FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
+    {
+        @Html.AntiForgeryToken()
+        <div style="max-height: 600px; overflow-y: auto;">
+            <table class="table table-bordered table-striped table-hover">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>No.</th>
+                    <th>Display Name</th>
+                    <th>Description</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var item in reportGroups.OrderBy(f => f.DisplayName))
+                {
+                    <tr>
+                        <td>
+                            @if (reportGroupsOfRole.Any(r => r.ReportGroupId == item.ID))
+                            {
+                                <input type="checkbox" name="reportGroups" checked="checked" value="@item.ID"/>
+                            }
+                            else
+                            {
+                                <input type="checkbox" name="reportGroups" value="@item.ID"/>
+                            }
+                        </td>
+                        <td>@(index++)</td>
+                        <td>@Html.DisplayFor(m => item.DisplayName)</td>
+                        <td>@Html.DisplayFor(m => item.Description)</td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-5 col-md-12">
+                <input type="submit" value="submit" class="btn btn-primary"/>
+            </div>
+
+            @Html.HiddenFor(m => m.ID)
+        </div>
+    }
+</div>
+

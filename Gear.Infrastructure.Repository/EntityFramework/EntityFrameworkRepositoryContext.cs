@@ -91,7 +91,10 @@ namespace Gear.Infrastructure.Repository.EntityFramework
         public override void Commit()
         {
             if (!this.Committed)
+            {
                 this.localDbContext.Value.SaveChanges();
+                this.Committed = true;
+            }
         }
 
         /// <summary>
@@ -102,7 +105,10 @@ namespace Gear.Infrastructure.Repository.EntityFramework
         public override async Task CommitAsync(CancellationToken cancellationToken)
         {
             if (!this.Committed)
+            {
                 await this.localDbContext.Value.SaveChangesAsync(cancellationToken);
+                this.Committed = true;
+            }
         }
 
         /// <summary>
@@ -119,7 +125,7 @@ namespace Gear.Infrastructure.Repository.EntityFramework
         /// 释放资源.
         /// 释放资源之前，若工作单元有注册对象但还没有提交，会提交此工作单元
         /// </summary>
-        /// <param name="disposing"><see cref="System.Boolean"/>是否需要显示地释放资料</param>
+        /// <param name="disposing"><see cref="System.Boolean"/>是否需要显示地释放资源</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing)

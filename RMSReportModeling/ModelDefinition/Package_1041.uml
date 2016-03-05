@@ -24,6 +24,16 @@
           LastKnownLocation="Package_1041.uml" />
       </annotatedElements>
     </comment>
+    <comment
+      Id="207e3578-d1ea-487c-bee1-ed60b0b373d1">
+      <body>订阅操由管理员操作（普通）</body>
+      <annotatedElements>
+        <classMoniker
+          Id="877e6d51-daca-452c-acc9-ebc665f69a23"
+          LastKnownName="Subscriber"
+          LastKnownLocation="Package_1041.uml" />
+      </annotatedElements>
+    </comment>
   </ownedCommentsInternal>
   <packagedElements>
     <packageHasNamedElement>

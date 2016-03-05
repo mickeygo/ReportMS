@@ -41,19 +41,40 @@ namespace ReportMS.Application.Services
 
         public UserDto FindUser(string userName)
         {
-            return this._userRepository.Find(Specification<User>.Eval(u => u.UserName == userName)).MapAs<UserDto>();
+            var spec = Specification<User>.Eval(u => u.UserName == userName);
+            return this._userRepository.Find(spec).MapAs<UserDto>();
         }
 
         public IEnumerable<RoleDto> FindRoles(Guid userId)
         {
-            var userRoles = this._userRoleRepository.FindAll(Specification<UserRole>.Eval(u => u.UserId == userId));
+            var spec = Specification<UserRole>.Eval(u => u.UserId == userId);
+            var userRoles = this._userRoleRepository.FindAll(spec);
             return userRoles.Select(u => u.Role).MapAs<RoleDto>();
         }
 
         public RoleDto FindRole(Guid userId, Guid tenantId)
         {
-            var userRoles = this._userRoleRepository.FindAll(Specification<UserRole>.Eval(u => u.UserId == userId));
+            var spec = Specification<UserRole>.Eval(u => u.UserId == userId);
+            var userRoles = this._userRoleRepository.FindAll(spec);
             return userRoles.Select(u => u.Role).SingleOrDefault(r => r.TenantId == tenantId).MapAs<RoleDto>();
+        }
+
+        public void SetRoles(Guid userId, Guid? roleId, string creator)
+        {
+            var spec = Specification<UserRole>.Eval(u => u.UserId == userId);
+
+            var userRoles = this._userRoleRepository.FindAll(spec);
+            if (userRoles != null)
+            {
+                foreach (var userRole in userRoles)
+                    this._userRoleRepository.Remove(userRole);
+            }
+
+            if (!roleId.HasValue)
+                return;
+
+            var addUserRole = new UserRole(userId, roleId.Value, creator);
+            this._userRoleRepository.Add(addUserRole);
         }
 
         #endregion

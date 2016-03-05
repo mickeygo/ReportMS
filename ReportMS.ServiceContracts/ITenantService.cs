@@ -31,6 +31,15 @@ namespace ReportMS.ServiceContracts
         TenantDto GetTenant(Guid tenantId);
 
         /// <summary>
+        /// 是否存在租户
+        /// </summary>
+        /// <param name="tenantName">租户名</param>
+        /// <returns>true 表示存在；否则为 false</returns>
+        [OperationContract]
+        [FaultContract(typeof(FaultData))]
+        bool ExistTenant(string tenantName);
+
+        /// <summary>
         /// 获取租户信息
         /// </summary>
         /// <param name="tenantName">租户名</param>

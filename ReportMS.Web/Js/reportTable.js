@@ -36,7 +36,7 @@ function ReportTable(container, table) {
         });
 
         // TableOrView Id
-        datas["T0"] = $("[data-report-option=table]").val();
+        datas["T0"] = $("[data-report-option=table] option:selected").attr("data-report-id");
 
         // Fields
         $("[data-field=true] input:checked[data-field-key]").each(function (i) {

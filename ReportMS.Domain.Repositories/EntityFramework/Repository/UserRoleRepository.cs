@@ -11,7 +11,6 @@ namespace ReportMS.Domain.Repositories.EntityFramework.Repository
     {
         public UserRoleRepository(IRepositoryContext context) : base(context)
         {
-            
         }
     }
 }

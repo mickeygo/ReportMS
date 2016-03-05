@@ -32,6 +32,15 @@ namespace ReportMS.ServiceContracts
         IEnumerable<ReportDto> GetReports(Guid roleId);
 
         /// <summary>
+        /// 获取指定的角色所拥有的所有报表配置，不包含字段
+        /// </summary>
+        /// <param name="roleId">指定的角色 Id</param>
+        /// <returns>报表配置集合</returns>
+        [OperationContract]
+        [FaultContract(typeof(FaultData))]
+        IEnumerable<ReportProfileDto> GetReportProfiles(Guid roleId);
+
+        /// <summary>
         /// 获取报表数据
         /// </summary>
         /// <param name="reportId">报表 Id</param>
@@ -42,14 +51,13 @@ namespace ReportMS.ServiceContracts
         ReportDto GetReport(Guid reportId, bool includeFields = true);
 
         /// <summary>
-        /// 获取在指定角色中的指定报表, 包含字段.
-        /// 会根据不同的角色，指定每个报表所显示的字段
+        /// 获取配置了的报表的信息。
+        /// 不同的配置信息呈现的字段不同
         /// </summary>
-        /// <param name="roleId">指定的角色 Id</param>
-        /// <param name="reportId">指定的报表 Id</param>
-        /// <returns>报表</returns>
+        /// <param name="reportProfileId">报表配置 Id</param>
+        /// <returns>报表 Dto 对象，包含字段</returns>
         [OperationContract]
         [FaultContract(typeof(FaultData))]
-        ReportDto GetReport(Guid roleId, Guid reportId);
+        ReportDto GetReportWithProfile(Guid reportProfileId);
     }
 }

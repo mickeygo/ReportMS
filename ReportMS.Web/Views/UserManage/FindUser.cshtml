@@ -1,0 +1,87 @@
+﻿@using ReportMS.DataTransferObjects.Dtos
+@model UserDto
+
+@{
+    var roleOfUser = (RoleDto) ViewBag.RoleOfUser;
+    var rolesOfTenant = (IEnumerable<RoleDto>) ViewBag.RolesOfTenant;
+}
+
+<div style="margin-top: 20px;">
+    @if (Model == null)
+    {
+        <div>The user does not exist.</div>
+        return;
+    }
+
+    @if (!rolesOfTenant.HasAny())
+    {
+        <div>The tenant has not any role.</div>
+        return;
+    }
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">User Information</h4>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-sm-2 text-right">Name:</div>
+                <div class="col-sm-3">@Html.DisplayFor(m => m.UserName)</div>
+                <div class="col-sm-2 text-right">Local Name:</div>
+                <div class="col-sm-3">@Html.DisplayFor(m => m.LocalName)</div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 text-right">Organization:</div>
+                <div class="col-sm-3">@Html.DisplayFor(m => m.Organization)</div>
+                <div class="col-sm-2 text-right">Ext.:</div>
+                <div class="col-sm-3">@Html.DisplayFor(m => m.Extension)</div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 text-right">Email:</div>
+                <div class="col-sm-3">@Html.DisplayFor(m => m.Email)</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">Tenant Roles (@rolesOfTenant.First().Tenant.DisplayName)</h4>
+        </div>
+        <div class="panel-body">
+            @using (Html.BeginForm("AttachRole", null, FormMethod.Post, new { @class = "form-horizontal", role = "form", data_ajax_form = "true", data_ajax_success = "modifyUserSuccess" }))
+            {
+                @Html.AntiForgeryToken()
+                <div>
+                    @foreach (var role in rolesOfTenant)
+                    {
+                        if (roleOfUser != null && roleOfUser.ID == role.ID)
+                        {
+                            <label class="checkbox-inline">
+                                <input type="radio" name="role" checked="checked" value="@role.ID"/>
+                                @Html.DisplayFor(m => role.DisplayName)
+                            </label>
+                        }
+                        else
+                        {
+                            <label class="checkbox-inline">
+                                <input type="radio" name="role" value="@role.ID"/>
+                                @Html.DisplayFor(m => role.DisplayName)
+                            </label>
+                        }
+                    }
+                </div>
+                <div>
+                    <label class="checkbox-inline">
+                        <input type="radio" name="role" /> None
+                    </label>
+                </div>
+                <div class="form-group" style="margin-top: 20px;">
+                    <div class="col-md-offset-1 col-md-9">
+                        <input type="submit" value="submit" class="btn btn-primary" />
+                    </div>
+                </div>
+                @Html.HiddenFor(m => m.ID)
+            }
+        </div>
+    </div>
+</div>

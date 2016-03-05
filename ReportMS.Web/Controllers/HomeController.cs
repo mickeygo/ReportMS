@@ -4,13 +4,14 @@ using ReportMS.ServiceContracts;
 
 namespace ReportMS.Web.Controllers
 {
-    [AllowAnonymous]
     public class HomeController : BaseController
     {
         public ActionResult Index()
         {
             using (var service = ServiceLocator.Instance.Resolve<ITenantService>())
             {
+                // Todo: only show the user tenants
+                
                 var tenants = service.GetAllTenants();
                 return View(tenants);
             }

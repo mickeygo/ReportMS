@@ -65,7 +65,7 @@ namespace ReportMS.Application.Services
 
             var existFields = reportProfile.ReportProfileFields;
             if (existFields != null)
-                this._reportProfileRepository.RemoveProfileFields(existFields); ;
+                this._reportProfileRepository.RemoveProfileFields(existFields);
 
             if (fields != null)
             {

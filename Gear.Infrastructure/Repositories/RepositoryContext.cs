@@ -131,7 +131,10 @@ namespace Gear.Infrastructure.Repositories
 
             if (!this.localModifiedCollection.Value.ContainsKey(obj.ID)
                 && !this.localNewCollection.Value.ContainsKey(obj.ID))
+            {
                 this.localModifiedCollection.Value.Add(obj.ID, obj);
+            }
+
             this.localCommitted.Value = false;
         }
 

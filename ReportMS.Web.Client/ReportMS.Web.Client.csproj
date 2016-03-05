@@ -76,6 +76,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attributes\ValidateTenantAttribute.cs" />
     <Compile Include="Extensions\HtmlNavigationExtensions.cs" />
     <Compile Include="Membership\Login.cs" />
     <Compile Include="Membership\UserManager.cs" />
@@ -220,6 +221,7 @@
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\MembershipWebService\" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Gear.Infrastructure.Specifications;
 using ReportMS.DataTransferObjects.Dtos;
 using ReportMS.Domain.Models.TenantModule;
 using ReportMS.Domain.Repositories;
@@ -34,6 +35,12 @@ namespace ReportMS.Application.Services
         public TenantDto GetTenant(Guid tenantId)
         {
             return this._tenantRepository.GetByKey(tenantId).MapAs<TenantDto>();
+        }
+
+        public bool ExistTenant(string tenantName)
+        {
+            var spec = Specification<Tenant>.Eval(t => t.TenantName.Equals(tenantName, StringComparison.OrdinalIgnoreCase));
+            return this._tenantRepository.Exist(spec);
         }
 
         public TenantDto GetTenant(string tenantName)

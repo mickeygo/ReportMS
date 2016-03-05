@@ -1,16 +1,25 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using Gear.Infrastructure;
 using ReportMS.DataTransferObjects.Dtos;
 using ReportMS.ServiceContracts;
+using ReportMS.Web.Client.Attributes;
 
 namespace ReportMS.Web.Controllers.Manages
 {
+    [ValidateTenant]
     public class RoleManageController : BaseController
     {
         public ActionResult Index()
         {
-            return View();
+            using (var service = ServiceLocator.Instance.Resolve<IRoleService>())
+            {
+                // Todo: filter the current tenant roles.
+
+                var model = service.FindAllRoles();
+                return View(model);
+            }
         }
 
         public ActionResult CreateRole()
@@ -44,9 +53,13 @@ namespace ReportMS.Web.Controllers.Manages
             }
         }
 
-        public ActionResult EditRole()
+        public ActionResult EditRole(Guid roleId)
         {
-            return PartialView();
+            using (var service = ServiceLocator.Instance.Resolve<IRoleService>())
+            {
+                var model = service.FindRole(roleId);
+                return PartialView(model);
+            }
         }
 
         [HttpPost]
@@ -88,10 +101,38 @@ namespace ReportMS.Web.Controllers.Manages
 
         #region Report Manage
 
-        [HttpPost]
-        public ActionResult AddReportGroup(Guid roleId, Guid reportGroupId)
+        public ActionResult AddReportGroup(Guid roleId)
         {
-            return Json(true);
+            using (var roleService = ServiceLocator.Instance.Resolve<IRoleService>())
+            using (var repGroupService = ServiceLocator.Instance.Resolve<IReportGroupService>())
+            {
+                var reportGroups = repGroupService.FindReportGroups();
+                var reportGroupsOfRole = roleService.FindReportGroupRoles(roleId);
+
+                var model = new RoleDto { ID = roleId };
+                ViewBag.ReportGroups = reportGroups;
+                ViewBag.ReportGroupsOfRole = reportGroupsOfRole;
+                
+                return PartialView(model);
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddReportGroup(RoleDto model, IEnumerable<Guid> reportGroups)
+        {
+            try
+            {
+                using (var service = ServiceLocator.Instance.Resolve<IRoleService>())
+                {
+                    service.SetReportGroupRoles(model.ID, reportGroups, this.LoginUser.Identity.Name);
+                    return Json(true);
+                }
+            }
+            catch (Exception)
+            {
+                return Json(false, "Add the report group failure.");
+            }
         }
 
         #endregion

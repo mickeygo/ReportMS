@@ -20,7 +20,7 @@ namespace ReportMS.ServiceContracts
         /// <param name="userId">用户 Id</param>
         /// <returns>用户信息</returns>
         [OperationContract]
-        [FaultContract(typeof(FaultData))]
+        [FaultContract(typeof (FaultData))]
         UserDto FindUser(Guid userId);
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace ReportMS.ServiceContracts
         /// <param name="userName">用户名</param>
         /// <returns>用户信息</returns>
         [OperationContract]
-        [FaultContract(typeof(FaultData))]
+        [FaultContract(typeof (FaultData))]
         UserDto FindUser(string userName);
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace ReportMS.ServiceContracts
         /// <param name="userId">用户 Id</param>
         /// <returns>角色集合</returns>
         [OperationContract]
-        [FaultContract(typeof(FaultData))]
+        [FaultContract(typeof (FaultData))]
         IEnumerable<RoleDto> FindRoles(Guid userId);
 
         /// <summary>
@@ -48,7 +48,18 @@ namespace ReportMS.ServiceContracts
         /// <param name="tenantId">租户 Id</param>
         /// <returns>角色</returns>
         [OperationContract]
-        [FaultContract(typeof(FaultData))]
+        [FaultContract(typeof (FaultData))]
         RoleDto FindRole(Guid userId, Guid tenantId);
+
+        /// <summary>
+        /// 向用户设定指定权限
+        /// </summary>
+        /// <param name="userId">用户 Id</param>
+        /// <param name="roleId">角色 Id，为 null 表示移除角色</param>
+        /// <param name="creator">操作人</param>
+        [OperationContract]
+        [FaultContract(typeof (FaultData))]
+        void SetRoles(Guid userId, Guid? roleId, string creator);
+
     }
 }

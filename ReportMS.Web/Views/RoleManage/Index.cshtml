@@ -3,11 +3,55 @@
 
 @{
     ViewBag.Title = "Role Manage";
+    var index = 1;
 }
 
 @section scripts {
     <script>
-        
+        function createRoleSuccess(data) {
+            if (data.status === "success") {
+                reloadReportGroup();
+            } else {
+                alert(data.message);
+            }
+        }
+
+        function modifyRoleSuccess(data) {
+            if (data.status === "success") {
+                reloadReportGroup();
+            } else {
+                alert(data.message);
+            }
+        }
+
+        function deleteRole(element) {
+            if (!confirm("Are you want to delete it ?")) {
+                return false;
+            }
+            var url = $(element).attr("data-href");
+            var roleId = $(element).attr("data-role-id");
+            $.post(url, { roleId: roleId }, function (data) {
+                if (data.status === "success") {
+                    $(element).closest("tbody").remove();
+                } else {
+                    alert(data.message);
+                }
+            });
+            return true;
+        }
+
+        function addReportGroupSuccess(data) {
+            if (data.status === "success") {
+                alert("Modify the report groups successfully.");
+            } else {
+                alert(data.message);
+            }
+        }
+
+        function reloadReportGroup() {
+            var url = "@Url.Action("Index")" + " #role table";
+            $("#role").load(url);
+        }
     </script>
 }
 
@@ -23,6 +67,44 @@
         </div>
     </div>
     <div id="role">
-
+        @if (Model.HasAny())
+        {
+            <table class="table table-bordered table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Role</th>
+                        <th>Description</th>
+                        <th>Tenant</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                @foreach (var item in Model)
+                {
+                    <tbody>
+                        <tr>
+                            <td>@(index++)</td>
+                            <td>@Html.DisplayFor(m => item.DisplayName)</td>
+                            <td>@Html.DisplayFor(m => item.Description)</td>
+                            <td>@Html.DisplayFor(m => item.Tenant.DisplayName)</td>
+                            <td>
+                                <a class="btn btn-primary btn-xs" data-dialog="true" data-ajax-form="true" data-dialog-href="@Url.Action("EditRole", new { roleId = item.ID })"
+                                   data-dialog-title="Edit Report Group" data-ajax-success="modifyRoleSuccess">
+                                    <span class="glyphicon glyphicon-edit"></span>
+                                </a>
+                                <a class="btn btn-danger btn-xs" data-href="@Url.Action("DeleteRole")" data-role-id="@item.ID" onclick=" deleteRole(this); ">
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                </a>
+                                <a class="btn btn-info btn-xs" data-dialog="true" data-ajax-form="true" data-dialog-href="@Url.Action("AddReportGroup", new { roleId = item.ID })"
+                                   data-dialog-title="Add Report Groups" data-ajax-success="addReportGroupSuccess"
+                                   data-toggle="tooltip" title="Add Report Group">
+                                    <span class="glyphicon glyphicon-plus"></span>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                }
+            </table>
+        }
     </div>
 </div>

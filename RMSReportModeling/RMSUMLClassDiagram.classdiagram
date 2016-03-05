@@ -31,6 +31,13 @@
         <classMoniker Id="d868bd64-40c4-4809-acd5-a26bdad6d7f8" LastKnownName="Role" />
       </annotatedElements>
     </comment>
+    <comment Id="d3006233-dcb6-4a29-bfea-b7919614d0c6">
+      <elementDefinition Id="207e3578-d1ea-487c-bee1-ed60b0b373d1" />
+      <body>订阅操由管理员操作（普通）</body>
+      <annotatedElements>
+        <classMoniker Id="ff60e266-9f42-4572-bfa6-38a1b1221701" LastKnownName="Subscriber" />
+      </annotatedElements>
+    </comment>
   </ownedCommentsInternal>
   <packagedElements>
     <logicalClassDesignerModelHasPackages>

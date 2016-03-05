@@ -4,6 +4,7 @@ using System.Linq;
 using Gear.Infrastructure.Specifications;
 using ReportMS.DataTransferObjects.Dtos;
 using ReportMS.Domain.Models.AccountModule;
+using ReportMS.Domain.Models.ReportModule.ReportGroupAggregate;
 using ReportMS.Domain.Repositories;
 using ReportMS.ServiceContracts;
 
@@ -19,17 +20,20 @@ namespace ReportMS.Application.Services
         private readonly IRoleRepository _roleRepository;
         private readonly IMenuRoleRepository _menuRoleRepository;
         private readonly IActionRoleRepository _actionRoleRepository;
+        private readonly IReportGroupRoleRepository _reportGroupRoleRepository;
 
         #endregion
 
         #region Ctor
 
         public RoleService(IRoleRepository roleRepository, IMenuRoleRepository menuRoleRepository,
-            IActionRoleRepository actionRoleRepository)
+            IActionRoleRepository actionRoleRepository,
+            IReportGroupRoleRepository reportGroupRoleRepository)
         {
             this._roleRepository = roleRepository;
             this._menuRoleRepository = menuRoleRepository;
             this._actionRoleRepository = actionRoleRepository;
+            this._reportGroupRoleRepository = reportGroupRoleRepository;
         }
 
         #endregion
@@ -39,6 +43,17 @@ namespace ReportMS.Application.Services
         public RoleDto FindRole(Guid roleId)
         {
             return this._roleRepository.GetByKey(roleId).MapAs<RoleDto>();
+        }
+
+        public IEnumerable<RoleDto> FindRoles(Guid tenantId)
+        {
+            var spec = Specification<Role>.Eval(r => r.TenantId == tenantId);
+            return this._roleRepository.FindAll(spec).MapAs<RoleDto>();
+        }
+
+        public IEnumerable<RoleDto> FindAllRoles()
+        {
+            return this._roleRepository.FindAll().MapAs<RoleDto>();
         }
 
         public bool ExistRole(string roleName)
@@ -57,6 +72,12 @@ namespace ReportMS.Application.Services
         {
             var actionRoles = this._actionRoleRepository.FindAll(Specification<ActionRole>.Eval(r => r.RoleId == roleId));
             return actionRoles.Select(r => r.Actions).MapAs<ActionsDto>();
+        }
+
+        public IEnumerable<ReportGroupRoleDto> FindReportGroupRoles(Guid roleId)
+        {
+            var spec = Specification<ReportGroupRole>.Eval(r => r.RoleId == roleId);
+            return this._reportGroupRoleRepository.FindAll(spec).MapAs<ReportGroupRoleDto>();
         }
 
         public void CreateRole(RoleDto roleDto)
@@ -86,6 +107,27 @@ namespace ReportMS.Application.Services
             this._roleRepository.Update(role);
         }
 
+        public void SetReportGroupRoles(Guid roleId, IEnumerable<Guid> reportGroupIds, string creator)
+        {
+            // Remove the all that own to the role
+            var repGroupRoles = this._reportGroupRoleRepository.FindAll(Specification<ReportGroupRole>.Eval(r => r.RoleId == roleId));
+            if (repGroupRoles != null)
+            {
+                foreach (var repGroupRole in repGroupRoles)
+                    this._reportGroupRoleRepository.Remove(repGroupRole);
+            }
+
+            // add the report groups if the reportGroupIds has any item.
+            if (reportGroupIds == null || !reportGroupIds.Any())
+                return;
+
+            var addRepGroupRoles = (from reportGroupId in reportGroupIds
+                select new ReportGroupRole(reportGroupId, roleId, creator));
+
+            foreach (var addRepGroupRole in addRepGroupRoles)
+                this._reportGroupRoleRepository.Add(addRepGroupRole);
+        }
+
         #endregion
 
         #region IDisposable Members
@@ -98,6 +140,8 @@ namespace ReportMS.Application.Services
                 this._menuRoleRepository.Context.Dispose();
             if (this._actionRoleRepository != null)
                 this._actionRoleRepository.Context.Dispose();
+            if (this._reportGroupRoleRepository != null)
+                this._reportGroupRoleRepository.Context.Dispose();
         }
 
         #endregion

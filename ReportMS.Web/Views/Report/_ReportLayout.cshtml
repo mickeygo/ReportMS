@@ -34,8 +34,6 @@
     </script>
 }
 
-@Html.Navigate("Report")
-
 <div id="layout">
     <div class="panel">
         <div class="container-fluid">
@@ -48,7 +46,7 @@
                                     <script type="text/jsx">
                                         var ReportSelect = React.createClass({
                                             getInitialState: function() {
-                                                return {reports: [], reportId: ""};
+                                                return {reportProfiles: [], reportProflieId: ""};
                                             },
                                             componentDidMount: function() {
                                                 var url = "@Url.Action("GetReports")";
@@ -61,18 +59,18 @@
                                                     dataType: "json"
                                                 }).done(function(data){
                                                     if(data.status === "success") {
-                                                        datas = data.reports;
+                                                        datas = data.reportProfiles;
                                                     }
                                                 });
                                         
-                                                this.setState({reports: datas});
+                                                this.setState({reportProfiles: datas});
                                             },
                                             componentWillUpdate: function(nextProps, nextState){
                                                 var url = "@Url.Action("GetFields")";
-                                                var value = nextState.reportId;
+                                                var value = nextState.reportProflieId;
                                                 var reportField = new ReportField("report_field");
                                                 if (value !== "") {
-                                                    $.post(url, { reportId: value }, function (data) {
+                                                    $.post(url, { reportProflieId: value }, function (data) {
                                                         if (data.status === "success") {
                                                             var fields = data.fileds;
                                                             reportField.generateFields(fields);
@@ -92,14 +90,14 @@
                                             },
                                             handleChange: function(event) {
                                                 var value = event.target.value;
-                                                this.setState({reportId: value});
+                                                this.setState({reportProflieId: value});
                                             },
                                             render: function() {
                                                 var options = [];
                                                 options.push(<option value="">-----</option>);
-                                                this.state.reports.forEach(function(report){
+                                                this.state.reportProfiles.forEach(function(reportProfile){
                                                     options.push(
-                                                        <option value={report.ID}>{report.DisplayName}</option>
+                                                        <option value={reportProfile.ID} data-report-id={reportProfile.ReportId}>{reportProfile.Name}</option>
                                                     );
                                                 });
                                                 

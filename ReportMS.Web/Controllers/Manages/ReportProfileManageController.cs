@@ -43,7 +43,7 @@ namespace ReportMS.Web.Controllers.Manages
                 {
                     var isExistProfile = service.ExistReportProfile(model.Name);
                     if (isExistProfile)
-                        return Json(false, string.Format("Create the report profile failure. The name:[{0}] already exists.", model.Name));
+                        return Json(false, string.Format("Create the report profile failure. The profile name:[{0}] already exists.", model.Name));
 
                     model.CreatedBy = this.LoginUser.Identity.Name;
                     service.AddReportProfile(model);

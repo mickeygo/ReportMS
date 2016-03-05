@@ -25,7 +25,7 @@ namespace Gear.Infrastructure.Specifications
         /// 返回一个<see cref="System.Boolean"/>值，是否当前给定的对象满足指定的规约
         /// </summary>
         /// <param name="obj">应用于规约的对象</param>
-        /// <returns>True 表示满足，False 表示不满足</returns>
+        /// <returns>True 表示满足; False 表示不满足</returns>
         public virtual bool IsSatisfiedBy(T obj)
         {
             return this.GetExpression().Compile()(obj);
@@ -45,7 +45,7 @@ namespace Gear.Infrastructure.Specifications
         /// 一个结合的规约满足给定对象规约中的一个或全部
         /// </summary>
         /// <param name="other">被组合的规约实例</param>
-        /// <returns></returns>
+        /// <returns><c>OrSpecification</c>规约</returns>
         public ISpecification<T> OrSpecification(ISpecification<T> other)
         {
             return new OrSpecification<T>(this, other);
@@ -55,7 +55,7 @@ namespace Gear.Infrastructure.Specifications
         /// 一个组合规约，给定的对象满足第一个规约满足，但是不满足第二个规约
         /// </summary>
         /// <param name="other">被组合的规约实例</param>
-        /// <returns></returns>
+        /// <returns><c>AndNotSpecification</c>规约</returns>
         public ISpecification<T> AndNotSpecification(ISpecification<T> other)
         {
             return new AndNotSpecification<T>(this, other);

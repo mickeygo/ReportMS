@@ -197,6 +197,7 @@
     <Compile Include="Controllers\Manages\ReportManageController.cs" />
     <Compile Include="Controllers\Manages\ReportProfileManageController.cs" />
     <Compile Include="Controllers\Manages\RoleManageController.cs" />
+    <Compile Include="Controllers\Manages\UserManageController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\Manages\TenementController.cs" />
     <Compile Include="Global.asax.cs">
@@ -550,6 +551,10 @@
     <Content Include="Views\ReportGroupManage\EditGroup.cshtml" />
     <Content Include="Views\RoleManage\CreateRole.cshtml" />
     <Content Include="Views\RoleManage\Index.cshtml" />
+    <Content Include="Views\RoleManage\EditRole.cshtml" />
+    <Content Include="Views\UserManage\Index.cshtml" />
+    <Content Include="Views\UserManage\FindUser.cshtml" />
+    <Content Include="Views\RoleManage\AddReportGroup.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

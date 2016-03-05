@@ -40,6 +40,12 @@ namespace ReportMS.DataTransferObjects.Dtos
         public Guid? TenantId { get; set; }
 
         /// <summary>
+        /// 获取租户信息
+        /// </summary>
+        [DataMember]
+        public TenantDto Tenant { get; private set; }
+
+        /// <summary>
         /// 获取或设置一个<see cref="System.Boolean"/>值，表示此角色是否可用
         /// </summary>
         [DataMember]

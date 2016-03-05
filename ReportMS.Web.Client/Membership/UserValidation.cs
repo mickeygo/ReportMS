@@ -63,7 +63,7 @@ namespace ReportMS.Web.Client.Membership
                 return false;
 
             var userName = this._userName.ToLower();
-            return this.ValidateUseMembershipRPC(userName, this._password, HttpRequestHelper.GetClientHostIP());
+            return this.ValidateUserMembershipRPC(userName, this._password, HttpRequestHelper.GetClientHostIP());
         }
 
         #endregion
@@ -75,7 +75,7 @@ namespace ReportMS.Web.Client.Membership
             return UserManager.Instance.GetUserInfo(usernMane);
         }
 
-        private bool ValidateUseMembershipRPC(string userName, string password, string localId)
+        private bool ValidateUserMembershipRPC(string userName, string password, string localId)
         {
             MembershipWebserviceSoapClient client = null;
             try
