@@ -1,0 +1,40 @@
+﻿@{
+    ViewBag.Title = "User Manage";
+}
+
+@section scripts {
+    <script>
+        function doSearchUser(element) {
+            var username = $.trim($("#UserName").val());
+            var url = $(element).attr("data-href");
+            $("#usercontent").load(url, { userName: username });
+        }
+
+        function modifyUserSuccess(data) {
+            if (data.status === "success") {
+                $("#usercontent").children("div:first").remove();
+                alert("Update the user role successfully.");
+            } else {
+                alert(data.message);
+            }
+        }
+    </script>
+}
+
+@Html.Navigate("Manage", "User")
+
+<div>
+    <div id="userseacher" class="row">
+        <div class="col-lg-5">
+            <div class="input-group">
+                <input id="UserName" type="text" class="form-control" placeholder="Search user ...">
+                <span class="input-group-btn">
+                    <button class="btn btn-primary" type="button" data-href="@Url.Action("FindUser")" onclick=" return doSearchUser(this); ">
+                        <span class="glyphicon glyphicon-search"></span>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div id="usercontent"></div>
+</div>
