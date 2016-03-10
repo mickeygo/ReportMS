@@ -22,6 +22,12 @@
             return download.downLoad();
         }
 
+        function doSubscribe(element) {
+            var executeUrl = $(element).attr("data-subscribe-url");
+            var subscriber = new Subscriber(executeUrl);
+            return subscriber.Subscribe();
+        }
+
         //
         function search() {
             showTable();
@@ -31,6 +37,29 @@
             var report = new ReportTable("#report_table");
             report.showTable("@Url.Action("GetDataSet")", 256);
         }
+
+        // subscribe
+        $(document).on("change", "select[data-schedule=true]", function (e) {
+            var url = $(this).attr("data-href");
+            var val = $(this).val();
+            var $content = $("div[data-schedule-content=true]");
+            if (val === "") {
+                $content.children().remove();
+                return false;
+            }
+
+            $content.load(url, { schedule: val });
+            return true;
+        });
+
+        function subscribeSuccess(data) {
+            if (data.status === "success") {
+                alert("Subscribe successfully.");
+            } else {
+                alert("Subscribe failure.");
+            }
+        }
+
     </script>
 }
 
@@ -154,8 +183,14 @@
                                 <div class="ibox">
                                     <div class="ibox-title">
                                         <div class="ibox-tools rboor">
+                                            <a class="btn btn-primary btn-xs" data-dialog="true" data-ajax-form="true"
+                                               data-dialog-href="@Url.Action("UserSubscribe", "Subscriber")" data-subscribe-url="@Url.Action("UserSubscribeStore", "Subscriber")"
+                                               data-dialog-title="User Subscribe Report" data-ajax-success="subscribeSuccess"
+                                               onclick="return doSubscribe(this);">
+                                                <span class="glyphicon glyphicon-link"></span> Subscribe
+                                            </a>
                                             <a href="@Url.Action("ExportExcel")" data-download-url="@Url.Action("SaveExcel")" class="btn btn-primary btn-xs" target="_blank"
-                                               onclick="return doExportExcel(this);">
+                                               onclick=" return doExportExcel(this); ">
                                                 <span class="glyphicon glyphicon-download-alt"></span> Export Excel
                                             </a>
                                         </div>

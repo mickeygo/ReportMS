@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using Gear.Infrastructure.Web.Membership;
@@ -16,10 +18,16 @@ namespace Gear.Infrastructure.Web.Mails
         public void Send(string subject, string body, params string[] tos)
         {
             var debugBody = this.BuildDebugBody(body, tos, null, null);
-            this.SendMail(subject, debugBody, this.DebugTos, null, this.DebugBCcs, null);
+            this.SendMail(subject, debugBody, this.DebugTos, null, this.DebugBCcs, (string[]) null);
         }
 
         public void Send(string subject, string body, string[] tos, string[] attachments)
+        {
+            var debugBody = this.BuildDebugBody(body, tos, null, null);
+            this.SendMail(subject, debugBody, this.DebugTos, null, this.DebugBCcs, attachments);
+        }
+
+        public void Send(string subject, string body, string[] tos, IEnumerable<Tuple<Stream, string>> attachments)
         {
             var debugBody = this.BuildDebugBody(body, tos, null, null);
             this.SendMail(subject, debugBody, this.DebugTos, null, this.DebugBCcs, attachments);
@@ -31,7 +39,19 @@ namespace Gear.Infrastructure.Web.Mails
             this.SendMail(subject, debugBody, this.DebugTos, null, this.DebugBCcs, attachments);
         }
 
+        public void Send(string subject, string body, string[] tos, string[] ccs, IEnumerable<Tuple<Stream, string>> attachments)
+        {
+            var debugBody = this.BuildDebugBody(body, tos, ccs, null);
+            this.SendMail(subject, debugBody, this.DebugTos, null, this.DebugBCcs, attachments);
+        }
+
         public void Send(string subject, string body, string[] tos, string[] ccs, string[] bccs, string[] attachments)
+        {
+            var debugBody = this.BuildDebugBody(body, tos, ccs, bccs);
+            this.SendMail(subject, debugBody, this.DebugTos, null, this.DebugBCcs, attachments);
+        }
+
+        public void Send(string subject, string body, string[] tos, string[] ccs, string[] bccs, IEnumerable<Tuple<Stream, string>> attachments)
         {
             var debugBody = this.BuildDebugBody(body, tos, ccs, bccs);
             this.SendMail(subject, debugBody, this.DebugTos, null, this.DebugBCcs, attachments);

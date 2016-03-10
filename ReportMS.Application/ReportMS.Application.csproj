@@ -45,6 +45,7 @@
     <Compile Include="Services\ReportProfileService.cs" />
     <Compile Include="Services\ReportService.cs" />
     <Compile Include="Services\RoleService.cs" />
+    <Compile Include="Services\SubscriberService.cs" />
     <Compile Include="Services\TenantService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="TransferExtensions.cs" />

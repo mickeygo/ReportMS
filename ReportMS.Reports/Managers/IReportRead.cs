@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using ReportMS.Reports.ReadModel;
 
 namespace ReportMS.Reports.Managers
@@ -28,8 +29,19 @@ namespace ReportMS.Reports.Managers
         byte[] ExecuteExcelExport(string sheetName);
 
         /// <summary>
-        /// 获取 Table 或 View 名
+        /// 获取要查询的报表 Id
+        /// </summary>
+        Guid ReportId { get; }
+
+        /// <summary>
+        /// 获取要查询的 Table / View  名
         /// </summary>
         string TableOrViewName { get; }
+
+        /// <summary>
+        /// 获取 SQL 语句和参数。
+        /// Item1 为 SQL 查询语句；Item2 为参数
+        /// </summary>
+        Tuple<string, IDictionary<string, object>> GetSqlQueryAndParameters();
     }
 }

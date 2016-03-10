@@ -37,9 +37,7 @@ namespace ReportMS.Web
             GlobalConfiguration.Configuration.UseSqlServerStorage(GetDbConnectionName("rms"));
             app.UseHangfireDashboard();
             app.UseHangfireServer();
-
         }
-
         
         string GetDbConnectionName(string name)
         {

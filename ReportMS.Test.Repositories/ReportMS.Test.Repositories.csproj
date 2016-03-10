@@ -81,6 +81,7 @@
     <Compile Include="EntityFramework\ReportGroupRoleRepositoryTest.cs" />
     <Compile Include="EntityFramework\RoleRepositoryTest.cs" />
     <Compile Include="EntityFramework\TenantRepositoryTest.cs" />
+    <Compile Include="EntityFramework\TopicRepositoryTest.cs" />
     <Compile Include="EntityFramework\UserRepositoryTest.cs" />
     <Compile Include="EntityFramework\UserRoleRepositoryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

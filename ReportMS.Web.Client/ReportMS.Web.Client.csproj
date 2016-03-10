@@ -78,6 +78,18 @@
   <ItemGroup>
     <Compile Include="Attributes\ValidateTenantAttribute.cs" />
     <Compile Include="Extensions\HtmlNavigationExtensions.cs" />
+    <Compile Include="Helpers\StorageParameter.cs" />
+    <Compile Include="Jobs\JobClient.Partial.cs" />
+    <Compile Include="Jobs\JobHandlers\AttachmentJobHandler.cs" />
+    <Compile Include="Jobs\JobTaskCalibration.cs" />
+    <Compile Include="Jobs\Subscribers\AttachmentJob.cs" />
+    <Compile Include="Jobs\IJobClient.cs" />
+    <Compile Include="Jobs\IJobClientContext.cs" />
+    <Compile Include="Jobs\ISubScriber.cs" />
+    <Compile Include="Jobs\JobClient.cs" />
+    <Compile Include="Jobs\JobClientContext.cs" />
+    <Compile Include="Jobs\Subscribers\RefreshTopicCacheJob.cs" />
+    <Compile Include="Jobs\TopicCacheManager.cs" />
     <Compile Include="Membership\Login.cs" />
     <Compile Include="Membership\UserManager.cs" />
     <Compile Include="Membership\UserValidation.cs" />
@@ -150,6 +162,10 @@
     <ProjectReference Include="..\ReportMS.ServiceContracts\ReportMS.ServiceContracts.csproj">
       <Project>{02a668b3-aeb6-4525-bbb2-74b6bacdae59}</Project>
       <Name>ReportMS.ServiceContracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ReportMS.Subscribers\ReportMS.Subscribers.csproj">
+      <Project>{a852b4e2-fe69-4519-b99b-dce9160018b7}</Project>
+      <Name>ReportMS.Subscribers</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

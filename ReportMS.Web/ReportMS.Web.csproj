@@ -200,6 +200,7 @@
     <Compile Include="Controllers\Manages\UserManageController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\Manages\TenementController.cs" />
+    <Compile Include="Controllers\SubscriberController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -302,8 +303,22 @@
     <Content Include="Content\DataTables\css\select.jqueryui.min.css" />
     <Content Include="Content\DataTables\images\details_close.png" />
     <Content Include="Content\DataTables\images\details_open.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_f6cf3b_256x240.png" />
     <Content Include="Content\themes\details_close.png" />
-    <Content Include="Content\themes\details_open.png" />
     <Content Include="Content\DataTables\images\sort_asc.png" />
     <Content Include="Content\DataTables\images\sort_asc_disabled.png" />
     <Content Include="Content\DataTables\images\sort_both.png" />
@@ -323,19 +338,6 @@
     <Content Include="Content\themes\base\datepicker.css" />
     <Content Include="Content\themes\base\dialog.css" />
     <Content Include="Content\themes\base\draggable.css" />
-    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
-    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
-    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
-    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
-    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
-    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
-    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
     <Content Include="Content\themes\base\menu.css" />
     <Content Include="Content\themes\base\progressbar.css" />
     <Content Include="Content\themes\base\resizable.css" />
@@ -354,6 +356,7 @@
     <Content Include="Content\themes\contact-livechat.gif" />
     <Content Include="Content\themes\contact-qq.gif" />
     <Content Include="Content\themes\contact_tab.gif" />
+    <Content Include="Content\themes\details_open.png" />
     <Content Include="Content\themes\header-bg.jpg" />
     <Content Include="Content\themes\main-menu-title.jpg" />
     <Content Include="Content\themes\main-menu.png" />
@@ -361,6 +364,21 @@
     <Content Include="Content\themes\menu-arrow-3.png" />
     <Content Include="Content\themes\menu-arrow-4.png" />
     <Content Include="Content\themes\menu-arrow.png" />
+    <Content Include="Content\themes\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\ui-bg_glass_75_ffffff_1x400.png" />
+    <Content Include="Content\themes\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\ui-icons_f6cf3b_256x240.png" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -555,6 +573,12 @@
     <Content Include="Views\UserManage\Index.cshtml" />
     <Content Include="Views\UserManage\FindUser.cshtml" />
     <Content Include="Views\RoleManage\AddReportGroup.cshtml" />
+    <Content Include="Views\Subscriber\UserSubscribe.cshtml" />
+    <Content Include="Views\Subscriber\Tuple\_YearSchedule.cshtml" />
+    <Content Include="Views\Subscriber\Tuple\_MonthSchedule.cshtml" />
+    <Content Include="Views\Subscriber\Tuple\_WeekSchedule.cshtml" />
+    <Content Include="Views\Subscriber\Tuple\_DaySchedule.cshtml" />
+    <Content Include="Views\Subscriber\Tuple\_HourSchedule.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -619,6 +643,10 @@
     <ProjectReference Include="..\ReportMS.ServiceContracts\ReportMS.ServiceContracts.csproj">
       <Project>{02a668b3-aeb6-4525-bbb2-74b6bacdae59}</Project>
       <Name>ReportMS.ServiceContracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ReportMS.Subscribers\ReportMS.Subscribers.csproj">
+      <Project>{a852b4e2-fe69-4519-b99b-dce9160018b7}</Project>
+      <Name>ReportMS.Subscribers</Name>
     </ProjectReference>
     <ProjectReference Include="..\ReportMS.Web.Client\ReportMS.Web.Client.csproj">
       <Project>{25e06869-eb1f-42dc-ad77-29c1f0216fe4}</Project>

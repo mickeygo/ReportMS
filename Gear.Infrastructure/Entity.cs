@@ -62,7 +62,7 @@ namespace Gear.Infrastructure
         /// </summary>
         public void GenerateNewIdentity()
         {
-            this.ID = (Guid)IdentityGenerator.Instance.Generate();
+            this.ID = (Guid) IdentityGenerator.Instance.Generate();
         }
     }
 }

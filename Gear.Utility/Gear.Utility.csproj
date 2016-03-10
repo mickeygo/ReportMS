@@ -95,12 +95,15 @@
     <Compile Include="IO\Excels\ExcelVersion.cs" />
     <Compile Include="IO\Excels\IExcel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Schedule\Jobs\JobFactory.cs" />
+    <Compile Include="Schedule\Jobs\IJob.cs" />
+    <Compile Include="Schedule\Jobs\Implements\HangfireJob.cs" />
+    <Compile Include="Schedule\ScheduleCron.cs" />
+    <Compile Include="Schedule\ScheduleCronOptions.cs" />
     <Compile Include="Serialization\JsonOptions.cs" />
     <Compile Include="Serialization\NewtonsoftJsonSerializer.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Schedule\Jobs\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />

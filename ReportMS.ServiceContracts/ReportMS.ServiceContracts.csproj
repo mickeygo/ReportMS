@@ -47,6 +47,7 @@
     <Compile Include="IReportSchemaQueryService.cs" />
     <Compile Include="IReportService.cs" />
     <Compile Include="IRoleService.cs" />
+    <Compile Include="ISubscriberService.cs" />
     <Compile Include="ITenantService.cs" />
     <Compile Include="IUserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -58,6 +58,13 @@ namespace ReportMS.Domain.Repositories.EntityFramework
             modelBuilder.Configurations.Add(new ReportProfileFieldEntityTypeConfiguration());
             modelBuilder.Configurations.Add(new ReportGroupRoleEntityTypeConfiguration());
 
+            // Subscribe
+            modelBuilder.Configurations.Add(new TopicEntityTypeConfiguration());
+            modelBuilder.Configurations.Add(new AttachmentTopicEntityTypeConfiguration());
+            modelBuilder.Configurations.Add(new TopicTaskEntityTypeConfiguration());
+            modelBuilder.Configurations.Add(new SubscriberEntityTypeConfiguration());
+            modelBuilder.Configurations.Add(new TaskRecordEntityTypeConfiguration());
+
             // DynamicFilter
             modelBuilder.EnableSoftDelete();
 

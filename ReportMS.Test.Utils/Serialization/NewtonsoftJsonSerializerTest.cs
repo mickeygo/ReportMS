@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Gear.Utility.Serialization;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -28,6 +29,28 @@ namespace ReportMS.Test.Utils.Serialization
         public void Deserialize_Test()
         {
 
+        }
+
+        [TestMethod]
+        public void SerializeDictionary_Test()
+        {
+            var dics = new Dictionary<string, object> { { "Name", "gang.yang" }, { "Age", 28 }, { "Time", DateTime.Now} };
+            var json = new NewtonsoftJsonSerializer();
+            var result = json.Serialize(dics);
+
+            // {"Name":"gang.yang","Age":28,"Time":"2016-03-09 14:11:13"}
+            Assert.IsNull(result, result);
+        }
+
+        [TestMethod]
+        public void DeserializeDictionary_Test()
+        {
+            var deserializeStr = "\"Name\":\"gang.yang\",\"Age\":28,\"Time\":\"2016-03-09 14:11:13\"";
+            var json = new NewtonsoftJsonSerializer();
+            var result = json.Deserialize<Dictionary<string, string>>(deserializeStr);
+
+            // error
+            Assert.IsNull(result);
         }
     }
 

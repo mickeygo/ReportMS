@@ -81,6 +81,6 @@ namespace ReportMS.DataTransferObjects.Dtos
         /// 获取或设置字段集合
         /// </summary>
         [DataMember]
-        public virtual IEnumerable<ReportFieldDto> Fields { get; set; }
+        public IEnumerable<ReportFieldDto> Fields { get; set; }
     }
 }

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Net.Mail;
 using System.Net.Mime;
 using System.Text;
@@ -35,7 +37,7 @@ namespace Gear.Infrastructure.Net.Mail
         public void SetFrom(string from, string displayName = null)
         {
             if (!MailAudit.ValidateRecipients(from))
-                throw new ArgumentException("The mail from is invalid.");
+                throw new ArgumentException("The mail's from is invalid.");
             this.mailMessage.From = new MailAddress(from, displayName);
         }
 
@@ -147,6 +149,20 @@ namespace Gear.Infrastructure.Net.Mail
         }
 
         /// <summary>
+        /// 添加附件
+        /// </summary>
+        /// <param name="stream">文件流</param>
+        /// <param name="name">附件名</param>
+        /// <remarks>在释放 MailMessage 时，会释放 AttachmentCollection，其中也会关闭 Stream</remarks>
+        public void AddAttachment(Stream stream, string name)
+        {
+            if (!Path.HasExtension(name))
+                return;
+
+            this.mailMessage.Attachments.Add(new Attachment(stream, name));
+        }
+
+        /// <summary>
         /// 添加附件。
         /// 若附件路径不合法，将会被移除
         /// </summary>
@@ -155,6 +171,17 @@ namespace Gear.Infrastructure.Net.Mail
         {
             foreach (var attachment in attachments)
                 this.AddAttachment(attachment);
+        }
+
+        /// <summary>
+        /// 添加附件。
+        /// </summary>
+        /// <param name="attachments">添加的附件的文件流集合</param>
+        /// <remarks>在释放 MailMessage 时，会释放 AttachmentCollection，其中也会关闭 Stream</remarks>
+        public void AddAttachments(IEnumerable<Tuple<Stream, string>> attachments)
+        {
+            foreach (var attachment in attachments)
+                this.AddAttachment(attachment.Item1, attachment.Item2);
         }
 
         /// <summary>

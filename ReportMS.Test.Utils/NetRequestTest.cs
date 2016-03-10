@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -33,6 +34,16 @@ namespace ReportMS.Test.Utils
         {
             var num = TimeSpan.FromMinutes(10).TotalMilliseconds;
             Assert.IsTrue(num == 10 * 60 * 1000, num.ToString());
+        }
+
+        [TestMethod]
+        public void LocalHost_Test()
+        {
+            var hostName = Dns.GetHostName();
+            var hostAddresses = Dns.GetHostAddresses(hostName);
+            var hostAddressesIpv4 = hostAddresses.Where(h => h.AddressFamily == AddressFamily.InterNetwork);
+
+            Assert.IsNull(hostAddressesIpv4);
         }
     }
 }

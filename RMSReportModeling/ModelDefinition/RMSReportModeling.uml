@@ -378,6 +378,12 @@
         LastKnownName="Db"
         LastKnownLocation="Package_1527.uml" />
     </packageHasNamedElement>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="a1cfbfca-ad80-4fc2-af2d-11397bd988b1"
+        LastKnownName="User Subscribe"
+        LastKnownLocation="Package_1418.uml" />
+    </packageHasNamedElement>
   </packagedElements>
   <primitiveType
     Id="220a3521-e091-4221-bae9-3ef9018e845c"

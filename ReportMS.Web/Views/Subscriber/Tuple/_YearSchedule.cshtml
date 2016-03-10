@@ -1,0 +1,14 @@
+﻿<div id="yearschedule">
+    <div class="row">
+        <div class="checkbox">
+            <!-- Month -->
+            Month: @Html.DropDownList("TopicTasks[0].Month", (IEnumerable<SelectListItem>)ViewBag.MonthRange)
+
+            <!-- Day -->
+            Day: @Html.DropDownList("TopicTasks[0].Day", (IEnumerable<SelectListItem>)ViewBag.DayRange)
+
+            <!-- Hour -->
+            Hour: @Html.DropDownList("TopicTasks[0].Hour", (IEnumerable<SelectListItem>)ViewBag.HourRange)
+        </div>
+    </div>
+</div>

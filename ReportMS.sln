@@ -72,6 +72,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{06
 		Rms_Table.sql = Rms_Table.sql
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReportMS.Subscribers", "ReportMS.Subscribers\ReportMS.Subscribers.csproj", "{A852B4E2-FE69-4519-B99B-DCE9160018B7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -190,6 +192,10 @@ Global
 		{50D43A58-3EF8-41BC-A578-3B5C979CD8F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{50D43A58-3EF8-41BC-A578-3B5C979CD8F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{50D43A58-3EF8-41BC-A578-3B5C979CD8F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A852B4E2-FE69-4519-B99B-DCE9160018B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A852B4E2-FE69-4519-B99B-DCE9160018B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A852B4E2-FE69-4519-B99B-DCE9160018B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A852B4E2-FE69-4519-B99B-DCE9160018B7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -216,6 +222,7 @@ Global
 		{AB7B665F-EFF3-4B4B-80E3-C30C67D0D83E} = {9ABA44EA-FBDE-4711-9CF7-ACC389658B65}
 		{50D43A58-3EF8-41BC-A578-3B5C979CD8F5} = {9ABA44EA-FBDE-4711-9CF7-ACC389658B65}
 		{0687D7E3-9650-48D0-A8BC-6C36421981B2} = {5CA3E2FF-EEDA-49E0-AD7C-ACDD7BF74E38}
+		{A852B4E2-FE69-4519-B99B-DCE9160018B7} = {8588C82A-62F0-42BC-A620-86778B41BD29}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.0\lib\NET35;packages\Unity.Interception.2.1.505.0\lib\NET35;packages\EnterpriseLibrary.Common.5.0.505.0\lib\NET35;packages\EnterpriseLibrary.Caching.5.0.505.0\lib\NET35

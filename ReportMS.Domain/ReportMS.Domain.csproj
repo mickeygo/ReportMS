@@ -56,12 +56,19 @@
     <Compile Include="Models\ReportModule\ReportGroupAggregate\ReportGroupRole.cs" />
     <Compile Include="Models\ReportModule\ReportProfileAggregate\ReportProfile.cs" />
     <Compile Include="Models\ReportModule\ReportProfileAggregate\ReportProfileField.cs" />
+    <Compile Include="Models\SubscriberModule\AttachmentTopic.cs" />
+    <Compile Include="Models\SubscriberModule\Subscriber.cs" />
+    <Compile Include="Models\SubscriberModule\TaskRecord.cs" />
+    <Compile Include="Models\SubscriberModule\TaskSchedule.cs" />
+    <Compile Include="Models\SubscriberModule\Topic.cs" />
+    <Compile Include="Models\SubscriberModule\TopicTask.cs" />
     <Compile Include="Models\TenantModule\Tenant.cs" />
     <Compile Include="Models\AccountModule\Role.cs" />
     <Compile Include="Models\AccountModule\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\IActionRepository.cs" />
     <Compile Include="Repositories\IActionRoleRepository.cs" />
+    <Compile Include="Repositories\IAttachmentTopicRepository.cs" />
     <Compile Include="Repositories\IMenuRepository.cs" />
     <Compile Include="Repositories\IMenuRoleRepository.cs" />
     <Compile Include="Repositories\IReportGroupRepository.cs" />
@@ -69,6 +76,7 @@
     <Compile Include="Repositories\IReportProfileRepository.cs" />
     <Compile Include="Repositories\IReportRepository.cs" />
     <Compile Include="Repositories\IRoleRepository.cs" />
+    <Compile Include="Repositories\ITaskRecordRepository.cs" />
     <Compile Include="Repositories\ITenantRepository.cs" />
     <Compile Include="Repositories\IUserRepository.cs" />
     <Compile Include="Repositories\IUserRoleRepository.cs" />

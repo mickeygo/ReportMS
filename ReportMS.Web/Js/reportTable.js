@@ -289,5 +289,30 @@ function ReportDownload(downloadUrl) {
             
             return false;
         });
+
+        return true;
+    }
+}
+
+function Subscriber(subscribeUrl) {
+    this.report = new ReportTable();
+
+    this.checkColumnsBefore = function () {
+        var columns = this.report.setColumnData();
+        return columns != undefined && columns.length > 0;
+    }
+
+    this.Subscribe = function () {
+        var postData = this.report.getPostData();
+
+        $.ajax({
+            async: false,
+            type: "POST",
+            url: subscribeUrl,
+            data: postData,
+            dataType: "json"
+        });
+
+        return true;
     }
 }

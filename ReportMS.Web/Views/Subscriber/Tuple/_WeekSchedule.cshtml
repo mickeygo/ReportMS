@@ -1,0 +1,13 @@
+﻿<div id="weekschedule">
+    <div class="row">
+        <div class="checkbox">
+            <!-- Week -->
+            Week: @Html.DropDownList("TopicTasks[0].Week", (IEnumerable<SelectListItem>)ViewBag.WeekRange)
+
+            <!-- Hour -->
+            Hour: @Html.DropDownList("TopicTasks[0].Hour", (IEnumerable<SelectListItem>)ViewBag.HourRange)
+        </div>
+    </div>
+</div>
+
+

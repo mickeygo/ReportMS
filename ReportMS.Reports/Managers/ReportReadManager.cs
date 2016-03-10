@@ -40,20 +40,12 @@ namespace ReportMS.Reports.Managers
 
         #region Public Methods
 
-        /// <summary>
-        /// 查询数据
-        /// </summary>
-        /// <returns><c>ReportData</c>集合</returns>
         public IEnumerable<ReportData> ExecuteSqlQuery()
         {
             var sqlQueryAndParms = this.GetSqlQueryAndParms(SelectClauseBuildMode.StringWithAlias);
             return this.dataDao.Query<ReportData>(this.report.Database, sqlQueryAndParms.Item1, sqlQueryAndParms.Item2);
         }
 
-        /// <summary>
-        /// 执行 DataTables 数据查询
-        /// </summary>
-        /// <returns>返回 DataTables 包装好的对象</returns>
         public object ExecuteDataTablesQuery()
         {
             var conn = this.report.Database;
@@ -71,11 +63,6 @@ namespace ReportMS.Reports.Managers
             return datatable.WrapDataTablesObject();
         }
 
-        /// <summary>
-        /// 导出 Excel，返回 Excel 的字节集合
-        /// </summary>
-        /// <param name="sheetName">Excel Sheet 名称</param>
-        /// <returns><c>byte</c>集合</returns>
         public byte[] ExecuteExcelExport(string sheetName)
         {
             var sqlQueryAndParms = this.GetSqlQueryAndParms(SelectClauseBuildMode.Raw);
@@ -86,12 +73,19 @@ namespace ReportMS.Reports.Managers
             return excel.SaveAsBytes();
         }
 
-        /// <summary>
-        /// 获取 Table 或 View 名
-        /// </summary>
+        public Guid ReportId
+        {
+            get { return this.report.ID; }
+        }
+
         public string TableOrViewName
         {
             get { return this.report.ReportName; }
+        }
+
+        public Tuple<string, IDictionary<string, object>> GetSqlQueryAndParameters()
+        {
+            return this.GetSqlQueryAndParms(SelectClauseBuildMode.Raw);
         }
 
         #endregion

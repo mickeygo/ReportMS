@@ -15,7 +15,7 @@ namespace Gear.Infrastructure.Web.WebInitializer
             // AntiForgeryConfig.UniqueClaimTypeIdentifier = ClaimTypes.NameIdentifier;
 
             // 使用 anti-forgery token 提交表单时，作为用户唯一的 身份 Id
-            AntiForgeryConfig.UniqueClaimTypeIdentifier = ClaimTypes.Name;
+            AntiForgeryConfig.UniqueClaimTypeIdentifier = ClaimTypes.Name; 
         }
 
         #endregion

@@ -38,7 +38,7 @@ namespace ReportMS.Application.Services
 
         public IEnumerable<ReportDto> FindAllReport()
         {
-            return this._reportRepository.FindAll().MapAs<ReportDto>();
+            return this._reportRepository.FindAll().ToList().MapAs<ReportDto>();
         }
 
         public ReportDto FindReport(Guid reportId)

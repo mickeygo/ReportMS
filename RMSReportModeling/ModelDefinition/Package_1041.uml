@@ -15,22 +15,17 @@
       </annotatedElements>
     </comment>
     <comment
-      Id="a43956e9-9032-4549-bfbd-e357494f9f3d">
+      Id="207e3578-d1ea-487c-bee1-ed60b0b373d1">
+      <body>1、订阅操由用户操作，用户订阅/取消订阅
+2、时间频率为 1 个小时</body>
+    </comment>
+    <comment
+      Id="cce113b3-52d8-47e3-be61-57a3b6b856f3">
       <body>AggregateRoot</body>
       <annotatedElements>
         <classMoniker
-          Id="877e6d51-daca-452c-acc9-ebc665f69a23"
-          LastKnownName="Subscriber"
-          LastKnownLocation="Package_1041.uml" />
-      </annotatedElements>
-    </comment>
-    <comment
-      Id="207e3578-d1ea-487c-bee1-ed60b0b373d1">
-      <body>订阅操由管理员操作（普通）</body>
-      <annotatedElements>
-        <classMoniker
-          Id="877e6d51-daca-452c-acc9-ebc665f69a23"
-          LastKnownName="Subscriber"
+          Id="a054d3a0-3f2b-4490-b736-eb3f419ded21"
+          LastKnownName="TaskRecord"
           LastKnownLocation="Package_1041.uml" />
       </annotatedElements>
     </comment>
@@ -44,45 +39,6 @@
         isLeaf="false"
         isActiveClass="false">
         <targetEnds>
-          <association
-            Id="750ece6f-4eb2-428b-8506-62425ba6a086"
-            isDerived="false"
-            sourceEndRoleName="Topic"
-            targetEndRoleName="TopicDetail"
-            isLeaf="false"
-            isAbstract="false">
-            <classMoniker
-              Id="a28c14a1-eea0-4a42-9b01-60864bdf2d27"
-              LastKnownName="TopicDetail"
-              LastKnownLocation="Package_1041.uml" />
-            <relationshipOwnedElementsInternal>
-              <associationHasOwnedEnds>
-                <memberEnd
-                  Id="bf76d587-984f-4dd3-8805-c86934e72d9e"
-                  name="Topic"
-                  isLeaf="false"
-                  isStatic="false"
-                  isReadOnly="false"
-                  isDerived="false"
-                  isDerivedUnion="false"
-                  aggregation="Shared"
-                  isComposite="false"
-                  isNavigableOwned="false" />
-              </associationHasOwnedEnds>
-              <associationHasOwnedEnds>
-                <memberEnd
-                  Id="52307334-69bf-4fc4-9777-4cdc6b61df74"
-                  name="TopicDetail"
-                  isLeaf="false"
-                  isStatic="false"
-                  isReadOnly="false"
-                  isDerived="false"
-                  isDerivedUnion="false"
-                  aggregation="None"
-                  isComposite="false" />
-              </associationHasOwnedEnds>
-            </relationshipOwnedElementsInternal>
-          </association>
           <association
             Id="4ccca875-375e-4565-93b6-53cfd4c72e8a"
             isDerived="false"
@@ -120,22 +76,89 @@
               </associationHasOwnedEnds>
             </relationshipOwnedElementsInternal>
           </association>
+          <association
+            Id="412d8eb9-4475-4209-ad88-929c7a74e4a7"
+            isDerived="false"
+            sourceEndRoleName="Topic"
+            targetEndRoleName="Subscriber"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="877e6d51-daca-452c-acc9-ebc665f69a23"
+              LastKnownName="Subscriber"
+              LastKnownLocation="Package_1041.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="1953433e-56b9-43f6-a64d-ab6f51bfe1e5"
+                  name="Topic"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="Composite"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="08cbd27a-bc2c-4425-9bc8-dfee26497b02"
+                  name="Subscriber"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="true" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="01c3648d-5c49-42b8-af50-f137220085e5"
+            isDerived="false"
+            sourceEndRoleName="Topic"
+            targetEndRoleName="TopicTask"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="b81e10f4-9153-4727-af8a-f56113c17140"
+              LastKnownName="TopicTask"
+              LastKnownLocation="Package_1041.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="90c8e7dd-1317-4b39-bff6-44aedeb66c35"
+                  name="Topic"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="Composite"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="fee3cdee-041a-4226-a65b-2e40f3e26df4"
+                  name="TopicTask"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="true" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
         </targetEnds>
         <ownedAttributesInternal>
           <property
             Id="e4baab23-d4eb-4b95-b577-d776efc52497"
             name="ID"
-            isLeaf="false"
-            isStatic="false"
-            isReadOnly="false"
-            isUnique="false"
-            isDerived="false"
-            isDerivedUnion="false"
-            aggregation="None"
-            isComposite="false" />
-          <property
-            Id="c21aeb4d-0fb6-4e35-8183-740f35558b8e"
-            name="Name"
             isLeaf="false"
             isStatic="false"
             isReadOnly="false"
@@ -166,6 +189,17 @@
             isDerivedUnion="false"
             aggregation="None"
             isComposite="false" />
+          <property
+            Id="9cbea174-8ed9-43ee-beca-37d202c8b2e5"
+            name="TopicName"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
         </ownedAttributesInternal>
       </class>
     </packageHasNamedElement>
@@ -176,113 +210,10 @@
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false">
-        <targetEnds>
-          <association
-            Id="f3f8584f-45d4-4bdf-8733-b251de256504"
-            isDerived="false"
-            sourceEndRoleName=""
-            targetEndRoleName="User"
-            isLeaf="false"
-            isAbstract="false">
-            <classMoniker
-              Id="a3906fec-5716-48e3-a009-af476af1dadb"
-              LastKnownName="User"
-              LastKnownLocation="Package_1043.uml" />
-            <relationshipOwnedElementsInternal>
-              <associationHasOwnedEnds>
-                <memberEnd
-                  Id="4827bef5-fbdb-453d-9196-ac656f7f54df"
-                  isLeaf="false"
-                  isStatic="false"
-                  isReadOnly="false"
-                  isDerived="false"
-                  isDerivedUnion="false"
-                  aggregation="None"
-                  isComposite="false"
-                  isNavigableOwned="false">
-                  <lowerValueInternal>
-                    <literalString
-                      Id="e926bed6-7129-495f-9abb-e5582510e6db"
-                      name="Lower"
-                      value="1" />
-                  </lowerValueInternal>
-                  <upperValueInternal>
-                    <literalString
-                      Id="16ad2fc2-5ec2-442b-a684-1c6991b75418"
-                      name="Upper"
-                      value="1" />
-                  </upperValueInternal>
-                </memberEnd>
-              </associationHasOwnedEnds>
-              <associationHasOwnedEnds>
-                <memberEnd
-                  Id="9daa7a5d-96fe-477b-8c91-64bea76acfeb"
-                  name="User"
-                  isLeaf="false"
-                  isStatic="false"
-                  isReadOnly="false"
-                  isDerived="false"
-                  isDerivedUnion="false"
-                  aggregation="None"
-                  isComposite="false" />
-              </associationHasOwnedEnds>
-            </relationshipOwnedElementsInternal>
-          </association>
-          <association
-            Id="5e99a65d-2dae-4574-a4e5-e2e40bac210b"
-            isDerived="false"
-            sourceEndRoleName="Subscriber"
-            targetEndRoleName="Topic"
-            isLeaf="false"
-            isAbstract="false">
-            <classMoniker
-              Id="226aabca-4042-4954-af6d-adb8c52f71f5"
-              LastKnownName="Topic"
-              LastKnownLocation="Package_1041.uml" />
-            <relationshipOwnedElementsInternal>
-              <associationHasOwnedEnds>
-                <memberEnd
-                  Id="fa9073b4-32d8-4aad-8a25-91b77b25658b"
-                  name="Subscriber"
-                  isLeaf="false"
-                  isStatic="false"
-                  isReadOnly="false"
-                  isDerived="false"
-                  isDerivedUnion="false"
-                  aggregation="None"
-                  isComposite="false"
-                  isNavigableOwned="false" />
-              </associationHasOwnedEnds>
-              <associationHasOwnedEnds>
-                <memberEnd
-                  Id="30bfe660-b935-48e4-a427-852be8f749b3"
-                  name="Topic"
-                  isLeaf="false"
-                  isStatic="false"
-                  isReadOnly="false"
-                  isDerived="false"
-                  isDerivedUnion="false"
-                  aggregation="None"
-                  isComposite="false" />
-              </associationHasOwnedEnds>
-            </relationshipOwnedElementsInternal>
-          </association>
-        </targetEnds>
         <ownedAttributesInternal>
           <property
             Id="94f696e2-41a6-46b6-9c0d-3ef989d4de46"
             name="ID"
-            isLeaf="false"
-            isStatic="false"
-            isReadOnly="false"
-            isUnique="false"
-            isDerived="false"
-            isDerivedUnion="false"
-            aggregation="None"
-            isComposite="false" />
-          <property
-            Id="99661e51-e967-4ee0-91ed-21526f5b6593"
-            name="UserId"
             isLeaf="false"
             isStatic="false"
             isReadOnly="false"
@@ -302,16 +233,37 @@
             isDerivedUnion="false"
             aggregation="None"
             isComposite="false" />
+          <property
+            Id="1445563a-87f6-420c-9517-a6cb3eb77769"
+            name="Email"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
         </ownedAttributesInternal>
       </class>
     </packageHasNamedElement>
     <packageHasNamedElement>
       <class
         Id="a28c14a1-eea0-4a42-9b01-60864bdf2d27"
-        name="TopicDetail"
+        name="MailTopic"
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false">
+        <generalsInternal>
+          <generalization
+            Id="1d9f0d83-539b-4ddb-bef0-043759ecc3ca"
+            isSubstitutable="false">
+            <classMoniker
+              Id="226aabca-4042-4954-af6d-adb8c52f71f5"
+              LastKnownName="Topic"
+              LastKnownLocation="Package_1041.uml" />
+          </generalization>
+        </generalsInternal>
         <ownedAttributesInternal>
           <property
             Id="8f82bd53-d080-4a17-bcc4-cf5b2a20ebf8"
@@ -513,6 +465,300 @@
           <property
             Id="e647f11c-a02b-4b69-9813-1ab7335e23b4"
             name="Result"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+        </ownedAttributesInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="0e0a3144-5572-418e-83cf-240ec7fcb16b"
+        name="AttachmentTopic"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <ownedAttributesInternal>
+          <property
+            Id="b4866d12-564d-4556-9881-48d48cff9a23"
+            name="ID"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="bce14abd-3afe-46b2-8f2f-1089e794381d"
+            name="Name"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="71159673-498e-4211-9d03-a822b381b44e"
+            name="Sqlstatement"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="6bde12c3-76d8-4c6f-940d-40734aa06d0d"
+            name="Parameters"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="25cb73f0-2f78-4171-a8d6-610c4541805c"
+            name="ReportId"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+        </ownedAttributesInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="105b0633-5f54-4ec3-86d5-3dc5749801d2"
+        name="AttachmentTopic"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <generalsInternal>
+          <generalization
+            Id="d565e34f-f64a-408e-85d0-d75601b6c324"
+            isSubstitutable="false">
+            <classMoniker
+              Id="226aabca-4042-4954-af6d-adb8c52f71f5"
+              LastKnownName="Topic"
+              LastKnownLocation="Package_1041.uml" />
+          </generalization>
+        </generalsInternal>
+        <ownedAttributesInternal>
+          <property
+            Id="60f14194-c30f-489e-88b5-21bbc892c130"
+            name="Sqlstatement"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="25cd7ea4-4b3e-4c6d-b929-89c41c664bcd"
+            name="Parameters"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="bdb95d05-b3ee-48c0-ab7d-fad71175ff6e"
+            name="ReportId"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+        </ownedAttributesInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="b81e10f4-9153-4727-af8a-f56113c17140"
+        name="TopicTask"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <ownedAttributesInternal>
+          <property
+            Id="41793714-a82c-41e4-ae07-6a6e4b233301"
+            name="ID"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="74430cf5-e642-498a-8a6c-d46d36c8c31c"
+            name="TopicId"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="3f259ab1-8a93-4edf-9f06-0ca7b92ba068"
+            name="Schedule"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="6c65f426-42c5-432d-ac00-3929777a41cf"
+            name="Month"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="97990896-1986-4819-9fd1-2619d07e3876"
+            name="Week"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="88ff9f28-b865-4a34-b378-3d3d11a7fa40"
+            name="Day"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="5e7cafe0-f7e0-4c2e-aa5f-8f161f0b2fa8"
+            name="Hour"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="6a38a677-ddbe-4f5d-b053-60bfc8ce55a7"
+            name="Minute"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+        </ownedAttributesInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="a054d3a0-3f2b-4490-b736-eb3f419ded21"
+        name="TaskRecord"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <suppliersInternal>
+          <dependency
+            Id="0ffe6efb-60d9-4812-9a53-3584d06dc9be">
+            <classMoniker
+              Id="b81e10f4-9153-4727-af8a-f56113c17140"
+              LastKnownName="TopicTask"
+              LastKnownLocation="Package_1041.uml" />
+          </dependency>
+        </suppliersInternal>
+        <ownedAttributesInternal>
+          <property
+            Id="d4c7c455-82ce-486e-9272-99b7fb5b008d"
+            name="ID"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="d8ae0a7f-5b92-43d3-9d87-49436ee2c6e2"
+            name="TopicId"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="977de3fa-2c3f-4c4f-8de5-ad378242b54d"
+            name="ExecuteTime"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="cf41c510-8c94-4dd4-a7e9-8f4ddc638c39"
+            name="ExecuteResult"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="9223c4b1-39fc-45da-a2bb-191de040ed1f"
+            name="ErrorMessage"
             isLeaf="false"
             isStatic="false"
             isReadOnly="false"

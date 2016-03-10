@@ -50,6 +50,7 @@
     <Compile Include="DtoInitializer\DtoMapperInitializer.cs" />
     <Compile Include="Dtos\ActionRoleDto.cs" />
     <Compile Include="Dtos\ActionsDto.cs" />
+    <Compile Include="Dtos\AttachmentTopicDto.cs" />
     <Compile Include="Dtos\DatabaseSchemaDto.cs" />
     <Compile Include="Dtos\MenuDto.cs" />
     <Compile Include="Dtos\MenuRoleDto.cs" />
@@ -61,8 +62,13 @@
     <Compile Include="Dtos\ReportGroupRoleDto.cs" />
     <Compile Include="Dtos\ReportProfileFieldDto.cs" />
     <Compile Include="Dtos\RoleDto.cs" />
+    <Compile Include="Dtos\SubscriberDto.cs" />
     <Compile Include="Dtos\TableSchemaDto.cs" />
+    <Compile Include="Dtos\TaskRecordDto.cs" />
+    <Compile Include="Dtos\TaskScheduleDto.cs" />
     <Compile Include="Dtos\TenantDto.cs" />
+    <Compile Include="Dtos\TopicDto.cs" />
+    <Compile Include="Dtos\TopicTaskDto.cs" />
     <Compile Include="Dtos\UserDto.cs" />
     <Compile Include="Dtos\UserRoleDto.cs" />
     <Compile Include="FaultData.cs" />
@@ -76,6 +82,7 @@
     <Compile Include="Profiles\ReportProfileMapperProfile.cs" />
     <Compile Include="Profiles\RoleMapperProfile.cs" />
     <Compile Include="Profiles\TenantMapperProfile.cs" />
+    <Compile Include="Profiles\TopicMapperProfile.cs" />
     <Compile Include="Profiles\UserMapperProfile.cs" />
     <Compile Include="Profiles\UserRoleMapperProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

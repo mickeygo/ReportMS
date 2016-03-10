@@ -18,6 +18,7 @@ namespace ReportMS.Web
             AppRuntimeStart();
         }
 
+        // 配置应用程序启动时需要加载的项
         static void AppRuntimeStart()
         {
             AppBootstrapper.Register<RmsDbContextInitializer>();

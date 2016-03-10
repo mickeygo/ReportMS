@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Mail;
 using Gear.Infrastructure.Configurations.Fluent;
@@ -26,7 +28,7 @@ namespace Gear.Infrastructure.Net.Mail
         /// <param name="body">邮件主体，会以 Html 格式显示</param>
         /// <param name="tos">邮件收件人</param>
         public MailManager(string subject, string body, params string[] tos)
-            : this(subject, body, tos, null)
+            : this(subject, body, tos, (string[]) null)
         {
         }
 
@@ -38,6 +40,11 @@ namespace Gear.Infrastructure.Net.Mail
         /// <param name="tos">邮件收件人</param>
         /// <param name="attachments">邮件附件（文件绝对路径）</param>
         public MailManager(string subject, string body, string[] tos, string[] attachments)
+            : this(subject, body, tos, null, attachments)
+        {
+        }
+
+        public MailManager(string subject, string body, string[] tos, IEnumerable<Tuple<Stream, string>> attachments)
             : this(subject, body, tos, null, attachments)
         {
         }
@@ -55,6 +62,12 @@ namespace Gear.Infrastructure.Net.Mail
         {
         }
 
+        public MailManager(string subject, string body, string[] tos, string[] ccs,
+            IEnumerable<Tuple<Stream, string>> attachments)
+            : this(subject, body, tos, ccs, null, attachments)
+        {
+        }
+
         /// <summary>
         /// 初始化一个新的<c>MailManager</c>实例
         /// </summary>
@@ -65,6 +78,15 @@ namespace Gear.Infrastructure.Net.Mail
         /// <param name="bccs">邮件密送人</param>
         /// <param name="attachments">邮件附件（文件绝对路径）</param>
         public MailManager(string subject, string body, string[] tos, string[] ccs, string[] bccs, string[] attachments)
+            : this()
+        {
+            this._mailMessage.SetSubject(subject);
+            this._mailMessage.SetBody(body);
+            this.SetRecipientsAndAttachments(tos, ccs, bccs, attachments);
+        }
+
+        public MailManager(string subject, string body, string[] tos, string[] ccs, string[] bccs,
+            IEnumerable<Tuple<Stream, string>> attachments)
             : this()
         {
             this._mailMessage.SetSubject(subject);
@@ -130,6 +152,15 @@ namespace Gear.Infrastructure.Net.Mail
         #endregion
 
         #region Private Methods
+
+        private void SetRecipientsAndAttachments(string[] tos, string[] ccs, string[] bccs,
+            IEnumerable<Tuple<Stream, string>> attachments)
+        {
+            this.SetRecipientsAndAttachments(tos, ccs, bccs, (string[]) null);
+
+            if (attachments != null && attachments.Any())
+                this._mailMessage.AddAttachments(attachments);
+        }
 
         private void SetRecipientsAndAttachments(string[] tos, string[] ccs, string[] bccs, string[] attachments)
         {

@@ -1,0 +1,53 @@
+﻿@using ReportMS.DataTransferObjects.Dtos
+@model AttachmentTopicDto
+
+<div>
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-group">
+            <label class="col-md-3 control-label" for="TopicName">Topic Name</label>
+            <div class="col-md-9">
+                @Html.TextBoxFor(m => m.TopicName, new { @class = "form-control", required = "", data_format = "string", maxlength = "40", onpaste = "return false;" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Description, new { @class = "col-md-3 control-label" })
+            <div class="col-md-9">
+                @Html.TextAreaFor(m => m.Description, new { @class = "form-control", maxlength = "100" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 control-label">Schedule</label>
+            <div class="col-md-2 checkbox">
+                @Html.DropDownList("TopicTasks[0].TaskSchedule", (IEnumerable<SelectListItem>) ViewBag.ScheduleRange,
+                    new {data_schedule = "true", data_href = Url.Action("SubscribeSchedule", "Subscriber"), required = ""})
+            </div>
+            <div class="col-md-7" data-schedule-content="true">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 control-label">Subscriber</label>
+            <div class="col-md-9">
+                @if (Model.Subscribers.HasAny())
+                {
+                    foreach (var subscriber in Model.Subscribers)
+                    {
+                        <label class="form-control-static">@Html.DisplayFor(m => subscriber.Email)</label>
+                    }
+                }
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-5 col-md-12">
+                <input type="submit" value="Subscribe" class="btn btn-primary" />
+            </div>
+        </div>
+
+        <div>
+            @Html.HiddenFor(m => m.ReportId)
+            @Html.HiddenFor(m => m.SqlStatement)
+            @Html.HiddenFor(m => m.Parameter)
+        </div>
+    }
+</div>

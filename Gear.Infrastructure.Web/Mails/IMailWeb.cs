@@ -1,4 +1,8 @@
-﻿namespace Gear.Infrastructure.Web.Mails
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+
+namespace Gear.Infrastructure.Web.Mails
 {
     /// <summary>
     /// 表示实现此类的接口为邮件
@@ -22,6 +26,8 @@
         /// <param name="attachments">邮件附件（文件绝对路径）</param>
         void Send(string subject, string body, string[] tos, string[] attachments);
 
+        void Send(string subject, string body, string[] tos, IEnumerable<Tuple<Stream, string>> attachments);
+
         /// <summary>
         /// 发送邮件
         /// </summary>
@@ -31,6 +37,8 @@
         /// <param name="ccs">邮件抄送人</param>
         /// <param name="attachments">邮件附件（文件绝对路径）</param>
         void Send(string subject, string body, string[] tos, string[] ccs, string[] attachments);
+
+        void Send(string subject, string body, string[] tos, string[] ccs, IEnumerable<Tuple<Stream, string>> attachments);
 
         /// <summary>
         /// 发送邮件
@@ -42,5 +50,7 @@
         /// <param name="bccs">邮件密送人</param>
         /// <param name="attachments">邮件附件（文件绝对路径）</param>
         void Send(string subject, string body, string[] tos, string[] ccs, string[] bccs, string[] attachments);
+
+        void Send(string subject, string body, string[] tos, string[] ccs, string[] bccs, IEnumerable<Tuple<Stream, string>> attachments);
     }
 }

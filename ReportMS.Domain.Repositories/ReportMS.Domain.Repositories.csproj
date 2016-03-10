@@ -55,6 +55,7 @@
     <Compile Include="EntityFramework\DbContextInitializer\RmsDbContextInitializer.cs" />
     <Compile Include="EntityFramework\ModelConfigurations\ActionEntityTypeConfiguration.cs" />
     <Compile Include="EntityFramework\ModelConfigurations\ActionRoleEntityTypeConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\AttachmentTopicEntityTypeConfiguration.cs" />
     <Compile Include="EntityFramework\ModelConfigurations\DatabaseComplexTypeConfiguration.cs" />
     <Compile Include="EntityFramework\ModelConfigurations\ReportGroupEntityTypeConfiguration.cs" />
     <Compile Include="EntityFramework\ModelConfigurations\MenuEntityTypeConfiguration.cs" />
@@ -66,11 +67,16 @@
     <Compile Include="EntityFramework\ModelConfigurations\ReportGroupRoleEntityTypeConfiguration.cs" />
     <Compile Include="EntityFramework\ModelConfigurations\ReportProfileEntityTypeConfiguration.cs" />
     <Compile Include="EntityFramework\ModelConfigurations\RoleEntityTypeConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\SubscriberEntityTypeConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\TaskRecordEntityTypeConfiguration.cs" />
     <Compile Include="EntityFramework\ModelConfigurations\TenantEntityTypeConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\TopicEntityTypeConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\TopicTaskEntityTypeConfiguration.cs" />
     <Compile Include="EntityFramework\ModelConfigurations\UserEntityTypeConfiguration.cs" />
     <Compile Include="EntityFramework\ModelConfigurations\UserRoleEntityTypeConfiguration.cs" />
     <Compile Include="EntityFramework\Repository\ActionRepository.cs" />
     <Compile Include="EntityFramework\Repository\ActionRoleRepository.cs" />
+    <Compile Include="EntityFramework\Repository\AttachmentTopicRepository.cs" />
     <Compile Include="EntityFramework\Repository\MenuRepository.cs" />
     <Compile Include="EntityFramework\Repository\MenuRoleRepository.cs" />
     <Compile Include="EntityFramework\Repository\ReportGroupRepository.cs" />
@@ -78,6 +84,7 @@
     <Compile Include="EntityFramework\Repository\ReportProfileRepository.cs" />
     <Compile Include="EntityFramework\Repository\ReportRepository.cs" />
     <Compile Include="EntityFramework\Repository\RoleRepository.cs" />
+    <Compile Include="EntityFramework\Repository\TaskRecordRepository.cs" />
     <Compile Include="EntityFramework\Repository\TenantRepository.cs" />
     <Compile Include="EntityFramework\Repository\UserRepository.cs" />
     <Compile Include="EntityFramework\Repository\UserRoleRepository.cs" />
