@@ -16,25 +16,19 @@ namespace Gear.Infrastructure.Repositories
         /// <summary>
         /// 注册一个新的实例到仓储上下文
         /// </summary>
-        /// <typeparam name="TAggregateRoot">要注册的实例类型</typeparam>
         /// <param name="obj">要添加的对象</param>
-        void RegisterNew<TAggregateRoot>(TAggregateRoot obj) 
-            where TAggregateRoot : class, IAggregateRoot;
+        void RegisterNew(object obj);
 
         /// <summary>
         /// 注册一个要修改的实例到仓储上下文
         /// </summary>
-        /// <typeparam name="TAggregateRoot">要注册的实例类型</typeparam>
         /// <param name="obj">要修改的对象</param>
-        void RegisterModified<TAggregateRoot>(TAggregateRoot obj) 
-            where TAggregateRoot : class, IAggregateRoot;
+        void RegisterModified(object obj);
 
         /// <summary>
         /// 注册一个要删除的实例到仓储上下文
         /// </summary>
-        /// <typeparam name="TAggregateRoot">要注册的实例类型</typeparam>
         /// <param name="obj">要删除的对象</param>
-        void RegisterDeleted<TAggregateRoot>(TAggregateRoot obj) 
-            where TAggregateRoot : class, IAggregateRoot;
+        void RegisterDeleted(object obj);
     }
 }

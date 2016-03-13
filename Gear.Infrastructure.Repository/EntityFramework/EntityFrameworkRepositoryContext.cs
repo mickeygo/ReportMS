@@ -11,7 +11,13 @@ namespace Gear.Infrastructure.Repository.EntityFramework
     /// </summary>
     public class EntityFrameworkRepositoryContext : RepositoryContext, IEntityFrameworkRepositoryContext
     {
-        private readonly ThreadLocal<DbContext> localDbContext;
+        #region Private Fields
+
+        // remark: we use the DbContext to replace the ThreadLocal<DbContext> for using the async method.
+        private readonly DbContext efContext;
+        private readonly object sync = new object();
+
+        #endregion
 
         #region Ctor
 
@@ -21,7 +27,7 @@ namespace Gear.Infrastructure.Repository.EntityFramework
         /// <param name="context">DataBase 上下文对象，派生自 DbContext</param>
         public EntityFrameworkRepositoryContext(IDbContext context)
         {
-            this.localDbContext = new ThreadLocal<DbContext>(() => context.Context);
+            this.efContext = context.Context;
         }
 
         #endregion
@@ -31,33 +37,30 @@ namespace Gear.Infrastructure.Repository.EntityFramework
         /// <summary>
         /// 重写，在 EntityFramework 的 DbContext 对象中注册一个新的实例到仓储上下文
         /// </summary>
-        /// <typeparam name="TAggregateRoot">要注册的实例类型</typeparam>
         /// <param name="obj">要添加的对象</param>
-        public override void RegisterNew<TAggregateRoot>(TAggregateRoot obj)
+        public override void RegisterNew(object obj)
         {
-            this.localDbContext.Value.Set<TAggregateRoot>().Add(obj);
+            this.efContext.Entry(obj).State = EntityState.Added;
             this.Committed = false;
         }
 
         /// <summary>
         /// 重写，在 EntityFramework 的 DbContext 对象中注册一个要修改的实例到仓储上下文
         /// </summary>
-        /// <typeparam name="TAggregateRoot">要注册的实例类型</typeparam>
         /// <param name="obj">要修改的对象</param>
-        public override void RegisterModified<TAggregateRoot>(TAggregateRoot obj)
+        public override void RegisterModified(object obj)
         {
-            this.localDbContext.Value.Entry(obj).State = EntityState.Modified;
+            this.efContext.Entry(obj).State = EntityState.Modified;
             this.Committed = false;
         }
 
         /// <summary>
         /// 重写，在 EntityFramework 的 DbContext 对象中注册一个要删除的实例到仓储上下文
         /// </summary>
-        /// <typeparam name="TAggregateRoot">要注册的实例类型</typeparam>
         /// <param name="obj">要删除的对象</param>
-        public override void RegisterDeleted<TAggregateRoot>(TAggregateRoot obj)
+        public override void RegisterDeleted(object obj)
         {
-            this.localDbContext.Value.Set<TAggregateRoot>().Remove(obj);
+            this.efContext.Entry(obj).State = EntityState.Deleted;
             this.Committed = false;
         }
 
@@ -70,7 +73,7 @@ namespace Gear.Infrastructure.Repository.EntityFramework
         /// </summary>
         public DbContext Context
         {
-            get { return this.localDbContext.Value; }
+            get { return this.efContext; }
         }
 
         #endregion
@@ -92,7 +95,10 @@ namespace Gear.Infrastructure.Repository.EntityFramework
         {
             if (!this.Committed)
             {
-                this.localDbContext.Value.SaveChanges();
+                lock (sync)
+                {
+                    this.efContext.SaveChanges();
+                }
                 this.Committed = true;
             }
         }
@@ -106,7 +112,7 @@ namespace Gear.Infrastructure.Repository.EntityFramework
         {
             if (!this.Committed)
             {
-                await this.localDbContext.Value.SaveChangesAsync(cancellationToken);
+                await this.efContext.SaveChangesAsync(cancellationToken);
                 this.Committed = true;
             }
         }
@@ -130,11 +136,14 @@ namespace Gear.Infrastructure.Repository.EntityFramework
         {
             if (disposing)
             {
+                // Todo: The dispose method should no longer be responsible for the commit handling. 
+                // Since the object container might handle the lifetime
+                // of the repository context on the WCF per-request basis, users should
+                // handle the commit logic by themselves.
                 if (!this.Committed)
                     this.Commit();
 
-                this.localDbContext.Value.Dispose();
-                this.localDbContext.Dispose();
+                this.efContext.Dispose();
             }
 
             base.Dispose(disposing);

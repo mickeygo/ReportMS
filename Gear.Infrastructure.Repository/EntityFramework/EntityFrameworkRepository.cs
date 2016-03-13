@@ -8,6 +8,7 @@ using Gear.Infrastructure.Repositories;
 using Gear.Infrastructure.Repository.EntityFramework.Extensions;
 using Gear.Infrastructure.Specifications;
 using Gear.Infrastructure.Storage;
+using Gear.Infrastructure.Utility;
 
 namespace Gear.Infrastructure.Repository.EntityFramework
 {
@@ -16,8 +17,9 @@ namespace Gear.Infrastructure.Repository.EntityFramework
     /// 使用实现了 IEntityFrameworkRepositoryContext 接口的对象的仓储上下文管理对象,与 DB 操作
     /// </summary>
     /// <typeparam name="TAggregateRoot">聚合根类型</typeparam>
-    public class EntityFrameworkRepository<TAggregateRoot> : Repository<TAggregateRoot>
-        where TAggregateRoot : class, IAggregateRoot
+    /// <typeparam name="TKey">主键类型</typeparam>
+    public class EntityFrameworkRepository<TKey, TAggregateRoot> : Repository<TKey, TAggregateRoot>
+        where TAggregateRoot : class, IAggregateRoot<TKey>
     {
         #region Private Fields
 
@@ -95,9 +97,9 @@ namespace Gear.Infrastructure.Repository.EntityFramework
         /// </summary>
         /// <param name="key">聚合根的标识符</param>
         /// <returns>聚合根对象</returns>
-        protected override TAggregateRoot DoGetByKey(Guid key)
+        protected override TAggregateRoot DoGetByKey(TKey key)
         {
-            return this.efContext.Context.Set<TAggregateRoot>().First(p => p.ID == key);
+            return this.efContext.Context.Set<TAggregateRoot>().First(Utils.BuildIdEqualsPredicate<TKey, TAggregateRoot>(key));
         }
 
         /// <summary>
@@ -106,9 +108,9 @@ namespace Gear.Infrastructure.Repository.EntityFramework
         /// <param name="key">聚合根的标识符</param>
         /// <param name="cancellationToken">取消通知</param>
         /// <returns>聚合根对象</returns>
-        protected async Task<TAggregateRoot> DoGetByKeyAsync(Guid key, CancellationToken cancellationToken)
+        protected async Task<TAggregateRoot> DoGetByKeyAsync(TKey key, CancellationToken cancellationToken)
         {
-            return await this.efContext.Context.Set<TAggregateRoot>().FirstAsync(p => p.ID == key, cancellationToken);
+            return await this.efContext.Context.Set<TAggregateRoot>().FirstAsync(Utils.BuildIdEqualsPredicate<TKey, TAggregateRoot>(key), cancellationToken);
         }
 
         /// <summary>
@@ -129,9 +131,9 @@ namespace Gear.Infrastructure.Repository.EntityFramework
                 switch (sortOrder)
                 {
                     case SortOrder.Ascending:
-                        return query.SortBy(sortPredicate);
+                        return query.SortByDescending<TKey, TAggregateRoot>(sortPredicate);
                     case SortOrder.Descending:
-                        return query.SortByDescending(sortPredicate);
+                        return query.SortByDescending<TKey, TAggregateRoot>(sortPredicate);
                 }
             }
             return query;
@@ -162,12 +164,12 @@ namespace Gear.Infrastructure.Repository.EntityFramework
             switch (sortOrder)
             {
                 case SortOrder.Ascending:
-                    var pagedGroupAscending = query.SortBy(sortPredicate).Skip(skip).Take(take).GroupBy(p => new { Total = query.Count() }).FirstOrDefault();
+                    var pagedGroupAscending = query.SortByDescending<TKey, TAggregateRoot>(sortPredicate).Skip(skip).Take(take).GroupBy(p => new { Total = query.Count() }).FirstOrDefault();
                     if (pagedGroupAscending == null)
                         return null;
                     return new PagedResult<TAggregateRoot>(pagedGroupAscending.Key.Total, (pagedGroupAscending.Key.Total + pageSize - 1) / pageSize, pageSize, pageNumber, pagedGroupAscending.Select(p => p).ToList());
                 case SortOrder.Descending:
-                    var pagedGroupDescending = query.SortByDescending(sortPredicate).Skip(skip).Take(take).GroupBy(p => new { Total = query.Count() }).FirstOrDefault();
+                    var pagedGroupDescending = query.SortByDescending<TKey, TAggregateRoot>(sortPredicate).Skip(skip).Take(take).GroupBy(p => new { Total = query.Count() }).FirstOrDefault();
                     if (pagedGroupDescending == null)
                         return null;
                     return new PagedResult<TAggregateRoot>(pagedGroupDescending.Key.Total, (pagedGroupDescending.Key.Total + pageSize - 1) / pageSize, pageSize, pageNumber, pagedGroupDescending.Select(p => p).ToList());
@@ -210,9 +212,9 @@ namespace Gear.Infrastructure.Repository.EntityFramework
                 switch (sortOrder)
                 {
                     case SortOrder.Ascending:
-                        return queryable.SortBy(sortPredicate);
+                        return queryable.SortByDescending<TKey, TAggregateRoot>(sortPredicate);
                     case SortOrder.Descending:
-                        return queryable.SortByDescending(sortPredicate);
+                        return queryable.SortByDescending<TKey, TAggregateRoot>(sortPredicate);
                 }
             }
             return queryable;
@@ -262,12 +264,12 @@ namespace Gear.Infrastructure.Repository.EntityFramework
             switch (sortOrder)
             {
                 case SortOrder.Ascending:
-                    var pagedGroupAscending = queryable.SortBy(sortPredicate).Skip(skip).Take(take).GroupBy(p => new { Total = queryable.Count() }).FirstOrDefault();
+                    var pagedGroupAscending = queryable.SortBy<TKey, TAggregateRoot>(sortPredicate).Skip(skip).Take(take).GroupBy(p => new { Total = queryable.Count() }).FirstOrDefault();
                     if (pagedGroupAscending == null)
                         return null;
                     return new PagedResult<TAggregateRoot>(pagedGroupAscending.Key.Total, (pagedGroupAscending.Key.Total + pageSize - 1) / pageSize, pageSize, pageNumber, pagedGroupAscending.Select(p => p).ToList());
                 case SortOrder.Descending:
-                    var pagedGroupDescending = queryable.SortByDescending(sortPredicate).Skip(skip).Take(take).GroupBy(p => new { Total = queryable.Count() }).FirstOrDefault();
+                    var pagedGroupDescending = queryable.SortByDescending<TKey, TAggregateRoot>(sortPredicate).Skip(skip).Take(take).GroupBy(p => new { Total = queryable.Count() }).FirstOrDefault();
                     if (pagedGroupDescending == null)
                         return null;
                     return new PagedResult<TAggregateRoot>(pagedGroupDescending.Key.Total, (pagedGroupDescending.Key.Total + pageSize - 1) / pageSize, pageSize, pageNumber, pagedGroupDescending.Select(p => p).ToList());
@@ -373,5 +375,23 @@ namespace Gear.Infrastructure.Repository.EntityFramework
         }
 
         #endregion
+    }
+
+    /// <summary>
+    /// 表示为基于 Microsoft EntityFramework 仓储。
+    /// 使用实现了 IEntityFrameworkRepositoryContext 接口的对象的仓储上下文管理对象,与 DB 操作
+    /// </summary>
+    /// <typeparam name="TAggregateRoot">聚合根类型, 主键为 Guid 类型</typeparam>
+    public class EntityFrameworkRepository<TAggregateRoot> : EntityFrameworkRepository<Guid, TAggregateRoot>, IRepository<TAggregateRoot>
+        where TAggregateRoot : class, IAggregateRoot
+    {
+        /// <summary>
+        /// 初始化一个新的<see cref="EntityFrameworkRepository{TAggregateRoot}"/>实例
+        /// </summary>
+        /// <param name="context">仓储上下文</param>
+        public EntityFrameworkRepository(IRepositoryContext context)
+            : base(context)
+        {
+        }
     }
 }
