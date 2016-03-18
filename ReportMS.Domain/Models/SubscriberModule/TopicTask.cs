@@ -55,6 +55,13 @@ namespace ReportMS.Domain.Models.SubscriberModule
         #endregion
 
         #region
+        
+        /// <summary>
+        /// 初始化一个新的<see cref="TopicTask"/>实例。仅供 EntityFramework 调用
+        /// </summary>
+        public TopicTask()
+        {
+        }
 
         /// <summary>
         /// 初始化一个<c>TopicTask</c>实例.执行频率为每分钟.

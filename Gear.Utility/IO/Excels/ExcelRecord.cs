@@ -209,7 +209,7 @@ namespace Gear.Utility.IO.Excels
         /// <returns></returns>
         protected abstract IEnumerable<object[]> SetSheetColumnDatas();
 
-        private void Excute()
+        private void Execute()
         {
             var sheetColumns = this.SetSheetColumns();
             this._columnNames = sheetColumns.Keys.ToArray();
@@ -229,17 +229,17 @@ namespace Gear.Utility.IO.Excels
         /// <returns><see cref="byte"/>字节集合</returns>
         public byte[] SaveAsBytes()
         {
-            this.Excute();
+            this.Execute();
             return this.WriteToBytes();
         }
 
         /// <summary>
         /// 将 Excel 数据写入 Stream
         /// </summary>
-        /// <param name="stream">要被写入的流</param>
+        /// <param name="stream">要被写入的流, OutputStream 输出流</param>
         public void SaveAsStream(Stream stream)
         {
-            this.Excute();
+            this.Execute();
             this._workbook.Write(stream);
         }
     }

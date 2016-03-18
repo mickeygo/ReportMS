@@ -1,4 +1,5 @@
 ﻿using Gear.Utility.Schedule;
+using ReportMS.Web.Client.Jobs.JobHandlers;
 
 namespace ReportMS.Web.Client.Jobs.Subscribers
 {
@@ -11,7 +12,8 @@ namespace ReportMS.Web.Client.Jobs.Subscribers
 
         public void Subscribe()
         {
-            TopicCacheManager.Instance.RefreshAttachmentTopicCache();
+            IJobHandler handler = new RefreshTopicCacheJobHandler();
+            handler.Execute();
         }
 
         public ScheduleCronOptions Schedule

@@ -12,6 +12,7 @@ namespace ReportMS.DataTransferObjects.Profiles
     {
         protected override void Configure()
         {
+            AutoMapperAdapter.Register<MenuLevel, MenuLevelDto>();
             AutoMapperAdapter.Register<Menu, MenuDto>();
         }
     }

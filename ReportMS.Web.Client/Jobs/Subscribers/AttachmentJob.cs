@@ -42,7 +42,7 @@ namespace ReportMS.Web.Client.Jobs.Subscribers
             // Execute the sqlstatement and it's paramters.
             foreach (var topic in topics)
             {
-                var job = new AttachmentJobHandler((AttachmentTopicDto) topic.Key, topic.Value);
+                IJobHandler job = new AttachmentJobHandler((AttachmentTopicDto) topic.Key, topic.Value);
                 job.Execute();
             }
         }

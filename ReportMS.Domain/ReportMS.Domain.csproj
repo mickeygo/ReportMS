@@ -45,6 +45,7 @@
     <Compile Include="Models\AccountModule\ActionRole.cs" />
     <Compile Include="Models\AccountModule\Actions.cs" />
     <Compile Include="Models\AccountModule\Menu.cs" />
+    <Compile Include="Models\AccountModule\MenuLevel.cs" />
     <Compile Include="Models\AccountModule\MenuRole.cs" />
     <Compile Include="Models\AccountModule\UserRole.cs" />
     <Compile Include="Models\ReportModule\DatabaseAggregate\Database.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="Repositories\IRoleRepository.cs" />
     <Compile Include="Repositories\ITaskRecordRepository.cs" />
     <Compile Include="Repositories\ITenantRepository.cs" />
+    <Compile Include="Repositories\ITopicRepository.cs" />
     <Compile Include="Repositories\IUserRepository.cs" />
     <Compile Include="Repositories\IUserRoleRepository.cs" />
   </ItemGroup>

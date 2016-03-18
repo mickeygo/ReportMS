@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IMenuPermissionService.cs" />
     <Compile Include="IReportGroupService.cs" />
     <Compile Include="IReportProfileService.cs" />
     <Compile Include="IReportQueryService.cs" />

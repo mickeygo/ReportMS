@@ -36,7 +36,7 @@ namespace ReportMS.Domain.Models.AccountModule
         /// <summary>
         /// 获取菜单目录级别
         /// </summary>
-        public int Level { get; private set; }
+        public MenuLevel Level { get; private set; }
 
         /// <summary>
         /// 获取菜单的排序
@@ -86,12 +86,11 @@ namespace ReportMS.Domain.Models.AccountModule
 
         #region Ctor
 
-        private Menu()
+        /// <summary>
+        /// 初始化一个新的<c>Menu</c>实例。仅供 EF 使用
+        /// </summary>
+        public Menu()
         {
-            this.GenerateNewIdentity();
-            this.Enable();
-
-            this.CreatedDate = DateTime.Now;
         }
 
         /// <summary>
@@ -105,8 +104,7 @@ namespace ReportMS.Domain.Models.AccountModule
         /// <param name="sort">菜单排序</param>
         /// <param name="actionsId">功能行为 ID</param>
         /// <param name="createdBy">创建人</param>
-        public Menu(string menuName, string displayName, string description, Guid? parentId, int level, int sort, Guid? actionsId, string createdBy)
-            : this()
+        public Menu(string menuName, string displayName, string description, Guid? parentId, MenuLevel level, int sort, Guid? actionsId, string createdBy)
         {
             this.MenuName = menuName;
             this.DisplayName = displayName;
@@ -116,11 +114,44 @@ namespace ReportMS.Domain.Models.AccountModule
             this.Sort = sort;
             this.ActionsId = actionsId;
             this.CreatedBy = createdBy;
+            this.CreatedDate = DateTime.Now;
+
+            this.GenerateNewIdentity();
+            this.Enable();
         }
 
         #endregion
 
         #region Public Methods
+
+        /// <param name="displayName">菜单显示名</param>
+        /// <param name="description">菜单描述</param>
+        /// <param name="parentId">父菜单 ID</param>
+        /// <param name="level">菜单目录级别, 0 级表示根目录， 1-m 级必须有 parentId</param>
+        /// <param name="sort">菜单排序</param>
+        /// <param name="actionsId">功能行为 ID</param>
+        /// <param name="updatedBy">创建人</param>
+        public void Update(string displayName, string description, Guid? parentId, MenuLevel level, int sort, Guid? actionsId, string updatedBy)
+        {
+            this.DisplayName = displayName;
+            this.Description = description;
+            this.ParentId = parentId;
+            this.Level = level;
+            this.Sort = sort;
+            this.ActionsId = actionsId;
+
+            this.SetUpdatedBy(updatedBy);
+        }
+
+        /// <summary>
+        /// 设置更新人信息
+        /// </summary>
+        /// <param name="updatedBy">更新人</param>
+        public void SetUpdatedBy(string updatedBy)
+        {
+            this.UpdatedBy = updatedBy;
+            this.UpdatedDate = DateTime.Now;
+        }
 
         /// <summary>
         /// 启用猜测
@@ -148,9 +179,10 @@ namespace ReportMS.Domain.Models.AccountModule
         {
             if (String.IsNullOrWhiteSpace(this.MenuName))
                 yield return new ValidationResult("The menu name is null or empty.");
-
             if (String.IsNullOrWhiteSpace(this.DisplayName))
                 yield return new ValidationResult("The menu display name is null or empty.");
+            if (this.Level == MenuLevel.Children && this.ParentId == null)
+                yield return new ValidationResult("The parent id must be exist, due to the level is more than zero.");
         }
 
         #endregion

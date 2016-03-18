@@ -29,7 +29,7 @@ namespace ReportMS.Domain.Models.SubscriberModule
         #region Ctor
 
         /// <summary>
-        /// 初始化一个新的<c>AttachmentTopic</c>对象
+        /// 初始化一个新的<c>AttachmentTopic</c>对象。仅供 EntityFramework 调用
         /// </summary>
         public AttachmentTopic()
         {

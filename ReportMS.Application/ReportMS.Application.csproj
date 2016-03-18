@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Services\MenuPermissionService.cs" />
     <Compile Include="Services\ReportGroupService.cs" />
     <Compile Include="Services\ReportProfileService.cs" />
     <Compile Include="Services\ReportService.cs" />

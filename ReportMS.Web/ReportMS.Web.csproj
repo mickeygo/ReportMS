@@ -193,10 +193,12 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\Manages\MenuPermissionManageController.cs" />
     <Compile Include="Controllers\Manages\ReportGroupManageController.cs" />
     <Compile Include="Controllers\Manages\ReportManageController.cs" />
     <Compile Include="Controllers\Manages\ReportProfileManageController.cs" />
     <Compile Include="Controllers\Manages\RoleManageController.cs" />
+    <Compile Include="Controllers\Manages\SubscriberManageController.cs" />
     <Compile Include="Controllers\Manages\UserManageController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\Manages\TenementController.cs" />
@@ -398,6 +400,8 @@
     <Content Include="Js\equalHeight.js" />
     <Content Include="Js\jquery.tabSlideOut.v1.3.js" />
     <Content Include="Js\jquery.upload.js" />
+    <Content Include="Scripts\es5-sham.js" />
+    <Content Include="Scripts\es5-sham.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="TestPage.html" />
@@ -579,6 +583,15 @@
     <Content Include="Views\Subscriber\Tuple\_WeekSchedule.cshtml" />
     <Content Include="Views\Subscriber\Tuple\_DaySchedule.cshtml" />
     <Content Include="Views\Subscriber\Tuple\_HourSchedule.cshtml" />
+    <Content Include="Views\SubscriberManage\Index.cshtml" />
+    <Content Include="Views\MenuPermissionManage\Index.cshtml" />
+    <Content Include="Views\MenuPermissionManage\CreatePermission.cshtml" />
+    <Content Include="Views\MenuPermissionManage\_Permission.cshtml" />
+    <Content Include="Views\MenuPermissionManage\_Menu.cshtml" />
+    <Content Include="Views\MenuPermissionManage\AttachPermissionToRole.cshtml" />
+    <Content Include="Views\MenuPermissionManage\EditPermission.cshtml" />
+    <Content Include="Views\MenuPermissionManage\CreateMenu.cshtml" />
+    <Content Include="Views\MenuPermissionManage\AttachMenuToRole.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

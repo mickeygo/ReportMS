@@ -76,7 +76,7 @@ namespace ReportMS.Web.Controllers
             return Json(true);
         }
 
-        #region
+        #region Subscribe schedule
 
         public ActionResult SubscribeSchedule(TaskScheduleDto schedule)
         {

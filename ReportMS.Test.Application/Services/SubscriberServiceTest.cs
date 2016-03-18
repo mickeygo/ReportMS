@@ -1,4 +1,5 @@
-﻿using Gear.Infrastructure;
+﻿using System.Linq;
+using Gear.Infrastructure;
 using Gear.Infrastructure.Application;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ReportMS.DataTransferObjects.DtoInitializer;
@@ -23,7 +24,7 @@ namespace ReportMS.Test.Application.Services
             using (var service = ServiceLocator.Instance.Resolve<ISubscriberService>())
             {
                 var attachmentTopics = service.FindAttachmentTopics();
-                Assert.IsNull(attachmentTopics);
+                Assert.IsNull(attachmentTopics, attachmentTopics.Count().ToString());
             }
         }
     }

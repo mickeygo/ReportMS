@@ -1,0 +1,50 @@
+﻿@model IEnumerable<ReportMS.DataTransferObjects.Dtos.ActionsDto>
+
+@{
+    var index = 1;
+}
+
+<div>
+    @if (Model.HasAny())
+    {
+        <table class="table table-bordered table-striped table-hover">
+            <thead>
+            <tr>
+                <th>No.</th>
+                <th>Controller</th>
+                <th>Action</th>
+                <th>Area</th>
+                <th>Description</th>
+                <th></th>
+            </tr>
+            </thead>
+            @foreach (var item in Model)
+            {
+                <tbody>
+                <tr>
+                    <td>@(index++)</td>
+                    <td>@Html.DisplayFor(m => item.Controller)</td>
+                    <td>@Html.DisplayFor(m => item.Action)</td>
+                    <td>@Html.DisplayFor(m => item.Area)</td>
+                    <td>@Html.DisplayFor(m => item.Description)</td>
+                    <td>
+                        <a class="btn btn-primary btn-xs" data-dialog="true" data-ajax-form="true" data-dialog-href="@Url.Action("EditPermission", new { permissionId = item.ID })"
+                           data-dialog-title="Edit Permission" data-ajax-success="modifyPermissionSuccess">
+                            <span class="glyphicon glyphicon-edit"></span>
+                        </a>
+                        <a class="btn btn-danger btn-xs" data-href="@Url.Action("DeletePermission")" data-permission-id="@item.ID" onclick="return deletePermission(this);">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </a>
+                        <a class="btn btn-info btn-xs" data-dialog="true" data-ajax-form="true" data-dialog-href="@Url.Action("AttachPermissionToRole", new { permissionId = item.ID })"
+                           data-dialog-title="Attach Permission To Roles" data-ajax-success="attachPermissionToRolesSuccess"
+                           data-toggle="tooltip" title="Attach the permission to roles">
+                            <span class="glyphicon glyphicon-plus-sign"></span>
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            }
+        </table>
+    }
+</div>
+

@@ -1,0 +1,125 @@
+﻿@{
+    ViewBag.Title = "Menu And Permission";
+}
+
+@section scripts{
+    <script>
+        //=========== Permission ===========//
+        function createPermissionSuccess(data) {
+            if (data.status === "success")
+                reloadPermission();
+            else
+                alert(data.message);
+        }
+
+        function modifyPermissionSuccess(data) {
+            if (data.status === "success")
+                reloadPermission();
+            else 
+                alert(data.message);
+        }
+
+        function deletePermission(element) {
+            if (!confirm("Do you want to delete it ?"))
+                return false;
+            
+            var url = $(element).attr("data-href");
+            var id = $(element).attr("data-permission-id");
+            $.post(url, { permissionId: id }, function (data) {
+                if (data.status === "success") {
+                    $(element).closest("tbody").remove();
+                } else {
+                    alert(data.message);
+                }
+            });
+            return true;
+        }
+
+        function attachPermissionToRolesSuccess(data) {
+            if (data.status === "success") {
+                alert("Attach the permission to roles successfully.");
+            } else {
+                alert(data.message);
+            }
+        }
+
+        function reloadPermission() {
+            var url = "@Url.Action("Permission")";
+            $("#permission").load(url);
+        }
+
+        //=========== Menu ===========//
+        function createMenuSuccess(data) {
+            if (data.status === "success")
+                reloadMenu();
+            else
+                alert(data.message);
+        }
+
+        function modifyMenuSuccess(data) {
+            if (data.status === "success")
+                reloadPermission();
+            else
+                alert(data.message);
+        }
+
+        function deleteMenu(element) {
+            if (!confirm("Do you want to delete it ?"))
+                return false;
+
+            var url = $(element).attr("data-href");
+            var id = $(element).attr("data-menu-id");
+            $.post(url, { permissionId: id }, function (data) {
+                if (data.status === "success") {
+                    $(element).closest("tbody").remove();
+                } else {
+                    alert(data.message);
+                }
+            });
+            return true;
+        }
+
+        function attachmenuToRolesSuccess(data) {
+            if (data.status === "success") {
+                alert("Attach the menu to roles successfully.");
+            } else {
+                alert(data.message);
+            }
+        }
+
+        function reloadMenu() {
+            var url = "@Url.Action("Menu")";
+            $("#menu").load(url);
+        }
+    </script>
+}
+
+@Html.Navigate("Manage", "Permission and menu")
+
+<div>
+    <div class="ibox-title">
+        <div class="ibox-tools rboor">
+            <a class="btn btn-primary btn-xs" data-dialog="true" data-ajax-form="true" data-dialog-href="@Url.Action("CreatePermission")" data-dialog-title="Create Permission"
+               data-ajax-success="createPermissionSuccess" data-ajax-failure="createPermissionFailure">
+                <span class="glyphicon glyphicon-plus"></span> Add Permission
+            </a>
+        </div>
+    </div>
+    <div class="ibox-content" id="permission">
+        @Html.Action("Permission")
+    </div>
+
+    <hr/>
+    <!-- Menu -->
+    <div class="ibox-title">
+        <div class="ibox-tools rboor">
+            <a class="btn btn-primary btn-xs" data-dialog="true" data-ajax-form="true" data-dialog-href="@Url.Action("CreateMenu")" data-dialog-title="Create Menu"
+               data-ajax-success="createMenuSuccess" data-ajax-failure="createMenuFailure">
+                <span class="glyphicon glyphicon-plus"></span> Add Menu
+            </a>
+        </div>
+    </div>
+    <div class="ibox-content" id="menu">
+        @Html.Action("Menu")
+    </div>
+</div>

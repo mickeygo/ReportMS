@@ -443,7 +443,7 @@
         isActiveClass="false">
         <targetEnds>
           <association
-            Id="992fc7d2-50f8-4fe7-87d8-5b1f0684822b"
+            Id="f31d721f-5ae9-428a-99cd-f632ea4c3e48"
             isDerived="false"
             sourceEndRoleName="ActionInRole"
             targetEndRoleName="Role"
@@ -456,7 +456,7 @@
             <relationshipOwnedElementsInternal>
               <associationHasOwnedEnds>
                 <memberEnd
-                  Id="51cf0ca4-6a46-4ad6-b505-d418b4d5042a"
+                  Id="6d9e5eea-6668-455d-a989-bf4ad9ad2cc6"
                   name="ActionInRole"
                   isLeaf="false"
                   isStatic="false"
@@ -465,24 +465,11 @@
                   isDerivedUnion="false"
                   aggregation="None"
                   isComposite="false"
-                  isNavigableOwned="false">
-                  <lowerValueInternal>
-                    <literalString
-                      Id="ec124370-bae0-40ee-999f-8f87e0193beb"
-                      name="Lower"
-                      value="m" />
-                  </lowerValueInternal>
-                  <upperValueInternal>
-                    <literalString
-                      Id="a81c1ebc-6b1e-4b0c-ae07-0bc5616bceaf"
-                      name="Upper"
-                      value="m" />
-                  </upperValueInternal>
-                </memberEnd>
+                  isNavigableOwned="false" />
               </associationHasOwnedEnds>
               <associationHasOwnedEnds>
                 <memberEnd
-                  Id="6070543f-babb-4449-a9f4-513bf79e6c79"
+                  Id="202b831a-3507-4cd0-a684-300b5fd76521"
                   name="Role"
                   isLeaf="false"
                   isStatic="false"
@@ -495,10 +482,10 @@
             </relationshipOwnedElementsInternal>
           </association>
           <association
-            Id="60c5ae2c-086b-40c8-9ca1-1fe4836667a2"
+            Id="fc3dceb2-fd41-4687-acb5-880ea3c927d8"
             isDerived="false"
             sourceEndRoleName="ActionInRole"
-            targetEndRoleName="Action"
+            targetEndRoleName="Actions"
             isLeaf="false"
             isAbstract="false">
             <classMoniker
@@ -508,7 +495,7 @@
             <relationshipOwnedElementsInternal>
               <associationHasOwnedEnds>
                 <memberEnd
-                  Id="ef86ad49-12e4-4e5d-b5ce-a54654f0aa0d"
+                  Id="e523bfa6-1bc2-4d0b-a83e-711345fac5a3"
                   name="ActionInRole"
                   isLeaf="false"
                   isStatic="false"
@@ -517,25 +504,12 @@
                   isDerivedUnion="false"
                   aggregation="None"
                   isComposite="false"
-                  isNavigableOwned="false">
-                  <lowerValueInternal>
-                    <literalString
-                      Id="063444c5-a46c-4515-8acf-8e3daf215abc"
-                      name="Lower"
-                      value="n" />
-                  </lowerValueInternal>
-                  <upperValueInternal>
-                    <literalString
-                      Id="4d7df28c-96d4-46b4-a50c-073f15c8b5e0"
-                      name="Upper"
-                      value="n" />
-                  </upperValueInternal>
-                </memberEnd>
+                  isNavigableOwned="false" />
               </associationHasOwnedEnds>
               <associationHasOwnedEnds>
                 <memberEnd
-                  Id="6a6bf7b1-8387-42a7-bb70-0c335700c1f7"
-                  name="Action"
+                  Id="7c914890-b263-4ad5-a5eb-132496f72658"
+                  name="Actions"
                   isLeaf="false"
                   isStatic="false"
                   isReadOnly="false"
@@ -593,10 +567,10 @@
         isActiveClass="false">
         <targetEnds>
           <association
-            Id="1709ad84-e54d-4a4c-a7a0-46b569b96274"
+            Id="ab172c6f-ddd8-4b0a-a2f7-ab1c0e4501c2"
             isDerived="false"
             sourceEndRoleName="Menu"
-            targetEndRoleName="Action"
+            targetEndRoleName="Actions"
             isLeaf="false"
             isAbstract="false">
             <classMoniker
@@ -606,7 +580,7 @@
             <relationshipOwnedElementsInternal>
               <associationHasOwnedEnds>
                 <memberEnd
-                  Id="0b125b30-58c9-4e0b-8ba9-cdd14129ad90"
+                  Id="60d39d38-5f6d-4d39-bf25-1c2fef5afce9"
                   name="Menu"
                   isLeaf="false"
                   isStatic="false"
@@ -619,8 +593,8 @@
               </associationHasOwnedEnds>
               <associationHasOwnedEnds>
                 <memberEnd
-                  Id="ea486178-8a60-4b63-a69f-41058dc02be6"
-                  name="Action"
+                  Id="81ac4edf-8946-42c3-8f7d-e40d0d624034"
+                  name="Actions"
                   isLeaf="false"
                   isStatic="false"
                   isReadOnly="false"
@@ -667,59 +641,7 @@
         isActiveClass="false">
         <targetEnds>
           <association
-            Id="fb70eb3a-b3fa-4e8c-82cc-7db7a8b31256"
-            isDerived="false"
-            sourceEndRoleName="MenuInRole"
-            targetEndRoleName="Role"
-            isLeaf="false"
-            isAbstract="false">
-            <classMoniker
-              Id="8b2a0389-25fb-48be-bd7d-794a7116b1f3"
-              LastKnownName="Role"
-              LastKnownLocation="Package_1043.uml" />
-            <relationshipOwnedElementsInternal>
-              <associationHasOwnedEnds>
-                <memberEnd
-                  Id="1d9da310-587b-42aa-90e2-3487d2a39de6"
-                  name="MenuInRole"
-                  isLeaf="false"
-                  isStatic="false"
-                  isReadOnly="false"
-                  isDerived="false"
-                  isDerivedUnion="false"
-                  aggregation="None"
-                  isComposite="false"
-                  isNavigableOwned="false">
-                  <lowerValueInternal>
-                    <literalString
-                      Id="9654081c-a3e7-4ef6-b427-75bce8d9819e"
-                      name="Lower"
-                      value="m" />
-                  </lowerValueInternal>
-                  <upperValueInternal>
-                    <literalString
-                      Id="4394a50e-b1ec-4a90-937f-8048a731900c"
-                      name="Upper"
-                      value="m" />
-                  </upperValueInternal>
-                </memberEnd>
-              </associationHasOwnedEnds>
-              <associationHasOwnedEnds>
-                <memberEnd
-                  Id="67a699c8-a8bc-4416-b234-b6b5335e132a"
-                  name="Role"
-                  isLeaf="false"
-                  isStatic="false"
-                  isReadOnly="false"
-                  isDerived="false"
-                  isDerivedUnion="false"
-                  aggregation="None"
-                  isComposite="false" />
-              </associationHasOwnedEnds>
-            </relationshipOwnedElementsInternal>
-          </association>
-          <association
-            Id="2d681829-f7de-4742-904e-7f8a9d82976d"
+            Id="5923f9ab-a357-4b4a-81f6-e2381929e559"
             isDerived="false"
             sourceEndRoleName="MenuInRole"
             targetEndRoleName="Menu"
@@ -732,7 +654,7 @@
             <relationshipOwnedElementsInternal>
               <associationHasOwnedEnds>
                 <memberEnd
-                  Id="272e23eb-81d4-4f09-92d6-7b06ffb988f5"
+                  Id="639c5446-997a-4166-82d1-93708d0b8677"
                   name="MenuInRole"
                   isLeaf="false"
                   isStatic="false"
@@ -741,25 +663,51 @@
                   isDerivedUnion="false"
                   aggregation="None"
                   isComposite="false"
-                  isNavigableOwned="false">
-                  <lowerValueInternal>
-                    <literalString
-                      Id="f6582a93-d2f0-41b2-a27e-7a0ef0c36d29"
-                      name="Lower"
-                      value="n" />
-                  </lowerValueInternal>
-                  <upperValueInternal>
-                    <literalString
-                      Id="0716aa2e-0db6-4116-bf6a-dadbd4fffd6d"
-                      name="Upper"
-                      value="n" />
-                  </upperValueInternal>
-                </memberEnd>
+                  isNavigableOwned="false" />
               </associationHasOwnedEnds>
               <associationHasOwnedEnds>
                 <memberEnd
-                  Id="3f6a5cad-4cef-4925-a614-3c18306a92e2"
+                  Id="8824e149-5bd8-47f6-90e0-3ea99de4df4f"
                   name="Menu"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="e3e4f6e3-6e95-4715-9220-ef60251bd851"
+            isDerived="false"
+            sourceEndRoleName="MenuInRole"
+            targetEndRoleName="Role"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="8b2a0389-25fb-48be-bd7d-794a7116b1f3"
+              LastKnownName="Role"
+              LastKnownLocation="Package_1043.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="81acc61b-7037-4b78-84fc-7444f2b9e4d1"
+                  name="MenuInRole"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="464b8aa5-da21-4a2c-9ce1-f70e1efa79e6"
+                  name="Role"
                   isLeaf="false"
                   isStatic="false"
                   isReadOnly="false"

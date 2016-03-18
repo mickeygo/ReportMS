@@ -702,15 +702,47 @@
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false">
-        <suppliersInternal>
-          <dependency
-            Id="0ffe6efb-60d9-4812-9a53-3584d06dc9be">
+        <targetEnds>
+          <association
+            Id="3deefbf0-566d-4e97-969a-323a760d387b"
+            isDerived="false"
+            sourceEndRoleName="TaskRecord"
+            targetEndRoleName="TopicTask"
+            isLeaf="false"
+            isAbstract="false">
             <classMoniker
               Id="b81e10f4-9153-4727-af8a-f56113c17140"
               LastKnownName="TopicTask"
               LastKnownLocation="Package_1041.uml" />
-          </dependency>
-        </suppliersInternal>
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="977f7ca9-b7da-4c43-9052-4f05df180608"
+                  name="TaskRecord"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="2f1b60e3-6a3e-4256-b840-2c43168491fb"
+                  name="TopicTask"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
         <ownedAttributesInternal>
           <property
             Id="d4c7c455-82ce-486e-9272-99b7fb5b008d"

@@ -18,10 +18,20 @@ namespace ReportMS.Test.Infrastructure.Email
         }
 
         [TestMethod]
-        [ExpectedException(typeof (Exception))]
         public void SendMailWithAttachment_Test()
         {
             var path = @"D:\Test.txt";
+
+            var fs = new FileStream(path, FileMode.Open, FileAccess.Read);
+            var attachmemts = new List<Tuple<Stream, string>> { Tuple.Create((Stream)fs, "MyTest.xlsx"), Tuple.Create((Stream)fs, "MyTest.txt") };
+            var manager = new MailManager("Gear Mail Test", "Test", new[] { "gang.yang@advantech.com.cn" }, attachmemts);
+            manager.Send();
+        }
+
+        [TestMethod]
+        public void SendMailWithAttachment_MemoryStreamTest()
+        {
+            var path = @"D:\MyTest.xlsx";
 
             var fs = new FileStream(path, FileMode.Open, FileAccess.Read);
             var attachmemts = new List<Tuple<Stream, string>> { Tuple.Create((Stream)fs, "MyTest.xlsx"), Tuple.Create((Stream)fs, "MyTest.txt") };

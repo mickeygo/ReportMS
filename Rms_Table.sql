@@ -1,5 +1,22 @@
 ﻿/*===== RMS_User =====*/
 
+-- RMS_Action
+CREATE TABLE [dbo].[RMS_Action](
+	[ActionId] [uniqueidentifier] NOT NULL,
+	[Area] [varchar](30) NULL,
+	[Controller] [varchar](30) NOT NULL,
+	[Action] [varchar](30) NOT NULL,
+	[Description] [nvarchar](100) NULL,
+	[Enabled] [bit] NOT NULL,
+	[CreatedBy] [varchar](50) NULL,
+	[CreatedDate] [datetime] NULL,
+	[UpdatedBy] [varchar](50) NULL,
+	[UpdatedDate] [datetime] NULL,
+ CONSTRAINT [PK_RMS_Action] PRIMARY KEY CLUSTERED 
+(
+	[ActionId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY];
 
 /*===== Subscriber =====*/
 

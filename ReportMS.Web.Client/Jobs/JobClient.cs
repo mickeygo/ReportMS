@@ -9,17 +9,29 @@ namespace ReportMS.Web.Client.Jobs
     /// </summary>
     public partial class JobClient : IJobClient
     {
+        #region Private Fields
+
         private static bool registed;
         private static readonly Lazy<List<Type>> subscribers = new Lazy<List<Type>>();
         private readonly IJobClientContext context = new JobClientContext();
         private readonly object _sync = new object();
 
+        #endregion
+
         #region Ctor
 
         private JobClient()
         {
-            this.Container();
-            this.Init();
+            lock (this._sync)
+            {
+                if (!registed)
+                {
+                    this.Container();
+                    this.Init();
+
+                    registed = true;
+                }
+            }
         }
 
         #endregion
@@ -28,9 +40,6 @@ namespace ReportMS.Web.Client.Jobs
 
         void IJobClient.Start()
         {
-            if (registed)
-                return;
-            
             foreach (var task in context.Tasks)
                 JobFactory.Defalut.AddTask(task.Item1, task.Item2);
         }
@@ -49,8 +58,6 @@ namespace ReportMS.Web.Client.Jobs
                     var job = (ISubScriber) Activator.CreateInstance(subscriber);
                     this.context.AddTask(() => job.Subscribe(), job.Schedule);
                 }
-
-                registed = true;
             }
         }
 

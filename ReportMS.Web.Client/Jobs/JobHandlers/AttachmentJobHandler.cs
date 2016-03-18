@@ -14,13 +14,15 @@ using ReportMS.Web.Client.Helpers;
 namespace ReportMS.Web.Client.Jobs.JobHandlers
 {
     /// <summary>
-    /// 附件 Job 处理
+    /// 附件 Job 处理者
     /// </summary>
-    public class AttachmentJobHandler
+    public class AttachmentJobHandler : IJobHandler
     {
+        private const string FileExtension = ".xlsx";
         private readonly AttachmentTopicDto _attachmentTopic;
         private readonly IEnumerable<TopicTaskDto> _topicTasks;
-        private string errorMessage;
+        private bool _status = true;
+        private string _errorMessage;
 
         #region Ctor
 
@@ -46,54 +48,34 @@ namespace ReportMS.Web.Client.Jobs.JobHandlers
 
         #endregion
 
-        #region Public Methods
+        #region IJobHandler Members
 
         /// <summary>
         /// 执行 Job
         /// </summary>
         public void Execute()
         {
-            var stream = this.GenerateAttachment();
-            var status = this.SendMail(stream);
+            var stream = this.GenerateStreamOfAttachment();
+            this.SendMail(stream);
 
             var taskIds = this._topicTasks.Select(t => t.ID);
-            this.Log(taskIds, status, this.errorMessage);
+            this.Log(taskIds, this._status, this._errorMessage);
         }
 
         #endregion
 
         #region Private Methods
 
-        private Stream GenerateAttachment()
-        {
-            var stream = new MemoryStream();
-            try
-            {
-                var dataReader = GetDataReaderOfAttachment();
-                var sheetname = this._attachmentTopic.TopicName;
-                ExcelFactory.Create(sheetname, dataReader).SaveAsStream(stream);
-            }
-            catch (Exception)
-            {
-                return null;
-            }
-            finally
-            {
-                stream.Close();
-            }
-            return stream;
-        }
-
         // 邮件是否发送成功
-        private bool SendMail(Stream stream)
+        private void SendMail(Stream stream)
         {
             if (stream == null)
             {
-                this.errorMessage = "Generate attachment stream failure.";
-                return false;
+                this.SetErrorStatus("Generate attachment stream failure.");
+                return;
             }
 
-            var fileName = this._attachmentTopic.TopicName + DateTime.Now.ToString("yyMMddHHmmss") + ".xlsx";
+            var fileName = string.Format("{0}-{1}{2}", this._attachmentTopic.TopicName, DateTime.Now.ToString("yyMMddHHmmss"), FileExtension);
             var attachmemts = new List<Tuple<Stream, string>> {Tuple.Create(stream, fileName)};
             var subject = this._attachmentTopic.TopicName;
             var body = this._attachmentTopic.Description;
@@ -107,12 +89,9 @@ namespace ReportMS.Web.Client.Jobs.JobHandlers
             }
             catch (Exception)
             {
-                stream.Close();
-                this.errorMessage = "Send mail failure.";
-                return false;
+                // dispose the stream whether send mail successfully or failure.
+                this.SetErrorStatus("Send mail failure.");
             }
-
-            return true;
         }
 
         // 批量执行, 状态和消息都相同
@@ -133,12 +112,57 @@ namespace ReportMS.Web.Client.Jobs.JobHandlers
             }
         }
 
+        private Stream GenerateStreamOfAttachment()
+        {
+            MemoryStream ms = null;
+
+            try
+            {
+                var bytes = this.GetBytesOfAttachment();
+                if (bytes == null)
+                {
+                    this.SetErrorStatus("Get the attachment bytes failure.");
+                    return null;
+                }
+
+                ms = new MemoryStream(bytes);
+            }
+            catch (Exception)
+            {
+                if (ms != null)
+                    ms.Close();
+
+                return null;
+            }
+
+            return ms;
+        }
+
+        private byte[] GetBytesOfAttachment()
+        {
+            IDataReader dataReader = null;
+            try
+            {
+                dataReader = this.GetDataReaderOfAttachment();
+                var sheetname = this._attachmentTopic.TopicName;
+                return ExcelFactory.Create(sheetname, dataReader).SaveAsBytes();
+            }
+            catch (Exception)
+            {
+                if (dataReader != null && !dataReader.IsClosed)
+                    dataReader.Close();
+
+                this.SetErrorStatus("Create the dataReader failure.");
+                return null;
+            }
+        }
+
         private IDataReader GetDataReaderOfAttachment()
         {
             var report = this.GetReport(this._attachmentTopic.ReportId);
             if (report == null)
             {
-                this.errorMessage = "The report does not find.";
+                this.SetErrorStatus("The report does not find.");
                 return null;
             }
 
@@ -159,6 +183,16 @@ namespace ReportMS.Web.Client.Jobs.JobHandlers
             {
                 return service.FindReport(reportId);
             }
+        }
+
+        private void SetErrorStatus(string errorMsg)
+        {
+            if (this._status)
+                this._status = false;
+
+            // Only set the original error information.
+            if (this._errorMessage == null)
+                this._errorMessage = errorMsg;
         }
 
         #endregion

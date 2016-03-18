@@ -14,6 +14,9 @@ namespace ReportMS.Web.Client.Jobs
         {
             JobClient.Register<AttachmentJob>();
             JobClient.Register<RefreshTopicCacheJob>();
+
+            // Todo: Test Job, run at every minute
+            JobClient.Register<TestJob>();
         }
     }
 }

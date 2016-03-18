@@ -86,6 +86,7 @@
     <Compile Include="EntityFramework\Repository\RoleRepository.cs" />
     <Compile Include="EntityFramework\Repository\TaskRecordRepository.cs" />
     <Compile Include="EntityFramework\Repository\TenantRepository.cs" />
+    <Compile Include="EntityFramework\Repository\TopicRepository.cs" />
     <Compile Include="EntityFramework\Repository\UserRepository.cs" />
     <Compile Include="EntityFramework\Repository\UserRoleRepository.cs" />
     <Compile Include="EntityFramework\RmsDbContext.cs" />

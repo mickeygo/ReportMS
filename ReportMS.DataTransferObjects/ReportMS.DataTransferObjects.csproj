@@ -53,6 +53,7 @@
     <Compile Include="Dtos\AttachmentTopicDto.cs" />
     <Compile Include="Dtos\DatabaseSchemaDto.cs" />
     <Compile Include="Dtos\MenuDto.cs" />
+    <Compile Include="Dtos\MenuLevelDto.cs" />
     <Compile Include="Dtos\MenuRoleDto.cs" />
     <Compile Include="Dtos\ReportDto.cs" />
     <Compile Include="Dtos\ReportFieldDto.cs" />

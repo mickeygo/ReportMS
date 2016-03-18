@@ -79,8 +79,12 @@
     <Compile Include="Attributes\ValidateTenantAttribute.cs" />
     <Compile Include="Extensions\HtmlNavigationExtensions.cs" />
     <Compile Include="Helpers\StorageParameter.cs" />
+    <Compile Include="IO\Files\FileManager.cs" />
+    <Compile Include="IO\Files\VirtualDirectory.cs" />
+    <Compile Include="Jobs\IJobHandler.cs" />
     <Compile Include="Jobs\JobClient.Partial.cs" />
     <Compile Include="Jobs\JobHandlers\AttachmentJobHandler.cs" />
+    <Compile Include="Jobs\JobHandlers\RefreshTopicCacheJobHandler.cs" />
     <Compile Include="Jobs\JobTaskCalibration.cs" />
     <Compile Include="Jobs\Subscribers\AttachmentJob.cs" />
     <Compile Include="Jobs\IJobClient.cs" />
@@ -89,6 +93,7 @@
     <Compile Include="Jobs\JobClient.cs" />
     <Compile Include="Jobs\JobClientContext.cs" />
     <Compile Include="Jobs\Subscribers\RefreshTopicCacheJob.cs" />
+    <Compile Include="Jobs\Subscribers\TestJob.cs" />
     <Compile Include="Jobs\TopicCacheManager.cs" />
     <Compile Include="Membership\Login.cs" />
     <Compile Include="Membership\UserManager.cs" />

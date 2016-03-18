@@ -35,6 +35,9 @@ namespace ReportMS.Domain.Models.SubscriberModule
 
         #region Ctor
 
+        /// <summary>
+        /// 初始化一个新的<c>TaskRecord</c>实例。仅供 EntityFramework 调用
+        /// </summary>
         public TaskRecord()
         {
         }

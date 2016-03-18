@@ -1,0 +1,64 @@
+﻿@using ReportMS.DataTransferObjects.Dtos
+@model MenuDto
+
+@{
+    var index = 1;
+    var roles = ViewBag.Roles as IEnumerable<RoleDto>;
+    var rolesOfMenu = ViewBag.RolesOfPermission as IEnumerable<MenuRoleDto> ?? new List<MenuRoleDto>();
+}
+
+<div>
+    @if (!roles.HasAny())
+    {
+        <div>There are not any roles.</div>
+        return;
+    }
+
+    @using (Html.BeginForm(null, null, FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
+    {
+        @Html.AntiForgeryToken()
+        <table class="table table-bordered table-striped table-hover">
+            <thead>
+            <tr>
+                <th></th>
+                <th>No.</th>
+                <th>RoleName</th>
+                <th>DisplayName</th>
+                <th>Description</th>
+                <th>TenantName</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var item in roles)
+            {
+                <tr>
+                    <td>
+                        @if (rolesOfMenu.Any(f => f.RoleId == item.ID))
+                        {
+                            <input type="checkbox" name="roles" value="@item.ID" checked="checked"/>
+                        }
+                        else
+                        {
+                            <input type="checkbox" name="roles" value="@item.ID"/>
+                        }
+                    </td>
+                    <td>@(index++)</td>
+                    <td>@Html.DisplayFor(m => item.RoleName)</td>
+                    <td>@Html.DisplayFor(m => item.DisplayName)</td>
+                    <td>@Html.DisplayFor(m => item.Description)</td>
+                    <td>@Html.DisplayFor(m => item.Tenant.TenantName)</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+
+        <div class="form-group">
+            <div class="col-md-offset-5 col-md-12">
+                <input type="submit" value="Submit" class="btn btn-primary"/>
+            </div>
+
+            @Html.HiddenFor(m => m.ID)
+        </div>
+    }
+</div>
+

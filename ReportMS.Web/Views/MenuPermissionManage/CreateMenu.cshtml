@@ -1,0 +1,69 @@
+﻿@model ReportMS.DataTransferObjects.Dtos.MenuDto
+
+@{
+    var pemerssions = (IEnumerable<SelectListItem>) ViewBag.Permissions;
+    var menus = (IEnumerable<SelectListItem>) ViewBag.ParentMenus;
+}
+
+<div>
+    @if (!pemerssions.HasAny())
+    {
+        <div>There are not any permission to build menu.</div>
+        return;
+    }
+
+    @using (Html.BeginForm(null, null, FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-group">
+            @Html.LabelFor(m => m.MenuName, new {@class = "col-md-3 control-label"})
+            <div class="col-md-9">
+                @Html.TextBoxFor(m => m.MenuName, new {@class = "form-control", required = "", data_format = "string", maxlength = "40", onpaste = "return false;"})
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.DisplayName, new {@class = "col-md-3 control-label"})
+            <div class="col-md-9">
+                @Html.TextBoxFor(m => m.DisplayName, new {@class = "form-control", required = "", data_format = "string", maxlength = "40", onpaste = "return false;"})
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.ActionsId, new {@class = "col-md-3 control-label"})
+            <div class="col-md-9">
+                @Html.DropDownListFor(m => m.ActionsId, pemerssions, "-----", new { @class = "form-control", required = "", data_format = "string", maxlength = "40", onpaste = "return false;" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Level, new {@class = "col-md-3 control-label"})
+            <div class="col-md-9">
+                @Html.EnumDropDownListFor(m => m.Level, new {@class = "form-control", required = "", data_format = "string", maxlength = "40", onpaste = "return false;"})
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.ParentId, new {@class = "col-md-3 control-label"})
+            <div class="col-md-9">
+                @Html.DropDownListFor(m => m.ParentId, menus, "-----", new { @class = "form-control", data_format = "string", maxlength = "40", onpaste = "return false;" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Sort, new {@class = "col-md-3 control-label"})
+            <div class="col-md-9">
+                @Html.TextBoxFor(m => m.Sort, new {@class = "form-control", required = "", data_format = "integer", onpaste = "return false;"})
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Description, new {@class = "col-md-3 control-label"})
+            <div class="col-md-9">
+                @Html.TextAreaFor(m => m.Description, new {@class = "form-control", maxlength = "100"})
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-3 col-md-9">
+                <input type="submit" value="Submit" class="btn btn-primary" onclick="return confirm('After submit, the menu name could not be modified.');"/>
+            </div>
+        </div>
+    }
+</div>
+

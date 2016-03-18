@@ -43,7 +43,7 @@ namespace ReportMS.DataTransferObjects.Dtos
         /// 获取或设置菜单目录级别
         /// </summary>
         [DataMember]
-        public int Level { get; set; }
+        public MenuLevelDto Level { get; set; }
 
         /// <summary>
         /// 获取或设置菜单的排序

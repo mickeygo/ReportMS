@@ -1,5 +1,4 @@
-﻿using Hangfire;
-using Microsoft.AspNet.Identity;
+﻿using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
@@ -34,19 +33,20 @@ namespace ReportMS.Web
             //app.UseTwoFactorRememberBrowserCookie(DefaultAuthenticationTypes.TwoFactorRememberBrowserCookie);
 
             //*===== Schedule, Hangfire profile =====*//
-            GlobalConfiguration.Configuration.UseSqlServerStorage(GetDbConnectionName("rms"));
-            app.UseHangfireDashboard();
-            app.UseHangfireServer();
+            // In order to start up the job in first request, replace configuration in the Global.asax file
+            //GlobalConfiguration.Configuration.UseSqlServerStorage(GetDbConnectionName("rms"));
+            //app.UseHangfireDashboard();
+            //app.UseHangfireServer();
         }
         
-        string GetDbConnectionName(string name)
-        {
-#if DEBUG
-            return name + "Debug";
-#else
-            return name;
-#endif
+//        string GetDbConnectionName(string name)
+//        {
+//#if DEBUG
+//            return name + "Debug";
+//#else
+//            return name;
+//#endif
+//        }
 
-        }
     }
 }

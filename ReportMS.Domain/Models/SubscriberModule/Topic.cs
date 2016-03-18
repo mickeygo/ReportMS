@@ -84,6 +84,16 @@ namespace ReportMS.Domain.Models.SubscriberModule
         }
 
         /// <summary>
+        /// 设置更新人信息
+        /// </summary>
+        /// <param name="updatedBy">要设置的更新人</param>
+        public void SetUpdatedBy(string updatedBy)
+        {
+            this.UpdatedBy = updatedBy;
+            this.UpdatedDate = DateTime.Now;
+        }
+
+        /// <summary>
         /// 添加主题任务
         /// </summary>
         /// <param name="tasks">要添加的主题任务集合</param>

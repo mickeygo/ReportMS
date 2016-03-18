@@ -30,6 +30,13 @@ namespace ReportMS.Domain.Models.SubscriberModule
         #region Ctor
 
         /// <summary>
+        /// 初始化一个新的<c>Subscriber</c>实例。仅供 EntityFramework 调用
+        /// </summary>
+        public Subscriber()
+        {
+        }
+
+        /// <summary>
         /// 初始化一个新的<c>Subscriber</c>实例
         /// </summary>
         /// <param name="topicId">主题 Id</param>

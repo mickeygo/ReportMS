@@ -198,7 +198,7 @@ namespace Gear.Infrastructure.Net.Mail
         #region IDisposable Members
 
         /// <summary>
-        /// 释放资源
+        /// 释放资源, 包括 附件 stream
         /// </summary>
         public void Dispose()
         {

@@ -1,0 +1,66 @@
+﻿@using ReportMS.DataTransferObjects.Dtos
+@model IEnumerable<TopicDto>
+
+@{
+    ViewBag.Title = "Subscriber";
+    var index = 1;
+}
+
+@section scripts {
+    <script>
+        function removeFromTopic(element) {
+            if (!confirm("Are you want to delete it ?")) {
+                return false;
+            }
+            var url = $(element).attr("data-href");
+            var topicId = $(element).attr("data-topic-id");
+            $.post(url, { topicId: topicId }, function (data) {
+                if (data.status === "success") {
+                    $(element).closest("tbody").remove();
+                } else {
+                    alert(data.message);
+                }
+            });
+
+            return true;
+        }
+
+        function reloadToppic() {
+            var url = "@Url.Action("Index")" + " #topic table";
+            $("#topic").load(url);
+        }
+    </script>
+}
+
+@Html.Navigate("Subscriber")
+
+<div id="topic">
+    @if (Model.HasAny())
+    {
+        <table class="table table-bordered table-striped table-hover">
+            <thead>
+            <tr>
+                <th>No.</th>
+                <th>Topic</th>
+                <th>Description</th>
+                <th></th>
+            </tr>
+            </thead>
+            @foreach (var item in Model)
+            {
+                <tbody>
+                <tr>
+                    <td>@(index++)</td>
+                    <td>@Html.DisplayFor(m => item.TopicName)</td>
+                    <td>@Html.DisplayFor(m => item.Description)</td>
+                    <td>
+                        <a class="btn btn-danger btn-xs" data-href="@Url.Action("DeleteSubscriber")" data-topic-id="@item.ID" onclick="removeFromTopic(this);">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            }
+        </table>
+    }
+</div>
