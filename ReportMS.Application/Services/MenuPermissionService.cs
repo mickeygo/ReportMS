@@ -5,6 +5,7 @@ using Gear.Infrastructure.Specifications;
 using ReportMS.DataTransferObjects.Dtos;
 using ReportMS.Domain.Models.AccountModule;
 using ReportMS.Domain.Repositories;
+using ReportMS.Domain.Services;
 using ReportMS.ServiceContracts;
 
 namespace ReportMS.Application.Services
@@ -20,18 +21,20 @@ namespace ReportMS.Application.Services
         private readonly IMenuRepository _menuRepository;
         private readonly IActionRoleRepository _actionRoleRepository;
         private readonly IMenuRoleRepository _menuRoleRepository;
+        private readonly IMenuDomainService _menuDomainService;
 
         #endregion
 
         #region Ctor
 
         public MenuPermissionService(IActionRepository actionRepository, IMenuRepository menuRepository,
-            IActionRoleRepository actionRoleRepository, IMenuRoleRepository menuRoleRepository)
+            IActionRoleRepository actionRoleRepository, IMenuRoleRepository menuRoleRepository, IMenuDomainService menuDomainService)
         {
             _actionRepository = actionRepository;
             _menuRepository = menuRepository;
             _actionRoleRepository = actionRoleRepository;
             _menuRoleRepository = menuRoleRepository;
+            _menuDomainService = menuDomainService;
         }
 
         #endregion
@@ -107,15 +110,22 @@ namespace ReportMS.Application.Services
             return this._menuRepository.FindAll().ToList().MapAs<MenuDto>();
         }
 
+        public MenuDto FindMenu(Guid menuId)
+        {
+            return this._menuRepository.GetByKey(menuId).MapAs<MenuDto>();
+        }
+
+
         public IEnumerable<MenuDto> FindMenusViaLevel(MenuLevelDto menuLevel)
         {
             var spec = Specification<Menu>.Eval(m => m.Level == (MenuLevel) menuLevel);
             return this._menuRepository.FindAll(spec).ToList().MapAs<MenuDto>();
         }
 
-        public MenuDto FindMenu(Guid menuId)
+        public IEnumerable<MenuDto> FindMenuWithChildren(Guid menuId)
         {
-            return this._menuRepository.GetByKey(menuId).MapAs<MenuDto>();
+            var spec = Specification<Menu>.Eval(m => m.ID == menuId || m.ParentId == menuId);
+            return this._menuRepository.FindAll(spec).ToList().MapAs<MenuDto>();
         }
 
         public IEnumerable<MenuRoleDto> FindRolesOfMenu(Guid menuId)
@@ -126,12 +136,10 @@ namespace ReportMS.Application.Services
 
         public void CreateMenu(MenuDto menu)
         {
-            // Todo: set the sort
             var m_menu = new Menu(menu.MenuName, menu.DisplayName, menu.Description, menu.ParentId,
-                (MenuLevel) menu.Level,
-                menu.Sort, menu.ActionsId, menu.CreatedBy);
+                (MenuLevel) menu.Level, menu.Sort, menu.ActionsId, menu.CreatedBy);
 
-            this._menuRepository.Update(m_menu);
+            this._menuDomainService.AddOrUpdateMenu(this._menuRepository, m_menu);
         }
 
         public void ModifyMenu(MenuDto menu)
@@ -139,10 +147,9 @@ namespace ReportMS.Application.Services
             var m_menu = this._menuRepository.GetByKey(menu.ID);
             if (m_menu != null)
             {
-                // Todo: set the sort
                 m_menu.Update(menu.DisplayName, menu.Description, menu.ParentId, (MenuLevel) menu.Level, menu.Sort,
                     menu.ActionsId, menu.UpdatedBy);
-                this._menuRepository.Update(m_menu);
+                this._menuDomainService.AddOrUpdateMenu(this._menuRepository, m_menu);
             }
         }
 

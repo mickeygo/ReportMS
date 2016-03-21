@@ -15,17 +15,17 @@
         function modifyPermissionSuccess(data) {
             if (data.status === "success")
                 reloadPermission();
-            else 
+            else
                 alert(data.message);
         }
 
         function deletePermission(element) {
             if (!confirm("Do you want to delete it ?"))
                 return false;
-            
+
             var url = $(element).attr("data-href");
             var id = $(element).attr("data-permission-id");
-            $.post(url, { permissionId: id }, function (data) {
+            $.post(url, { permissionId: id }, function(data) {
                 if (data.status === "success") {
                     $(element).closest("tbody").remove();
                 } else {
@@ -58,7 +58,7 @@
 
         function modifyMenuSuccess(data) {
             if (data.status === "success")
-                reloadPermission();
+                reloadMenu();
             else
                 alert(data.message);
         }
@@ -69,7 +69,7 @@
 
             var url = $(element).attr("data-href");
             var id = $(element).attr("data-menu-id");
-            $.post(url, { permissionId: id }, function (data) {
+            $.post(url, { menuId: id }, function (data) {
                 if (data.status === "success") {
                     $(element).closest("tbody").remove();
                 } else {
@@ -84,6 +84,15 @@
                 alert("Attach the menu to roles successfully.");
             } else {
                 alert(data.message);
+            }
+        }
+
+        function changeMenuLevel(element) {
+            var value = $(element).val();
+            if (value === "0") {
+                $("#ParentId").removeAttr("required").closest("div.form-group").hide();
+            } else if (value === "1") {
+                $("#ParentId").attr("required", "required").closest("div.form-group").show();
             }
         }
 

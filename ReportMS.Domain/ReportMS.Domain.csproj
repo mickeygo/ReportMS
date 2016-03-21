@@ -82,11 +82,12 @@
     <Compile Include="Repositories\ITopicRepository.cs" />
     <Compile Include="Repositories\IUserRepository.cs" />
     <Compile Include="Repositories\IUserRoleRepository.cs" />
+    <Compile Include="Services\IMenuDomainService.cs" />
+    <Compile Include="Services\Implement\MenuDomainService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Events\Handlers\" />
     <Folder Include="Factories\" />
-    <Folder Include="Services\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Gear.Infrastructure\Gear.Infrastructure.csproj">

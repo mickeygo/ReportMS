@@ -152,7 +152,7 @@ namespace ReportMS.Web.Controllers.Manages
 
         public ActionResult CreateMenu()
         {
-            // Check the permissions whether exist.
+            // In ui, check the permissions whether exist.
             this.ViewBags();
             return PartialView();
         }
@@ -200,7 +200,7 @@ namespace ReportMS.Web.Controllers.Manages
             }
             catch (Exception)
             {
-                return Json(false, "Create the menu failure.");
+                return Json(false, "Modify the menu failure.");
             }
             return Json(true);
         }
@@ -229,10 +229,10 @@ namespace ReportMS.Web.Controllers.Manages
             // find all roles.
             // find the roles that include to the menu.
             using (var roleService = ServiceLocator.Instance.Resolve<IRoleService>())
-            using (var permissionService = ServiceLocator.Instance.Resolve<IMenuPermissionService>())
+            using (var menuService = ServiceLocator.Instance.Resolve<IMenuPermissionService>())
             {
                 var roles = roleService.FindAllRoles();
-                var rolesOfMenu = permissionService.FindRolesOfMenu(menuId);
+                var rolesOfMenu = menuService.FindRolesOfMenu(menuId);
 
                 ViewBag.Roles = roles;
                 ViewBag.RolesOfMenu = rolesOfMenu;
@@ -243,14 +243,14 @@ namespace ReportMS.Web.Controllers.Manages
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AttachMenuToRole(MenuDto model, Guid[] meuns)
+        public ActionResult AttachMenuToRole(MenuDto model, Guid[] roles)
         {
             var handler = this.LoginUser.Identity.Name;
             try
             {
                 using (var service = ServiceLocator.Instance.Resolve<IMenuPermissionService>())
                 {
-                    service.AttachMenuToRoles(model.ID, meuns, handler);
+                    service.AttachMenuToRoles(model.ID, roles, handler);
                 }
             }
             catch (Exception)
@@ -269,7 +269,7 @@ namespace ReportMS.Web.Controllers.Manages
         {
             ViewBag.Permissions = this.GetAllPermissions();
             ViewBag.ParentMenus = this.GetParentMenus();
-            ViewBag.Sorts = "";
+            ViewBag.Sorts = this.GetAvailableMenuSorts();
         }
 
         private IEnumerable<SelectListItem> GetAllPermissions()
@@ -302,6 +302,31 @@ namespace ReportMS.Web.Controllers.Manages
 
             return (from menu in menus
                 select new SelectListItem {Value = menu.ID.ToString(), Text = menu.DisplayName});
+        }
+
+        private IEnumerable<SelectListItem> GetAvailableMenuSorts(Guid? parentId = null)
+        {
+            var count = 0;
+
+            using (var service = ServiceLocator.Instance.Resolve<IMenuPermissionService>())
+            {
+                if (parentId.HasValue)
+                {
+                    var menus = service.FindMenuWithChildren(parentId.Value);
+                    if (menus != null && menus.Any())
+                        count = menus.Where(m => m.Level == MenuLevelDto.Children).Max(m => m.Sort);
+                }
+                else
+                {
+                    var menus = service.FindMenusViaLevel(MenuLevelDto.Parent);
+                    if (menus != null && menus.Any())
+                        count = menus.Max(m => m.Sort);
+                }
+            }
+
+            return
+                Enumerable.Range(1, count + 1)
+                    .Select(s => new SelectListItem { Text = s.ToString(), Value = s.ToString(), Selected = (s == count + 1) });
         }
     }
 

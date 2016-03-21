@@ -10,7 +10,7 @@ namespace ReportMS.Test.Report
     public class SqlBuilder_Test
     {
         private string _tableName;
-        private string _tableAliasName;
+        //private string _tableAliasName;
         private List<Tuple<string, string>> _fields;
         private List<Tuple<string, string, string>> _operators;
 
@@ -18,7 +18,7 @@ namespace ReportMS.Test.Report
         public void Init()
         {
             this._tableName = "table_test";
-            this._tableAliasName = "table_alias_test";
+            //this._tableAliasName = "table_alias_test";
 
             this._fields = new List<Tuple<string, string>>
             {

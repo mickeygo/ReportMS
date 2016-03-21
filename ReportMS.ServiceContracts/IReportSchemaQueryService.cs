@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ServiceModel;
-using Gear.Infrastructure;
+using Gear.Infrastructure.Services.ApplicationServices;
 using ReportMS.DataTransferObjects;
 using ReportMS.DataTransferObjects.Dtos;
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ServiceModel;
 using Gear.Infrastructure;
+using Gear.Infrastructure.Services.ApplicationServices;
 using ReportMS.DataTransferObjects;
 using ReportMS.DataTransferObjects.Dtos;
 
@@ -103,8 +104,17 @@ namespace ReportMS.ServiceContracts
         /// <param name="menuLevel">菜单等级</param>
         /// <returns><c>MenuDto</c>集合</returns>
         [OperationContract]
-        [FaultContract(typeof(FaultData))]
+        [FaultContract(typeof (FaultData))]
         IEnumerable<MenuDto> FindMenusViaLevel(MenuLevelDto menuLevel);
+
+        /// <summary>
+        /// 查找指定菜单 Id 的菜单及其子菜单
+        /// </summary>
+        /// <param name="menuId">要查找的菜单</param>
+        /// <returns>返回该菜单及其子菜单</returns>
+        [OperationContract]
+        [FaultContract(typeof (FaultData))]
+        IEnumerable<MenuDto> FindMenuWithChildren(Guid menuId);
 
         /// <summary>
         /// 查找有指定菜单的那些角色

@@ -118,6 +118,7 @@ namespace ReportMS.Domain.Models.AccountModule
 
             this.GenerateNewIdentity();
             this.Enable();
+            this.AdjustParentViaLevel();
         }
 
         #endregion
@@ -141,6 +142,7 @@ namespace ReportMS.Domain.Models.AccountModule
             this.ActionsId = actionsId;
 
             this.SetUpdatedBy(updatedBy);
+            this.AdjustParentViaLevel();
         }
 
         /// <summary>
@@ -151,6 +153,31 @@ namespace ReportMS.Domain.Models.AccountModule
         {
             this.UpdatedBy = updatedBy;
             this.UpdatedDate = DateTime.Now;
+        }
+
+        /// <summary>
+        /// Sort 自增加
+        /// </summary>
+        public void IncreaseSort()
+        {
+            this.Sort++;
+        }
+
+        /// <summary>
+        /// Sort 自增减
+        /// </summary>
+        public void DecreaseSort()
+        {
+            this.Sort--;
+        }
+
+        /// <summary>
+        /// 设置菜单排序
+        /// </summary>
+        /// <param name="sort">排序</param>
+        public void SetSort(int sort)
+        {
+            this.Sort = sort;
         }
 
         /// <summary>
@@ -173,6 +200,25 @@ namespace ReportMS.Domain.Models.AccountModule
 
         #endregion
 
+        #region Private Methods
+
+        private void AdjustParentViaLevel()
+        {
+            // 当为菜单根目录时，ParentID 设为 null。Action 可以存在
+            if (this.Level == MenuLevel.Parent)
+                this.ParentId = null;
+        }
+
+        private bool ValidateLevel()
+        {
+            if (this.Level == MenuLevel.Children)
+                return this.ParentId != null;
+
+            return true;
+        }
+
+        #endregion
+
         #region IValidatableObject Members
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
@@ -181,8 +227,8 @@ namespace ReportMS.Domain.Models.AccountModule
                 yield return new ValidationResult("The menu name is null or empty.");
             if (String.IsNullOrWhiteSpace(this.DisplayName))
                 yield return new ValidationResult("The menu display name is null or empty.");
-            if (this.Level == MenuLevel.Children && this.ParentId == null)
-                yield return new ValidationResult("The parent id must be exist, due to the level is more than zero.");
+            if (!this.ValidateLevel())
+                yield return new ValidationResult("The parent id must be exist, due to the menu level is children.");
         }
 
         #endregion

@@ -90,8 +90,8 @@
     <Compile Include="Generators\SequenceGenerator.cs" />
     <Compile Include="Generators\SequentialIdentityGenerator.cs" />
     <Compile Include="IAggregateRoot.cs" />
-    <Compile Include="IApplicationQueryService.cs" />
-    <Compile Include="IApplicationService.cs" />
+    <Compile Include="Services\ApplicationServices\IApplicationQueryService.cs" />
+    <Compile Include="Services\ApplicationServices\IApplicationService.cs" />
     <Compile Include="IApplicationStartup.cs" />
     <Compile Include="IEntity.cs" />
     <Compile Include="InfrastructureException.cs" />
@@ -119,6 +119,7 @@
     <Compile Include="Serialization\ObjectXmlSerializer.cs" />
     <Compile Include="Serialization\SerializationException.cs" />
     <Compile Include="ServiceLocator.cs" />
+    <Compile Include="Services\DomainServices\IDomainService.cs" />
     <Compile Include="Specifications\AndNotSpecification.cs" />
     <Compile Include="Specifications\AndSpecification.cs" />
     <Compile Include="Specifications\AnySpecification.cs" />
