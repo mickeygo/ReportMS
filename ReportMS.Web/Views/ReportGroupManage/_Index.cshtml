@@ -1,0 +1,54 @@
+﻿@using ReportMS.DataTransferObjects.Dtos
+@model IEnumerable<ReportGroupDto>
+
+<div>
+    <div class="ibox-title">
+        <div class="ibox-tools rboor">
+            <a class="btn btn-primary btn-xs" data-dialog="true" data-ajax-form="true" data-dialog-href="@Url.Action("CreateGroup")" data-dialog-title="Create Report Group"
+               data-ajax-success="createGroupSuccess" data-ajax-failure="createGroupFailure">
+                <span class="glyphicon glyphicon-plus"></span> Add Report Group
+            </a>
+        </div>
+    </div>
+
+    <div class="ibox-content" id="reportgroup">
+        @if (Model.HasAny())
+        {
+            <table class="table table-bordered table-striped table-hover">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th></th>
+                </tr>
+                </thead>
+                @foreach (var item in Model)
+                {
+                    <tbody>
+                    <tr>
+                        <td data-details-control="true" class="details-control-open" data-href="@Url.Action("FindGroup", new {reportGroupId = item.ID})"></td>
+                        <td>@Html.DisplayFor(m => item.DisplayName)</td>
+                        <td>@Html.DisplayFor(m => item.Description)</td>
+                        <td>
+                            <a class="btn btn-primary btn-xs" data-dialog="true" data-ajax-form="true" data-dialog-href="@Url.Action("EditGroup", new {reportGroupId = item.ID})"
+                               data-dialog-title="Edit Report Group" data-ajax-success="modifyGroupSuccess">
+                                <span class="glyphicon glyphicon-edit"></span>
+                            </a>
+                            <a class="btn btn-danger btn-xs" data-href="@Url.Action("DeleteGroup")" data-repgroup-id="@item.ID" onclick=" deleteReportGroup(this); ">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </a>
+                            <a class="btn btn-info btn-xs" data-dialog="true" data-ajax-form="true" data-dialog-href="@Url.Action("SetGroupItem", new {reportGroupId = item.ID})"
+                               data-dialog-title="Add Report Group Items" data-ajax-success="setGroupItemsSuccess"
+                               data-toggle="tooltip" title="Add report group item">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                }
+            </table>
+        }
+    </div>
+</div>
+

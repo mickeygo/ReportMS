@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Gear.Infrastructure;
 using ReportMS.DataTransferObjects.Dtos;
 using ReportMS.ServiceContracts;
@@ -11,6 +12,14 @@ namespace ReportMS.Web.Client.Membership
     public class UserManager
     {
         private static readonly UserManager instance = new UserManager();
+
+        #region Ctor
+
+        private UserManager()
+        {
+        }
+
+        #endregion
 
         #region Public Properties
 
@@ -51,6 +60,20 @@ namespace ReportMS.Web.Client.Membership
                 return userService.FindUser(usernMane);
             }
         }
+
+        /// <summary>
+        /// 查找用户所有有效的角色
+        /// </summary>
+        /// <param name="userId">用户 Id</param>
+        /// <returns>角色信息结合</returns>
+        public IEnumerable<RoleDto> GetRoles(Guid userId)
+        {
+            using (var userService = ServiceLocator.Instance.Resolve<IUserService>())
+            {
+                return userService.FindRoles(userId);
+            }
+        }
+
 
         /// <summary>
         /// 获取当前用户在当前租户中的角色

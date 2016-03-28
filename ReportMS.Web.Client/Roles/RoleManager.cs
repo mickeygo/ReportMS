@@ -14,6 +14,15 @@ namespace ReportMS.Web.Client.Roles
     {
         private static readonly RoleManager instance = new RoleManager();
 
+        #region Ctor
+
+        private RoleManager()
+        {
+            
+        }
+
+        #endregion
+
         #region Public Properties
 
         /// <summary>
@@ -36,7 +45,7 @@ namespace ReportMS.Web.Client.Roles
         /// <param name="controller">Controller</param>
         /// <param name="action">Action, 为 null 表示不验证 Action</param>
         /// <returns>True 表示有权限</returns>
-        public bool HasActionOfRole(Guid roleId, string area, string controller, string action = null)
+        public bool HasPermissionOfRole(Guid roleId, string area, string controller, string action = null)
         {
             Func<ActionsDto, bool> predicate = a =>
             {

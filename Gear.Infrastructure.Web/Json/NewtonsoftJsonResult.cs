@@ -10,11 +10,18 @@ namespace Gear.Infrastructure.Web.Json
     /// </summary>
     public class NewtonsoftJsonResult : ActionResult
     {
+        /// <summary>
+        /// 初始化一个新的<c>NewtonsoftJsonResult</c>实例
+        /// </summary>
         public NewtonsoftJsonResult()
         {
             this.JsonRequestBehavior = JsonRequestBehavior.DenyGet;
         }
 
+        /// <summary>
+        /// override, 重写执行结果
+        /// </summary>
+        /// <param name="context"></param>
         public override void ExecuteResult(ControllerContext context)
         {
             if (context == null)
@@ -39,12 +46,24 @@ namespace Gear.Infrastructure.Web.Json
             }
         }
 
+        /// <summary>
+        /// 获取或设置要序列化的内容在 Response 输出时的编码
+        /// </summary>
         public Encoding ContentEncoding { get; set; }
 
+        /// <summary>
+        /// 获取或设置要响应的内容的 Http MIME 类型
+        /// </summary>
         public string ContentType { get; set; }
 
+        /// <summary>
+        /// 获取或设置要序列化的内容
+        /// </summary>
         public object Data { get; set; }
 
+        /// <summary>
+        /// 获取或设置 Json 请求行为, 默认为 DenyGet
+        /// </summary>
         public JsonRequestBehavior JsonRequestBehavior { get; set; }
     }
 }

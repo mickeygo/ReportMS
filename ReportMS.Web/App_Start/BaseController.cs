@@ -1,5 +1,4 @@
-﻿using System.Text;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using Gear.Infrastructure.Web.Controllers;
 using ReportMS.DataTransferObjects.Dtos;
 using ReportMS.Web.Client.Tenancy;
@@ -48,7 +47,7 @@ namespace ReportMS.Web
         /// <returns>ActionResult</returns>
         public ActionResult RedirectToHome()
         {
-            return RedirectToAction("Index", "Home", new { area = string.Empty });
+            return RedirectToAction("Index", "Home", new {area = string.Empty});
         }
 
         /// <summary>
@@ -97,7 +96,7 @@ namespace ReportMS.Web
         public ActionResult Json(bool isSuccess, object data, string message, JsonRequestBehavior behavior)
         {
             var status = isSuccess ? "success" : "fail";
-            return this.NewtonsoftJson(new { status, data, message }, behavior);
+            return this.NewtonsoftJson(new {status, data, message}, behavior);
         }
 
         #endregion
@@ -107,36 +106,58 @@ namespace ReportMS.Web
         // 重写, 登录验证
         protected override void OnAuthorization(AuthorizationContext filterContext)
         {
-            // Authentication
+            // 1, Authentication
             if (!this.Authenticate(filterContext))
             {
                 filterContext.Result = new HttpUnauthorizedResult();
                 return;
             }
 
-            // Administrator
+            // 2, Administrator
+            // allow the system administrators to visit all.
+            if (this.IsAdministrator)
+                return;
 
+            // 3, Authorization
+            //  a, no tenant or not role in current tenant
+            if (this.RoleOfTenant == null)
+            {
+                // Todo: Handle the no tenant or not role in current tenant
+                // find the all roles of user and check them.
+                // allow all authentication users to access.
+                return;
+            }
 
-            // Authorization
+            //  b, exist valid tenant
+            //      b1, the role of the user in current tenant. (Only one role in a tenant)
+            //      b2, the permissions of the role
+            //      b3, Is limit action ?
             var action = this.RouteData.Values["action"] as string;
             var controller = this.RouteData.Values["controller"] as string;
-            //var area = this.RouteData.DataTokens["area"] as string;
+            var area = this.RouteData.DataTokens["area"] as string;
 
-            //var hasPermission = RoleManager.Instance.HasActionOfRole(this.RoleOfTenant.ID, action, controller);
-            //if (!hasPermission)
-            //    filterContext.Result = View("Permission");
+            var hasPermission = RoleManager.Instance.HasPermissionOfRole(this.RoleOfTenant.ID, area, controller, action);
+            if (!hasPermission)
+            {
+                if (filterContext.HttpContext.Request.IsAjaxRequest())
+                    filterContext.Result = Json(false, "You have not permission to access this page.");
+                else if (filterContext.IsChildAction)
+                    filterContext.Result = PartialView("Permission");  // new ContentResult {Content = "You have not permission to access this page."}
+                else
+                    filterContext.Result = View("Permission");
+            }
         }
 
         // 重写，登录 Log 记录
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            
+            // async log
         }
 
         // 重写，异常处理
         protected override void OnException(ExceptionContext filterContext)
         {
-            
+            // log exception
         }
 
         #endregion

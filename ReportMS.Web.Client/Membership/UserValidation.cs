@@ -7,7 +7,8 @@ using ReportMS.Web.Client.MembershipWebService;
 namespace ReportMS.Web.Client.Membership
 {
     /// <summary>
-    /// 用户信息验证
+    /// 用户信息验证。
+    /// 对登录用户进行本地验证或远程验证
     /// </summary>
     public class UserValidation
     {

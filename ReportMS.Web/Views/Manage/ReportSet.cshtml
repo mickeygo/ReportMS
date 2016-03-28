@@ -1,0 +1,24 @@
+﻿
+@{
+    ViewBag.Title = "Report Set";
+}
+
+@section scripts
+{
+
+}
+
+@Html.Navigate("Manage", "Report Set")
+
+<div>
+    <!-- Report -->
+    @Html.Action("_Index", "ReportManage")
+
+    <hr/>
+    <!-- Report Profile -->
+    @Html.Action("_Index", "ReportProfileManage")
+        
+    <hr/>
+    <!-- Report Group -->
+    @Html.Action("_Index", "ReportGroupManage")
+</div>

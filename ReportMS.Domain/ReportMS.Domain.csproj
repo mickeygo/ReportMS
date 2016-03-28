@@ -84,6 +84,8 @@
     <Compile Include="Repositories\IUserRoleRepository.cs" />
     <Compile Include="Services\IMenuDomainService.cs" />
     <Compile Include="Services\Implement\MenuDomainService.cs" />
+    <Compile Include="Services\Implement\RoleDomainService.cs" />
+    <Compile Include="Services\IRoleDomainService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Events\Handlers\" />

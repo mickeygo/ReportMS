@@ -12,21 +12,18 @@ namespace ReportMS.Domain.Services.Implement
     /// </summary>
     public class MenuDomainService : IMenuDomainService
     {
-        private IMenuRepository _menuRepository;
-
         #region IMenuDomainService Members
 
         public void AddOrUpdateMenu(IMenuRepository menuRepository, Menu menu)
         {
-            this._menuRepository = menuRepository;
-            this.InsertOrUpdateMenu(menu.Sort, menu, menu.Level, menu.ParentId);
+            this.InsertOrUpdateMenu(menuRepository, menu.Sort, menu, menu.Level, menu.ParentId);
         }
 
         #endregion
 
         #region Private Methods
 
-        private void InsertOrUpdateMenu(int index, Menu menu, MenuLevel level, Guid? parentId)
+        private void InsertOrUpdateMenu(IMenuRepository menuRepository, int index, Menu menu, MenuLevel level, Guid? parentId)
         {
             // sort start with 1
 
@@ -47,7 +44,7 @@ namespace ReportMS.Domain.Services.Implement
             //      1b, when the index <= menus count, set the sort = (countOfMenu + 1), then set the sort that large then index add one
 
             ISpecification<Menu> spec = null;
-            var existMenu = this._menuRepository.Exist(Specification<Menu>.Eval(m => m.ID == menu.ID));
+            var existMenu = menuRepository.Exist(Specification<Menu>.Eval(m => m.ID == menu.ID));
 
             if (level == MenuLevel.Parent)
             {
@@ -62,24 +59,22 @@ namespace ReportMS.Domain.Services.Implement
                 spec = Specification<Menu>.Eval(m => m.Level == MenuLevel.Children && m.ParentId == parentId);
             }
 
-            var menus = this.GetMenus(spec, menu.ID, existMenu);
+            var menus = this.GetMenus(menuRepository, spec, menu.ID, existMenu);
             
             // if the menu not exist, add the menu (the menu has been atteched).
             if (!existMenu)
             {
                 var sort = this.InsertSortMenu(menus, index);
                 menu.SetSort(sort);
-                this._menuRepository.Add(menu);
+                menuRepository.Add(menu);
             }
             else
             {
                 var sort = this.MoveSortMenu(menus, menu.Sort, index);
                 menu.SetSort(sort);
-                this._menuRepository.Update(menu);
+                menuRepository.Update(menu);
                 foreach (var item in menus)
-                {
-                    this._menuRepository.Update(item);
-                }
+                    menuRepository.Update(item);
             }
         }
 
@@ -135,12 +130,12 @@ namespace ReportMS.Domain.Services.Implement
             return sort;
         }
 
-        private List<Menu> GetMenus(ISpecification<Menu> spec, Guid menuId, bool isExistMenu)
+        private List<Menu> GetMenus(IMenuRepository menuRepository, ISpecification<Menu> spec, Guid menuId, bool isExistMenu)
         {
             var specification = spec;
             if (isExistMenu)
                 specification = spec.AndNotSpecification(Specification<Menu>.Eval(m => m.ID == menuId));
-            return this._menuRepository.FindAll(specification).ToList();
+            return menuRepository.FindAll(specification).ToList();
         }
 
         #endregion

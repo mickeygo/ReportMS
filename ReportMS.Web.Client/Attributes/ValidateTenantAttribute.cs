@@ -9,7 +9,7 @@ namespace ReportMS.Web.Client.Attributes
     /// <summary>
     /// 对租户进行验证。
     /// 对于 View， 若没有租户信息，会跳转到 ~/Home/Index/ ;
-    /// 对于 Ajax请求或 ChildAction View，若没有租户信息，提示租户不存在或无效。
+    /// 对于 Ajax 请求或 ChildAction View，若没有租户信息，提示租户不存在或无效。
     /// </summary>
     [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, AllowMultiple = false, Inherited = true)]
     public class ValidateTenantAttribute : AuthorizeAttribute
@@ -27,7 +27,7 @@ namespace ReportMS.Web.Client.Attributes
             {
                 filterContext.Result = new JsonResult
                 {
-                    Data = "The tenant info is not exist or invalid.",
+                    Data = "The tenant information is not exist or invalid.",
                     JsonRequestBehavior = JsonRequestBehavior.AllowGet
                 };
             }

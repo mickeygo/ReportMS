@@ -565,7 +565,7 @@
     <Content Include="Views\ReportGroupManage\Index.cshtml" />
     <Content Include="Views\ReportGroupManage\CreateGroup.cshtml" />
     <Content Include="Views\ReportGroupManage\FindGroup.cshtml" />
-    <Content Include="Views\ReportGroupManage\AddGroupItem.cshtml" />
+    <Content Include="Views\ReportGroupManage\SetGroupItem.cshtml" />
     <Content Include="Views\ReportProfileManage\Index.cshtml" />
     <Content Include="Views\ReportProfileManage\CreateProfile.cshtml" />
     <Content Include="Views\ReportProfileManage\EditProfile.cshtml" />
@@ -593,6 +593,11 @@
     <Content Include="Views\MenuPermissionManage\CreateMenu.cshtml" />
     <Content Include="Views\MenuPermissionManage\AttachMenuToRole.cshtml" />
     <Content Include="Views\MenuPermissionManage\EditMenu.cshtml" />
+    <Content Include="Views\Manage\UserSet.cshtml" />
+    <Content Include="Views\Manage\ReportSet.cshtml" />
+    <Content Include="Views\ReportManage\_Index.cshtml" />
+    <Content Include="Views\ReportProfileManage\_Index.cshtml" />
+    <Content Include="Views\ReportGroupManage\_Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

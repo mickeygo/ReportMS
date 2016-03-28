@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web.Mvc;
 using Gear.Infrastructure;
 using ReportMS.DataTransferObjects.Dtos;
@@ -14,12 +13,14 @@ namespace ReportMS.Web.Controllers.Manages
 
         public ActionResult Index()
         {
-            using (var service = ServiceLocator.Instance.Resolve<IReportGroupService>())
-            {
-                // Todo: release use the current role to filter
-                var model = service.FindReportGroups();
-                return View(model);
-            }
+            var model = this.GetReportGroupsOfCurrentUser();
+            return View(model);
+        }
+
+        public ActionResult _Index()
+        {
+            var model = this.GetReportGroupsOfCurrentUser();
+            return PartialView(model);
         }
 
         public ActionResult CreateGroup()
@@ -81,7 +82,7 @@ namespace ReportMS.Web.Controllers.Manages
             {
                 using (var service = ServiceLocator.Instance.Resolve<IReportGroupService>())
                 {
-                    service.RemoveReportGroup(reportGroupId);
+                    service.RemoveReportGroup(reportGroupId, this.LoginUser.Identity.Name);
                     return Json(true);
                 }
             }
@@ -91,10 +92,8 @@ namespace ReportMS.Web.Controllers.Manages
             }
         }
 
-        public ActionResult AddGroupItem(Guid reportGroupId)
+        public ActionResult SetGroupItem(Guid reportGroupId)
         {
-            ViewBag.ReportGroupId = reportGroupId.ToString();
-
             // 筛选出那些没有添加到此 Report Group 中 Report Profile
             using (var groupService = ServiceLocator.Instance.Resolve<IReportGroupService>())
             using (var profileService = ServiceLocator.Instance.Resolve<IReportProfileService>())
@@ -102,51 +101,26 @@ namespace ReportMS.Web.Controllers.Manages
                 var reportGroup = groupService.FindReportGroup(reportGroupId);
                 var profiles = profileService.FindAllReportProfile();
 
-                if (profiles == null)
-                    return PartialView();
-                if (reportGroup == null || !reportGroup.ReportGroupItems.Any())
-                    return PartialView(profiles);
-
-                var model = (from profile in profiles
-                    where reportGroup.ReportGroupItems.All(g => g.ReportProfileId != profile.ID)
-                    select profile);
-
-                return PartialView(model);
+                ViewBag.Profiles = profiles;
+                return PartialView(reportGroup);
             }
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AddGroupItem(Guid reportGroupId, IEnumerable<Guid> profiles)
+        public ActionResult SetGroupItem(ReportGroupDto model, IEnumerable<Guid> profiles)
         {
             try
             {
                 using (var service = ServiceLocator.Instance.Resolve<IReportGroupService>())
                 {
-                    service.AddReportGroupItems(reportGroupId, profiles);
+                    service.SetReportGroupItems(model.ID, profiles);
                     return Json(true);
                 }
             }
             catch (Exception)
             {
-                return Json(false, "Add the report group item failure.");
-            }
-        }
-
-        [HttpPost]
-        public ActionResult DeleteGroupItem(Guid reportGroupId, Guid reportGroupItemId)
-        {
-            try
-            {
-                using (var service = ServiceLocator.Instance.Resolve<IReportGroupService>())
-                {
-                    service.RemoveReportGroupItem(reportGroupId, reportGroupItemId);
-                    return Json(true);
-                }
-            }
-            catch (Exception)
-            {
-                return Json(false, "Delete the report group item failure.");
+                return Json(false, "Set the report group items failure.");
             }
         }
 
@@ -166,6 +140,20 @@ namespace ReportMS.Web.Controllers.Manages
         public ActionResult FindReport(Guid reportId)
         {
             return PartialView();
+        }
+
+        #endregion
+
+        #region Private Methods
+
+        private IEnumerable<ReportGroupDto> GetReportGroupsOfCurrentUser()
+        {
+
+            using (var service = ServiceLocator.Instance.Resolve<IReportGroupService>())
+            {
+                // Todo: release use the current role to filter
+                return service.FindReportGroups();
+            }
         }
 
         #endregion

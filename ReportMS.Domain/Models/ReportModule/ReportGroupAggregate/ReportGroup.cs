@@ -125,6 +125,16 @@ namespace ReportMS.Domain.Models.ReportModule.ReportGroupAggregate
         {
             this.DisplayName = displayName;
             this.Description = description;
+
+            this.SetUpdatedBy(updatedBy);
+        }
+
+        /// <summary>
+        /// 设置更新人信息
+        /// </summary>
+        /// <param name="updatedBy">更新人</param>
+        public void SetUpdatedBy(string updatedBy)
+        {
             this.UpdatedBy = updatedBy;
             this.UpdatedDate = DateTime.Now;
         }

@@ -1,0 +1,49 @@
+﻿@using ReportMS.DataTransferObjects.Dtos
+@model IEnumerable<ReportProfileDto>
+
+<div>
+    <div class="ibox-title">
+        <div class="ibox-tools rboor">
+            <a class="btn btn-primary btn-xs" data-dialog="true" data-ajax-form="true" data-dialog-href="@Url.Action("CreateProfile")" data-dialog-title="Create Report Profile"
+               data-ajax-success="createProfileSuccess" data-ajax-failure="createProfileFailure">
+                <span class="glyphicon glyphicon-plus"></span> Add Report Profile
+            </a>
+        </div>
+    </div>
+
+    <div class="ibox-content" id="reportprofile">
+        @if (Model.HasAny())
+        {
+            <table class="table table-bordered table-striped table-hover">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th></th>
+                </tr>
+                </thead>
+                @foreach (var item in Model)
+                {
+                    <tbody>
+                    <tr>
+                        <td data-details-control="true" class="details-control-open" data-href="@Url.Action("FindProfile", new {profileId = item.ID})"></td>
+                        <td>@Html.DisplayFor(m => item.Name)</td>
+                        <td>@Html.DisplayFor(m => item.Description)</td>
+                        <td>
+                            <a class="btn btn-primary btn-xs" data-dialog="true" data-ajax-form="true"
+                               data-dialog-href="@Url.Action("EditProfile", new {profileId = item.ID})"
+                               data-dialog-title="Edit Report Profile" data-ajax-success="modifyReportProfileSuccess">
+                                <span class="glyphicon glyphicon-edit"></span>
+                            </a>
+                            <a class="btn btn-danger btn-xs" data-href="@Url.Action("DeleteProfile")" data-repprofile-id="@item.ID" onclick=" deleteReportProfile(this); ">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                }
+            </table>
+        }
+    </div>
+</div>

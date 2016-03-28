@@ -19,6 +19,15 @@ namespace ReportMS.Web.Controllers.Manages
             }
         }
 
+        public ActionResult _Index()
+        {
+            using (var service = ServiceLocator.Instance.Resolve<IReportProfileService>())
+            {
+                var model = service.FindAllReportProfile();
+                return PartialView(model);
+            }
+        }
+
         public ActionResult CreateProfile()
         {
             using (var service = ServiceLocator.Instance.Resolve<IReportService>())

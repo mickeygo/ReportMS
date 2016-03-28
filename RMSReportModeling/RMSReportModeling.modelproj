@@ -40,12 +40,26 @@
     <Content Include="ModelDefinition\Package_1527.uml">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="RMSUMLClassDiagram.classdiagram">
+    <Content Include="Rms.activitydiagram">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="RMSUMLClassDiagram.classdiagram.layout">
+    <Content Include="Rms.activitydiagram.layout">
       <SubType>Content</SubType>
-      <DependentUpon>RMSUMLClassDiagram.classdiagram</DependentUpon>
+      <DependentUpon>Rms.activitydiagram</DependentUpon>
+    </Content>
+    <Content Include="Rms.sequencediagram">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Rms.sequencediagram.layout">
+      <SubType>Content</SubType>
+      <DependentUpon>Rms.sequencediagram</DependentUpon>
+    </Content>
+    <Content Include="Rms.classdiagram">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Rms.classdiagram.layout">
+      <SubType>Content</SubType>
+      <DependentUpon>Rms.classdiagram</DependentUpon>
     </Content>
     <Folder Include="ModelDefinition\" />
     <Content Include="ModelDefinition\RMSReportModeling.uml">

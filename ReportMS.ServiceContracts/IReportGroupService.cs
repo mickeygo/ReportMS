@@ -70,18 +70,19 @@ namespace ReportMS.ServiceContracts
         /// 删除指定的报表分组
         /// </summary>
         /// <param name="reportGroupId">要删除的报表分组 Id</param>
+        /// <param name="handler">操作人</param>
         [OperationContract]
         [FaultContract(typeof (FaultData))]
-        void RemoveReportGroup(Guid reportGroupId);
+        void RemoveReportGroup(Guid reportGroupId, string handler);
 
         /// <summary>
-        /// 添加报表分组明细信息
+        /// 设置报表分组明细信息
         /// </summary>
         /// <param name="reportGroupId">报表分组 Id</param>
         /// <param name="reportProfileIds">报表配置 Id 集合</param>
         [OperationContract]
         [FaultContract(typeof (FaultData))]
-        void AddReportGroupItems(Guid reportGroupId, IEnumerable<Guid> reportProfileIds);
+        void SetReportGroupItems(Guid reportGroupId, IEnumerable<Guid> reportProfileIds);
 
         /// <summary>
         /// 删除报表分组明细项

@@ -22,6 +22,15 @@ namespace ReportMS.Web.Controllers.Manages
             }
         }
 
+        public ActionResult _Index()
+        {
+            using (var service = ServiceLocator.Instance.Resolve<IReportService>())
+            {
+                var model = service.FindAllReport();
+                return PartialView(model);
+            }
+        }
+
         public ActionResult CreateReport()
         {
             var model = new ReportDto {Schema = "dbo"};

@@ -78,27 +78,37 @@ namespace ReportMS.Application.Services
             this._reportGroupRepository.Update(reportGroup);
         }
 
-        public void RemoveReportGroup(Guid reportGroupId)
+        public void RemoveReportGroup(Guid reportGroupId, string handler)
         {
             var reportGroup = this._reportGroupRepository.GetByKey(reportGroupId);
             if (reportGroup == null)
                 return;
 
             reportGroup.Disable();
+            reportGroup.SetUpdatedBy(handler);
             this._reportGroupRepository.Update(reportGroup);
         }
 
-        public void AddReportGroupItems(Guid reportGroupId, IEnumerable<Guid> reportProfileIds)
+        public void SetReportGroupItems(Guid reportGroupId, IEnumerable<Guid> reportProfileIds)
         {
             var reportGroup = this._reportGroupRepository.GetByKey(reportGroupId);
             if (reportGroup == null)
                 return;
 
-            var items = (from reportProfileId in reportProfileIds
-                where reportGroup.ReportGroupItems.All(i => i.ReportProfileId != reportProfileId)
-                select new ReportGroupItem(reportGroupId, reportProfileId));
+            // Remove all group item from this report group
+            // If exist, add the report profiles
+            var groupItems = reportGroup.ReportGroupItems;
+            if (groupItems != null)
+                this._reportGroupRepository.RemoveReportGroupItems(groupItems);
 
-            reportGroup.AddGroupItems(items);
+            if (reportProfileIds != null && reportProfileIds.Any())
+            {
+                var items = (from reportProfileId in reportProfileIds
+                             select new ReportGroupItem(reportGroupId, reportProfileId));
+
+                reportGroup.AddGroupItems(items);
+            }
+           
             this._reportGroupRepository.Update(reportGroup);
         }
 

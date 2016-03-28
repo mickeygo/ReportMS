@@ -1,12 +1,14 @@
 ﻿@using ReportMS.DataTransferObjects.Dtos
-@model IEnumerable<ReportProfileDto>
+@model ReportGroupDto
 
 @{
     var index = 1;
+    var profiles = (IEnumerable<ReportProfileDto>) ViewBag.Profiles;
+    var groupProfiles = Model.ReportGroupItems ?? new List<ReportGroupItemDto>();
 }
 
 <div>
-    @if (!Model.HasAny())
+    @if (!profiles.HasAny())
     {
         <div>Not any report profile item.</div>
         return;
@@ -24,12 +26,19 @@
                 <th>Description</th>
             </tr>
             </thead>
-            @foreach (var item in Model.OrderBy(p => p.Name))
+            @foreach (var item in profiles.OrderBy(p => p.Name))
             {
                 <tbody>
                 <tr>
                     <td>
-                        <input type="checkbox" name="profiles" value="@item.ID"/>
+                        @if (groupProfiles.Any(g => g.ReportProfileId == item.ID))
+                        {
+                            <input type="checkbox" name="profiles" checked="checked" value="@item.ID" />
+                        }
+                        else
+                        {
+                            <input type="checkbox" name="profiles" value="@item.ID" />
+                        }                        
                     </td>
                     <td>@(index++)</td>
                     <td>@Html.DisplayFor(m => item.Name)</td>
@@ -41,9 +50,9 @@
 
         <div class="form-group">
             <div class="col-md-offset-5 col-md-12">
-                <input type="submit" value="submit" class="btn btn-primary"/>
+                <input type="submit" value="Submit" class="btn btn-primary"/>
             </div>
         </div>
-        @Html.Hidden("ReportGroupId", (string)ViewBag.ReportGroupId)
+        @Html.HiddenFor(m => m.ID)
     }
 </div>

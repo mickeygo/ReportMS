@@ -73,6 +73,7 @@ namespace ReportMS.Application.Services
             if (!roleId.HasValue)
                 return;
 
+            // Todo: check the user whether has more than one role in the tennant that the role own to, in a role domain service.
             var addUserRole = new UserRole(userId, roleId.Value, creator);
             this._userRoleRepository.Add(addUserRole);
         }

@@ -13,7 +13,7 @@ namespace Gear.Infrastructure.Web.Controllers
         #region Public Methods
 
         /// <summary>
-        /// 验证
+        /// 用户身份验证
         /// </summary>
         /// <param name="controller">控制器</param>
         /// <param name="filterContext">授权上下文</param>
@@ -29,21 +29,28 @@ namespace Gear.Infrastructure.Web.Controllers
         }
 
         /// <summary>
-        /// 授权
+        /// 当前 action / controller 是否允许匿名用户访问
         /// </summary>
         /// <param name="controller">控制器</param>
-        /// <param name="filterContext">授权上下文</param>
-        /// <param name="limitAction">是否访问权限限制到 Action，默认为 false</param>
-        /// <returns>true 通过授权，否则为 false</returns>
-        public static bool Authorise(this Controller controller, AuthorizationContext filterContext, bool limitAction = false)
+        /// <param name="actionDescriptor">Action 描述</param>
+        /// <returns>True 表示允许匿名访问；否则为 false</returns>
+        public static bool IsAllowAnonymous(this Controller controller, ActionDescriptor actionDescriptor)
         {
-            var actionDescriptor = filterContext.ActionDescriptor;
-            if (IsAllowAnonymousOfActionOrController(actionDescriptor))
-                return true;
+            return IsAllowAnonymousOfActionOrController(actionDescriptor);
+        }
 
-            var m_action = controller.RouteData.Values["action"] as string;
-            var m_controller = controller.RouteData.Values["controller"] as string;
-            var m_area = controller.RouteData.DataTokens["area"] as string;
+        /// <summary>
+        /// 当前 action / controller 是否允许所有的已认证的用户访问
+        /// </summary>
+        /// <param name="controller">控制器</param>
+        /// <param name="actionDescriptor">Action 描述</param>
+        /// <returns>True 表示允许匿名访问；否则为 false</returns>
+        public static bool IsAllowAuthenticated(this Controller controller, ActionDescriptor actionDescriptor)
+        {
+            //var controllerDescriptor = actionDescriptor.ControllerDescriptor;
+
+            //return actionDescriptor.IsDefined(typeof (AllowAnonymousAttribute), true)
+            //       || controllerDescriptor.IsDefined(typeof (AllowAnonymousAttribute), true);
 
             return true;
         }
