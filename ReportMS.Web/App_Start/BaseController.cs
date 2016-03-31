@@ -22,7 +22,8 @@ namespace ReportMS.Web
         #region Public Properties
 
         /// <summary>
-        /// 获取当前租户信息
+        /// 获取当前租户信息.
+        /// 若不存在租户或租户信息没有，返回 null
         /// </summary>
         public TenantDto Tenant
         {
@@ -30,7 +31,8 @@ namespace ReportMS.Web
         }
 
         /// <summary>
-        /// 获取登录的用户在当前租户中的角色的详细信息（多租户）
+        /// 获取登录的用户在当前租户中的角色的详细信息（多租户）。
+        /// 若不存在租户或租户信息没有，返回 null
         /// </summary>
         public RoleDto RoleOfTenant
         {

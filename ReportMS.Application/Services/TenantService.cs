@@ -29,7 +29,7 @@ namespace ReportMS.Application.Services
 
         public IEnumerable<TenantDto> GetAllTenants()
         {
-            return this._tenantRepository.FindAll().OrderBy(s => s.CreatedDate).MapAs<TenantDto>();
+            return this._tenantRepository.FindAll().OrderBy(s => s.CreatedDate).ToList().MapAs<TenantDto>();
         }
 
         public TenantDto GetTenant(Guid tenantId)
@@ -50,7 +50,8 @@ namespace ReportMS.Application.Services
 
         public TenantDto CreateTenant(TenantDto tenantDto)
         {
-            var tenant = new Tenant(tenantDto.TenantName, tenantDto.DisplayName, tenantDto.Description, tenantDto.CreatedBy);
+            var tenant = new Tenant(tenantDto.TenantName, tenantDto.DisplayName, tenantDto.Description,
+                tenantDto.CreatedBy);
             this._tenantRepository.Add(tenant);
 
             return tenant.MapAs<TenantDto>();

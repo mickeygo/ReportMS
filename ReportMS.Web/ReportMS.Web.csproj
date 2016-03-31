@@ -201,7 +201,7 @@
     <Compile Include="Controllers\Manages\SubscriberManageController.cs" />
     <Compile Include="Controllers\Manages\UserManageController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
-    <Compile Include="Controllers\Manages\TenementController.cs" />
+    <Compile Include="Controllers\Manages\TenementManageController.cs" />
     <Compile Include="Controllers\SubscriberController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -407,6 +407,7 @@
     <Content Include="TestPage.html" />
     <Content Include="Views\Report\_ReportLayout.cshtml" />
     <Content Include="Js\jquery.dialog.js" />
+    <None Include="Properties\PublishProfiles\RMS.Debug.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Js\reportTable.js" />
     <Content Include="Js\reportTransfer.js" />
@@ -554,10 +555,10 @@
     <Content Include="Views\Shared\_Layout_Footer.cshtml" />
     <Content Include="Views\Shared\_Layout_Header.cshtml" />
     <Content Include="Views\Manage\Menu.cshtml" />
-    <Content Include="Views\Tenement\Index.cshtml" />
+    <Content Include="Views\TenementManage\Index.cshtml" />
     <Content Include="Views\Shared\_Layout_Miscellaneous.cshtml" />
-    <Content Include="Views\Tenement\Create.cshtml" />
-    <Content Include="Views\Tenement\Edit.cshtml" />
+    <Content Include="Views\TenementManage\Create.cshtml" />
+    <Content Include="Views\TenementManage\Edit.cshtml" />
     <Content Include="Views\ReportManage\TableSchema.cshtml" />
     <Content Include="Views\ReportManage\Index.cshtml" />
     <Content Include="Views\ReportManage\EditReport.cshtml" />
@@ -598,6 +599,7 @@
     <Content Include="Views\ReportManage\_Index.cshtml" />
     <Content Include="Views\ReportProfileManage\_Index.cshtml" />
     <Content Include="Views\ReportGroupManage\_Index.cshtml" />
+    <Content Include="Views\Manage\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

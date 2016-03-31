@@ -7,7 +7,7 @@ namespace Gear.Infrastructure.Storage
     /// </summary>
     public class StorageConfiguration
     {
-        private readonly string _connectionName;
+        private readonly ConnectionStringSettings _connectionStringSettings;
 
         #region Ctor
 
@@ -17,15 +17,30 @@ namespace Gear.Infrastructure.Storage
         /// <param name="connectionName">App.Config / Web.Config 文件中的 ConnectionStrings 节点名</param>
         public StorageConfiguration(string connectionName)
         {
-            this._connectionName = connectionName;
+            this._connectionStringSettings = ConfigurationManager.ConnectionStrings[connectionName];
         }
 
         #endregion
 
-        private string GetConnectionString()
+        #region Properties
+
+        /// <summary>
+        /// 获取连接字符串
+        /// </summary>
+        public string ConnectionString
         {
-            return ConfigurationManager.ConnectionStrings[this._connectionName].ConnectionString;
+            get { return this._connectionStringSettings.ConnectionString; }
         }
+
+        /// <summary>
+        /// 获取程序提供者名称
+        /// </summary>
+        public string ProviderName
+        {
+             get { return this._connectionStringSettings.ProviderName; }
+        }
+
+        #endregion
 
         /// <summary>
         /// 重写，获取 App.Config / Web.Config 文件中的 ConnectionStrings 节点的字符串
@@ -33,7 +48,7 @@ namespace Gear.Infrastructure.Storage
         /// <returns>数据库连接字符串</returns>
         public override string ToString()
         {
-            return this.GetConnectionString();
+            return this.ConnectionString;
         }
     }
 }

@@ -8,10 +8,6 @@ namespace Gear.Infrastructure.Storage.MySql
     /// </summary>
     public class MySqlStorage : DapperStorage, IStorageProvider
     {
-        /// <summary>
-        /// 创建数据源连接
-        /// </summary>
-        /// <returns><see cref="System.Data.Common.DbConnection"/></returns>
         protected override IDbConnection CreateInternalConnection()
         {
             return MySqlClientFactory.Instance.CreateConnection();

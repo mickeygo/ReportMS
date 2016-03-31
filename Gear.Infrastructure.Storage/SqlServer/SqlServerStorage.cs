@@ -8,10 +8,6 @@ namespace Gear.Infrastructure.Storage.SqlServer
     /// </summary>
     public class SqlServerStorage : DapperStorage, IStorageProvider
     {
-        /// <summary>
-        /// 创建数据源连接
-        /// </summary>
-        /// <returns><see cref="System.Data.Common.DbConnection"/></returns>
         protected override IDbConnection CreateInternalConnection()
         {
             return SqlClientFactory.Instance.CreateConnection();

@@ -26,8 +26,7 @@ namespace Gear.Infrastructure.Storage
             : this()
         {
             var config = new StorageConfiguration(connectionName);
-            var connectionString = config.ToString();
-            this.storageProvider.BuildConnection(connectionString);
+            this.storageProvider.BuildConnection(config);
         }
 
         #endregion

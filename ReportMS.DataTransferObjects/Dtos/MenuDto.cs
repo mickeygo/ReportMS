@@ -58,6 +58,12 @@ namespace ReportMS.DataTransferObjects.Dtos
         public Guid? ActionsId { get; set; }
 
         /// <summary>
+        /// 获取或设置功能行为
+        /// </summary>
+        [DataMember]
+        public virtual ActionsDto Actions { get; set; }
+
+        /// <summary>
         /// 获取或设置一个<see cref="System.Boolean"/>值，表示此菜单是否可用
         /// </summary>
         [DataMember]

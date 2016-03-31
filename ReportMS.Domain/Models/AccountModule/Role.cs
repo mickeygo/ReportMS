@@ -33,7 +33,8 @@ namespace ReportMS.Domain.Models.AccountModule
         #region IMayHaveTenant<Guid> Members
 
         /// <summary>
-        /// 获取租户 ID
+        /// 获取租户 Id.
+        /// 若租户为 Null，表示为管理员（不分租户）
         /// </summary>
         public Guid? TenantId { get; private set; }
 
@@ -121,6 +122,16 @@ namespace ReportMS.Domain.Models.AccountModule
             this.Description = description;
             this.UpdatedBy = updatedBy;
             this.UpdatedDate = DateTime.Now;
+        }
+
+        /// <summary>
+        /// 是否是管理员（不区分租户）
+        /// </summary>
+        /// <returns>True 表示是管理员；否则为 false</returns>
+        public bool IsAdmin()
+        {
+            // Todo: use role level to present the role level, as administator, manager, register etc.
+            return !this.TenantId.HasValue;
         }
 
         /// <summary>

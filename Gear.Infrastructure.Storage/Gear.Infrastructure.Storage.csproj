@@ -57,11 +57,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DapperStorage.cs" />
+    <Compile Include="StorageProviderSetting.cs" />
     <Compile Include="MySql\MySqlStorage.cs" />
     <Compile Include="Oracle\OracleStorage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SQLite\SQLiteStorage.cs" />
     <Compile Include="SqlServer\SqlServerStorage.cs" />
+    <Compile Include="StorageProviderFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Gear.Infrastructure\Gear.Infrastructure.csproj">

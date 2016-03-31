@@ -30,6 +30,17 @@
     }
 }
 
+<hr/>
+<ul class="list-group">
+    <li class="list-group-item">
+        <a class="glyphicon glyphicon-cog" href="@Url.Action("Index", "SubscriberManage")">Subscriber</a>
+    </li>
+    <li class="list-group-item">
+        <a class="glyphicon glyphicon-cog" href="@Url.Action("Index", "Manage")">Manager</a>
+    </li>
+</ul>
+
+
 @helper RenderTenants(IEnumerable<TenantDto> tenants, int colnum)
 {
     var totalCols = 12;

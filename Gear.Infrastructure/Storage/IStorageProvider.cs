@@ -11,8 +11,8 @@ namespace Gear.Infrastructure.Storage
         /// <summary>
         /// 建制数据源连接
         /// </summary>
-        /// <param name="connectionString">数据源连接字符串</param>
-        void BuildConnection(string connectionString);
+        /// <param name="connection">数据源连接</param>
+        void BuildConnection(StorageConfiguration connection);
 
         /// <summary>
         /// 获取第一个对象，若没有，则返回为 null

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 
 namespace Gear.Infrastructure.Storage
@@ -89,16 +90,22 @@ namespace Gear.Infrastructure.Storage
         public abstract IDataReader GetDataReader(string sqlQuery, int start, int length, object param = null);
 
         /// <summary>
+        /// 获取数据源提供程序
+        /// </summary>
+        protected string ProviderName { get; private set; }
+
+        /// <summary>
         /// 建制数据源连接
         /// </summary>
-        /// <param name="connectionString">数据源连接字符串</param>
-        public void BuildConnection(string connectionString)
+        /// <param name="connection">数据源连接</param>
+        public void BuildConnection(StorageConfiguration connection)
         {
             if (this.Connection == null)
-            {
-                this.Connection = this.CreateInternalConnection();
-                this.Connection.ConnectionString = connectionString;
-            }
+                throw new ArgumentNullException("connection");
+
+            this.ProviderName = connection.ProviderName;
+            this.Connection = this.CreateInternalConnection();
+            this.Connection.ConnectionString = connection.ConnectionString;
         }
 
         #endregion

@@ -1,0 +1,38 @@
+﻿@using ReportMS.DataTransferObjects.Dtos
+@model IEnumerable<MenuDto>
+
+@{
+    ViewBag.Title = "Manage";
+    var tenants = ViewBag.Tenants as IEnumerable<TenantDto>;
+}
+
+@Html.Navigate("Manage")
+
+<div>
+    @if (!Model.HasAny())
+    {
+        <div>There are no any manager menu.</div>
+        return;
+    }
+
+    <div class="list-group">
+        <a class="list-group-item active">Menu</a>
+
+        @foreach (var item in Model.Where(item => item.Actions != null))
+        {
+            var href = Url.Action(item.Actions.Action, item.Actions.Controller, new {area = item.Actions.Area});
+            <a href="@href" class="list-group-item">@Html.DisplayFor(m => item.DisplayName)</a>
+        }
+    </div>
+
+    @if (tenants.HasAny())
+    {
+        <ul class="nav nav-pills" role="tablist">
+            @foreach (var tenant in tenants)
+            {
+                var href = Url.Action("UserSet", "Manage", new {area = "", tenant = tenant.TenantName});
+                <li role="presentation"><a href="@href">@tenant.TenantName<span class="badge"></span></a></li>
+            }
+        </ul>
+    }
+</div>

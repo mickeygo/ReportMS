@@ -74,7 +74,7 @@ namespace ReportMS.ServiceContracts
         /// <param name="roleId">角色 Id</param>
         /// <returns>报表分组 Dto 集合</returns>
         [OperationContract]
-        [FaultContract(typeof(FaultData))]
+        [FaultContract(typeof (FaultData))]
         IEnumerable<ReportGroupRoleDto> FindReportGroupRoles(Guid roleId);
 
         /// <summary>

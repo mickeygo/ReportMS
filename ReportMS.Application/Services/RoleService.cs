@@ -48,12 +48,12 @@ namespace ReportMS.Application.Services
         public IEnumerable<RoleDto> FindRoles(Guid tenantId)
         {
             var spec = Specification<Role>.Eval(r => r.TenantId == tenantId);
-            return this._roleRepository.FindAll(spec).MapAs<RoleDto>();
+            return this._roleRepository.FindAll(spec).ToList().MapAs<RoleDto>();
         }
 
         public IEnumerable<RoleDto> FindAllRoles()
         {
-            return this._roleRepository.FindAll().MapAs<RoleDto>();
+            return this._roleRepository.FindAll().ToList().MapAs<RoleDto>();
         }
 
         public bool ExistRole(string roleName)
@@ -65,19 +65,19 @@ namespace ReportMS.Application.Services
         public IEnumerable<MenuDto> FindMenus(Guid roleId)
         {
             var menuRoles = this._menuRoleRepository.FindAll(Specification<MenuRole>.Eval(r => r.RoleId == roleId));
-            return menuRoles.Select(r => r.Menu).MapAs<MenuDto>();
+            return menuRoles.Select(r => r.Menu).ToList().MapAs<MenuDto>();
         }
 
         public IEnumerable<ActionsDto> FindAcions(Guid roleId)
         {
             var actionRoles = this._actionRoleRepository.FindAll(Specification<ActionRole>.Eval(r => r.RoleId == roleId));
-            return actionRoles.Select(r => r.Actions).MapAs<ActionsDto>();
+            return actionRoles.Select(r => r.Actions).ToList().MapAs<ActionsDto>();
         }
 
         public IEnumerable<ReportGroupRoleDto> FindReportGroupRoles(Guid roleId)
         {
             var spec = Specification<ReportGroupRole>.Eval(r => r.RoleId == roleId);
-            return this._reportGroupRoleRepository.FindAll(spec).MapAs<ReportGroupRoleDto>();
+            return this._reportGroupRoleRepository.FindAll(spec).ToList().MapAs<ReportGroupRoleDto>();
         }
 
         public void CreateRole(RoleDto roleDto)

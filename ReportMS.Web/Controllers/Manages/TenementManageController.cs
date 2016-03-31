@@ -6,7 +6,7 @@ using ReportMS.ServiceContracts;
 
 namespace ReportMS.Web.Controllers.Manages
 {
-    public class TenementController : BaseController
+    public class TenementManageController : BaseController
     {
         // GET: Tenement
         public ActionResult Index()

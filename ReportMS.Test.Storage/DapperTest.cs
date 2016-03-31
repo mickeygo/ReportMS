@@ -101,7 +101,7 @@ namespace ReportMS.Test.Storage
         {
             var conn = this.GetSqlServerConnection();
             var sql = "SELECT COUNT(1) FROM TestTemp";
-            var sqlError = "SELECT COUNT(1) FROM TestTemp_Error";  // 测试异常情况下，Dapper 内部是否会关闭 Connection 连接（测试结果：会关闭）
+            //var sqlError = "SELECT COUNT(1) FROM TestTemp_Error";  // 测试异常情况下，Dapper 内部是否会关闭 Connection 连接（测试结果：会关闭）
 
             try
             {

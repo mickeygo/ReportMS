@@ -18,7 +18,6 @@ namespace ReportMS.Web.Client.Roles
 
         private RoleManager()
         {
-            
         }
 
         #endregion

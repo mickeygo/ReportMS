@@ -49,7 +49,7 @@ namespace ReportMS.Application.Services
         {
             var spec = Specification<UserRole>.Eval(u => u.UserId == userId);
             var userRoles = this._userRoleRepository.FindAll(spec);
-            return userRoles.Select(u => u.Role).MapAs<RoleDto>();
+            return userRoles.Select(u => u.Role).ToList().MapAs<RoleDto>();
         }
 
         public RoleDto FindRole(Guid userId, Guid tenantId)
