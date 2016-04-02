@@ -5,10 +5,12 @@ using System.Web.Mvc;
 using Gear.Infrastructure;
 using ReportMS.DataTransferObjects.Dtos;
 using ReportMS.ServiceContracts;
+using ReportMS.Web.Client.Attributes;
 
 namespace ReportMS.Web.Controllers
 {
     // All In One Manage
+    [Role]
     public class ManageController : BaseController
     {
         public ActionResult Index()

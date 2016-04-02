@@ -13,13 +13,14 @@ namespace ReportMS.Web.Controllers.Manages
     {
         public ActionResult Index()
         {
-            using (var service = ServiceLocator.Instance.Resolve<IRoleService>())
-            {
-                // Todo: filter the current tenant roles.
+            var model = this.GetRolesOfCurrentTenant();
+            return View(model);
+        }
 
-                var model = service.FindAllRoles();
-                return View(model);
-            }
+        public ActionResult _Index()
+        {
+            var model = this.GetRolesOfCurrentTenant();
+            return PartialView(model);
         }
 
         public ActionResult CreateRole()
@@ -132,6 +133,18 @@ namespace ReportMS.Web.Controllers.Manages
             catch (Exception)
             {
                 return Json(false, "Add the report group failure.");
+            }
+        }
+
+        #endregion
+
+        #region Private Methods
+
+        private IEnumerable<RoleDto> GetRolesOfCurrentTenant()
+        {
+            using (var service = ServiceLocator.Instance.Resolve<IRoleService>())
+            {
+                return service.FindRoles(this.Tenant.ID);
             }
         }
 

@@ -7,12 +7,18 @@ using ReportMS.Web.Client.Attributes;
 
 namespace ReportMS.Web.Controllers.Manages
 {
+    [Role]
     [ValidateTenant]
     public class UserManageController : BaseController
     {
         public ActionResult Index()
         {
             return View();
+        }
+
+        public ActionResult _Index()
+        {
+            return PartialView();
         }
 
         [HttpPost]

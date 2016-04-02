@@ -16,10 +16,26 @@ namespace ReportMS.Web
 
         private TenantDto _tenant;
         private RoleDto _roleOfTenant;
+        private bool? _isAdmin;
 
         #endregion
 
         #region Public Properties
+
+        /// <summary>
+        /// 用户是否是管理员（并非系统管理者）.
+        /// </summary>
+        public bool IsAdmin
+        {
+            get
+            {
+                if (this._isAdmin.HasValue)
+                    return this._isAdmin.Value;
+
+                this._isAdmin = this.IsAdminOfCurrentUser();
+                return this._isAdmin.Value;
+            }
+        }
 
         /// <summary>
         /// 获取当前租户信息.
@@ -120,6 +136,10 @@ namespace ReportMS.Web
             if (this.IsAdministrator)
                 return;
 
+            // IsAdmin
+            if (this.IsAdmin)
+                return;
+
             // 3, Authorization
             //  a, no tenant or not role in current tenant
             if (this.RoleOfTenant == null)
@@ -183,6 +203,15 @@ namespace ReportMS.Web
 
             var tenantId = this.Tenant.ID;
             return UserManager.Instance.GetRoleOfTenant(userId.Value, tenantId);
+        }
+
+        private bool IsAdminOfCurrentUser()
+        {
+            var userId = this.LoginUser.NameIdentifier;
+            if (!userId.HasValue)
+                return false;
+
+            return UserManager.Instance.IsAdmin(userId.Value);
         }
 
         #endregion

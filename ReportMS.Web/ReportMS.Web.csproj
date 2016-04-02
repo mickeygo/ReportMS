@@ -600,6 +600,8 @@
     <Content Include="Views\ReportProfileManage\_Index.cshtml" />
     <Content Include="Views\ReportGroupManage\_Index.cshtml" />
     <Content Include="Views\Manage\Index.cshtml" />
+    <Content Include="Views\RoleManage\_Index.cshtml" />
+    <Content Include="Views\UserManage\_Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

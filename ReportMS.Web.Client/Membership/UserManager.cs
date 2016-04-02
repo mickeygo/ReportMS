@@ -89,6 +89,19 @@ namespace ReportMS.Web.Client.Membership
             }
         }
 
+        /// <summary>
+        /// 判断用户是否是管理员（并非系统管理者）.
+        /// </summary>
+        /// <param name="userId">用户 Id</param>
+        /// <returns>true 表示是管理员; 否则为 false</returns>
+        public bool IsAdmin(Guid userId)
+        {
+            using (var userService = ServiceLocator.Instance.Resolve<IUserService>())
+            {
+                return userService.IsAdmin(userId);
+            }
+        }
+
         #endregion
     }
 }

@@ -1,16 +1,81 @@
 ﻿@{
-    ViewBag.Title = "_User";
+    ViewBag.Title = "Role and User Set";
 }
 
 @section scripts
 {
+    <script>
+        //*=========== Role Manage ===========*//
+        function createRoleSuccess(data) {
+            if (data.status === "success") {
+                reloadReportGroup();
+            } else {
+                alert(data.message);
+            }
+        }
 
+        function modifyRoleSuccess(data) {
+            if (data.status === "success") {
+                reloadReportGroup();
+            } else {
+                alert(data.message);
+            }
+        }
+
+        function deleteRole(element) {
+            if (!confirm("Are you want to delete it ?")) {
+                return false;
+            }
+            var url = $(element).attr("data-href");
+            var roleId = $(element).attr("data-role-id");
+            $.post(url, { roleId: roleId }, function (data) {
+                if (data.status === "success") {
+                    $(element).closest("tbody").remove();
+                } else {
+                    alert(data.message);
+                }
+            });
+            return true;
+        }
+
+        function addReportGroupSuccess(data) {
+            if (data.status === "success") {
+                alert("Modify the report groups successfully.");
+            } else {
+                alert(data.message);
+            }
+        }
+
+        function reloadReportGroup() {
+            var url = "@Url.Action("Index")" + " #role table";
+            $("#role").load(url);
+        }
+
+        //*=========== User Manage ===========*//
+        function doSearchUser(element) {
+            var username = $.trim($("#UserName").val());
+            var url = $(element).attr("data-href");
+            $("#usercontent").load(url, { userName: username });
+        }
+
+        function modifyUserSuccess(data) {
+            if (data.status === "success") {
+                $("#usercontent").children("div:first").remove();
+                alert("Update the user role successfully.");
+            } else {
+                alert(data.message);
+            }
+        }
+    </script>
 }
+
+@Html.Navigate("Manage", "Role and User Set")
 
 <div>
     <!-- Role Manage -->
     @Html.Action("_Index", "RoleManage")
 
+    <h2>User Manage</h2>
     <!-- User Manage -->
     @Html.Action("_Index", "UserManage")
 </div>

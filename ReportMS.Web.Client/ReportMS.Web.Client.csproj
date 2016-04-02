@@ -76,6 +76,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attributes\RoleAttribute.cs" />
     <Compile Include="Attributes\ValidateTenantAttribute.cs" />
     <Compile Include="Extensions\HtmlNavigationExtensions.cs" />
     <Compile Include="Helpers\StorageParameter.cs" />

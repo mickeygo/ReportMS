@@ -7,11 +7,162 @@
 {
     <script>
         // ********* Report ******** //
-        
+        function createReportSuccess(data) {
+            if (data.status === "success") {
+                reloadReport();
+            } else {
+                alert(data.message);
+            }
+        }
+
+        function modifyReportSuccess(data) {
+            if (data.status === "success") {
+                reloadReport();
+            } else {
+                alert(data.message);
+            }
+        }
+
+        function deleteReport(element) {
+            if (!confirm("Do you want to delete it ?"))
+                return false;
+
+            var url = $(element).attr("data-href");
+            var id = $(element).attr("data-report-id");
+            $.post(url, { reportId: id }, function(data) {
+                if (data.status === "success")
+                    reloadReport();
+                else
+                    alert(data.message);
+            });
+            return true;
+        }
+
+        function reloadReport() {
+            var href = "@Url.Action("Index")" + " #table_report";
+            $("#retport").load(href);
+        }
+
         // ********* Report Profile ******** //
+        function createProfileSuccess(data) {
+            if (data.status === "success") {
+                reloadReportProfile();
+            } else {
+                alert(data.message);
+            }
+        }
+
+        function modifyReportProfileSuccess(data) {
+            if (data.status === "success") {
+                reloadReportProfile();
+            } else {
+                alert(data.message);
+            }
+        }
+
+        function deleteReportProfile(element) {
+            if (!confirm("Do you want to delete it ?")) {
+                return false;
+            }
+
+            var url = $(element).attr("data-href");
+            var id = $(element).attr("data-repprofile-id");
+            $.post(url, { profileId: id }, function(data) {
+                if (data.status === "success") {
+                    $(element).closest("tbody").remove();
+                } else {
+                    alert(data.message);
+                }
+            });
+            return true;
+        }
+
+        function reloadReportProfile() {
+            var url = "@Url.Action("Index")" + " #reportprofile table";
+            $("#reportprofile").load(url);
+        }
 
         // ********* Report Group ******** //
+        function createGroupSuccess(data) {
+            if (data.status === "success") {
+                reloadReportGroup();
+            } else {
+                alert(data.message);
+            }
+        }
 
+        function modifyGroupSuccess(data) {
+            if (data.status === "success") {
+                reloadReportGroup();
+            } else {
+                alert(data.message);
+            }
+        }
+
+        function deleteReportGroup(element) {
+            if (!confirm("Are you want to delete it ?")) {
+                return false;
+            }
+            var url = $(element).attr("data-href");
+            var groupId = $(element).attr("data-repgroup-id");
+            $.post(url, { reportGroupId: groupId }, function(data) {
+                if (data.status === "success") {
+                    $(element).closest("tbody").remove();
+                } else {
+                    alert(data.message);
+                }
+            });
+            return true;
+        }
+
+        function setGroupItemsSuccess(data) {
+            if (data.status === "success") {
+                alert("Set the group items successfully.");
+            } else {
+                alert(data.message);
+            }
+        }
+
+        function deleteReportGroupItem(element) {
+            if (!confirm("Do you want to delete it ?")) {
+                return false;
+            }
+
+            var url = $(element).attr("data-href");
+            var groupId = $(element).attr("data-repgroup-id");
+            var groupItemId = $(element).attr("data-repgroupitem-id");
+
+            $.post(url, { reportGroupId: groupId, reportGroupItemId: groupItemId }, function(data) {
+                if (data.status === "success") {
+                    $(element).closest("tbody").remove();
+                } else {
+                    alert(data.message);
+                }
+            });
+            return true;
+        }
+
+        function reloadReportGroup() {
+            var url = "@Url.Action("Index")" + " #reportgroup table";
+            $("#reportgroup").load(url);
+        }
+
+        //************* data-details-control ***************//
+        $(document).on("click", "table td[data-details-control=true]", function () {
+            var tr = $(this).closest("tr");
+            var len = tr.children().length;
+            if ($(this).hasClass("details-control-open")) {
+                var td = $("<td colspan=" + len + "></td>");
+                var url = $(this).attr("data-href");
+                td.load(url);
+                var row = $("<tr></tr>").append(td);
+                tr.after(row);
+                $(this).removeClass("details-control-open").addClass("details-control-close");
+            } else {
+                tr.next().remove();
+                $(this).removeClass("details-control-close").addClass("details-control-open");
+            }
+        });
     </script>
 }
 

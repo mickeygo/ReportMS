@@ -78,6 +78,12 @@ namespace ReportMS.Application.Services
             this._userRoleRepository.Add(addUserRole);
         }
 
+        public bool IsAdmin(Guid userId)
+        {
+            var spec = Specification<UserRole>.Eval(u => u.UserId == userId && u.Role.IsAdmin());
+            return this._userRoleRepository.Exist(spec);
+        }
+
         #endregion
 
         #region IDisposable Members

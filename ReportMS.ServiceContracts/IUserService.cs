@@ -61,5 +61,13 @@ namespace ReportMS.ServiceContracts
         [FaultContract(typeof (FaultData))]
         void SetRoles(Guid userId, Guid? roleId, string creator);
 
+        /// <summary>
+        /// 判断用户是否是管理员（并非系统管理者）.
+        /// </summary>
+        /// <param name="userId">用户 Id</param>
+        /// <returns>true 表示是管理员; 否则为 false</returns>
+        [OperationContract]
+        [FaultContract(typeof (FaultData))]
+        bool IsAdmin(Guid userId);
     }
 }

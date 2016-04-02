@@ -45,7 +45,7 @@
             }
             var url = $(element).attr("data-href");
             var groupId = $(element).attr("data-repgroup-id");
-            $.post(url, { reportGroupId: groupId }, function (data) {
+            $.post(url, { reportGroupId: groupId }, function(data) {
                 if (data.status === "success") {
                     $(element).closest("tbody").remove();
                 } else {
@@ -72,7 +72,7 @@
             var groupId = $(element).attr("data-repgroup-id");
             var groupItemId = $(element).attr("data-repgroupitem-id");
 
-            $.post(url, { reportGroupId: groupId, reportGroupItemId: groupItemId }, function (data) {
+            $.post(url, { reportGroupId: groupId, reportGroupItemId: groupItemId }, function(data) {
                 if (data.status === "success") {
                     $(element).closest("tbody").remove();
                 } else {

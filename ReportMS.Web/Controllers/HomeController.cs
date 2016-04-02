@@ -9,11 +9,11 @@ namespace ReportMS.Web.Controllers
     {
         public ActionResult Index()
         {
-            var userId = this.LoginUser.NameIdentifier;
+            var userId = this.LoginUser.NameIdentifier.Value;
             using (var service = ServiceLocator.Instance.Resolve<IUserService>())
             {
                 //  Only show these tenants own to current user
-                var tenantsOfRole = service.FindRoles(userId.Value);
+                var tenantsOfRole = service.FindRoles(userId);
                 var model = tenantsOfRole.Select(r => r.Tenant);
                 return View(model);
             }

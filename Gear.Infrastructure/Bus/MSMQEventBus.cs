@@ -4,7 +4,6 @@ using System.Linq;
 using System.Messaging;
 using Gear.Infrastructure.Events;
 
-
 namespace Gear.Infrastructure.Bus
 {
     /// <summary>
@@ -18,7 +17,6 @@ namespace Gear.Infrastructure.Bus
         private readonly bool useInternalTransaction;
         private readonly MessageQueue messageQueue;
         private readonly object sync = new object();
-        private readonly MSMQBusOptions options;
         private readonly Queue<object> mockQueue = new Queue<object>();
         #endregion
 
@@ -30,7 +28,7 @@ namespace Gear.Infrastructure.Bus
         /// <param name="path">消息队列路径</param>
         public MSMQEventBus(string path)
         {
-            this.options = new MSMQBusOptions(path);
+            var options = new MSMQBusOptions(path);
             this.messageQueue = new MessageQueue(path,
                 options.SharedModeDenyReceive,
                 options.EnableCache, options.QueueAccessMode)
@@ -47,7 +45,7 @@ namespace Gear.Infrastructure.Bus
         /// <param name="useInternalTransaction">是否使用内部事务</param>
         public MSMQEventBus(string path, bool useInternalTransaction)
         {
-            this.options = new MSMQBusOptions(path, useInternalTransaction);
+            var options = new MSMQBusOptions(path, useInternalTransaction);
             this.messageQueue = new MessageQueue(path,
                 options.SharedModeDenyReceive,
                 options.EnableCache, options.QueueAccessMode)
@@ -63,7 +61,6 @@ namespace Gear.Infrastructure.Bus
         /// <param name="options">构建消息队列总线的选项实例</param>
         public MSMQEventBus(MSMQBusOptions options)
         {
-            this.options = options;
             this.messageQueue = new MessageQueue(options.Path,
                 options.SharedModeDenyReceive,
                 options.EnableCache, options.QueueAccessMode)
