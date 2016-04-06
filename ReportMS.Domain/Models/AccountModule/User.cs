@@ -135,10 +135,11 @@ namespace ReportMS.Domain.Models.AccountModule
 
         #endregion
 
-        private User()
+        /// <summary>
+        /// 初始化一个<c>User</c>对象，仅供 Lazy 使用
+        /// </summary>
+        public User()
         {
-            this.GenerateNewIdentity();
-            this.Enable();
         }
 
         /// <summary>
@@ -168,7 +169,6 @@ namespace ReportMS.Domain.Models.AccountModule
             string localName, string company, string organization, string organizationDescription, string department,
             string job, string tel, string extension, string voip, DateTime? onBoardDate, string manager,
             string agent, string grade, string shift, string createdBy)
-            : this()
         {
             this.UserName = userName;
             this.Password = password;
@@ -190,6 +190,9 @@ namespace ReportMS.Domain.Models.AccountModule
             this.Grade = grade;
             this.Shift = shift;
             this.CreatedBy = createdBy;
+
+            this.GenerateNewIdentity();
+            this.Enable();
         }
 
         #region

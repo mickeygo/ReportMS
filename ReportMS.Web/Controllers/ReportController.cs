@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using Gear.Infrastructure;
 using ReportMS.Reports.Managers;
 using ReportMS.ServiceContracts;
+using ReportMS.Web.Attributes;
 using ReportMS.Web.Client.Attributes;
 
 namespace ReportMS.Web.Controllers
@@ -15,6 +16,7 @@ namespace ReportMS.Web.Controllers
         private static readonly string ExcelKey = "__excel";
 
         // GET: Report
+        [Layout(Layout.WithoutWebTitle)]
         public ActionResult Index()
         {
             return View("_ReportLayout");

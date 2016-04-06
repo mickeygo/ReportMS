@@ -8,6 +8,7 @@ using ReportMS.Web.Client.Attributes;
 
 namespace ReportMS.Web.Controllers.Manages
 {
+    [Role]
     [ValidateTenant]
     public class RoleManageController : BaseController
     {

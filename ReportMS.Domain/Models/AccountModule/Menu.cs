@@ -87,7 +87,7 @@ namespace ReportMS.Domain.Models.AccountModule
         #region Ctor
 
         /// <summary>
-        /// 初始化一个新的<c>Menu</c>实例。仅供 EF 使用
+        /// 初始化一个新的<c>Menu</c>实例。仅供 Lazy 使用
         /// </summary>
         public Menu()
         {

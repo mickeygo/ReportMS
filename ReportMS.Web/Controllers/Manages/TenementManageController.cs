@@ -3,9 +3,11 @@ using System.Web.Mvc;
 using Gear.Infrastructure;
 using ReportMS.DataTransferObjects.Dtos;
 using ReportMS.ServiceContracts;
+using ReportMS.Web.Client.Attributes;
 
 namespace ReportMS.Web.Controllers.Manages
 {
+    [Role]
     public class TenementManageController : BaseController
     {
         // GET: Tenement

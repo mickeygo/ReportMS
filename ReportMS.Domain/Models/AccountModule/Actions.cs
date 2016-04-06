@@ -67,7 +67,7 @@ namespace ReportMS.Domain.Models.AccountModule
         #region Ctor
 
         /// <summary>
-        /// 初始化一个新的<c>Actions</c>对象实例。仅用于 EF
+        /// 初始化一个新的<c>Actions</c>对象实例。仅用 Layz 使用
         /// </summary>
         public Actions()
         {

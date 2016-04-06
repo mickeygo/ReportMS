@@ -44,10 +44,11 @@ namespace ReportMS.Domain.Models.AccountModule
 
         #region ctor
 
-        private ActionRole()
+        /// <summary>
+        ///  初始化一个新的<c>RoleActionRole</c>实例。仅供 Lazy 使用
+        /// </summary>
+        public ActionRole()
         {
-            this.GenerateNewIdentity();
-            this.CreatedDate = DateTime.Now;
         }
 
         /// <summary>
@@ -57,11 +58,13 @@ namespace ReportMS.Domain.Models.AccountModule
         /// <param name="roleId">角色 Id</param>
         /// <param name="createdBy">创建人</param>
         public ActionRole(Guid actionsId, Guid roleId, string createdBy)
-            : this()
         {
             this.ActionsId = actionsId;
             this.RoleId = roleId;
             this.CreatedBy = createdBy;
+            this.CreatedDate = DateTime.Now;
+
+            this.GenerateNewIdentity();
         }
 
         #endregion

@@ -9,7 +9,7 @@
 @Html.Navigate("Manage")
 
 <div>
-    @if (!Model.HasAny())
+    @*@if (!Model.HasAny())
     {
         <div>There are no any manager menu.</div>
         return;
@@ -23,17 +23,34 @@
             var href = Url.Action(item.Actions.Action, item.Actions.Controller, new {area = item.Actions.Area});
             <a href="@href" class="list-group-item">@Html.DisplayFor(m => item.DisplayName)</a>
         }
-    </div>
+    </div>*@
 
-    <!-- User and Role Manage -->
-    @if (tenants.HasAny())
-    {
-        <ul class="nav nav-pills" role="tablist">
-            @foreach (var tenant in tenants)
+    
+    <div class="list-group">
+        <div class="list-group-item active">Menu</div>
+        <!-- Report -->
+        <div class="list-group-item">
+            <span class="glyphicon glyphicon-cog"></span>
+            <a href="@Url.Action("ReportSet", "Manage")">Report Manage</a>
+        </div>
+        <!-- User and Role Manage -->
+        <div class="list-group-item">
+            @if (tenants.HasAny())
             {
-                var href = Url.Action("UserSet", "Manage", new {area = "", tenant = tenant.TenantName});
-                <li role="presentation"><a href="@href">@tenant.TenantName<span class="badge"></span></a></li>
+                <span class="glyphicon glyphicon-cog"></span><span> User And Role Manage</span>
+                <ul class="nav nav-pills" role="tablist">
+                    @foreach (var tenant in tenants)
+                    {
+                        var href = Url.Action("UserSet", "Manage", new {area = "", tenant = tenant.TenantName});
+                        <li role="presentation"><a href="@href">@tenant.TenantName</a></li>
+                    }
+                </ul>
             }
-        </ul>
-    }
+        </div>
+        <!-- Menu and permission Manage -->
+        <div class="list-group-item">
+            <span class="glyphicon glyphicon-cog"></span>
+            <a href="@Url.Action("Index", "MenuPermissionManage")">Perssion And Menu Manage</a>
+        </div>
+    </div>
 </div>

@@ -33,12 +33,19 @@
 <hr/>
 <ul class="list-group">
     <li class="list-group-item">
-        <a class="glyphicon glyphicon-cog" href="@Url.Action("Index", "SubscriberManage")"><span>My Subscriber</span></a>
+        <span class="glyphicon glyphicon-cog"></span>
+        <a href="@Url.Action("Index", "SubscriberManage")"><strong>My Subscriber</strong></a>
     </li>
-    <li class="list-group-item">
-        <a class="glyphicon glyphicon-cog" href="@Url.Action("Index", "Manage")"> Manager</a>
-    </li>
+
+    @if ((bool)ViewBag.IsManager)
+    {
+        <li class="list-group-item">
+            <span class="glyphicon glyphicon-cog"></span>
+            <a href="@Url.Action("Index", "Manage")"><strong>Manager</strong></a>
+        </li>
+    }
 </ul>
+
 
 
 @helper RenderTenants(IEnumerable<TenantDto> tenants, int colnum)

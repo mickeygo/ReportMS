@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using ReportMS.Web.Client.Membership;
 using System.Web.Mvc;
 using Gear.Infrastructure;
@@ -15,20 +14,23 @@ namespace ReportMS.Web.Controllers
     {
         public ActionResult Index()
         {
-            var roles = this.GetRoles();
-            if (roles == null)
-                return View();
-
             ViewBag.Tenants = this.GetTenants();
-            
-            using (var service = ServiceLocator.Instance.Resolve<IRoleService>())
-            {
-                var model = (from role in roles
-                    from menu in service.FindMenus(role.ID)
-                    select menu).ToList();
+            return View();
 
-                return View(model);
-            }
+            //var roles = this.GetRoles();
+            //if (roles == null)
+            //    return View();
+
+            //ViewBag.Tenants = this.GetTenants();
+            
+            //using (var service = ServiceLocator.Instance.Resolve<IRoleService>())
+            //{
+            //    var model = (from role in roles
+            //        from menu in service.FindMenus(role.ID)
+            //        select menu).ToList();
+
+            //    return View(model);
+            //}
         }
 
         public ActionResult ReportSet()

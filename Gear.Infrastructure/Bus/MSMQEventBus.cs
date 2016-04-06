@@ -7,9 +7,9 @@ using Gear.Infrastructure.Events;
 namespace Gear.Infrastructure.Bus
 {
     /// <summary>
-    /// Message Queue 消息队列事件总线
+    /// 基于 Microsoft 的 Message Queue 消息队列事件总线
     /// </summary>
-    public class MSMQEventBus : DisposableObject, IEventBus
+    public class MsmqEventBus : DisposableObject, IEventBus
     {
         #region Private Fields
         private readonly Guid id = Guid.NewGuid();
@@ -26,9 +26,9 @@ namespace Gear.Infrastructure.Bus
         /// 初始化一个新的<c>MSMQEventBus</c>实例
         /// </summary>
         /// <param name="path">消息队列路径</param>
-        public MSMQEventBus(string path)
+        public MsmqEventBus(string path)
         {
-            var options = new MSMQBusOptions(path);
+            var options = new MsmqBusOptions(path);
             this.messageQueue = new MessageQueue(path,
                 options.SharedModeDenyReceive,
                 options.EnableCache, options.QueueAccessMode)
@@ -43,9 +43,9 @@ namespace Gear.Infrastructure.Bus
         /// </summary>
         /// <param name="path">消息队列路径</param>
         /// <param name="useInternalTransaction">是否使用内部事务</param>
-        public MSMQEventBus(string path, bool useInternalTransaction)
+        public MsmqEventBus(string path, bool useInternalTransaction)
         {
-            var options = new MSMQBusOptions(path, useInternalTransaction);
+            var options = new MsmqBusOptions(path, useInternalTransaction);
             this.messageQueue = new MessageQueue(path,
                 options.SharedModeDenyReceive,
                 options.EnableCache, options.QueueAccessMode)
@@ -59,7 +59,7 @@ namespace Gear.Infrastructure.Bus
         /// 初始化一个新的<c>MSMQEventBus</c>实例
         /// </summary>
         /// <param name="options">构建消息队列总线的选项实例</param>
-        public MSMQEventBus(MSMQBusOptions options)
+        public MsmqEventBus(MsmqBusOptions options)
         {
             this.messageQueue = new MessageQueue(options.Path,
                 options.SharedModeDenyReceive,

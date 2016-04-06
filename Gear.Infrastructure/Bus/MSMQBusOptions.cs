@@ -3,9 +3,9 @@
 namespace Gear.Infrastructure.Bus
 {
     /// <summary>
-    /// 用于构建 MSMQ 总线的选项类
+    /// 用于构建 MSMQ 总线的参数类
     /// </summary>
-    public class MSMQBusOptions
+    public class MsmqBusOptions
     {
         #region Public Properties
 
@@ -52,7 +52,7 @@ namespace Gear.Infrastructure.Bus
         /// <param name="queueAccessMode">获取或设置一个值，该值指示队列的访问模式</param>
         /// <param name="useInternalTransaction">获取或设置一个 Boolean 值，用来指示当发送或接受消息时，内部事务将被使用</param>
         /// <param name="messageFormatter">获取或设置一个格式器，用于序列化一个要写入队列的对象或从读取的消息主体中反序列化一个对象</param>
-        public MSMQBusOptions(string path, bool sharedModeDenyReceive, bool enableCache, QueueAccessMode queueAccessMode, bool useInternalTransaction, IMessageFormatter messageFormatter)
+        public MsmqBusOptions(string path, bool sharedModeDenyReceive, bool enableCache, QueueAccessMode queueAccessMode, bool useInternalTransaction, IMessageFormatter messageFormatter)
         {
             this.SharedModeDenyReceive = sharedModeDenyReceive;
             this.EnableCache = enableCache;
@@ -66,7 +66,7 @@ namespace Gear.Infrastructure.Bus
         /// 初始化一个新的<c>MSMQBusOptions</c>实例
         /// </summary>
         /// <param name="path">获取或设置队列的路径。"." 表示为本地计算机</param>
-        public MSMQBusOptions(string path)
+        public MsmqBusOptions(string path)
             : this(path, false, false, QueueAccessMode.SendAndReceive, false, new XmlMessageFormatter())
         { }
 
@@ -75,7 +75,7 @@ namespace Gear.Infrastructure.Bus
         /// </summary>
         /// <param name="path">获取或设置队列的路径。"." 表示为本地计算机</param>
         /// <param name="useInternalTransaction">获取或设置一个 Boolean 值，用来指示当发送或接受消息时，内部事务将被使用</param>
-        public MSMQBusOptions(string path, bool useInternalTransaction)
+        public MsmqBusOptions(string path, bool useInternalTransaction)
             : this(path, false, false, QueueAccessMode.SendAndReceive, useInternalTransaction, new XmlMessageFormatter())
         { }
 

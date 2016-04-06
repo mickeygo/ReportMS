@@ -5,10 +5,12 @@ using System.Web.Mvc;
 using Gear.Infrastructure;
 using ReportMS.DataTransferObjects.Dtos;
 using ReportMS.ServiceContracts;
+using ReportMS.Web.Client.Attributes;
 using ReportMS.Web.Client.Models;
 
 namespace ReportMS.Web.Controllers.Manages
 {
+    [Role]
     public class ReportManageController : BaseController
     {
         // GET: ReportManage

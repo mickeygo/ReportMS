@@ -9,6 +9,8 @@ namespace ReportMS.Web.Controllers
     {
         public ActionResult Index()
         {
+            ViewBag.IsManager = this.IsAdmin || this.IsAdministrator;
+
             var userId = this.LoginUser.NameIdentifier.Value;
             using (var service = ServiceLocator.Instance.Resolve<IUserService>())
             {

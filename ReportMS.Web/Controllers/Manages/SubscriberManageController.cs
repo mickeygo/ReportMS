@@ -4,10 +4,12 @@ using System.Web.Mvc;
 using Gear.Infrastructure;
 using ReportMS.DataTransferObjects.Dtos;
 using ReportMS.ServiceContracts;
+using ReportMS.Web.Client.Attributes;
 
 namespace ReportMS.Web.Controllers.Manages
 {
     // Subscribers manage subscription informations by themselves.
+    [Role]
     public class SubscriberManageController : BaseController
     {
         public ActionResult Index()

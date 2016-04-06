@@ -44,10 +44,11 @@ namespace ReportMS.Domain.Models.AccountModule
 
         #region Ctor
 
-        private MenuRole()
+        /// <summary>
+        /// 初始化一个新的<c>RoleMenuRole</c>实例。仅供 Lazy 使用
+        /// </summary>
+        public MenuRole()
         {
-            this.GenerateNewIdentity();
-            this.CreatedDate = DateTime.Now;
         }
 
         /// <summary>
@@ -57,11 +58,13 @@ namespace ReportMS.Domain.Models.AccountModule
         /// <param name="roleId">角色 ID</param>
         /// <param name="createdBy">创建人</param>
         public MenuRole(Guid menuId, Guid roleId, string createdBy)
-            : this()
         {
             this.MenuId = menuId;
             this.RoleId = roleId;
             this.CreatedBy = createdBy;
+            this.CreatedDate = DateTime.Now;
+
+            this.GenerateNewIdentity();
         }
 
         #endregion

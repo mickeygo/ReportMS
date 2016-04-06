@@ -59,12 +59,11 @@ namespace ReportMS.Domain.Models.TenantModule
 
         #region Ctor
 
-        private Tenant()
+        /// <summary>
+        /// 初始化一个新的<c>RoleTenant</c>实例。仅供 Lazy 使用
+        /// </summary>
+        public Tenant()
         {
-            this.CreatedDate = DateTime.Now;
-
-            this.GenerateNewIdentity();
-            this.Enable();
         }
 
         /// <summary>
@@ -75,12 +74,15 @@ namespace ReportMS.Domain.Models.TenantModule
         /// <param name="description">租户描述</param>
         /// <param name="createdBy">创建人</param>
         public Tenant(string tenantName, string displayName, string description, string createdBy)
-            : this()
         {
             this.TenantName = tenantName;
             this.DisplayName = displayName;
             this.Description = description;
             this.CreatedBy = createdBy;
+            this.CreatedDate = DateTime.Now;
+
+            this.GenerateNewIdentity();
+            this.Enable();
         }
 
         #endregion
