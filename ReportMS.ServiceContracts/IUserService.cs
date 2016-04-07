@@ -52,14 +52,15 @@ namespace ReportMS.ServiceContracts
         RoleDto FindRole(Guid userId, Guid tenantId);
 
         /// <summary>
-        /// 向用户设定指定权限
+        /// 设置该用户在当前租户中的角色。若角色不存在，表示移除角色
         /// </summary>
         /// <param name="userId">用户 Id</param>
+        /// <param name="tenantId">租户 Id</param>
         /// <param name="roleId">角色 Id，为 null 表示移除角色</param>
         /// <param name="creator">操作人</param>
         [OperationContract]
         [FaultContract(typeof (FaultData))]
-        void SetRoles(Guid userId, Guid? roleId, string creator);
+        void SetRoles(Guid userId, Guid tenantId, Guid? roleId, string creator);
 
         /// <summary>
         /// 判断用户是否是管理员（并非系统管理者）.

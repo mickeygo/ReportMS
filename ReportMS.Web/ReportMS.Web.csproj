@@ -195,6 +195,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\Manages\JobManageController.cs" />
     <Compile Include="Controllers\Manages\MenuPermissionManageController.cs" />
     <Compile Include="Controllers\Manages\ReportGroupManageController.cs" />
     <Compile Include="Controllers\Manages\ReportManageController.cs" />
@@ -606,10 +607,11 @@
     <Content Include="Views\RoleManage\_Index.cshtml" />
     <Content Include="Views\UserManage\_Index.cshtml" />
     <Content Include="Views\Shared\_Layout_Without_WebTitle.cshtml" />
+    <Content Include="Ts\tsconfig.json" />
+    <Content Include="Views\JobManage\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Ts\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

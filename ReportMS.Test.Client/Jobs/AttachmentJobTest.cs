@@ -26,7 +26,7 @@ namespace ReportMS.Test.Client.Jobs
             AttachmentTopicDto topic;
             using (var service = ServiceLocator.Instance.Resolve<ISubscriberService>())
             {
-                topic = service.FindAttachmentTopic(new Guid("CA5BBFD6-ABF2-C310-D5AF-08D34BB0D07D"));
+                topic = service.FindAttachmentTopic(new Guid("77061C76-3497-CAC5-B6A9-08D35DF5CE5C"));
             }
 
             var job = new AttachmentJobHandler(topic, topic.TopicTasks);

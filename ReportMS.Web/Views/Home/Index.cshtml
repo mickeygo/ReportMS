@@ -8,7 +8,7 @@
     var count = 4;
 }
 
-@if (Model.Any())
+@if (Model.HasAny())
 {
     var tenantTotalCount = Model.Count();
     if (tenantTotalCount <= count)
@@ -34,14 +34,14 @@
 <ul class="list-group">
     <li class="list-group-item">
         <span class="glyphicon glyphicon-cog"></span>
-        <a href="@Url.Action("Index", "SubscriberManage")"><strong>My Subscriber</strong></a>
+        <a href="@Url.Action("Index", "SubscriberManage")"><strong>My Subscribe</strong></a>
     </li>
 
     @if ((bool)ViewBag.IsManager)
     {
         <li class="list-group-item">
             <span class="glyphicon glyphicon-cog"></span>
-            <a href="@Url.Action("Index", "Manage")"><strong>Manager</strong></a>
+            <a href="@Url.Action("Index", "Manage")"><strong>Manage</strong></a>
         </li>
     }
 </ul>

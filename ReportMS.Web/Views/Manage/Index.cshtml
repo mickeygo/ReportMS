@@ -8,24 +8,7 @@
 
 @Html.Navigate("Manage")
 
-<div>
-    @*@if (!Model.HasAny())
-    {
-        <div>There are no any manager menu.</div>
-        return;
-    }
-
-    <div class="list-group">
-        <a class="list-group-item active">Menu</a>
-
-        @foreach (var item in Model.Where(item => item.Actions != null))
-        {
-            var href = Url.Action(item.Actions.Action, item.Actions.Controller, new {area = item.Actions.Area});
-            <a href="@href" class="list-group-item">@Html.DisplayFor(m => item.DisplayName)</a>
-        }
-    </div>*@
-
-    
+<div>  
     <div class="list-group">
         <div class="list-group-item active">Menu</div>
         <!-- Report -->
@@ -50,7 +33,12 @@
         <!-- Menu and permission Manage -->
         <div class="list-group-item">
             <span class="glyphicon glyphicon-cog"></span>
-            <a href="@Url.Action("Index", "MenuPermissionManage")">Perssion And Menu Manage</a>
+            <a href="@Url.Action("Index", "MenuPermissionManage")">Permission And Menu Manage</a>
+        </div>
+        <!-- Job Manage-->
+        <div class="list-group-item">
+            <span class="glyphicon glyphicon-cog"></span>
+            <a href="@Url.Action("Index", "JobManage")">Job Manage</a>
         </div>
     </div>
 </div>

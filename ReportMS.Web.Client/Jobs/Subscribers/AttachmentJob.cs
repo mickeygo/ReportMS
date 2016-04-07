@@ -8,25 +8,16 @@ namespace ReportMS.Web.Client.Jobs.Subscribers
     /// <summary>
     /// 附件订阅器, 执行频率为 每一小时 00 时分执行
     /// </summary>
-    public class AttachmentJob : ISubScriber
+    public class AttachmentJob : JobSubScriber
     {
         #region ISubScriber Members
 
-        public void Subscribe()
-        {
-            this.InnerSubscribe();
-        }
-
-        public ScheduleCronOptions Schedule
+        public override ScheduleCronOptions Schedule
         {
             get { return new ScheduleCronOptions(0); }
         }
 
-        #endregion
-
-        #region Private Methods
-
-        private void InnerSubscribe()
+        public override void Handle()
         {
             // Find all attachment topics, then filter the matched these.
             var attachmentTopics = TopicCacheManager.Instance.GetAttachmentTopicCache();

@@ -31,7 +31,9 @@ namespace ReportMS.Web.Controllers
             if (loginResult)
                 return Url.IsLocalUrl(returnUrl) ? this.Redirect(returnUrl) : this.RedirectToHome();
 
-            return this.RedirectToAction("Login", new { returnUrl });
+            ModelState.AddModelError("", "The user name and password is not matched.");
+            ViewBag.ReturnUrl = returnUrl;
+            return View();
         }
 
         //

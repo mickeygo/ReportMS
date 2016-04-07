@@ -49,6 +49,7 @@
     <Compile Include="Models\AccountModule\MenuRole.cs" />
     <Compile Include="Models\AccountModule\UserRole.cs" />
     <Compile Include="Models\ReportModule\DatabaseAggregate\Database.cs" />
+    <Compile Include="Models\ReportModule\DatabaseAggregate\DatabaseProvider.cs" />
     <Compile Include="Models\ReportModule\ReportAggregate\Report.cs" />
     <Compile Include="Models\ReportModule\ReportAggregate\Database.cs" />
     <Compile Include="Models\ReportModule\ReportAggregate\ReportField.cs" />
@@ -85,7 +86,9 @@
     <Compile Include="Services\IMenuDomainService.cs" />
     <Compile Include="Services\Implement\MenuDomainService.cs" />
     <Compile Include="Services\Implement\RoleDomainService.cs" />
+    <Compile Include="Services\Implement\UserDomainService.cs" />
     <Compile Include="Services\IRoleDomainService.cs" />
+    <Compile Include="Services\IUserDomainService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Events\Handlers\" />

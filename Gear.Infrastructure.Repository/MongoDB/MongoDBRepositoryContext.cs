@@ -163,8 +163,9 @@ namespace Gear.Infrastructure.Repository.MongoDB
                     var objType = delObj.GetType();
                     var propertyInfo = objType.GetProperty("ID", BindingFlags.Public | BindingFlags.Instance);
                     if (propertyInfo == null)
-                        throw new InvalidOperationException("Cannot delete an object which doesn't contain an ID property.");
-                    var value = (Guid)propertyInfo.GetValue(delObj, null);
+                        throw new InvalidOperationException(
+                            "Cannot delete an object which doesn't contain an ID property.");
+                    var value = (Guid) propertyInfo.GetValue(delObj, null);
                     var collection = this.GetCollectionForType(objType);
                     var query = Query.EQ("_id", value);
                     collection.Remove(query);

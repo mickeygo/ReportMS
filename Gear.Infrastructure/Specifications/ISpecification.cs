@@ -11,14 +11,14 @@ namespace Gear.Infrastructure.Specifications
     public interface ISpecification<T>
     {
         /// <summary>
-        /// 是否应用的对象满足规约
+        /// 返回一个<see cref="System.Boolean"/>值，表示应用的对象是否满足规约
         /// </summary>
         /// <param name="obj">应用规约的对象</param>
         /// <returns>True，表示满足规约，否则不满足</returns>
         bool IsSatisfiedBy(T obj);
 
         /// <summary>
-        /// 组合当前规约实例和另外一个规约实例
+        /// 组合当前规约实例和另外一个规约实例.
         /// 返回两者都满足的规约实例
         /// </summary>
         /// <param name="other">要组合的规约实例</param>
@@ -26,7 +26,7 @@ namespace Gear.Infrastructure.Specifications
         ISpecification<T> And(ISpecification<T> other);
 
         /// <summary>
-        /// 组合当前规约实例和另外一个规约实例
+        /// 组合当前规约实例和另外一个规约实例.
         /// 返回两者至少有一方满足的规约实例
         /// </summary>
         /// <param name="other">要组合的规约实例</param>
@@ -34,7 +34,7 @@ namespace Gear.Infrastructure.Specifications
         ISpecification<T> OrSpecification(ISpecification<T> other);
 
         /// <summary>
-        /// 组合当前规约实例和另外一个规约实例
+        /// 组合当前规约实例和另外一个规约实例.
         /// 返回满足当前的契约而不满足另一个契约的实例
         /// </summary>
         /// <param name="other">要组合的规约实例</param>

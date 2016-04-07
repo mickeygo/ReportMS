@@ -9,8 +9,8 @@
         /// <summary>
         /// 构造函数
         /// </summary>
-        /// <param name="left">左边表达式</param>
-        /// <param name="rgiht">右边表达式</param>
+        /// <param name="left">左表达式</param>
+        /// <param name="rgiht">右表达式</param>
         protected CompositeSpecification(ISpecification<T> left, ISpecification<T> rgiht)
         {
             this.Left = left;
@@ -20,12 +20,12 @@
         #region ICompositeSpecification<T> Members
 
         /// <summary>
-        /// 获取规约的左边表达式
+        /// 获取规约的左表达式
         /// </summary>
         public ISpecification<T> Left { get; private set; }
 
         /// <summary>
-        /// 获取规约的右边表达式
+        /// 获取规约的右表达式
         /// </summary>
         public ISpecification<T> Right { get; private set; }
 

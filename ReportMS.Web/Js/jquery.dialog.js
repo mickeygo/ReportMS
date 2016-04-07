@@ -67,7 +67,9 @@
                 }
             });
 
-            $(this.modalId).modal("show"); // 加载后立即显示 dialog
+            $(this.modalId).modal("show").css({
+                width: "auto"
+            });; // 加载后立即显示 dialog
         }
     };
 

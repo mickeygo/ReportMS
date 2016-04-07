@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using System.Web.Mvc;
+using Gear.Infrastructure.Web.Attributes;
 using Gear.Infrastructure.Web.Authorization;
 using Gear.Infrastructure.Web.Json;
 
@@ -47,12 +48,10 @@ namespace Gear.Infrastructure.Web.Controllers
         /// <returns>True 表示允许匿名访问；否则为 false</returns>
         public static bool IsAllowAuthenticated(this Controller controller, ActionDescriptor actionDescriptor)
         {
-            //var controllerDescriptor = actionDescriptor.ControllerDescriptor;
+            var controllerDescriptor = actionDescriptor.ControllerDescriptor;
 
-            //return actionDescriptor.IsDefined(typeof (AllowAnonymousAttribute), true)
-            //       || controllerDescriptor.IsDefined(typeof (AllowAnonymousAttribute), true);
-
-            return true;
+            return actionDescriptor.IsDefined(typeof (AllowAuthenticatedAttribute), true)
+                   || controllerDescriptor.IsDefined(typeof (AllowAuthenticatedAttribute), true);
         }
 
         /// <summary>

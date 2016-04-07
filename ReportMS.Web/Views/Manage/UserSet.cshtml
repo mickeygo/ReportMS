@@ -8,7 +8,7 @@
         //*=========== Role Manage ===========*//
         function createRoleSuccess(data) {
             if (data.status === "success") {
-                reloadReportGroup();
+                reloadRole();
             } else {
                 alert(data.message);
             }
@@ -16,7 +16,7 @@
 
         function modifyRoleSuccess(data) {
             if (data.status === "success") {
-                reloadReportGroup();
+                reloadRole();
             } else {
                 alert(data.message);
             }
@@ -46,8 +46,8 @@
             }
         }
 
-        function reloadReportGroup() {
-            var url = "@Url.Action("Index")" + " #role table";
+        function reloadRole() {
+            var url = "@Url.Action("Index", "RoleManage")" + "#role table";
             $("#role").load(url);
         }
 

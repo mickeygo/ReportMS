@@ -1,4 +1,23 @@
-﻿/*===== RMS_User =====*/
+﻿/*===== RMS Report =====*/
+-- RMS_Database
+CREATE TABLE [dbo].[RMS_Database](
+	[DatabaseId] [uniqueidentifier] NOT NULL,
+	[Name] [varchar](30) NOT NULL,
+	[Description] [nvarchar](100) NULL,
+	[Server] [varchar](30) NOT NULL,
+	[Catalog] [varchar](30) NOT NULL,
+	[UserId] [varchar](40) NOT NULL,
+	[Password] [varchar](40) NOT NULL,
+	[Provider] [varchar](50) NOT NULL,
+	[Enabled] [bit] NOT NULL
+ CONSTRAINT [PK_RMS_Database] PRIMARY KEY CLUSTERED 
+(
+	[DatabaseId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY];
+
+
+/*===== RMS_User =====*/
 
 -- RMS_Action
 CREATE TABLE [dbo].[RMS_Action](

@@ -5,6 +5,7 @@ using Gear.Infrastructure.Specifications;
 using ReportMS.DataTransferObjects.Dtos;
 using ReportMS.Domain.Models.AccountModule;
 using ReportMS.Domain.Repositories;
+using ReportMS.Domain.Services;
 using ReportMS.ServiceContracts;
 
 namespace ReportMS.Application.Services
@@ -19,15 +20,18 @@ namespace ReportMS.Application.Services
 
         private readonly IUserRepository _userRepository;
         private readonly IUserRoleRepository _userRoleRepository;
+        private readonly IUserDomainService _userDomainService;
 
         #endregion
 
         #region Ctor
 
-        public UserService(IUserRepository userRepository, IUserRoleRepository userRoleRepository)
+        public UserService(IUserRepository userRepository, IUserRoleRepository userRoleRepository,
+            IUserDomainService userDomainService)
         {
             this._userRepository = userRepository;
             this._userRoleRepository = userRoleRepository;
+            this._userDomainService = userDomainService;
         }
 
         #endregion
@@ -59,23 +63,9 @@ namespace ReportMS.Application.Services
             return userRoles.Select(u => u.Role).SingleOrDefault(r => r.TenantId == tenantId).MapAs<RoleDto>();
         }
 
-        public void SetRoles(Guid userId, Guid? roleId, string creator)
+        public void SetRoles(Guid userId, Guid tenantId, Guid? roleId, string creator)
         {
-            var spec = Specification<UserRole>.Eval(u => u.UserId == userId);
-
-            var userRoles = this._userRoleRepository.FindAll(spec);
-            if (userRoles != null)
-            {
-                foreach (var userRole in userRoles)
-                    this._userRoleRepository.Remove(userRole);
-            }
-
-            if (!roleId.HasValue)
-                return;
-
-            // Todo: check the user whether has more than one role in the tennant that the role own to, in a role domain service.
-            var addUserRole = new UserRole(userId, roleId.Value, creator);
-            this._userRoleRepository.Add(addUserRole);
+            this._userDomainService.SetRoles(this._userRoleRepository, userId, tenantId, roleId, creator);
         }
 
         public bool IsAdmin(Guid userId)

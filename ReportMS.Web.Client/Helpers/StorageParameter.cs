@@ -36,14 +36,14 @@ namespace ReportMS.Web.Client.Helpers
         /// </summary>
         /// <param name="parameters">要转换的字符串参数</param>
         /// <returns>字典结合参数</returns>
-        public static IDictionary<string, string> ConvertStringToParameter(string parameters)
+        public static IDictionary<string, object> ConvertStringToParameter(string parameters)
         {
             if (String.IsNullOrWhiteSpace(parameters))
                 return null;
 
             return (from pms in parameters.Split(Concatenation.ToCharArray())
                 let p = pms.Split(Assignment.ToCharArray())
-                select p).ToDictionary(k => k[0].Trim(), v => v[1].Trim());
+                select p).ToDictionary(k => k[0].Trim(), v => (object) v[1].Trim());
         }
 
         #endregion

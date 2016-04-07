@@ -2,20 +2,19 @@
 using System.Collections.Generic;
 using System.Web.Mvc;
 using Gear.Infrastructure;
+using Gear.Infrastructure.Web.Attributes;
 using ReportMS.DataTransferObjects.Dtos;
 using ReportMS.ServiceContracts;
-using ReportMS.Web.Client.Attributes;
 
 namespace ReportMS.Web.Controllers.Manages
 {
     // Subscribers manage subscription informations by themselves.
-    [Role]
+    [AllowAuthenticated]
     public class SubscriberManageController : BaseController
     {
         public ActionResult Index()
         {
             // 当前订阅者的订阅信息
-            // Todo：此处是针对所有的主题，后续改为只针对于用户自订阅的主题。由管理员设置的主题应该由管理人员来操作
             var email = this.LoginUser.Email;
             var topics = this.GetTopics(email);
             return View(topics);

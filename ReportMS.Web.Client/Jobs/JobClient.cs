@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Gear.Utility.Schedule.Jobs;
 
 namespace ReportMS.Web.Client.Jobs
@@ -48,6 +49,7 @@ namespace ReportMS.Web.Client.Jobs
 
         #region Private Methods
 
+        // 注册 Job
         private void Init()
         {
             // Register all jobs that implement the ReportMS.Web.Client.Jobs.ISubScriber interface.
@@ -79,6 +81,16 @@ namespace ReportMS.Web.Client.Jobs
         {
             IJobClient jobClient = new JobClient();
             jobClient.Start();
+
+            // 设置 Job 状态
+            JobSwitch.Run();
+            JobPause();
+        }
+
+        [Conditional("DEBUG")]
+        static void JobPause()
+        {
+            JobSwitch.Pause();
         }
     }
 }

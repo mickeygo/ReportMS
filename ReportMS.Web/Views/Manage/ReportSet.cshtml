@@ -39,7 +39,7 @@
         }
 
         function reloadReport() {
-            var href = "@Url.Action("Index")" + " #table_report";
+            var href = "@Url.Action("Index", "ReportManage")" + "#table_report";
             $("#retport").load(href);
         }
 
@@ -78,7 +78,7 @@
         }
 
         function reloadReportProfile() {
-            var url = "@Url.Action("Index")" + " #reportprofile table";
+            var url = "@Url.Action("Index", "ReportProfileManage")" + "#reportprofile table";
             $("#reportprofile").load(url);
         }
 
@@ -143,7 +143,7 @@
         }
 
         function reloadReportGroup() {
-            var url = "@Url.Action("Index")" + " #reportgroup table";
+            var url = "@Url.Action("Index", "ReportGroupManage")" + "#reportgroup table";
             $("#reportgroup").load(url);
         }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Gear.Infrastructure;
+using Gear.Infrastructure.Web.Attributes;
 using ReportMS.DataTransferObjects.Dtos;
 using ReportMS.Reports.Managers;
 using ReportMS.ServiceContracts;
@@ -10,6 +11,7 @@ using ReportMS.Web.Client.Helpers;
 
 namespace ReportMS.Web.Controllers
 {
+    [AllowAuthenticated]
     public class SubscriberController : BaseController
     {
         private const string ReportId = "__tableOrViewId";

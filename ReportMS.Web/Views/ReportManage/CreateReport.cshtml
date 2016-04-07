@@ -7,7 +7,7 @@
         <div class="form-group">
             <label class="col-md-3 control-label" for="ReportName">Report Name</label>
             <div class="col-md-9">
-                @Html.TextBoxFor(m => m.ReportName, new { @class = "form-control", required = "", data_format = "string", maxlength = "40", onpaste = "return false;" })
+                @Html.TextBoxFor(m => m.ReportName, new { @class = "form-control", required = "", data_format = "string", maxlength = "40", onpaste = "return false;", placeholder = "Input table or view name ..." })
             </div>
         </div>
         <div class="form-group">
@@ -19,7 +19,7 @@
         <div class="form-group">
             @Html.LabelFor(m => m.Database, new { @class = "col-md-3 control-label" })
             <div class="col-md-9">
-                @Html.TextBoxFor(m => m.Database, new { @class = "form-control", maxlength = "20" })
+                @Html.TextBoxFor(m => m.Database, new { @class = "form-control", maxlength = "20", placeholder = "Input the initial catalog ..." })
             </div>
         </div>
         <div class="form-group">

@@ -131,22 +131,20 @@ namespace ReportMS.Web
                 return;
             }
 
-            // 2, Administrator
+            // 2, Manager Or Administrator 
             // allow the system administrators to visit all.
-            if (this.IsAdministrator)
+            if (this.IsAdmin || this.IsAdministrator)
                 return;
 
-            // IsAdmin
-            if (this.IsAdmin)
+            // 3, AllowAuthenticated
+            if (this.IsAllowAuthenticated(filterContext.ActionDescriptor))
                 return;
 
-            // 3, Authorization
+            // 4, Authorization
             //  a, no tenant or not role in current tenant
             if (this.RoleOfTenant == null)
             {
-                // Todo: Handle the no tenant or not role in current tenant
-                // find the all roles of user and check them.
-                // allow all authentication users to access.
+                filterContext.Result = this.RedirectToPermission();
                 return;
             }
 
@@ -154,20 +152,15 @@ namespace ReportMS.Web
             //      b1, the role of the user in current tenant. (Only one role in a tenant)
             //      b2, the permissions of the role
             //      b3, Is limit action ?
-            var action = this.RouteData.Values["action"] as string;
-            var controller = this.RouteData.Values["controller"] as string;
-            var area = this.RouteData.DataTokens["area"] as string;
+            //var action = this.RouteData.Values["action"] as string;
+            //var controller = this.RouteData.Values["controller"] as string;
+            //var area = this.RouteData.DataTokens["area"] as string;
 
-            var hasPermission = RoleManager.Instance.HasPermissionOfRole(this.RoleOfTenant.ID, area, controller, action);
-            if (!hasPermission)
-            {
-                if (filterContext.HttpContext.Request.IsAjaxRequest())
-                    filterContext.Result = Json(false, "You have not permission to access this page.");
-                else if (filterContext.IsChildAction)
-                    filterContext.Result = PartialView("Permission");  // new ContentResult {Content = "You have not permission to access this page."}
-                else
-                    filterContext.Result = View("Permission");
-            }
+            //var hasPermission = RoleManager.Instance.HasPermissionOfRole(this.RoleOfTenant.ID, area, controller, action);
+            //if (!hasPermission)
+            //{
+            //    filterContext.Result = this.RedirectToPermission();
+            //}
         }
 
         // 重写，登录 Log 记录
@@ -212,6 +205,15 @@ namespace ReportMS.Web
                 return false;
 
             return UserManager.Instance.IsAdmin(userId.Value);
+        }
+
+        private ActionResult RedirectToPermission()
+        {
+            if (this.ControllerContext.HttpContext.Request.IsAjaxRequest())
+                return Json(false, "You have not permission to access this page.");
+            if (this.ControllerContext.IsChildAction)
+                return PartialView("Permission");
+            return View("Permission");
         }
 
         #endregion

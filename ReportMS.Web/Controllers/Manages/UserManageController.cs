@@ -30,7 +30,7 @@ namespace ReportMS.Web.Controllers.Manages
                 using (var service = ServiceLocator.Instance.Resolve<IUserService>())
                 {
                     var creator = this.LoginUser.Identity.Name;
-                    service.SetRoles(model.ID, role, creator);
+                    service.SetRoles(this.LoginUser.NameIdentifier.Value, this.Tenant.ID, role, creator);
 
                     return Json(true);
                 }

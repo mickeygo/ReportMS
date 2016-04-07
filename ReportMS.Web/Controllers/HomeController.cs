@@ -1,10 +1,12 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
 using Gear.Infrastructure;
+using Gear.Infrastructure.Web.Attributes;
 using ReportMS.ServiceContracts;
 
 namespace ReportMS.Web.Controllers
 {
+    [AllowAuthenticated]
     public class HomeController : BaseController
     {
         public ActionResult Index()
@@ -16,7 +18,10 @@ namespace ReportMS.Web.Controllers
             {
                 //  Only show these tenants own to current user
                 var tenantsOfRole = service.FindRoles(userId);
-                var model = tenantsOfRole.Select(r => r.Tenant);
+                if (tenantsOfRole == null)
+                    return View();
+
+                var model = tenantsOfRole.Where(t => t.TenantId.HasValue).Select(r => r.Tenant);
                 return View(model);
             }
         }

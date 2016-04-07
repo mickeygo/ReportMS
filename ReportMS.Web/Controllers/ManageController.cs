@@ -16,21 +16,6 @@ namespace ReportMS.Web.Controllers
         {
             ViewBag.Tenants = this.GetTenants();
             return View();
-
-            //var roles = this.GetRoles();
-            //if (roles == null)
-            //    return View();
-
-            //ViewBag.Tenants = this.GetTenants();
-            
-            //using (var service = ServiceLocator.Instance.Resolve<IRoleService>())
-            //{
-            //    var model = (from role in roles
-            //        from menu in service.FindMenus(role.ID)
-            //        select menu).ToList();
-
-            //    return View(model);
-            //}
         }
 
         public ActionResult ReportSet()
@@ -53,17 +38,6 @@ namespace ReportMS.Web.Controllers
             {
                 return service.GetAllTenants();
             }
-
-            //if (this.IsAdministrator)
-            //{
-            //    using (var service = ServiceLocator.Instance.Resolve<ITenantService>())
-            //    {
-            //        return service.GetAllTenants();
-            //    }
-            //}
-
-            //var roles = this.GetRoles();
-            //return roles != null ? roles.Select(r => r.Tenant) : null;
         }
 
         private IEnumerable<RoleDto> GetRoles()

@@ -37,8 +37,6 @@ namespace ReportMS.Web.Controllers.Manages
             {
                 using (var service = ServiceLocator.Instance.Resolve<IRoleService>())
                 {
-                    if (this.Tenant == null)
-                        return Json(false, "Create the role failure, the role does not exist.");
                     if (service.ExistRole(model.RoleName))
                         return Json(false, string.Format("Create the role failure, the role name:[{0}] already exists.", model.RoleName));
 

@@ -87,22 +87,23 @@ namespace ReportMS.Web.Controllers.Manages
                     service.UpdateReportHeader(reportDto.ID, reportDto.DisplayName, reportDto.Description, creator);
 
                     // modify the report fields (add / remove)
-                    if (colunms == null)
-                        return Json(true);
-
                     var report = service.FindReport(reportDto.ID);
                     var tableSchemas = this.GetTableSchema(report.Database, report.ReportName);
 
                     // firstly remove all，then add and sort
-                    var addingFileds = (from table in tableSchemas
-                        where colunms.Contains(table.ColunmName)
-                        select new ReportFieldDto
-                        {
-                            FieldName = table.ColunmName,
-                            DisplayName = table.ColunmName,
-                            DataType = table.DataType,
-                            CreatedBy = creator
-                        });
+                    IEnumerable<ReportFieldDto> addingFileds = null;
+                    if (colunms != null)
+                    {
+                        addingFileds = (from table in tableSchemas
+                            where colunms.Contains(table.ColunmName)
+                            select new ReportFieldDto
+                            {
+                                FieldName = table.ColunmName,
+                                DisplayName = table.ColunmName,
+                                DataType = table.DataType,
+                                CreatedBy = creator
+                            });
+                    }
 
                     service.SetReportFields(reportDto.ID, addingFileds);
                 }

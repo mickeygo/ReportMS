@@ -6,19 +6,19 @@ namespace ReportMS.Web.Client.Jobs.Subscribers
     /// <summary>
     /// 更新主题缓存 Job, 每天 01:30 执行
     /// </summary>
-    public class RefreshTopicCacheJob : ISubScriber
+    public class RefreshTopicCacheJob : JobSubScriber
     {
         #region ISubScriber Members
 
-        public void Subscribe()
+        public override ScheduleCronOptions Schedule
+        {
+            get { return new ScheduleCronOptions(1, 30); }
+        }
+
+        public override void Handle()
         {
             IJobHandler handler = new RefreshTopicCacheJobHandler();
             handler.Execute();
-        }
-
-        public ScheduleCronOptions Schedule
-        {
-            get { return new ScheduleCronOptions(1, 30); }
         }
 
         #endregion

@@ -12,7 +12,10 @@ namespace ReportMS.Domain.Models.ReportModule.DatabaseAggregate
     /// </summary>
     public class Database : AggregateRoot, ISoftDelete, IValidatableObject
     {
+        #region Fields
         private const string scrambledKey = "reportmanagesystem";
+
+        #endregion
 
         #region Properties
 
@@ -85,7 +88,7 @@ namespace ReportMS.Domain.Models.ReportModule.DatabaseAggregate
         /// <param name="catalog">数据库实例</param>
         /// <param name="userId">用户</param>
         /// <param name="password">用户密码</param>
-        /// <param name="provider">数据库提供者（SqlServer 或 Oracle）</param>
+        /// <param name="provider">数据库提供者（SqlServer 或 Oracle, MySql 等）</param>
         public Database(string name, string description, string server, string catalog, string userId, string password,
             string provider)
         {
@@ -108,7 +111,7 @@ namespace ReportMS.Domain.Models.ReportModule.DatabaseAggregate
         #region Public Methods
 
         /// <summary>
-        /// 启用
+        /// 启用数据库
         /// </summary>
         public void Enable()
         {
@@ -117,7 +120,7 @@ namespace ReportMS.Domain.Models.ReportModule.DatabaseAggregate
         }
 
         /// <summary>
-        /// 禁用
+        /// 禁用数据库
         /// </summary>
         public void Disable()
         {

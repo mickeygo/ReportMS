@@ -1,0 +1,36 @@
+﻿@{
+    ViewBag.Title = "Job";
+
+    var jobStatus = (bool) ViewBag.JobStatus;
+}
+
+@section scripts
+{
+    <script>
+        var status = "@(jobStatus ? "true" : "false")";
+
+        $(function() {
+            $("[name=JobStatus]").each(function(index) {
+                var value = $(this).val();
+                if (value === status) {
+                    $(this).prop("checked", true);
+                    return;
+                }
+            });
+        });
+
+        $("[name=JobStatus]").change(function() {
+            var url = "@Url.Action("JobToggle", "JobManage")";
+            var value = $(this).val();
+            $.post(url, { status: value });
+        });
+    </script>
+}
+
+@Html.Navigate("Manage", "Job")
+
+<div>
+    <strong>Job Status:</strong>
+    <label class="radio-inline"><input type="radio" name="JobStatus" value="true"/> Runing</label>
+    <label class="radio-inline"><input type="radio" name="JobStatus" value="false"/> Pause</label>
+</div>

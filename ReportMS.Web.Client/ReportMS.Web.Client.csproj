@@ -86,6 +86,8 @@
     <Compile Include="Jobs\JobClient.Partial.cs" />
     <Compile Include="Jobs\JobHandlers\AttachmentJobHandler.cs" />
     <Compile Include="Jobs\JobHandlers\RefreshTopicCacheJobHandler.cs" />
+    <Compile Include="Jobs\JobSubScriber.cs" />
+    <Compile Include="Jobs\JobSwitch.cs" />
     <Compile Include="Jobs\JobTaskCalibration.cs" />
     <Compile Include="Jobs\Subscribers\AttachmentJob.cs" />
     <Compile Include="Jobs\IJobClient.cs" />

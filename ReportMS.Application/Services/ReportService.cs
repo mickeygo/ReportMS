@@ -93,15 +93,16 @@ namespace ReportMS.Application.Services
                 return;
 
             var fields = report.Fields;
-            if (fields == null || !fields.Any())
-                return;
+            if (fields != null && fields.Any())
+                this._reportRepository.RemoveFileds(fields);
 
-            this._reportRepository.RemoveFileds(fields);
-
-            var index = 1;
-            var addingFields = (from f in fieldDtos
-                select new ReportField(report.ID, f.FieldName, f.DisplayName, f.DataType, index++, f.CreatedBy));
-            report.AddFields(addingFields);
+            if (fieldDtos != null)
+            {
+                var index = 1;
+                var addingFields = (from f in fieldDtos
+                    select new ReportField(report.ID, f.FieldName, f.DisplayName, f.DataType, index++, f.CreatedBy));
+                report.AddFields(addingFields);
+            }
 
             this._reportRepository.Update(report);
         }

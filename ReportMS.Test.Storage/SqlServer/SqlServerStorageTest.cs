@@ -68,5 +68,22 @@ namespace ReportMS.Test.Storage.SqlServer
             var detail = Utils.LookupEntityDetail(tests);
             Assert.IsNull(detail, detail);
         }
+
+        [TestMethod]
+        public void Job_Test()
+        {
+            var sql = "SELECT PI_No, Bill_ID, Bill_Company, Contact, Email, RMA_NO, Modify_DT, Result, TAT FROM V_AASC_Pending_PO  WHERE (RMA_NO > @YnTRx6AWek)";
+            var parms = new Dictionary<string, object>
+            {
+                {"@YnTRx6AWek", "A161"}
+            };
+
+            var reader = StorageManager.CreateInstance("RMA").GetDataReader(sql, parms);
+
+            if (reader != null)
+            {
+                reader.Close();
+            }
+        }
     }
 }
