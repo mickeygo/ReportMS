@@ -16,7 +16,7 @@ namespace ReportMS.Web.Controllers
         private static readonly string ExcelKey = "__excel";
 
         // GET: Report
-        [Layout(Layout.WithoutWebTitle)]
+        [Layout(Layout.WithoutWebTitle, Wide = Wide.Widescreen90)]
         public ActionResult Index()
         {
             return View("_ReportLayout");

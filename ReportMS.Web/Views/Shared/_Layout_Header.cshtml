@@ -1,15 +1,15 @@
 ﻿<div class="header-bg">
-    <div class="header">
+    <div class="header @ViewBag.ScreenWide">
         <div class="logo">
-            <img width="380" height="35" src="@Url.Content("~/Content/themes/CIS_Advantech.gif")"/>
+            <img width="380" height="35" src="@Url.Content("~/Content/themes/CIS_Advantech.gif")" alt="" />
         </div>
         <div class="Log-out">
-            <span><a href="http://employeezone.advantech.com.tw">Employee Portal</a></span> 
-            <span> | </span> 
-            <span>@Html.ActionLink("Log Out", "LogOff", "Account", new {area = ""}, null)</span> 
+            <span><a href="http://employeezone.advantech.com.tw">Employee Portal</a></span>
+            <span> | </span>
+            <span>@Html.ActionLink("Log Out", "LogOff", "Account", new { area = "" }, null)</span>
         </div>
         <p class="clear"></p>
-        <div class="ez-nav clearfix">
+        <div class="ez-nav clearfix wide-100">
             <ul>
                 <li><span><a href="http://employeezone.advantech.com.tw/net">Employee Home</a></span></li>
                 <li><span><a href="http://employeezone.advantech.com.tw/net/Work">Work</a></span></li>

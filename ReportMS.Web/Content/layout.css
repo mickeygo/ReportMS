@@ -74,6 +74,26 @@ html[xmlns] .clearfix {
     color: #004280;
 }
 
+/*------ Width ------*/
+.wide-100 {
+    width: 100% !important;
+}
+.wide-98 {
+    width: 98% !important;
+}
+.wide-90 {
+    width: 90% !important;
+}
+.wide-80 {
+    width: 80% !important;
+}
+.wide-70 {
+    width: 70% !important;
+}
+.wide-60 {
+    width: 60% !important;
+}
+
 /* HEADER
 ----------------------------------------------------------- */
 .header-bg {

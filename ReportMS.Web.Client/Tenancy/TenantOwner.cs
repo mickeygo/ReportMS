@@ -53,7 +53,7 @@ namespace ReportMS.Web.Client.Tenancy
         #region Public Methods
 
         /// <summary>
-        /// 验证是否有租户请求且请求的租户信息是否有效
+        /// 验证当前的租户信息是否有效
         /// </summary>
         /// <returns>True 表示存在租户；否则为 False</returns>
         public bool ExistTenant()

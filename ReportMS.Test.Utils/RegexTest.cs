@@ -64,5 +64,13 @@ namespace ReportMS.Test.Utils
 
             Assert.IsTrue(matchs[2].Value == "ff_1", matchs[2].Value);
         }
+
+        [TestMethod]
+        public void Regex_Test2()
+        {
+            var result = Regex.IsMatch("P11", @"^P[1-9][0-9]?$");
+
+            Assert.IsTrue(result);
+        }
     }
 }

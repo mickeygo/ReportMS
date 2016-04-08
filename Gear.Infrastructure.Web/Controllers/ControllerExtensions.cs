@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 using System.Web.Mvc;
 using Gear.Infrastructure.Web.Attributes;
 using Gear.Infrastructure.Web.Authorization;
@@ -22,7 +23,7 @@ namespace Gear.Infrastructure.Web.Controllers
         public static bool Authenticate(this Controller controller, AuthorizationContext filterContext)
         {
             var actionDescriptor = filterContext.ActionDescriptor;
-            if (IsAllowAnonymousOfActionOrController(actionDescriptor))
+            if (IsAllowAnonymous(controller, actionDescriptor))
                 return true;
 
             var authentication = OwinAuthenticationManager.OwinAuthentication;
@@ -37,7 +38,7 @@ namespace Gear.Infrastructure.Web.Controllers
         /// <returns>True 表示允许匿名访问；否则为 false</returns>
         public static bool IsAllowAnonymous(this Controller controller, ActionDescriptor actionDescriptor)
         {
-            return IsAllowAnonymousOfActionOrController(actionDescriptor);
+            return IsDefinedAttribute<AllowAnonymousAttribute>(controller, actionDescriptor);
         }
 
         /// <summary>
@@ -48,10 +49,24 @@ namespace Gear.Infrastructure.Web.Controllers
         /// <returns>True 表示允许匿名访问；否则为 false</returns>
         public static bool IsAllowAuthenticated(this Controller controller, ActionDescriptor actionDescriptor)
         {
+            return IsDefinedAttribute<AllowAuthenticatedAttribute>(controller, actionDescriptor);
+        }
+
+        /// <summary>
+        /// 是否 action / controller 有定义指定的特性
+        /// </summary>
+        /// <typeparam name="T">定义的特性类型</typeparam>
+        /// <param name="controller">控制器</param>
+        /// <param name="actionDescriptor">Action 描述</param>
+        /// <param name="inherit">特性是否允许继承，默认为 true</param>
+        /// <returns>是否允许继承，默认为 true</returns>
+        public static bool IsDefinedAttribute<T>(this Controller controller, ActionDescriptor actionDescriptor,
+            bool inherit = true) where T : Attribute
+        {
             var controllerDescriptor = actionDescriptor.ControllerDescriptor;
 
-            return actionDescriptor.IsDefined(typeof (AllowAuthenticatedAttribute), true)
-                   || controllerDescriptor.IsDefined(typeof (AllowAuthenticatedAttribute), true);
+            return actionDescriptor.IsDefined(typeof (T), true)
+                   || controllerDescriptor.IsDefined(typeof (T), true);
         }
 
         /// <summary>
@@ -73,18 +88,6 @@ namespace Gear.Infrastructure.Web.Controllers
                 ContentEncoding = contentEncoding,
                 JsonRequestBehavior = behavior
             };
-        }
-
-        #endregion
-
-        #region Private Methods
-
-        private static bool IsAllowAnonymousOfActionOrController(ActionDescriptor actionDescriptor, bool inherit = true)
-        {
-            var controllerDescriptor = actionDescriptor.ControllerDescriptor;
-
-            return actionDescriptor.IsDefined(typeof (AllowAnonymousAttribute), inherit)
-                   || controllerDescriptor.IsDefined(typeof (AllowAnonymousAttribute), inherit);
         }
 
         #endregion

@@ -12,6 +12,10 @@ namespace ReportMS.Web.Client.Jobs.Subscribers
     {
         #region ISubScriber Members
 
+        /// <summary>
+        /// 执行频率为每小时。
+        /// 每小时(00 分钟)检查是否有订阅在此时发送附件的数据
+        /// </summary>
         public override ScheduleCronOptions Schedule
         {
             get { return new ScheduleCronOptions(0); }
@@ -20,6 +24,7 @@ namespace ReportMS.Web.Client.Jobs.Subscribers
         public override void Handle()
         {
             // Find all attachment topics, then filter the matched these.
+            // 若设置从缓存中提取的数据，需要在 RefreshTopicCacheJobHandler 中重新设定
             var attachmentTopics = TopicCacheManager.Instance.GetAttachmentTopicCache();
             if (attachmentTopics == null || !attachmentTopics.Any())
                 return;

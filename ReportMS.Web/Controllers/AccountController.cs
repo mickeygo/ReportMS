@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using Gear.Infrastructure.Web.Attributes;
 using ReportMS.Web.Client.Models;
 using ReportMS.Web.Client.Membership;
 
@@ -44,6 +45,7 @@ namespace ReportMS.Web.Controllers
             return View();
         }
 
+        [AllowAuthenticated]
         public ActionResult LogOff()
         {
             var login = new Login();

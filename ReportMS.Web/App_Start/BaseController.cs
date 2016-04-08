@@ -1,9 +1,9 @@
 ﻿using System.Web.Mvc;
 using Gear.Infrastructure.Web.Controllers;
 using ReportMS.DataTransferObjects.Dtos;
+using ReportMS.Web.Client.Attributes;
 using ReportMS.Web.Client.Tenancy;
 using ReportMS.Web.Client.Membership;
-using ReportMS.Web.Client.Roles;
 
 namespace ReportMS.Web
 {
@@ -124,6 +124,9 @@ namespace ReportMS.Web
         // 重写, 登录验证
         protected override void OnAuthorization(AuthorizationContext filterContext)
         {
+            if (this.IsAllowAnonymous(filterContext.ActionDescriptor))
+                return;
+
             // 1, Authentication
             if (!this.Authenticate(filterContext))
             {
@@ -131,22 +134,29 @@ namespace ReportMS.Web
                 return;
             }
 
-            // 2, Manager Or Administrator 
+            // 2, AllowAuthenticated
+            if (this.IsAllowAuthenticated(filterContext.ActionDescriptor))
+                return;
+
+            // 3, Manager Or Administrator 
             // allow the system administrators to visit all.
             if (this.IsAdmin || this.IsAdministrator)
                 return;
 
-            // 3, AllowAuthenticated
-            if (this.IsAllowAuthenticated(filterContext.ActionDescriptor))
-                return;
+            // Tenant
+            if (this.IsDefinedAttribute<ValidateTenantAttribute>(filterContext.ActionDescriptor))
+            {
+                if (this.RoleOfTenant == null)
+                    filterContext.Result = this.RedirectToPermission();
+            }
 
             // 4, Authorization
             //  a, no tenant or not role in current tenant
-            if (this.RoleOfTenant == null)
-            {
-                filterContext.Result = this.RedirectToPermission();
-                return;
-            }
+            //if (this.RoleOfTenant == null)
+            //{
+            //    filterContext.Result = this.RedirectToPermission();
+            //    return;
+            //}
 
             //  b, exist valid tenant
             //      b1, the role of the user in current tenant. (Only one role in a tenant)

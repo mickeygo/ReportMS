@@ -10,6 +10,9 @@ namespace ReportMS.Web.Client.Jobs.Subscribers
     {
         #region ISubScriber Members
 
+        /// <summary>
+        /// 每天 1:30
+        /// </summary>
         public override ScheduleCronOptions Schedule
         {
             get { return new ScheduleCronOptions(1, 30); }

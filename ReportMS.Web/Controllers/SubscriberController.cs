@@ -8,6 +8,7 @@ using ReportMS.DataTransferObjects.Dtos;
 using ReportMS.Reports.Managers;
 using ReportMS.ServiceContracts;
 using ReportMS.Web.Client.Helpers;
+using ReportMS.Web.Client.Options;
 
 namespace ReportMS.Web.Controllers
 {
@@ -59,7 +60,7 @@ namespace ReportMS.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult UserSubscribe(AttachmentTopicDto model)
         {
-            var subscribers = new List<SubscriberDto> { new SubscriberDto { Email = this.LoginUser.Email } };
+            var subscribers = new List<SubscriberDto> {new SubscriberDto {Email = this.LoginUser.Email}};
             model.Subscribers = subscribers;
             model.CreatedBy = this.LoginUser.Identity.Name;
 
@@ -98,35 +99,18 @@ namespace ReportMS.Web.Controllers
 
         private void ViewBagSchedule()
         {
-            var monthRange = Enumerable.Range(1, 12)
-                .Select(s => new SelectListItem {Value = s.ToString(), Text = s.ToString()});
-
-            // DayOfWeek.Sunday -- 0
-            var weekRange = Enumerable.Range((int) DayOfWeek.Sunday, 7)
-                .Select(s => new SelectListItem {Value = s.ToString(), Text = ((DayOfWeek) s).ToString()});
-
-            var dayRange = Enumerable.Range(1, 31)
-                .Select(s => new SelectListItem { Value = s.ToString(), Text = s.ToString() });
-
-            var hourRange = Enumerable.Range(1, 23)
-                .Select(s => new SelectListItem { Value = s.ToString(), Text = string.Format("{0}:00", s.ToString()) });
-
-            ViewBag.MonthRange = monthRange;
-            ViewBag.WeekRange = weekRange;
-            ViewBag.DayRange = dayRange;
-            ViewBag.HourRange = hourRange;
+            ViewBag.MonthRange = SubscriberOptions.Month();
+            ViewBag.WeekRange = SubscriberOptions.DayInWeek();
+            ViewBag.DayRange = SubscriberOptions.Day();
+            ViewBag.HourRange = SubscriberOptions.Hour();
         }
 
         private void ViewBagTask()
         {
             var first = Enumerable.Range(1, 1)
-                .Select(s => new SelectListItem { Value = "", Text = "-----" });
+                .Select(s => new SelectListItem {Value = "", Text = "-----"});
 
-            // TaskScheduleDto.Hourly -- 1
-            // TaskScheduleDto.Yearly -- 5
-            var scheduleRange = Enumerable.Range(1, 5)
-                .Select(s => new SelectListItem {Value = s.ToString(), Text = ((TaskScheduleDto) s).ToString()});
-
+            var scheduleRange = SubscriberOptions.Schedule();
             ViewBag.ScheduleRange = first.Union(scheduleRange);
         }
 

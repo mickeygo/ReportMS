@@ -11,11 +11,11 @@ namespace ReportMS.Reports.Dao
     /// </summary>
     public class ReportSqlWrapper
     {
-        private readonly char entitySegmentationSymbol = ';';
-        private readonly char operatorSegmentationSymbol = ',';
-        private readonly string operatorPattern = @"^P[1-99]$";
-        private readonly string fieldPattern = @"^F[1-99]$";
-        private readonly string tableOrViewIndexName = "T0";
+        private const char EntitySegmentationSymbol = ';';
+        private const char OperatorSegmentationSymbol = ',';
+        private const string OperatorPattern = @"^P[1-9][0-9]?$"; // P1 ~ P99
+        private const string FieldPattern = @"^F[1-9][0-9]?$"; // F1 ~ F99
+        private const string TableOrViewIndexName = "T0";
         private readonly List<SqlOperator> sqlOperators = new List<SqlOperator>();
         private SqlBag sqlBag;
 
@@ -26,9 +26,9 @@ namespace ReportMS.Reports.Dao
             var nameValues = this.GetOperatorsFromWebForm();
             foreach (var pair in nameValues)
             {
-                if (pair.Value.IndexOf(this.entitySegmentationSymbol) != -1)
+                if (pair.Value.IndexOf(EntitySegmentationSymbol) != -1)
                 {
-                    var vals = pair.Value.Split(this.entitySegmentationSymbol);
+                    var vals = pair.Value.Split(EntitySegmentationSymbol);
                     foreach (var repOperator in vals.Select(this.SetReportOperator).Where(rep => rep != null))
                         this.sqlOperators.Add(repOperator);
                 }
@@ -46,7 +46,7 @@ namespace ReportMS.Reports.Dao
         private Guid? GetReportTableOrViewIdFromWebForm()
         {
             var namevalueforms = HttpContext.Current.Request.Form;
-            var tableOrViewId = namevalueforms[this.tableOrViewIndexName];
+            var tableOrViewId = namevalueforms[TableOrViewIndexName];
             if (String.IsNullOrWhiteSpace(tableOrViewId))
                 return null;
             return new Guid(tableOrViewId);
@@ -56,21 +56,22 @@ namespace ReportMS.Reports.Dao
         private IDictionary<string, string> GetFieldsFromWebForm()
         {
             var namevalueforms = HttpContext.Current.Request.Form;
-            return (from key in namevalueforms.AllKeys.Where(k => Regex.IsMatch(k, this.fieldPattern))
-                    let value = namevalueforms[key].Split(',')
-                    select Tuple.Create(value[0], value[1])).ToDictionary(s => s.Item1, s => s.Item2);
+            return (from key in namevalueforms.AllKeys.Where(k => Regex.IsMatch(k, FieldPattern))
+                let value = namevalueforms[key].Split(',')
+                select Tuple.Create(value[0], value[1])).ToDictionary(s => s.Item1, s => s.Item2);
         }
 
         private IDictionary<string, string> GetOperatorsFromWebForm()
         {
             var namevalueforms = HttpContext.Current.Request.Form;
-            return namevalueforms.AllKeys.Where(k => Regex.IsMatch(k, this.operatorPattern)).ToDictionary(key => key, key => namevalueforms[key]);
+            return namevalueforms.AllKeys.Where(k => Regex.IsMatch(k, OperatorPattern))
+                .ToDictionary(key => key, key => namevalueforms[key]);
         }
 
         private SqlOperator SetReportOperator(string condition)
         {
             var con = this.SplitCondition(condition);
-            return con == null ? null : new SqlOperator { Name = con.Item1, Operator = con.Item2, Value = con.Item3 };
+            return con == null ? null : new SqlOperator {Name = con.Item1, Operator = con.Item2, Value = con.Item3};
         }
 
         /// <summary>
@@ -83,14 +84,15 @@ namespace ReportMS.Reports.Dao
             if (String.IsNullOrWhiteSpace(condition))
                 return null;
 
-            var conditions = condition.Split(this.operatorSegmentationSymbol);
+            var conditions = condition.Split(OperatorSegmentationSymbol);
             if (conditions.Any() && conditions.Any(String.IsNullOrWhiteSpace))
                 return null;
 
             return Tuple.Create(conditions[0], conditions[1], conditions[2]);
         }
 
-        private void ExecuteSqlBagBuilder(string table, IDictionary<string, string> fields, IEnumerable<SqlOperator> operators, SelectClauseBuildMode model)
+        private void ExecuteSqlBagBuilder(string table, IDictionary<string, string> fields,
+            IEnumerable<SqlOperator> operators, SelectClauseBuildMode model)
         {
             this.sqlBag = new SqlBag(table, fields, operators, model);
         }
