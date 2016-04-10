@@ -90,6 +90,7 @@
     <Compile Include="Generators\SequenceGenerator.cs" />
     <Compile Include="Generators\SequentialIdentityGenerator.cs" />
     <Compile Include="IAggregateRoot.cs" />
+    <Compile Include="Net\Dns\DnsUtility.cs" />
     <Compile Include="Services\ApplicationServices\IApplicationQueryService.cs" />
     <Compile Include="Services\ApplicationServices\IApplicationService.cs" />
     <Compile Include="IApplicationStartup.cs" />
@@ -155,6 +156,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Journal\" />
+    <Folder Include="Net\Sockets\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

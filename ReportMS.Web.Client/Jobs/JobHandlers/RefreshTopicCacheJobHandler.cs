@@ -4,11 +4,11 @@
     /// 刷新主题缓存的 Job 处理器。
     /// 此类中设置从缓存中提取的数据。
     /// </summary>
-    public class RefreshTopicCacheJobHandler : IJobHandler
+    public class RefreshTopicCacheJobHandler : JobHandler
     {
         #region IJobHandler Members
 
-        public void Execute()
+        public override void Execute()
         {
             // attachment topic cache handle.
             TopicCacheManager.Instance.RefreshAttachmentTopicCache();

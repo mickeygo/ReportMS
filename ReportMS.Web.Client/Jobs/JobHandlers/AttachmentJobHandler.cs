@@ -6,6 +6,7 @@ using System.Linq;
 using Gear.Infrastructure;
 using Gear.Infrastructure.Net.Mail;
 using Gear.Infrastructure.Storage;
+using Gear.Utility.IO;
 using Gear.Utility.IO.Excels;
 using ReportMS.DataTransferObjects.Dtos;
 using ReportMS.ServiceContracts;
@@ -16,9 +17,8 @@ namespace ReportMS.Web.Client.Jobs.JobHandlers
     /// <summary>
     /// 附件 Job 处理者
     /// </summary>
-    public class AttachmentJobHandler : IJobHandler
+    public class AttachmentJobHandler : JobHandler
     {
-        private const string FileExtension = ".xlsx";
         private readonly AttachmentTopicDto _attachmentTopic;
         private readonly IEnumerable<TopicTaskDto> _topicTasks;
         private bool _status = true;
@@ -53,7 +53,7 @@ namespace ReportMS.Web.Client.Jobs.JobHandlers
         /// <summary>
         /// 执行 Job
         /// </summary>
-        public void Execute()
+        public override void Execute()
         {
             var stream = this.GenerateStreamOfAttachment();
             this.SendMail(stream);
@@ -75,7 +75,9 @@ namespace ReportMS.Web.Client.Jobs.JobHandlers
                 return;
             }
 
-            var fileName = string.Format("{0}-{1}{2}", this._attachmentTopic.TopicName, DateTime.Now.ToString("yyMMddHHmmss"), FileExtension);
+            var fileName = FilePathBuilder.BuildPath(
+                    string.Format("{0}-{1}", this._attachmentTopic.TopicName, DateTime.Now.ToString("yyMMddHHmmss")),
+                    FileExtension.Excel2007);
             var attachmemts = new List<Tuple<Stream, string>> {Tuple.Create(stream, fileName)};
             var subject = this._attachmentTopic.TopicName;
             var body = this._attachmentTopic.Description;
@@ -91,24 +93,6 @@ namespace ReportMS.Web.Client.Jobs.JobHandlers
             {
                 // dispose the stream whether send mail successfully or failure.
                 this.SetErrorStatus("Send mail failure.");
-            }
-        }
-
-        // 批量执行, 状态和消息都相同
-        private void Log(IEnumerable<Guid> taskRecordIds, bool status, string errorMsg)
-        {
-            var taskRecords = (from taskRecordId in taskRecordIds
-                select new TaskRecordDto
-                {
-                    TopicTaskId = taskRecordId,
-                    ExecuteResult = status,
-                    ErrorMessage = errorMsg
-                });
-
-            using (var service = ServiceLocator.Instance.Resolve<ISubscriberService>())
-            {
-                foreach (var taskRecord in taskRecords)
-                    service.LogTaskRecord(taskRecord);
             }
         }
 

@@ -23,16 +23,28 @@ namespace ReportMS.DataTransferObjects.Dtos
         public Guid TopicTaskId { get; set; }
 
         /// <summary>
-        /// 获取或设置任务执行的时间
+        /// 获取或设置任务执行的开始时间
         /// </summary>
         [DataMember]
-        public DateTime ExecuteTime { get; set; }
+        public DateTime ExecuteStartTime { get; set; }
+
+        /// <summary>
+        /// 获取或设置任务执行的结束时间
+        /// </summary>
+        [DataMember]
+        public DateTime ExecuteEndTime { get; set; }
+
+        /// <summary>
+        /// 获取或设置执行任务的主机
+        /// </summary>
+        [DataMember]
+        public string HostName { get; set; }
 
         /// <summary>
         /// 获取或设置任务的执行结果. True 表示执行成功；否则为 False 
         /// </summary>
         [DataMember]
-        public bool ExecuteResult { get; set; }
+        public bool ExecutedResult { get; set; }
 
         /// <summary>
         /// 获取或设置任务执行出错消息，若执行成功，则为 null.

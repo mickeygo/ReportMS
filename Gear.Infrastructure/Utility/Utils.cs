@@ -7,7 +7,6 @@ using Gear.Infrastructure.Serialization;
 
 namespace Gear.Infrastructure.Utility
 {
-
     /// <summary>
     /// 表示框架的工具集
     /// </summary>

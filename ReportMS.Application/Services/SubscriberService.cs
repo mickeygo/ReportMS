@@ -97,7 +97,8 @@ namespace ReportMS.Application.Services
 
         public void LogTaskRecord(TaskRecordDto taskRecord)
         {
-            var record = new TaskRecord(taskRecord.TopicTaskId, taskRecord.ExecuteResult, taskRecord.ErrorMessage);
+            var record = new TaskRecord(taskRecord.TopicTaskId, taskRecord.ExecuteStartTime, taskRecord.ExecuteEndTime,
+                taskRecord.HostName, taskRecord.ExecutedResult, taskRecord.ErrorMessage);
             this._taskRecordRepository.Add(record);
         }
 

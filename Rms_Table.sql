@@ -90,11 +90,13 @@ ALTER TABLE [RMS_TopicTask] ADD CONSTRAINT [FK_RMS_TopicTask_TopicId] FOREIGN KE
 
 -- TaskRecord
 CREATE TABLE RMS_TaskRecord (
-	TaskRecordId	uniqueidentifier	not null,
-	TopicTaskId		uniqueidentifier	not null,
-	ExecuteTime		datetime			not	null,
-	ExecuteResult	bit					not null,
-	ErrorMessage	nvarchar(3000)		null,
+	TaskRecordId		uniqueidentifier	not null,
+	TopicTaskId			uniqueidentifier	not null,
+	ExecuteStartTime	datetime			not	null,
+	ExecuteEndTime		datetime			not	null,
+	HostName			varchar(50)			not	null,
+	ExecutedResult		bit					not null,
+	ErrorMessage		nvarchar(3000)		null,
 	CONSTRAINT	[PK_RMS_TaskRecord] PRIMARY KEY ([TaskRecordId])
 );
 
