@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Threading.Tasks;
 using Dapper;
 using Gear.Infrastructure.Storage.Builder;
 
@@ -37,6 +38,11 @@ namespace Gear.Infrastructure.Storage
             return this.Connection.Query<T>(new CommandDefinition(sqlQuery, param));
         }
 
+        public async Task<IEnumerable<T>> SelectAsync<T>(string sqlQuery, object param = null)
+        {
+            return await this.Connection.QueryAsync<T>(new CommandDefinition(sqlQuery, param));
+        }
+
         /// <summary>
         /// 获取在存储容器中的对象集合, 若没有数据，则返回空的集合（非 null）
         /// </summary>
@@ -50,7 +56,7 @@ namespace Gear.Infrastructure.Storage
         public override IEnumerable<T> Select<T>(string sqlQuery, int start, int count, object param = null)
         {
             var sqlBuilder = new SqlSelectPagingClauseBuilder(sqlQuery, start, count);
-            return this.Connection.Query<T>(new CommandDefinition(sqlBuilder.ToString(), param));
+            return this.Select<T>(sqlBuilder.ToString(), param);
         }
 
         /// <summary>
@@ -66,6 +72,12 @@ namespace Gear.Infrastructure.Storage
             return this.Connection.ExecuteScalar<int>(sqlBuilder.ToString(), param);
         }
 
+        public async Task<int> GetRecordCountAsync(string sqlQuery, object param = null)
+        {
+            var sqlBuilder = new SqlSelectCountClauseBuilder(sqlQuery);
+            return await this.Connection.ExecuteScalarAsync<int>(sqlBuilder.ToString(), param);
+        }
+
         /// <summary>
         /// 获取 DataReader 对象
         /// 在关闭 DataReader 时，也会同时关闭对数据库的连接
@@ -79,6 +91,24 @@ namespace Gear.Infrastructure.Storage
             try
             {
                 return this.Connection.ExecuteReader(new CommandDefinition(sqlQuery, param), CommandBehavior.CloseConnection);
+            }
+            catch
+            {
+                if (this.Connection != null)
+                {
+                    if (this.Connection.State != ConnectionState.Closed)
+                        this.Connection.Close();
+                }
+
+                throw;
+            }
+        }
+
+        public async Task<IDataReader> GetDataReaderAsync(string sqlQuery, object param = null)
+        {
+            try
+            {
+                return await this.Connection.ExecuteReaderAsync(new CommandDefinition(sqlQuery, param));
             }
             catch
             {

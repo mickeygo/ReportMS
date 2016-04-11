@@ -190,12 +190,62 @@ namespace ReportMS.Domain.Models.AccountModule
             this.Grade = grade;
             this.Shift = shift;
             this.CreatedBy = createdBy;
+            this.CreatedDate = DateTime.Now;
 
             this.GenerateNewIdentity();
             this.Enable();
         }
 
         #region
+
+        /// <summary>
+        /// 更新用户信息
+        /// </summary>
+        /// <param name="password">密码</param>
+        /// <param name="employeeNo">工号</param>
+        /// <param name="email">邮件</param>
+        /// <param name="englishName">英文名</param>
+        /// <param name="localName">本地名</param>
+        /// <param name="company">公司名</param>
+        /// <param name="organization">组织</param>
+        /// <param name="organizationDescription">组织描述</param>
+        /// <param name="department">部门</param>
+        /// <param name="job">职位</param>
+        /// <param name="tel">联系电话</param>
+        /// <param name="extension">分机</param>
+        /// <param name="voip">VOIP</param>
+        /// <param name="onBoardDate">入职日期</param>
+        /// <param name="manager">管理者</param>
+        /// <param name="agent">代理人</param>
+        /// <param name="grade">职等</param>
+        /// <param name="shift">班别</param>
+        /// <param name="updatedBy">更新人</param>
+        public void Update(string password, string employeeNo, string email, string englishName,
+            string localName, string company, string organization, string organizationDescription, string department,
+            string job, string tel, string extension, string voip, DateTime? onBoardDate, string manager,
+            string agent, string grade, string shift, string updatedBy)
+        {
+            this.Password = password;
+            this.EmployeeNo = employeeNo;
+            this.Email = email;
+            this.EnglishName = englishName;
+            this.LocalName = localName;
+            this.Company = company;
+            this.Organization = organization;
+            this.OrganizationDescription = organizationDescription;
+            this.Department = department;
+            this.Job = job;
+            this.Tel = tel;
+            this.Extension = extension;
+            this.VOIP = voip;
+            this.OnBoardDate = onBoardDate;
+            this.Manager = manager;
+            this.Agent = agent;
+            this.Grade = grade;
+            this.Shift = shift;
+            this.UpdatedBy = updatedBy;
+            this.UpdatedDate = DateTime.Now;
+        }
 
         /// <summary>
         /// 启用此用户

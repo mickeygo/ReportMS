@@ -4,7 +4,7 @@ using ReportMS.Web.Client.Membership;
 namespace ReportMS.Test.Client.Membership
 {
     [TestClass]
-    public class UserValidationTest
+    public class UserValidatorTest
     {
         [TestInitialize]
         public void Initialize()
@@ -15,8 +15,8 @@ namespace ReportMS.Test.Client.Membership
         [TestMethod]
         public void ValidationRPC_Test()
         {
-            var validation = new UserValidation("gang.yang@advantech.com.cn", "1234");
-            var result = validation.ValidateInRPC();
+            var validator = new UserValidator("gang.yang@advantech.com.cn", "1234");
+            var result = validator.ValidateInRemote();
 
             Assert.IsTrue(result);
         }

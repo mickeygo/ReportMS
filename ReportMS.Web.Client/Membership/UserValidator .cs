@@ -7,13 +7,14 @@ using ReportMS.Web.Client.MembershipWebService;
 namespace ReportMS.Web.Client.Membership
 {
     /// <summary>
-    /// 用户信息验证。
+    /// 用户信息验证程序。
     /// 对登录用户进行本地验证或远程验证
     /// </summary>
-    public class UserValidation
+    public class UserValidator
     {
         #region Private Fields
 
+        private const string SiteId = "ReportMS";
         private readonly string _userName;
         private readonly string _password;
 
@@ -22,11 +23,11 @@ namespace ReportMS.Web.Client.Membership
         #region Ctor
 
         /// <summary>
-        /// 创建一个新的<c>UserValidation</c>实例
+        /// 创建一个新的<c>UserValidator</c>实例
         /// </summary>
         /// <param name="userName">用户名</param>
         /// <param name="password">用户密码(原始密码)</param>
-        public UserValidation(string userName, string password)
+        public UserValidator(string userName, string password)
         {
             this._userName = userName;
             this._password = password;
@@ -42,10 +43,10 @@ namespace ReportMS.Web.Client.Membership
         /// <returns>true 表示验证成功；false 表示验证失败</returns>
         public bool ValidateInLocal()
         {
-            if (!CheckNotNullOfNameAndPwd())
+            if (!this.CheckNotNullOfNameAndPwd())
                 return false;
 
-            var userName = this._userName.ToLower();
+            var userName = this._userName.ToLower();  // To lower
             var user = this.GetUserInfo(userName);
             if (user == null)
                 return false;
@@ -58,12 +59,12 @@ namespace ReportMS.Web.Client.Membership
         /// 通过 RPC 远程调用数据验证用户信息
         /// </summary>
         /// <returns>true 表示验证成功；false 表示验证失败</returns>
-        public bool ValidateInRPC()
+        public bool ValidateInRemote()
         {
-            if (!CheckNotNullOfNameAndPwd())
+            if (!this.CheckNotNullOfNameAndPwd())
                 return false;
 
-            var userName = this._userName.ToLower();
+            var userName = this._userName.ToLower();  // To lower
             return this.ValidateUserMembershipRPC(userName, this._password, HttpRequestHelper.GetClientHostIP());
         }
 
@@ -82,7 +83,7 @@ namespace ReportMS.Web.Client.Membership
             try
             {
                 client = new MembershipWebserviceSoapClient();
-                var siteId = "ReportMS";
+                var siteId = SiteId;
                 var result = client.login(userName, password, siteId, localId);
                 return !String.IsNullOrEmpty(result);
             }
@@ -99,8 +100,7 @@ namespace ReportMS.Web.Client.Membership
 
         private string EncryptPassword(string userName, string password)
         {
-            var encryptedPwd = MD5Crypto.Encrypt(userName + password);
-            return encryptedPwd;
+            return MD5Crypto.Encrypt(userName + password);
         }
 
         private bool CheckNotNullOfNameAndPwd()

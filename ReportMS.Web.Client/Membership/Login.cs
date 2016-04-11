@@ -29,9 +29,12 @@ namespace ReportMS.Web.Client.Membership
         /// <returns>true 表示登录成功; false 表示登录失败</returns>
         public bool LogIn(string userName, string password, bool rememberMe)
         {
-            var validation = new UserValidation(userName, password);
-            // 本地验证
-            if (!validation.ValidateInLocal())
+            // 1, Add Or Update User
+            UserManager.Instance.AddOrUpdateUser(userName);
+
+            // 2, Validate User
+            var validator = new UserValidator(userName, password);
+            if (!validator.ValidateInLocal())
                 return false;
 
             // 登录
@@ -65,7 +68,6 @@ namespace ReportMS.Web.Client.Membership
                 throw new InvalidOperationException("Can not find the user, the user is null.");
 
             var userData = new AuthenticationData(user.ID, user.UserName, user.Email);
-
             this.AuthenticationTicket = new OwinAuthenticationTicket(isPresistent, userData, authenticationType);
         }
 

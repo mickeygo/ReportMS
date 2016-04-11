@@ -102,7 +102,7 @@
     <Compile Include="Jobs\TopicCacheManager.cs" />
     <Compile Include="Membership\Login.cs" />
     <Compile Include="Membership\UserManager.cs" />
-    <Compile Include="Membership\UserValidation.cs" />
+    <Compile Include="Membership\UserValidator .cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\RegisterViewModel.cs" />
     <Compile Include="Models\ReportModifyViewModel.cs" />

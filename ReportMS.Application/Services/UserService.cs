@@ -5,6 +5,7 @@ using Gear.Infrastructure.Specifications;
 using ReportMS.DataTransferObjects.Dtos;
 using ReportMS.Domain.Models.AccountModule;
 using ReportMS.Domain.Repositories;
+using ReportMS.Domain.Repositories.Specifications;
 using ReportMS.Domain.Services;
 using ReportMS.ServiceContracts;
 
@@ -45,7 +46,7 @@ namespace ReportMS.Application.Services
 
         public UserDto FindUser(string userName)
         {
-            var spec = Specification<User>.Eval(u => u.UserName == userName);
+            var spec = UserSpecification.FindUser(userName);
             return this._userRepository.Find(spec).MapAs<UserDto>();
         }
 
@@ -63,6 +64,12 @@ namespace ReportMS.Application.Services
             return userRoles.Select(u => u.Role).SingleOrDefault(r => r.TenantId == tenantId).MapAs<RoleDto>();
         }
 
+        public bool IsExistUser(string userName)
+        {
+            var spec = UserSpecification.FindUser(userName);
+            return this._userRepository.Exist(spec);
+        }
+
         public void SetRoles(Guid userId, Guid tenantId, Guid? roleId, string creator)
         {
             this._userDomainService.SetRoles(this._userRoleRepository, userId, tenantId, roleId, creator);
@@ -72,6 +79,37 @@ namespace ReportMS.Application.Services
         {
             var spec = Specification<UserRole>.Eval(u => u.UserId == userId && u.Role.IsAdmin());
             return this._userRoleRepository.Exist(spec);
+        }
+
+        public void CreateUser(UserDto userDto)
+        {
+            if (this.IsExistUser(userDto.UserName))
+                return;
+
+            var user = new User(userDto.UserName, userDto.Password, userDto.EmployeeNo, userDto.Email,
+                userDto.EnglishName, userDto.LocalName,
+                userDto.Company, userDto.Organization, userDto.OrganizationDescription, userDto.Department, userDto.Job,
+                userDto.Tel, userDto.Extension, userDto.VOIP, userDto.OnBoardDate, userDto.Manager, userDto.Agent,
+                userDto.Grade, userDto.Shift, userDto.CreatedBy);
+
+            this._userRepository.Add(user);
+        }
+
+        public void UpdateUser(UserDto userDto)
+        {
+            var spec = UserSpecification.FindUser(userDto.UserName);
+            var user = this._userRepository.Find(spec);
+            if (user != null)
+            {
+                user.Update(userDto.Password, userDto.EmployeeNo, userDto.Email,
+                    userDto.EnglishName, userDto.LocalName,
+                    userDto.Company, userDto.Organization, userDto.OrganizationDescription, userDto.Department,
+                    userDto.Job,
+                    userDto.Tel, userDto.Extension, userDto.VOIP, userDto.OnBoardDate, userDto.Manager, userDto.Agent,
+                    userDto.Grade, userDto.Shift, userDto.UpdatedBy);
+
+                this._userRepository.Update(user);
+            }
         }
 
         #endregion

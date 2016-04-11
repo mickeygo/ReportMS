@@ -52,6 +52,15 @@ namespace ReportMS.ServiceContracts
         RoleDto FindRole(Guid userId, Guid tenantId);
 
         /// <summary>
+        /// 是否存在指定的用户
+        /// </summary>
+        /// <param name="userName">要检查的用户名</param>
+        /// <returns>true 表示存在；false 表示不存在</returns>
+        [OperationContract]
+        [FaultContract(typeof (FaultData))]
+        bool IsExistUser(string userName);
+
+        /// <summary>
         /// 设置该用户在当前租户中的角色。若角色不存在，表示移除角色
         /// </summary>
         /// <param name="userId">用户 Id</param>
@@ -70,5 +79,21 @@ namespace ReportMS.ServiceContracts
         [OperationContract]
         [FaultContract(typeof (FaultData))]
         bool IsAdmin(Guid userId);
+
+        /// <summary>
+        /// 创建用户
+        /// </summary>
+        /// <param name="userDto">要创建的用户 Dto 对象</param>
+        [OperationContract]
+        [FaultContract(typeof (FaultData))]
+        void CreateUser(UserDto userDto);
+
+        /// <summary>
+        /// 更新用户信息
+        /// </summary>
+        /// <param name="userDto">要更新的用户 Dto 对象</param>
+        [OperationContract]
+        [FaultContract(typeof (FaultData))]
+        void UpdateUser(UserDto userDto);
     }
 }

@@ -111,7 +111,8 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Jobs\AttachmentJobTest.cs" />
-    <Compile Include="Membership\UserValidationTest.cs" />
+    <Compile Include="Membership\UserManagerTest.cs" />
+    <Compile Include="Membership\UserValidatorTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

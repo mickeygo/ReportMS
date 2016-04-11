@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="QueryServices\UserQueryService.cs" />
     <Compile Include="Services\MenuPermissionService.cs" />
     <Compile Include="Services\ReportGroupService.cs" />
     <Compile Include="Services\ReportProfileService.cs" />
@@ -49,6 +50,7 @@
     <Compile Include="Services\SubscriberService.cs" />
     <Compile Include="Services\TenantService.cs" />
     <Compile Include="Services\UserService.cs" />
+    <Compile Include="StorageSettings.cs" />
     <Compile Include="TransferExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

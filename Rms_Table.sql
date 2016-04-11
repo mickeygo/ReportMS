@@ -1,15 +1,15 @@
 ﻿/*===== RMS Report =====*/
 -- RMS_Database
 CREATE TABLE [dbo].[RMS_Database](
-	[DatabaseId] [uniqueidentifier] NOT NULL,
-	[Name] [varchar](30) NOT NULL,
-	[Description] [nvarchar](100) NULL,
-	[Server] [varchar](30) NOT NULL,
-	[Catalog] [varchar](30) NOT NULL,
-	[UserId] [varchar](40) NOT NULL,
-	[Password] [varchar](40) NOT NULL,
-	[Provider] [varchar](50) NOT NULL,
-	[Enabled] [bit] NOT NULL
+	[DatabaseId]	uniqueidentifier	NOT NULL,
+	[Name]			varchar(30)			NOT NULL,
+	[Description]	nvarchar(100)		NULL,
+	[Server]		varchar(30)			NOT NULL,
+	[Catalog]		varchar(30)			NOT NULL,
+	[UserId]		varchar(40)			NOT NULL,
+	[Password]		varchar(40)			NOT NULL,
+	[Provider]		varchar(50)			NOT NULL,
+	[Enabled]		bit					NOT NULL
  CONSTRAINT [PK_RMS_Database] PRIMARY KEY CLUSTERED 
 (
 	[DatabaseId] ASC
@@ -19,18 +19,51 @@ CREATE TABLE [dbo].[RMS_Database](
 
 /*===== RMS_User =====*/
 
+-- RMS_User
+CREATE TABLE [dbo].[RMS_User](
+	[UserId]					uniqueidentifier	NOT NULL,
+	[UserName]					varchar(80)			NOT NULL,
+	[Password]					varchar(128)		NOT NULL,
+	[EmployeeNo]				varchar(30)			NULL,
+	[Email]						varchar(80)			NULL,
+	[EnglishName]				varchar(80)			NULL,
+	[LocalName]					nvarchar(100)		NULL,
+	[Company]					varchar(20)			NULL,
+	[Organization]				varchar(30)			NULL,
+	[OrganizationDescription	nvarchar(100)		NULL,
+	[Department]				nvarchar(100)		NULL,
+	[Job]						nvarchar(100)		NULL,
+	[Tel]						varchar(60)			NULL,
+	[Extension]					varchar(50)			NULL,
+	[VOIP]						varchar(20)			NULL,
+	[OnBoardDate]				datetime			NULL,
+	[Manager]					varchar(80)			NULL,
+	[Agent]						varchar(50)			NULL,
+	[Grade]						varchar(5)			NULL,
+	[Shift]						nvarchar(60)		NULL,
+	[Enabled]					bit					NOT NULL,
+	[CreatedBy]					varchar(50)			NULL,
+	[CreatedDate]				datetime			NULL,
+	[UpdatedBy]					varchar(50)			NULL,
+	[UpdatedDate]				datetime			NULL,
+ CONSTRAINT [PK_RMS_User] PRIMARY KEY CLUSTERED 
+(
+	[UserId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
 -- RMS_Action
 CREATE TABLE [dbo].[RMS_Action](
-	[ActionId] [uniqueidentifier] NOT NULL,
-	[Area] [varchar](30) NULL,
-	[Controller] [varchar](30) NOT NULL,
-	[Action] [varchar](30) NOT NULL,
-	[Description] [nvarchar](100) NULL,
-	[Enabled] [bit] NOT NULL,
-	[CreatedBy] [varchar](50) NULL,
-	[CreatedDate] [datetime] NULL,
-	[UpdatedBy] [varchar](50) NULL,
-	[UpdatedDate] [datetime] NULL,
+	[ActionId]		uniqueidentifier	NOT NULL,
+	[Area]			varchar(30)			NULL,
+	[Controller]	varchar(30)			NOT NULL,
+	[Action]		varchar(30)			NOT NULL,
+	[Description]	nvarchar(100)		NULL,
+	[Enabled]		bit					NOT NULL,
+	[CreatedBy]		varchar(50)			NULL,
+	[CreatedDate]	datetime			NULL,
+	[UpdatedBy]		varchar(50)			NULL,
+	[UpdatedDate]	datetime			NULL,
  CONSTRAINT [PK_RMS_Action] PRIMARY KEY CLUSTERED 
 (
 	[ActionId] ASC

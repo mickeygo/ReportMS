@@ -92,6 +92,7 @@
     <Compile Include="EntityFramework\RmsDbContext.cs" />
     <Compile Include="EnvironmentConnection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Specifications\UserSpecification.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Gear.Infrastructure.Repository\Gear.Infrastructure.Repository.csproj">
@@ -111,9 +112,7 @@
       <Name>ReportMS.Domain</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Specifications\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
