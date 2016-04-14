@@ -74,10 +74,13 @@ namespace ReportMS.Web
         // Register React
         static void RegistersReactBundles(BundleCollection bundles)
         {
+            // JSXTransformer should be replace by babel
             bundles.Add(new ScriptBundle("~/bundles/react").Include(
-                "~/Scripts/react/react-{version}.js",
-                "~/Scripts/react/JSXTransformer-{version}.js",
-                "~/Scripts/react/react-with-addons-{version}.js"));
+                "~/Scripts/react/react.js",
+                "~/Scripts/react/react-with-addons.js",
+                "~/Scripts/react/react-dom.js",
+                "~/Scripts/react/react-dom-server.js",
+                "~/Scripts/react/JSXTransformer.js"));
         }
 
         #endregion

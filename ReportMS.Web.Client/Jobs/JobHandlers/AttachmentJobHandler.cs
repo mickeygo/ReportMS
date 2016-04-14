@@ -56,6 +56,8 @@ namespace ReportMS.Web.Client.Jobs.JobHandlers
         public override void Execute()
         {
             var stream = this.GenerateStreamOfAttachment();
+
+            // 根据主题发送邮件（订阅人附属于主题），同一主题同一时间点只发送一次
             this.SendMail(stream);
 
             var taskIds = this._topicTasks.Select(t => t.ID);
@@ -79,8 +81,8 @@ namespace ReportMS.Web.Client.Jobs.JobHandlers
                     string.Format("{0}-{1}", this._attachmentTopic.TopicName, DateTime.Now.ToString("yyMMddHHmmss")),
                     FileExtension.Excel2007);
             var attachmemts = new List<Tuple<Stream, string>> {Tuple.Create(stream, fileName)};
-            var subject = this._attachmentTopic.TopicName;
-            var body = this._attachmentTopic.Description;
+            var subject = this._attachmentTopic.Subject;
+            var body = this._attachmentTopic.Body;
             var mailTos = (from subscriber in this._attachmentTopic.Subscribers
                 select subscriber.Email).ToArray();
 

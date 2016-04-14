@@ -91,7 +91,7 @@ namespace ReportMS.Web.Client.Jobs
 
         /// <summary>
         /// 获取筛选后的主题.
-        /// Key 为 主题； Value 为该主题下此刻执行的任务
+        /// Key 为 符合条件的主题； Value 为符合当前主题当前时刻要执行的主题任务
         /// </summary>
         public IDictionary<TopicDto, IEnumerable<TopicTaskDto>> FilterTopics
         {

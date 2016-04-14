@@ -100,7 +100,7 @@ namespace ReportMS.Web.Client.Membership
 
         private string EncryptPassword(string userName, string password)
         {
-            return MD5Crypto.Encrypt(userName + password);
+            return CryptoFactory.MD5.Encrypt(userName + password);
         }
 
         private bool CheckNotNullOfNameAndPwd()

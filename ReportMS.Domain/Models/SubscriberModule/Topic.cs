@@ -23,6 +23,16 @@ namespace ReportMS.Domain.Models.SubscriberModule
         public string Description { get; protected set; }
 
         /// <summary>
+        /// 订阅邮件的主题
+        /// </summary>
+        public string Subject { get; protected set; }
+
+        /// <summary>
+        /// 订阅邮件的主体内容
+        /// </summary>
+        public string Body { get; protected set; }
+
+        /// <summary>
         /// 获取创建人
         /// </summary>
         public string CreatedBy { get; protected set; }

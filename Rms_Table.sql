@@ -77,6 +77,8 @@ CREATE TABLE RMS_Topic (
 	TopicId			uniqueidentifier	not null,
 	TopicName		varchar(30)			not null,
 	Description		nvarchar(100)		null,
+	Subject			nvarchar(100)		null,
+	Body			nvarchar(max)		null,
 	Enabled			bit					not null,
 	CreatedBy		varchar(50)			null,
 	CreatedDate		datetime			null,

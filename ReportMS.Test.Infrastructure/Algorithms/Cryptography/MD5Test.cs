@@ -9,7 +9,7 @@ namespace ReportMS.Test.Infrastructure.Algorithms.Cryptography
         [TestMethod]
         public void Encrypt_Test()
         {
-            var result = MD5Crypto.Encrypt("gang.yang@advantech.com.cn1234");
+            var result = CryptoFactory.MD5.Encrypt("gang.yang@advantech.com.cn1234");
 
             Assert.IsTrue(result == "a2fbcb5af71a2187ae86c702c7f04af1", result);
         }

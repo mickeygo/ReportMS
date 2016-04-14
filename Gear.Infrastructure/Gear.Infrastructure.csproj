@@ -46,6 +46,8 @@
   <ItemGroup>
     <Compile Include="AggregateRoot.cs" />
     <Compile Include="Algorithms\Cryptography\AESCrypto.cs" />
+    <Compile Include="Algorithms\Cryptography\Crypto.cs" />
+    <Compile Include="Algorithms\Cryptography\CryptoFactory.cs" />
     <Compile Include="Algorithms\Cryptography\DESCrypto.cs" />
     <Compile Include="Algorithms\Cryptography\MD5Crypto.cs" />
     <Compile Include="Application\App.cs" />
@@ -155,6 +157,7 @@
     <Content Include="Readme.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Audit\" />
     <Folder Include="Journal\" />
     <Folder Include="Net\Sockets\" />
   </ItemGroup>

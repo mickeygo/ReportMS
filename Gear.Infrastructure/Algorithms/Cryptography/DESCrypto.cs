@@ -8,17 +8,31 @@ namespace Gear.Infrastructure.Algorithms.Cryptography
     /// <summary>
     /// DES (Data Encryption Standard) 对称加密
     /// </summary>
-    public static class DESCrypto
+    public sealed class DESCrypto : Crypto
     {
         // 密钥向量
-        private static readonly byte[] keysIV = { 0x12, 0x34, 0x56, 0x78, 0x90, 0xAB, 0xCD, 0xEF };
+        private static readonly byte[] keysIV = {0x12, 0x34, 0x56, 0x78, 0x90, 0xAB, 0xCD, 0xEF};
+
+        internal DESCrypto()
+        {
+        }
+
+        public override string Encrypt(string encryptString)
+        {
+            return Encrypt(encryptString, this.ScrambledKey);
+        }
+
+        public override string Decrypt(string decryptString)
+        {
+            return Decrypt(decryptString, this.ScrambledKey);
+        }
 
         /// <summary>
         /// 加密
         /// </summary>
         /// <param name="encryptString">要加密的字符串</param>
         /// <param name="scrambledKey">对称秘钥 (多于 8 位截取至 8 位; 少于 8 位用 0 右补齐到 8 位)</param>
-        /// <returns>加密后的字符串, 以 Base64 w位输出</returns>
+        /// <returns>加密后的字符串, 以 Base64 位输出</returns>
         public static string Encrypt(string encryptString, string scrambledKey)
         {
             var desKey = GenerateSecretkey(scrambledKey);

@@ -1,0 +1,214 @@
+﻿@using ReportMS.DataTransferObjects.Dtos
+@model AttachmentTopicDto
+
+@{
+    ViewBag.Title = "Subscriber";
+}
+
+@section styles
+{
+    <link href="~/Content/Umeditor/themes/default/css/umeditor.css" rel="stylesheet" />
+}
+
+@section scripts
+{
+    <script src="~/Scripts/Umeditor/umeditor.config.js"></script>
+    <script src="~/Scripts/Umeditor/umeditor.js"></script>
+    <script src="~/Scripts/Umeditor/zh-cn.js"></script>
+
+    <script src="~/Scripts/Umeditor/dialogs/emotion/emotion.js" defer="defer"></script>
+    <script src="~/Scripts/Umeditor/dialogs/formula/formula.js" defer="defer"></script>
+    <script src="~/Scripts/Umeditor/dialogs/image/image.js" defer="defer"></script>
+    <script src="~/Scripts/Umeditor/dialogs/link/link.js" defer="defer"></script>
+    <script src="~/Scripts/Umeditor/dialogs/map/map.js" defer="defer"></script>
+    <script src="~/Scripts/Umeditor/dialogs/video/video.js" defer="defer"></script>
+
+    <script>
+        $(function() {
+            window.um = UM.getEditor("container", {
+                toolbar: [
+                    "source | undo redo | bold italic underline strikethrough | superscript subscript | forecolor backcolor | removeformat |",
+                    "insertorderedlist insertunorderedlist | selectall cleardoc paragraph | fontfamily fontsize",
+                    "| justifyleft justifycenter justifyright justifyjustify |",
+                    "link unlink",
+                    "| horizontal print preview fullscreen",
+                    "drafts"
+                ]
+            });
+        });
+
+        // Subscribe
+        $(document).on("change", "select[data-schedule=true]", function(e) {
+            var url = $(this).attr("data-href");
+            var val = $(this).val();
+            var $content = $("div[data-schedule-content=true]");
+            if (val === "") {
+                $content.children().remove();
+                return false;
+            }
+
+            $content.load(url, { schedule: val });
+            return true;
+        });
+
+        // Subscriber
+        var Subscriber = {
+            container: "#subscribers",
+            submitContainer: "[name=subscribers]",
+            getSubscribers: function () {
+                return $(this.container).children("a.list-group-item").map(function () {
+                    return $(this).attr("data-value");
+                }).get();
+            },
+            isValidOfEmail: function(mail) {
+                var emailReg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+                return emailReg.test(mail);
+            },
+            isExistEmail: function(mail) {
+                var subscribers = this.getSubscribers();
+                for (var p in subscribers) {
+                    if (subscribers[p].toLowerCase() === mail.toLowerCase()) {
+                        return true;
+                    }
+                }
+
+                return false;
+            },
+            addSubscriber: function (element) {
+                var source = $(element).attr("data-source");
+                var target = $(element).attr("data-target");
+                var email = $.trim($(source).val());
+                if (!this.isValidOfEmail(email) || this.isExistEmail(email)) {
+                    alert("The input mail is invalid or existed.");
+                    $(source).focus();
+                    return false;
+                }
+
+                var handler = '<span class="badge" onclick=" Subscriber.removeSubscriber(this) "><span class="glyphicon glyphicon-trash"></span></span>';
+                var item = $("<a class=\"list-group-item\"></a>");
+                item.attr("data-value", email).text(email).append(handler);
+                $(target).append(item);
+                $(source).focus().val("");
+                return true;
+            },
+            removeSubscriber: function(element) {
+                $(element).closest("a").remove();
+            },
+            setSubscribers: function() {
+                var subscribers = $(this.container).children("a.list-group-item").map(function () {
+                    return $(this).attr("data-value");
+                }).get().join(";");
+
+                $(this.submitContainer).val(subscribers);
+                return subscribers;
+            }
+        }
+
+        // Submit
+        function doSubmit() {
+            $("#umeditor_textarea_content").prop({ "name": "Body" });
+            var subscribers = Subscriber.setSubscribers();
+            if (subscribers === "") {
+                alert("Please input more than one subscriber.");
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+}
+
+@Html.Navigate("Subscriber")
+
+<div>
+    @using (Html.BeginForm("UserSubscribe", null, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="TopicName">Topic Name</label>
+            <div class="col-md-9">
+                @Html.TextBoxFor(m => m.TopicName, new { @class = "form-control", required = "", data_format = "string", maxlength = "40", onpaste = "return false;" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Description, new { @class = "col-md-2 control-label" })
+            <div class="col-md-9">
+                @Html.TextAreaFor(m => m.Description, new { @class = "form-control", maxlength = "100" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">Schedule</label>
+            <div class="col-md-2 checkbox">
+                @Html.DropDownList("TopicTasks[0].TaskSchedule", (IEnumerable<SelectListItem>)ViewBag.ScheduleRange,
+                    new { data_schedule = "true", data_href = Url.Action("SubscribeSchedule", "Subscriber"), required = "" })
+            </div>
+            <div class="col-md-7" data-schedule-content="true">
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Subject, new { @class = "col-md-2 control-label" })
+            <div class="col-md-9">
+                @Html.TextBoxFor(m => m.Subject, new { @class = "form-control", required = "", maxlength = "100" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">Body</label>
+            <div class="col-md-9">
+                <script id="container" name="content" type="text/plain" style="width: 100%; height: 250px;">
+                    <p>Topic Body ......</p>
+                </script>
+            </div>
+        </div>
+        <hr />
+        <div class="form-group">
+            <label class="col-md-2 control-label">Subscriber</label>
+            <div class="col-md-9">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    <div class="input-group-addon">@@</div>
+                                    <input id="email" type="text" class="form-control" placeholder="email">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <button type="button" class="btn btn-primary"
+                                        data-source="#email" data-target="#subscribers"
+                                        onclick="Subscriber.addSubscriber(this)">
+                                    Add
+                                </button>
+                            </div>
+                        </div>
+                        <div style="margin-top: 20px;">
+                            <div id="subscribers" class="list-group">
+                                @if (Model.Subscribers.HasAny())
+                                {
+                                    foreach (var subscriber in Model.Subscribers)
+                                    {
+                                        <a class="list-group-item" data-value="@subscriber.Email">
+                                            @Html.DisplayFor(m => subscriber.Email)
+                                            <span class="badge" onclick=" Subscriber.removeSubscriber(this) "><span class="glyphicon glyphicon-trash"></span></span>
+                                        </a>
+                                    }
+                                }
+                            </div>
+                            <input type="hidden" name="subscribers" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-5 col-md-12">
+                <input type="submit" value="Subscribe" class="btn btn-primary" onclick="return doSubmit();" />
+            </div>
+        </div>
+        <div>
+            @Html.HiddenFor(m => m.ReportId)
+            @Html.HiddenFor(m => m.SqlStatement)
+            @Html.HiddenFor(m => m.Parameter)
+        </div>
+    }
+</div>

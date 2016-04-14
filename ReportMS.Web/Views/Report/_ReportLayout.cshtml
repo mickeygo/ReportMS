@@ -134,7 +134,7 @@
                                             }
                                         });
                                         
-                                        React.render(
+                                        ReactDOM.render(
                                             <ReportSelect />,
                                             document.getElementById('report_menu')
                                         );
@@ -167,10 +167,10 @@
                             <div class="panel-body">
                                 <div id="report_field">
                                     <div>
-                                        <input type="checkbox" id="checkAll" onclick=" toggleCheckAllField(this); " />
+                                        <input type="checkbox" id="checkAll" onclick=" toggleCheckAllField(this); "/>
                                         <label for="checkAll">SelectAll</label>
                                     </div>
-                                    <hr />
+                                    <hr/>
                                 </div>
                             </div>
                         </div>
@@ -183,10 +183,9 @@
                                 <div class="ibox">
                                     <div class="ibox-title">
                                         <div class="ibox-tools rboor">
-                                            <a class="btn btn-primary btn-xs" data-dialog="true" data-ajax-form="true"
-                                               data-dialog-href="@Url.Action("UserSubscribe", "Subscriber")" data-subscribe-url="@Url.Action("UserSubscribeStore", "Subscriber")"
-                                               data-dialog-title="User Subscribe Report" data-ajax-success="subscribeSuccess"
-                                               onclick="return doSubscribe(this);">
+                                            <a href="@Url.Action("Index", "Subscriber")" class="btn btn-primary btn-xs" target="_blank"
+                                               data-subscribe-url="@Url.Action("UserSubscribeStore", "Subscriber")"
+                                               onclick=" return doSubscribe(this); ">
                                                 <span class="glyphicon glyphicon-link"></span> Subscribe
                                             </a>
                                             <a href="@Url.Action("ExportExcel")" data-download-url="@Url.Action("SaveExcel")" class="btn btn-primary btn-xs" target="_blank"

@@ -4,6 +4,7 @@ using Gear.Infrastructure;
 using ReportMS.DataTransferObjects.Dtos;
 using ReportMS.ServiceContracts;
 using ReportMS.Web.Client.Attributes;
+using ReportMS.Web.Client.Membership;
 
 namespace ReportMS.Web.Controllers.Manages
 {
@@ -54,7 +55,12 @@ namespace ReportMS.Web.Controllers.Manages
             {
                 var user = userService.FindUser(userName);
                 if (user == null)
-                    return PartialView();
+                {
+                    UserManager.Instance.CreateUser(userName); // add user to local
+                    user = userService.FindUser(userName);
+                    if (user == null)
+                        return PartialView();
+                }
 
                 var role = userService.FindRole(user.ID, this.Tenant.ID);
                 var rolesOfTenant = roleService.FindRoles(this.Tenant.ID);

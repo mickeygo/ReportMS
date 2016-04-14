@@ -7,7 +7,7 @@ namespace Gear.Infrastructure.Net.Mail
     /// <summary>
     /// 审计邮件信息
     /// </summary>
-    internal static class MailAudit
+    public static class MailAudit
     {
         #region Properties
 

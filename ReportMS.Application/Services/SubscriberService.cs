@@ -44,8 +44,9 @@ namespace ReportMS.Application.Services
 
         public void CreateAttachmentTopic(AttachmentTopicDto topicDto)
         {
-            var topic = new AttachmentTopic(topicDto.TopicName, topicDto.Description, topicDto.ReportId,
-                topicDto.SqlStatement, topicDto.Parameter, topicDto.CreatedBy);
+            var topic = new AttachmentTopic(topicDto.TopicName, topicDto.Description, 
+                topicDto.Subject, topicDto.Body,
+                topicDto.ReportId, topicDto.SqlStatement, topicDto.Parameter, topicDto.CreatedBy);
             var taskDtos = topicDto.TopicTasks;
             if (taskDtos != null)
             {

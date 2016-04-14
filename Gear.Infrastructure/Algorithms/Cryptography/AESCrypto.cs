@@ -8,8 +8,22 @@ namespace Gear.Infrastructure.Algorithms.Cryptography
     /// <summary>
     /// AES (Advanced Encryption Standard) Rijndael 对称加密
     /// </summary>
-    public static class AESCrypto
+    public sealed class AESCrypto : Crypto
     {
+        internal AESCrypto()
+        {
+        }
+
+        public override string Encrypt(string encryptString)
+        {
+            return Encrypt(encryptString, this.ScrambledKey);
+        }
+
+        public override string Decrypt(string decryptString)
+        {
+            return Decrypt(decryptString, this.ScrambledKey);
+        }
+
         /// <summary>
         /// 加密
         /// </summary>

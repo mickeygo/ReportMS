@@ -12,11 +12,6 @@ namespace ReportMS.Domain.Models.ReportModule.DatabaseAggregate
     /// </summary>
     public class Database : AggregateRoot, ISoftDelete, IValidatableObject
     {
-        #region Fields
-        private const string scrambledKey = "reportmanagesystem";
-
-        #endregion
-
         #region Properties
 
         /// <summary>
@@ -133,8 +128,8 @@ namespace ReportMS.Domain.Models.ReportModule.DatabaseAggregate
         /// </summary>
         public void DecryptUserIdAndPwd()
         {
-            var decryptedUserId = AESCrypto.Decrypt(this.UserId, scrambledKey);
-            var decryptedPwd = AESCrypto.Decrypt(this.Password, scrambledKey);
+            var decryptedUserId = CryptoFactory.AES.Decrypt(this.UserId);
+            var decryptedPwd = CryptoFactory.AES.Decrypt(this.Password);
 
             this.UserId = decryptedUserId;
             this.Password = decryptedPwd;
@@ -146,8 +141,8 @@ namespace ReportMS.Domain.Models.ReportModule.DatabaseAggregate
 
         private void EncryptUserIdAndPwd()
         {
-            var decryptedUserId = AESCrypto.Encrypt(this.UserId, scrambledKey);
-            var decryptedPwd = AESCrypto.Encrypt(this.Password, scrambledKey);
+            var decryptedUserId = CryptoFactory.AES.Encrypt(this.UserId);
+            var decryptedPwd = CryptoFactory.AES.Encrypt(this.Password);
 
             this.UserId = decryptedUserId;
             this.Password = decryptedPwd;

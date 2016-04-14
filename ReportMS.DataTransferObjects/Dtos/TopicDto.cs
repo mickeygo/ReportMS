@@ -26,6 +26,18 @@ namespace ReportMS.DataTransferObjects.Dtos
         public string Description { get; set; }
 
         /// <summary>
+        /// 获取或设置订阅邮件的主题
+        /// </summary>
+        [DataMember]
+        public string Subject { get; set; }
+
+        /// <summary>
+        /// 获取或订阅邮件的主体内容
+        /// </summary>
+        [DataMember]
+        public string Body { get; set; }
+
+        /// <summary>
         /// 获取或设置一个<see cref="System.Boolean"/>值，表示主题是否可用
         /// </summary>
         [DataMember]
@@ -62,7 +74,7 @@ namespace ReportMS.DataTransferObjects.Dtos
         public ICollection<TopicTaskDto> TopicTasks { get; set; }
 
         /// <summary>
-        /// 获取订阅者信息
+        /// 获取或设置订阅者信息
         /// </summary>
         [DataMember]
         public ICollection<SubscriberDto> Subscribers { get; set; }

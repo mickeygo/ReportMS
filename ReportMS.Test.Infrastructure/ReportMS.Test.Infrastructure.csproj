@@ -55,6 +55,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Algorithms\Cryptography\AESTest.cs" />
+    <Compile Include="Algorithms\Cryptography\CryptoFactoryTest.cs" />
     <Compile Include="Algorithms\Cryptography\MD5Test.cs" />
     <Compile Include="Configurations\CacheConfigurationTest.cs" />
     <Compile Include="Configurations\MailConfigurationTest.cs" />

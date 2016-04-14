@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\JavaScriptEngineSwitcher.V8.1.5.2\build\JavaScriptEngineSwitcher.V8.props" Condition="Exists('..\packages\JavaScriptEngineSwitcher.V8.1.5.2\build\JavaScriptEngineSwitcher.V8.props')" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -23,6 +24,7 @@
     <IISExpressUseClassicPipelineMode />
     <TargetFrameworkProfile />
     <TypeScriptToolsVersion>1.8</TypeScriptToolsVersion>
+    <NuGetPackageImportStamp>f83b65f0</NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -43,11 +45,31 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ClearScript, Version=5.4.5.0, Culture=neutral, PublicKeyToken=935d0c957da47c73, processorArchitecture=MSIL">
+      <HintPath>..\packages\JavaScriptEngineSwitcher.V8.1.5.2\lib\net40\ClearScript.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Hangfire.Core">
       <HintPath>..\packages\HangFire.Core.1.5.3\lib\net45\Hangfire.Core.dll</HintPath>
     </Reference>
     <Reference Include="Hangfire.SqlServer">
       <HintPath>..\packages\HangFire.SqlServer.1.5.3\lib\net45\Hangfire.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="JavaScriptEngineSwitcher.Core, Version=1.5.0.0, Culture=neutral, PublicKeyToken=c608b2a8cc9e4472, processorArchitecture=MSIL">
+      <HintPath>..\packages\JavaScriptEngineSwitcher.Core.1.5.0\lib\net40\JavaScriptEngineSwitcher.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="JavaScriptEngineSwitcher.Msie, Version=1.5.0.0, Culture=neutral, PublicKeyToken=c608b2a8cc9e4472, processorArchitecture=MSIL">
+      <HintPath>..\packages\JavaScriptEngineSwitcher.Msie.1.5.0\lib\net40\JavaScriptEngineSwitcher.Msie.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="JavaScriptEngineSwitcher.V8, Version=1.5.0.0, Culture=neutral, PublicKeyToken=c608b2a8cc9e4472, processorArchitecture=MSIL">
+      <HintPath>..\packages\JavaScriptEngineSwitcher.V8.1.5.2\lib\net40\JavaScriptEngineSwitcher.V8.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="JSPool, Version=0.4.0.0, Culture=neutral, PublicKeyToken=2fc7775f73072640, processorArchitecture=MSIL">
+      <HintPath>..\packages\JSPool.0.4.1\lib\net40-Client\JSPool.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="MiniProfiler, Version=3.2.0.157, Culture=neutral, PublicKeyToken=b44f9351044011a3, processorArchitecture=MSIL">
@@ -62,8 +84,24 @@
       <HintPath>..\packages\MiniProfiler.MVC4.3.0.11\lib\net40\MiniProfiler.Mvc.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="MsieJavaScriptEngine">
+      <HintPath>..\packages\MsieJavaScriptEngine.1.7.0\lib\net40\MsieJavaScriptEngine.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.8.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="React.Core, Version=2.3.0.0, Culture=neutral, PublicKeyToken=9aed67b161f7db78, processorArchitecture=MSIL">
+      <HintPath>..\packages\React.Core.2.3.0\lib\net40\React.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="React.Web, Version=2.3.0.0, Culture=neutral, PublicKeyToken=9aed67b161f7db78, processorArchitecture=MSIL">
+      <HintPath>..\packages\React.Web.2.3.0\lib\net40\React.Web.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="React.Web.Mvc4, Version=2.3.0.0, Culture=neutral, PublicKeyToken=9aed67b161f7db78, processorArchitecture=MSIL">
+      <HintPath>..\packages\React.Web.Mvc4.2.3.0\lib\net40\React.Web.Mvc4.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -118,6 +156,14 @@
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="VroomJs, Version=1.0.0.0, Culture=neutral, PublicKeyToken=9aed67b161f7db78, processorArchitecture=MSIL">
+      <HintPath>..\packages\React.Core.2.3.0\lib\net40\VroomJs.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebActivatorEx.2.1.0\lib\net40\WebActivatorEx.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
       <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
@@ -187,6 +233,7 @@
     <Compile Include="App_Start\BootStrapper.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\ReactConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
@@ -384,6 +431,59 @@
     <Content Include="Content\themes\ui-icons_888888_256x240.png" />
     <Content Include="Content\themes\ui-icons_cd0a0a_256x240.png" />
     <Content Include="Content\themes\ui-icons_f6cf3b_256x240.png" />
+    <Content Include="Content\Umeditor\dialogs\emotion\emotion.css" />
+    <Content Include="Content\Umeditor\dialogs\emotion\images\0.gif" />
+    <Content Include="Content\Umeditor\dialogs\emotion\images\bface.gif" />
+    <Content Include="Content\Umeditor\dialogs\emotion\images\cface.gif" />
+    <Content Include="Content\Umeditor\dialogs\emotion\images\fface.gif" />
+    <Content Include="Content\Umeditor\dialogs\emotion\images\jxface2.gif" />
+    <Content Include="Content\Umeditor\dialogs\emotion\images\neweditor-tab-bg.png" />
+    <Content Include="Content\Umeditor\dialogs\emotion\images\tface.gif" />
+    <Content Include="Content\Umeditor\dialogs\emotion\images\wface.gif" />
+    <Content Include="Content\Umeditor\dialogs\emotion\images\yface.gif" />
+    <Content Include="Content\Umeditor\dialogs\formula\formula.css" />
+    <Content Include="Content\Umeditor\dialogs\formula\images\formula.png" />
+    <Content Include="Content\Umeditor\dialogs\image\image.css" />
+    <Content Include="Content\Umeditor\dialogs\image\images\close.png" />
+    <Content Include="Content\Umeditor\dialogs\image\images\upload1.png" />
+    <Content Include="Content\Umeditor\dialogs\image\images\upload2.png" />
+    <Content Include="Content\Umeditor\dialogs\video\images\center_focus.jpg" />
+    <Content Include="Content\Umeditor\dialogs\video\images\left_focus.jpg" />
+    <Content Include="Content\Umeditor\dialogs\video\images\none_focus.jpg" />
+    <Content Include="Content\Umeditor\dialogs\video\images\right_focus.jpg" />
+    <Content Include="Content\Umeditor\dialogs\video\video.css" />
+    <Content Include="Content\Umeditor\lang\en\images\addimage.png" />
+    <Content Include="Content\Umeditor\lang\en\images\alldeletebtnhoverskin.png" />
+    <Content Include="Content\Umeditor\lang\en\images\alldeletebtnupskin.png" />
+    <Content Include="Content\Umeditor\lang\en\images\background.png" />
+    <Content Include="Content\Umeditor\lang\en\images\button.png" />
+    <Content Include="Content\Umeditor\lang\en\images\copy.png" />
+    <Content Include="Content\Umeditor\lang\en\images\deletedisable.png" />
+    <Content Include="Content\Umeditor\lang\en\images\deleteenable.png" />
+    <Content Include="Content\Umeditor\lang\en\images\imglabel.png" />
+    <Content Include="Content\Umeditor\lang\en\images\listbackground.png" />
+    <Content Include="Content\Umeditor\lang\en\images\localimage.png" />
+    <Content Include="Content\Umeditor\lang\en\images\music.png" />
+    <Content Include="Content\Umeditor\lang\en\images\rotateleftdisable.png" />
+    <Content Include="Content\Umeditor\lang\en\images\rotateleftenable.png" />
+    <Content Include="Content\Umeditor\lang\en\images\rotaterightdisable.png" />
+    <Content Include="Content\Umeditor\lang\en\images\rotaterightenable.png" />
+    <Content Include="Content\Umeditor\lang\en\images\upload.png" />
+    <Content Include="Content\Umeditor\lang\zh-cn\images\copy.png" />
+    <Content Include="Content\Umeditor\lang\zh-cn\images\imglabel.png" />
+    <Content Include="Content\Umeditor\lang\zh-cn\images\localimage.png" />
+    <Content Include="Content\Umeditor\lang\zh-cn\images\music.png" />
+    <Content Include="Content\Umeditor\lang\zh-cn\images\upload.png" />
+    <Content Include="Content\Umeditor\themes\default\css\umeditor.css" />
+    <Content Include="Content\Umeditor\themes\default\css\umeditor.min.css" />
+    <Content Include="Content\Umeditor\themes\default\images\caret.png" />
+    <Content Include="Content\Umeditor\themes\default\images\close.png" />
+    <Content Include="Content\Umeditor\themes\default\images\icons.gif" />
+    <Content Include="Content\Umeditor\themes\default\images\icons.png" />
+    <Content Include="Content\Umeditor\themes\default\images\ok.gif" />
+    <Content Include="Content\Umeditor\themes\default\images\pop-bg.png" />
+    <Content Include="Content\Umeditor\themes\default\images\spacer.gif" />
+    <Content Include="Content\Umeditor\themes\default\images\videologo.gif" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -400,13 +500,35 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Js\Component.js" />
     <Content Include="Js\equalHeight.js" />
     <Content Include="Js\jquery.tabSlideOut.v1.3.js" />
     <Content Include="Js\jquery.upload.js" />
+    <Content Include="ReactTest.html" />
     <Content Include="Scripts\es5-sham.js" />
     <Content Include="Scripts\es5-sham.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\react\JSXTransformer.js" />
+    <Content Include="Scripts\react\react-dom-server.js" />
+    <Content Include="Scripts\react\react-dom-server.min.js" />
+    <Content Include="Scripts\react\react-dom.js" />
+    <Content Include="Scripts\react\react-dom.min.js" />
+    <Content Include="Scripts\react\react-with-addons.js" />
+    <Content Include="Scripts\react\react-with-addons.min.js" />
+    <Content Include="Scripts\react\react.js" />
+    <Content Include="Scripts\react\react.min.js" />
+    <Content Include="Scripts\Umeditor\dialogs\emotion\emotion.js" />
+    <Content Include="Scripts\Umeditor\en.js" />
+    <Content Include="Scripts\Umeditor\dialogs\formula\formula.js" />
+    <Content Include="Scripts\Umeditor\dialogs\image\image.js" />
+    <Content Include="Scripts\Umeditor\dialogs\link\link.js" />
+    <Content Include="Scripts\Umeditor\dialogs\map\map.js" />
+    <Content Include="Scripts\Umeditor\umeditor.config.js" />
+    <Content Include="Scripts\Umeditor\umeditor.js" />
+    <Content Include="Scripts\Umeditor\umeditor.min.js" />
+    <Content Include="Scripts\Umeditor\dialogs\video\video.js" />
+    <Content Include="Scripts\Umeditor\zh-cn.js" />
     <Content Include="TestPage.html" />
     <Content Include="Views\Report\_ReportLayout.cshtml" />
     <Content Include="Js\jquery.dialog.js" />
@@ -528,11 +650,6 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Scripts\react\JSXTransformer-0.13.1.js" />
-    <Content Include="Scripts\react\react-0.13.1.js" />
-    <Content Include="Scripts\react\react-0.13.1.min.js" />
-    <Content Include="Scripts\react\react-with-addons-0.13.1.js" />
-    <Content Include="Scripts\react\react-with-addons-0.13.1.min.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
@@ -607,8 +724,8 @@
     <Content Include="Views\RoleManage\_Index.cshtml" />
     <Content Include="Views\UserManage\_Index.cshtml" />
     <Content Include="Views\Shared\_Layout_Without_WebTitle.cshtml" />
-    <Content Include="Ts\tsconfig.json" />
     <Content Include="Views\JobManage\Index.cshtml" />
+    <Content Include="Views\Subscriber\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -693,6 +810,19 @@
     <TypeScriptCompile Include="Scripts\typings\angularjs\angular-sanitize.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\angularjs\angular.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\react\react-addons-create-fragment.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\react\react-addons-css-transition-group.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\react\react-addons-linked-state-mixin.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\react\react-addons-perf.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\react\react-addons-pure-render-mixin.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\react\react-addons-shallow-compare.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\react\react-addons-test-utils.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\react\react-addons-transition-group.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\react\react-addons-update.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\react\react-dom.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\react\react-global.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\react\react.d.ts" />
+    <TypeScriptCompile Include="Ts\Component.tsx" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -701,6 +831,10 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
     <TypeScriptNoEmitOnError>True</TypeScriptNoEmitOnError>
+    <TypeScriptJsxEmit>react</TypeScriptJsxEmit>
+    <TypeScriptOutDir>F:\Advantech\ReportMS\ReportMS\ReportMS.Web\Js</TypeScriptOutDir>
+    <TypeScriptRemoveComments>True</TypeScriptRemoveComments>
+    <TypeScriptSourceMap>False</TypeScriptSourceMap>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
@@ -726,6 +860,12 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\JavaScriptEngineSwitcher.V8.1.5.2\build\JavaScriptEngineSwitcher.V8.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\JavaScriptEngineSwitcher.V8.1.5.2\build\JavaScriptEngineSwitcher.V8.props'))" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

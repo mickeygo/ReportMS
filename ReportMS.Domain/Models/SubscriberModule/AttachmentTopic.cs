@@ -40,19 +40,24 @@ namespace ReportMS.Domain.Models.SubscriberModule
         /// </summary>
         /// <param name="topicName">附件主题名</param>
         /// <param name="description">主题描述</param>
+        /// <param name="subject">邮件主题</param>
+        /// <param name="body">邮件主体</param>
         /// <param name="reportId">报表 Id</param>
         /// <param name="sqlStatement">Sql 语句</param>
         /// <param name="parameter">参数，以 @p1=val1&@p2=val2 表示</param>
         /// <param name="createdBy">创建人</param>
-        public AttachmentTopic(string topicName, string description, Guid reportId, string sqlStatement,
-            string parameter, string createdBy)
+
+        public AttachmentTopic(string topicName, string description, string subject, string body, Guid reportId, string sqlStatement,
+           string parameter, string createdBy)
         {
-            TopicName = topicName;
-            Description = description;
-            ReportId = reportId;
-            SqlStatement = sqlStatement;
-            Parameter = parameter;
-            CreatedBy = createdBy;
+            this.TopicName = topicName;
+            this.Description = description;
+            this.Subject = subject;
+            this.Body = body;
+            this.ReportId = reportId;
+            this.SqlStatement = sqlStatement;
+            this.Parameter = parameter;
+            this.CreatedBy = createdBy;
             this.CreatedDate = DateTime.Now;
 
             this.GenerateNewIdentity();

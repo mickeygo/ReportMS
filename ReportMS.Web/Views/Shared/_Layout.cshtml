@@ -11,6 +11,9 @@
     @Styles.Render("~/Content/dataTables")
     @Styles.Render("~/bundles/startupui")
     @RenderSection("styles", false)
+
+    @Scripts.Render("~/bundles/esShim")
+    @Scripts.Render("~/bundles/react")
 </head>
 <body>
     <header>
@@ -37,8 +40,6 @@
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/jqueryui")
     @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/bundles/esShim")
-    @Scripts.Render("~/bundles/react")
     @Scripts.Render("~/bundles/dataTables")
     @Scripts.Render("~/bundles/menu")
     @Scripts.Render("~/bundles/startup")

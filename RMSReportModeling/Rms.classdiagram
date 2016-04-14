@@ -108,6 +108,12 @@
                 <property Id="8ff2239c-d7ad-4250-a988-2ae9e8d64bd0" name="TopicName" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
                   <elementDefinition Id="9cbea174-8ed9-43ee-beca-37d202c8b2e5" />
                 </property>
+                <property Id="4556e8be-5cad-4e6d-b222-cc2c90bf89f0" name="Subject" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="89fa1910-74c9-4dc3-9851-67bbe940fe2a" />
+                </property>
+                <property Id="f6dc1da3-ef3c-4f1e-ba0e-bab437e52fd9" name="Body" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="8166aad9-ab66-42ef-a1ce-030ee0406db8" />
+                </property>
               </ownedAttributesInternal>
             </class>
           </packageHasNamedElement>
