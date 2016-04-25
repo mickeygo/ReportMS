@@ -76,6 +76,24 @@ namespace ReportMS.Domain.Models.SubscriberModule
         #region Public Methods
 
         /// <summary>
+        /// 更新主题
+        /// </summary>
+        /// <param name="topicName">主题名</param>
+        /// <param name="description">主题描述</param>
+        /// <param name="subject">邮件主题</param>
+        /// <param name="body">邮件主体</param>
+        /// <param name="updatedBy">更新人</param>
+        public void Update(string topicName, string description, string subject, string body, string updatedBy)
+        {
+            this.TopicName = topicName;
+            this.Description = description;
+            this.Subject = subject;
+            this.Body = body;
+
+            this.SetUpdatedBy(updatedBy);
+        }
+
+        /// <summary>
         /// 启用主题
         /// </summary>
         public void Enable()
@@ -113,7 +131,10 @@ namespace ReportMS.Domain.Models.SubscriberModule
                 this.TopicTasks = new HashSet<TopicTask>();
 
             foreach (var task in tasks)
+            {
+                task.AttachToParent(this.ID);
                 this.TopicTasks.Add(task);
+            }
         }
 
         /// <summary>
@@ -126,7 +147,10 @@ namespace ReportMS.Domain.Models.SubscriberModule
                 this.Subscribers = new HashSet<Subscriber>();
 
             foreach (var subscriber in subscribers)
+            {
+                subscriber.AttachToParent(this.ID);
                 this.Subscribers.Add(subscriber);
+            }
         }
 
         #endregion

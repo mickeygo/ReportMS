@@ -62,10 +62,49 @@ namespace ReportMS.Web
         /// <summary>
         /// 跳转到主页
         /// </summary>
-        /// <returns>ActionResult</returns>
+        /// <returns>主页</returns>
         public ActionResult RedirectToHome()
         {
             return RedirectToAction("Index", "Home", new {area = string.Empty});
+        }
+
+        /// <summary>
+        /// 空白消息页面。5s 后关闭页面
+        /// </summary>
+        /// <param name="message">页面中要显示的消息</param>
+        /// <param name="isRefreshOpener">是否刷新父页面, 默认为 false</param>
+        /// <returns>空白消息页</returns>
+        public ActionResult BlankView(string message, bool isRefreshOpener = false)
+        {
+            return this.BlankView(message, true, isRefreshOpener);
+        }
+
+        /// <summary>
+        /// 空白消息页面。
+        /// </summary>
+        /// <param name="message">页面中要显示的消息</param>
+        /// <param name="closeWindows">是否关闭页面，默认为 true，表示 5s 后关闭页面</param>
+        /// <param name="isRefreshOpener">是否刷新父页面</param>
+        /// <returns>空白消息页</returns>
+        public ActionResult BlankView(string message, bool closeWindows, bool isRefreshOpener)
+        {
+            return this.BlankView(message, closeWindows ? 5 : -1, isRefreshOpener);
+        }
+
+        /// <summary>
+        /// 空白消息页面。当设置 timeout 参数，可控制页面关闭的剩余时间
+        /// </summary>
+        /// <param name="message">页面中要提示的消息</param>
+        /// <param name="timeout">页面关闭时间(单位 second), 默认为 -1，表示不关闭页面</param>
+        /// <param name="isRefreshOpener">是否刷新父页面</param>
+        /// <returns>空白消息页</returns>
+        public ActionResult BlankView(string message, int timeout, bool isRefreshOpener)
+        {
+            ViewBag.Message = message;
+            ViewBag.Timeout = timeout;
+            ViewBag.IsRefreshOpener = isRefreshOpener ? 1 : 0;
+
+            return this.View("Blank");
         }
 
         /// <summary>
@@ -73,7 +112,7 @@ namespace ReportMS.Web
         /// </summary>
         /// <param name="isSuccess">要传递的状态 status: success/fail</param>
         /// <param name="message">要传递的消息 message</param>
-        /// <returns>ActionResult</returns>
+        /// <returns>Json</returns>
         public ActionResult Json(bool isSuccess, string message = null)
         {
             return this.Json(isSuccess, message, JsonRequestBehavior.DenyGet);
@@ -85,7 +124,7 @@ namespace ReportMS.Web
         /// <param name="isSuccess">要传递的状态 status: success/fail</param>
         /// <param name="message">要传递的消息 message</param>
         /// <param name="behavior">请求 Json 序列化的行为</param>
-        /// <returns>ActionResult</returns>
+        /// <returns>Json</returns>
         public ActionResult Json(bool isSuccess, string message, JsonRequestBehavior behavior)
         {
             return this.Json(isSuccess, null, message, behavior);
@@ -97,7 +136,7 @@ namespace ReportMS.Web
         /// <param name="isSuccess">要传递的状态 status: success/fail</param>
         /// <param name="data">要序列化的数据 data</param>
         /// <param name="message">要传递的消息 message</param>
-        /// <returns>ActionResult</returns>
+        /// <returns>Json</returns>
         public ActionResult Json(bool isSuccess, object data, string message = null)
         {
             return this.Json(isSuccess, data, message, JsonRequestBehavior.DenyGet);
@@ -110,7 +149,7 @@ namespace ReportMS.Web
         /// <param name="data">要序列化的数据 data</param>
         /// <param name="message">要传递的消息 message</param>
         /// <param name="behavior">请求 Json 序列化的行为</param>
-        /// <returns>ActionResult</returns>
+        /// <returns>Json</returns>
         public ActionResult Json(bool isSuccess, object data, string message, JsonRequestBehavior behavior)
         {
             var status = isSuccess ? "success" : "fail";

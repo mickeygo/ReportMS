@@ -27,10 +27,10 @@ namespace ReportMS.Web.Controllers.Manages
 
             try
             {
-                using (var service = ServiceLocator.Instance.Resolve<ISubscriberService>())
+                using (var service = ServiceLocator.Instance.Resolve<ITopicService>())
                 {
-                    // 删除在此 Topic 中所有的该订阅者订阅信息；当 Topic 不存在订阅者时，设置 Topic 软删除
-                    service.DeleteSubscriber(topicId, email, true);
+                    // 删除在此 Topic 中所有的该订阅者订阅信息
+                    service.DeleteSubscriber(topicId, email);
                 }
             }
             catch (Exception)
@@ -45,7 +45,7 @@ namespace ReportMS.Web.Controllers.Manages
 
         private IEnumerable<TopicDto> GetTopics(string email)
         {
-            using (var service = ServiceLocator.Instance.Resolve<ISubscriberService>())
+            using (var service = ServiceLocator.Instance.Resolve<ITopicService>())
             {
                 return service.FindTopicsViaEmail(email);
             }

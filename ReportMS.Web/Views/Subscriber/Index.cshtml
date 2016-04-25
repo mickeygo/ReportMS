@@ -7,33 +7,24 @@
 
 @section styles
 {
-    <link href="~/Content/Umeditor/themes/default/css/umeditor.css" rel="stylesheet" />
+    <link href="~/Content/kindeditor/themes/simple/simple.css" rel="stylesheet" />
 }
 
 @section scripts
 {
-    <script src="~/Scripts/Umeditor/umeditor.config.js"></script>
-    <script src="~/Scripts/Umeditor/umeditor.js"></script>
-    <script src="~/Scripts/Umeditor/zh-cn.js"></script>
-
-    <script src="~/Scripts/Umeditor/dialogs/emotion/emotion.js" defer="defer"></script>
-    <script src="~/Scripts/Umeditor/dialogs/formula/formula.js" defer="defer"></script>
-    <script src="~/Scripts/Umeditor/dialogs/image/image.js" defer="defer"></script>
-    <script src="~/Scripts/Umeditor/dialogs/link/link.js" defer="defer"></script>
-    <script src="~/Scripts/Umeditor/dialogs/map/map.js" defer="defer"></script>
-    <script src="~/Scripts/Umeditor/dialogs/video/video.js" defer="defer"></script>
+    <script src="~/Content/kindeditor/kindeditor-all-min.js"></script>
+    <script src="~/Content/kindeditor/lang/zh-CN.js"></script>
 
     <script>
-        $(function() {
-            window.um = UM.getEditor("container", {
-                toolbar: [
-                    "source | undo redo | bold italic underline strikethrough | superscript subscript | forecolor backcolor | removeformat |",
-                    "insertorderedlist insertunorderedlist | selectall cleardoc paragraph | fontfamily fontsize",
-                    "| justifyleft justifycenter justifyright justifyjustify |",
-                    "link unlink",
-                    "| horizontal print preview fullscreen",
-                    "drafts"
-                ]
+        KindEditor.ready(function (K) {
+            K.create('textarea[name="Body"]', {
+                resizeType: 1,
+                allowPreviewEmoticons: false,
+                allowImageUpload: false,
+                items: [
+                    'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
+                    'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
+                    'insertunorderedlist', '|', 'hr', 'table', '|', 'emoticons', 'image', 'link']
             });
         });
 
@@ -106,7 +97,6 @@
 
         // Submit
         function doSubmit() {
-            $("#umeditor_textarea_content").prop({ "name": "Body" });
             var subscribers = Subscriber.setSubscribers();
             if (subscribers === "") {
                 alert("Please input more than one subscriber.");
@@ -155,9 +145,7 @@
         <div class="form-group">
             <label class="col-md-2 control-label">Body</label>
             <div class="col-md-9">
-                <script id="container" name="content" type="text/plain" style="width: 100%; height: 250px;">
-                    <p>Topic Body ......</p>
-                </script>
+                <textarea name="Body" style="width: 100%; height: 250px;"></textarea>
             </div>
         </div>
         <hr />
@@ -194,7 +182,6 @@
                                     }
                                 }
                             </div>
-                            <input type="hidden" name="subscribers" />
                         </div>
                     </div>
                 </div>
@@ -210,5 +197,6 @@
             @Html.HiddenFor(m => m.SqlStatement)
             @Html.HiddenFor(m => m.Parameter)
         </div>
+        <input type="hidden" name="subscribers" />
     }
 </div>

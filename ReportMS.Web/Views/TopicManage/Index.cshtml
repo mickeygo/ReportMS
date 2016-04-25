@@ -1,0 +1,167 @@
+﻿@using ReportMS.DataTransferObjects.Dtos
+@model IEnumerable<TopicDto>
+
+@{
+    ViewBag.Title = "Topic";
+}
+
+@section styles
+{
+    <link href="~/Content/kindeditor/themes/simple/simple.css" rel="stylesheet" />
+}
+
+@section scripts
+{
+    <script src="~/Content/kindeditor/kindeditor-all-min.js"></script>
+    <script src="~/Content/kindeditor/lang/zh-CN.js"></script>
+
+    <script>
+        function modifyTopicSuccess(data) {
+            if (data.status === "success") {
+                reloadTopic();
+            } else {
+                alert(data.message);
+            }
+        }
+
+        function deleteTopic(element) {
+            if (!confirm("Do you want to delete it ?"))
+                return false;
+
+            var url = $(element).attr("data-href");
+            var id = $(element).attr("data-topic-id");
+            $.post(url, { topicId: id }, function(data) {
+                if (data.status === "success") {
+                    $(element).closest("tr").remove();
+                } else
+                    alert(data.message);
+            });
+            return true;
+        }
+
+        function reloadTopic() {
+            window.location.reload();
+        }
+
+        // Subscriber
+        var Subscriber = {
+            container: "#subscribers",
+            submitContainer: "[name=subscribers]",
+            getSubscribers: function() {
+                return $(this.container).children("a.list-group-item").map(function() {
+                    return $(this).attr("data-value");
+                }).get();
+            },
+            isValidOfEmail: function(mail) {
+                var emailReg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+                return emailReg.test(mail);
+            },
+            isExistEmail: function(mail) {
+                var subscribers = this.getSubscribers();
+                for (var p in subscribers) {
+                    if (subscribers[p].toLowerCase() === mail.toLowerCase()) {
+                        return true;
+                    }
+                }
+
+                return false;
+            },
+            addSubscriber: function(element) {
+                var source = $(element).attr("data-source");
+                var target = $(element).attr("data-target");
+                var email = $.trim($(source).val());
+                if (!this.isValidOfEmail(email) || this.isExistEmail(email)) {
+                    alert("The input mail is invalid or existed.");
+                    $(source).focus();
+                    return false;
+                }
+
+                var handler = '<span class="badge" onclick=" Subscriber.removeSubscriber(this) "><span class="glyphicon glyphicon-trash"></span></span>';
+                var item = $("<a class=\"list-group-item\"></a>");
+                item.attr("data-value", email).text(email).append(handler);
+                $(target).append(item);
+                $(source).focus().val("");
+                return true;
+            },
+            removeSubscriber: function(element) {
+                $(element).closest("a").remove();
+            },
+            setSubscribers: function() {
+                var subscribers = $(this.container).children("a.list-group-item").map(function() {
+                    return $(this).attr("data-value");
+                }).get().join(";");
+
+                $(this.submitContainer).val(subscribers);
+                return subscribers;
+            }
+        }
+
+        // editor, must exist.
+        KindEditor.ready(function(K) {
+        });
+
+        function showEditor() {
+            KindEditor.ready(function(K) {
+                K.create('textarea[name="Body"]', {
+                    resizeType: 1,
+                    allowPreviewEmoticons: false,
+                    allowImageUpload: false,
+                    items: [
+						'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
+						'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
+						'insertunorderedlist', '|', 'hr', 'table', '|', 'emoticons', 'image', 'link']
+                });
+            });
+        }
+
+        // Submit
+        function doSubmit() {
+            var subscribers = Subscriber.setSubscribers();
+            if (subscribers === "") {
+                alert("Please input more than one subscriber.");
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+}
+
+@Html.Navigate("Manage", "Topic")
+
+<div id="topic_manage">
+    @if (Model.HasAny())
+    {
+        <table class="table table-bordered table-striped table-hover">
+            <thead>
+            <tr>
+                <th>TopicName</th>
+                <th>Description</th>
+                <th>Subject</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(m => item.TopicName)</td>
+                    <td>@Html.DisplayFor(m => item.Description)</td>
+                    <td>@Html.DisplayFor(m => item.Subject)</td>
+                    <td>
+                        <a class="btn btn-primary btn-xs" data-dialog="true" data-dialog-size="lg"
+                           data-ajax-form="true" data-dialog-href="@Url.Action("Edit", new {topicId = item.ID})"
+                           data-dialog-title="Edit Topic" data-ajax-success="modifyTopicSuccess"
+                           data-dialog-loaded="showEditor">
+                            <span class="glyphicon glyphicon-edit"></span>
+                        </a>
+                        <a class="btn btn-danger btn-xs" data-href="@Url.Action("Delete")" data-topic-id="@item.ID" onclick=" return deleteTopic(this); ">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </a>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    }
+</div>

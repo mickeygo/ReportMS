@@ -99,7 +99,7 @@ namespace Gear.Infrastructure.Repository.EntityFramework
         /// <returns>聚合根对象</returns>
         protected override TAggregateRoot DoGetByKey(TKey key)
         {
-            return this.efContext.Context.Set<TAggregateRoot>().First(Utils.BuildIdEqualsPredicate<TKey, TAggregateRoot>(key));
+            return this.efContext.Context.Set<TAggregateRoot>().FirstOrDefault(Utils.BuildIdEqualsPredicate<TKey, TAggregateRoot>(key));
         }
 
         /// <summary>
@@ -110,7 +110,7 @@ namespace Gear.Infrastructure.Repository.EntityFramework
         /// <returns>聚合根对象</returns>
         protected async Task<TAggregateRoot> DoGetByKeyAsync(TKey key, CancellationToken cancellationToken)
         {
-            return await this.efContext.Context.Set<TAggregateRoot>().FirstAsync(Utils.BuildIdEqualsPredicate<TKey, TAggregateRoot>(key), cancellationToken);
+            return await this.efContext.Context.Set<TAggregateRoot>().FirstOrDefaultAsync(Utils.BuildIdEqualsPredicate<TKey, TAggregateRoot>(key), cancellationToken);
         }
 
         /// <summary>

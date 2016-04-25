@@ -36,6 +36,10 @@
         <span class="glyphicon glyphicon-cog"></span>
         <a href="@Url.Action("Index", "SubscriberManage")"><strong>My Subscribe</strong></a>
     </li>
+    <li class="list-group-item">
+        <span class="glyphicon glyphicon-cog"></span>
+        <a href="@Url.Action("Owner", "TopicManage")"><strong>My Topic</strong></a>
+    </li>
 
     @if ((bool)ViewBag.IsManager)
     {
@@ -45,7 +49,6 @@
         </li>
     }
 </ul>
-
 
 
 @helper RenderTenants(IEnumerable<TenantDto> tenants, int colnum)

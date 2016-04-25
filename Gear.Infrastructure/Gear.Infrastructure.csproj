@@ -157,7 +157,7 @@
     <Content Include="Readme.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Audit\" />
+    <Folder Include="Auditing\" />
     <Folder Include="Journal\" />
     <Folder Include="Net\Sockets\" />
   </ItemGroup>

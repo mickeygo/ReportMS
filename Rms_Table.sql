@@ -74,51 +74,47 @@ CREATE TABLE [dbo].[RMS_Action](
 
 -- Topic
 CREATE TABLE RMS_Topic (
-	TopicId			uniqueidentifier	not null,
+	TopicId			uniqueidentifier	not null Primary Key,
 	TopicName		varchar(30)			not null,
 	Description		nvarchar(100)		null,
 	Subject			nvarchar(100)		null,
 	Body			nvarchar(max)		null,
 	Enabled			bit					not null,
-	CreatedBy		varchar(50)			null,
+	CreatedBy		varchar(50)			not null,
 	CreatedDate		datetime			null,
 	UpdatedBy		varchar(50)			null,
-	UpdatedDate		datetime			null,
-	CONSTRAINT	[PK_RMS_Topic] PRIMARY KEY ([TopicId])
+	UpdatedDate		datetime			null
 );
 
 -- AttachmentTopic
 CREATE TABLE RMS_AttachmentTopic (
-	TopicId			uniqueidentifier	not null,
+	TopicId			uniqueidentifier	not null Primary Key,
 	ReportId		uniqueidentifier	not null,
 	SqlStatement	varchar(max)		not null,
-	Parameter		nvarchar(max)		null,
-	CONSTRAINT	[PK_RMS_AttachmentTopic] PRIMARY KEY ([TopicId])
+	Parameter		nvarchar(max)		null
 );
 
 ALTER TABLE [RMS_AttachmentTopic] ADD CONSTRAINT [FK_RMS_AttachmentTopic_TopicId] FOREIGN KEY ([TopicId]) REFERENCES [RMS_Topic]([TopicId]);
 
 -- Subscriber
 CREATE TABLE RMS_Subscriber (
-	SubscriberId	uniqueidentifier	not null,
+	SubscriberId	uniqueidentifier	not null Primary Key,
 	TopicId			uniqueidentifier	not null,
-	Email			varchar(80)			not null,
-	CONSTRAINT	[PK_RMS_Subscriber] PRIMARY KEY ([SubscriberId])
+	Email			varchar(80)			not null
 );
 
 ALTER TABLE [RMS_Subscriber] ADD CONSTRAINT [FK_RMS_Subscriber_TopicId] FOREIGN KEY ([TopicId]) REFERENCES [RMS_Topic]([TopicId]);
 
 -- RMS_TopicTask
 CREATE TABLE RMS_TopicTask (
-	TopicTaskId		uniqueidentifier	not null,
+	TopicTaskId		uniqueidentifier	not null Primary Key,
 	TopicId			uniqueidentifier	not null,
 	TaskSchedule	int		not null,
 	Month			int		null,
 	Week			int		null,
 	Day				int		null,
 	Hour			int		null,
-	Minute			int		null,
-	CONSTRAINT	[PK_RMS_TopicTask] PRIMARY KEY ([TopicTaskId])
+	Minute			int		null
 );
 
 ALTER TABLE [RMS_TopicTask] ADD CONSTRAINT [FK_RMS_TopicTask_TopicId] FOREIGN KEY ([TopicId]) REFERENCES [RMS_Topic]([TopicId]);

@@ -1,0 +1,87 @@
+﻿@model ReportMS.DataTransferObjects.Dtos.TopicDto
+
+<div>
+    @if (Model == null)
+    {
+        <div>The topic does not exist.</div>    
+        return;
+    }
+    
+    @using (Html.BeginForm(null, null, FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="TopicName">Topic Name</label>
+            <div class="col-md-9">
+                @Html.TextBoxFor(m => m.TopicName, new {@class = "form-control", required = "", data_format = "string", maxlength = "40", onpaste = "return false;"})
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Description, new {@class = "col-md-2 control-label"})
+            <div class="col-md-9">
+                @Html.TextAreaFor(m => m.Description, new {@class = "form-control", maxlength = "100"})
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Subject, new {@class = "col-md-2 control-label"})
+            <div class="col-md-9">
+                @Html.TextBoxFor(m => m.Subject, new {@class = "form-control", required = "", maxlength = "100"})
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Body, new {@class = "col-md-2 control-label"})
+            <div class="col-md-9">
+                <textarea name="Body" style="width: 100%; height: 250px;">
+                    @Html.Raw(HttpUtility.HtmlDecode(Model.Body))
+                </textarea>
+            </div>
+        </div>
+        <hr/>
+        <div class="form-group">
+            <label class="col-md-2 control-label">Subscriber</label>
+            <div class="col-md-9">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    <div class="input-group-addon">@@</div>
+                                    <input id="email" type="text" class="form-control" placeholder="email">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <button type="button" class="btn btn-primary"
+                                        data-source="#email" data-target="#subscribers"
+                                        onclick=" Subscriber.addSubscriber(this) ">
+                                    Add
+                                </button>
+                            </div>
+                        </div>
+                        <div style="margin-top: 20px;">
+                            <div id="subscribers" class="list-group">
+                                @if (Model.Subscribers.HasAny())
+                                {
+                                    foreach (var subscriber in Model.Subscribers)
+                                    {
+                                        <a class="list-group-item" data-value="@subscriber.Email">
+                                            @Html.DisplayFor(m => subscriber.Email)
+                                            <span class="badge" onclick=" Subscriber.removeSubscriber(this) "><span class="glyphicon glyphicon-trash"></span></span>
+                                        </a>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-5 col-md-12">
+                <input type="submit" value="Modify" class="btn btn-primary" onclick=" return doSubmit(); "/>
+            </div>
+        </div>
+        @Html.HiddenFor(m => m.ID)
+        <input type="hidden" name="subscribers"/>
+    }
+</div>

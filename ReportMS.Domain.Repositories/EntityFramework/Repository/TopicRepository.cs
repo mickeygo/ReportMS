@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Collections.Generic;
 using Gear.Infrastructure.Repositories;
 using Gear.Infrastructure.Repository.EntityFramework;
 using ReportMS.Domain.Models.SubscriberModule;
@@ -17,48 +16,16 @@ namespace ReportMS.Domain.Repositories.EntityFramework.Repository
 
         #region ITopicRepository Members
 
-        public void RemoveSubscriber(Guid topicId, Guid subscriberId, bool disableTopic = false)
+        public void RemoveSubscriber(Subscriber subscriber)
         {
-            var topic = this.GetByKey(topicId);
-            if (topic == null)
-                return;
-
-            var subscriber = topic.Subscribers.SingleOrDefault(s => s.ID == subscriberId);
-            if (subscriber == null)
-                return;
-
-            if (disableTopic)
-            {
-                if (topic.Subscribers.Count == 1)
-                    topic.Disable();
-            }
-
             var context = this.EFContext.Context.Set<Subscriber>();
             context.Remove(subscriber);
-
-            this.Update(topic);
         }
 
-        public void RemoveSubscriber(Guid topicId, string email, bool disableTopic = false)
+        public void RemoveSubscribers(IEnumerable<Subscriber> subscribers)
         {
-            var topic = this.GetByKey(topicId);
-            if (topic == null)
-                return;
-
-            var subscribers = topic.Subscribers.Where(s => s.Email.Equals(email)).ToList();
-            if (!subscribers.Any())
-                return;
-
-            if (disableTopic)
-            {
-                if (topic.Subscribers.Count == subscribers.Count)
-                    topic.Disable();
-            }
-
             var context = this.EFContext.Context.Set<Subscriber>();
             context.RemoveRange(subscribers);
-
-            this.Update(topic);
         }
 
         #endregion

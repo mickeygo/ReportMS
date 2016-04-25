@@ -50,5 +50,18 @@ namespace ReportMS.Domain.Models.SubscriberModule
         }
 
         #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// 附加到父节点（主题）
+        /// </summary>
+        /// <param name="parentId">要附加的父节点（主题）</param>
+        public void AttachToParent(Guid parentId)
+        {
+            this.TopicId = parentId;
+        }
+
+        #endregion
     }
 }

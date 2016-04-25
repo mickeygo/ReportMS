@@ -13,9 +13,8 @@ namespace ReportMS.Web.Client.Jobs
     {
         #region Private Fields
 
-        private readonly Dictionary<TopicDto, IEnumerable<TopicTaskDto>> _filterTopics =
-            new Dictionary<TopicDto, IEnumerable<TopicTaskDto>>();
-
+        private readonly DateTime now = DateTime.Now;
+        private readonly Dictionary<TopicDto, IEnumerable<TopicTaskDto>> _filterTopics = new Dictionary<TopicDto, IEnumerable<TopicTaskDto>>();
         private readonly IEnumerable<TopicDto> _topics;
 
         #endregion
@@ -62,23 +61,23 @@ namespace ReportMS.Web.Client.Jobs
                 case TaskScheduleDto.Minutely:
                     return true;
                 case TaskScheduleDto.Hourly:
-                    return (task.Minute == DateTime.Now.Minute);
+                    return (task.Minute == now.Minute);
                 case TaskScheduleDto.Daily:
-                    return (task.Minute == DateTime.Now.Minute)
-                           && (task.Hour == DateTime.Now.Hour);
+                    return (task.Hour == now.Hour)
+                           && (task.Minute == now.Minute);
                 case TaskScheduleDto.Weekly:
-                    return (task.Minute == DateTime.Now.Minute)
-                           && (task.Hour == DateTime.Now.Hour)
-                           && (task.Week == DateTime.Now.DayOfWeek);
+                    return (task.Week == now.DayOfWeek)
+                           && (task.Hour == now.Hour)
+                           && (task.Minute == now.Minute);
                 case TaskScheduleDto.Monthly:
-                    return (task.Minute == DateTime.Now.Minute)
-                           && (task.Hour == DateTime.Now.Hour)
-                           && (task.Day == DateTime.Now.Day);
+                    return (task.Day == now.Day)
+                           && (task.Hour == now.Hour)
+                           && (task.Minute == now.Minute);
                 case TaskScheduleDto.Yearly:
-                    return (task.Minute == DateTime.Now.Minute)
-                           && (task.Hour == DateTime.Now.Hour)
-                           && (task.Day == DateTime.Now.Day)
-                           && (task.Month == DateTime.Now.Month);
+                    return (task.Month == now.Month)
+                           && (task.Day == now.Day)
+                           && (task.Hour == now.Hour)
+                           && (task.Minute == now.Minute);
                 default:
                     return false;
             }

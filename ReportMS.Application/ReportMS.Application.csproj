@@ -49,6 +49,7 @@
     <Compile Include="Services\RoleService.cs" />
     <Compile Include="Services\SubscriberService.cs" />
     <Compile Include="Services\TenantService.cs" />
+    <Compile Include="Services\TopicService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="StorageSettings.cs" />
     <Compile Include="TransferExtensions.cs" />

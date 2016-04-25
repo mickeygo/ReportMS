@@ -4,9 +4,7 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using Gear.Infrastructure;
-using Gear.Infrastructure.Net.Mail;
 using Gear.Infrastructure.Storage;
-using Gear.Utility.IO;
 using Gear.Utility.IO.Excels;
 using ReportMS.DataTransferObjects.Dtos;
 using ReportMS.ServiceContracts;
@@ -77,19 +75,10 @@ namespace ReportMS.Web.Client.Jobs.JobHandlers
                 return;
             }
 
-            var fileName = FilePathBuilder.BuildPath(
-                    string.Format("{0}-{1}", this._attachmentTopic.TopicName, DateTime.Now.ToString("yyMMddHHmmss")),
-                    FileExtension.Excel2007);
-            var attachmemts = new List<Tuple<Stream, string>> {Tuple.Create(stream, fileName)};
-            var subject = this._attachmentTopic.Subject;
-            var body = this._attachmentTopic.Body;
-            var mailTos = (from subscriber in this._attachmentTopic.Subscribers
-                select subscriber.Email).ToArray();
-
             try
             {
-                var manager = new MailManager(subject, body, mailTos, attachmemts);
-                manager.Send();
+                var mail = this.BuildMail(this._attachmentTopic, stream);
+                mail.Send();
             }
             catch (Exception)
             {

@@ -1,0 +1,87 @@
+﻿@{
+    ViewBag.Title = "Message";
+
+    var message = ViewBag.Message;
+    var timeout = ViewBag.Timeout;
+    var isRefreshOpener = ViewBag.IsRefreshOpener;
+    
+    var closeTimeEnd = -1;
+}
+
+@section scripts
+{
+    <script>
+        // Close Window Job
+
+        var Job;
+        (function(Job) {
+            var timeout = 5; // second
+            var closeTimeNode = -1; // second
+            var delay = 1000;
+            var isRefreshOpener = false;
+            var showTimeTipFilter = "[data-time-remaining=true]";
+
+            function closeWindow() {
+                window.opener = null;
+                window.close();
+            }
+
+            function showRemainingTime(time) {
+                $(showTimeTipFilter).text(time);
+            }
+
+            // replace window.setInterval
+            function run() {
+                showRemainingTime(timeout);
+
+                if (timeout === closeTimeNode) {
+                    closeWindow();
+                    return;
+                }
+
+                timeout--;
+                window.setTimeout(run, delay);
+            }
+            
+            Job.setOptions = function (_timeout, _refreshOpener) {
+                timeout = _timeout || timeout;
+                isRefreshOpener = _refreshOpener;
+            }    
+
+            function refreshOpenerWindows() {
+                window.opener.location.href = window.opener.location.href;
+            }
+
+            function init () {
+                if (isRefreshOpener) {
+                    refreshOpenerWindows();
+                }
+            }
+            Job.start = function () {
+                init();
+
+                window.setTimeout(function() {
+                    // when the initialized timeout less than close time node, the windows will not be closed.
+                    if (timeout > closeTimeNode) {
+                        run();
+                    }
+                }, delay);
+            }
+
+        })(Job || (Job = {}));
+
+        $(function () {
+            Job.setOptions(@timeout, @isRefreshOpener);
+            Job.start();
+        });
+    </script>
+}
+
+<h1 class="text-info">@message</h1>
+
+@if (timeout > closeTimeEnd)
+{
+    <h5>
+        The page will be closed in <span data-time-remaining="true" style="color: red;"></span> seconds.
+    </h5>
+}

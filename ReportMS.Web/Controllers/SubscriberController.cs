@@ -38,7 +38,7 @@ namespace ReportMS.Web.Controllers
         public ActionResult Index()
         {
             if (!TempData.ContainsKey(ReportId))
-                return Content("There are not report or any fields to subscribe.");
+                return BlankView("There are not report or any fields to subscribe.");
 
             var reportId = (Guid) TempData[ReportId];
             var tableOrView = TempData[TableOrView] as string;
@@ -63,7 +63,7 @@ namespace ReportMS.Web.Controllers
         public ActionResult UserSubscribe()
         {
             if (!TempData.ContainsKey(ReportId))
-                return Content("There are not report or any fields to subscribe.");
+                return BlankView("There are not report or any fields to subscribe.");
 
             var reportId = (Guid) TempData[ReportId];
             var tableOrView = TempData[TableOrView] as string;
@@ -91,11 +91,11 @@ namespace ReportMS.Web.Controllers
         public ActionResult UserSubscribe(AttachmentTopicDto model)
         {
             if (model.TopicTasks == null || !model.TopicTasks.Any())
-                return Content("Create the topic failure. there are not any topic task.");
+                return BlankView("Create the topic failure. there are not any topic task.");
 
             var subscribers = this.GetValidSubscribers();
             if (subscribers == null || !subscribers.Any())
-                return Content("Create the topic failure. there are not any subscriber.");
+                return BlankView("Create the topic failure. there are not any subscriber.");
 
             model.Subscribers = (from subscriber in subscribers
                 select new SubscriberDto
@@ -117,10 +117,10 @@ namespace ReportMS.Web.Controllers
             }
             catch (Exception)
             {
-                return Content("Create the topic failure.");
+                return BlankView("Create the topic failure.");
             }
 
-            return Content("Create the topic OK.");
+            return BlankView("Create the topic OK.");
         }
 
         #region Subscribe schedule
