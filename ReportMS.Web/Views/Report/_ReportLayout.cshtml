@@ -39,7 +39,7 @@
         }
 
         // subscribe
-        $(document).on("change", "select[data-schedule=true]", function (e) {
+        $(document).on("change", "select[data-schedule=true]", function(e) {
             var url = $(this).attr("data-href");
             var val = $(this).val();
             var $content = $("div[data-schedule-content=true]");
@@ -60,6 +60,41 @@
             }
         }
 
+        // Browser
+        var Browser;
+        (function() {
+            var isIE = function(ver) {
+                var b = document.createElement('b');
+                b.innerHTML = '<!--[if IE ' + ver + ']><i></i><![endif]-->';
+                return b.getElementsByTagName('i').length === 1;
+            }
+            Browser.isIE = function() {
+                return isIE();
+            }
+            Browser.ieVersion = function() {
+                if (!isIE)
+                    return 0;
+
+                if (isIE(6))
+                    return 6;
+                if (isIE(7))
+                    return 7;
+                if (isIE(8))
+                    return 8;
+                if (isIE(9))
+                    return 9;
+                if (isIE(10))
+                    return 10;
+                if (isIE(11))
+                    return 11;
+
+                return -1;
+            }
+        })(Browser || (Browser = {}));
+
+        if (Browser.isIE() && Browser.ieVersion() <= 9) {
+            alert("Your browser is IE" + Browser.ieVersion() + ", please use a higher version.");
+        }
     </script>
 }
 

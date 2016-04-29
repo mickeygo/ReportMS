@@ -25,10 +25,12 @@ namespace Gear.Infrastructure.Events
             var o1Type = o1.GetType();
             var o2Type = o2.GetType();
             if (o1Type.IsGenericType &&
-                o1Type.GetGenericTypeDefinition() == typeof(ActionDelegatedEventHandler<>) &&
+                o1Type.GetGenericTypeDefinition() == typeof (ActionDelegatedEventHandler<>) &&
                 o2Type.IsGenericType &&
-                o2Type.GetGenericTypeDefinition() == typeof(ActionDelegatedEventHandler<>))
+                o2Type.GetGenericTypeDefinition() == typeof (ActionDelegatedEventHandler<>))
+            {
                 return o1.Equals(o2);
+            }
             return o1Type == o2Type;
         };
 
@@ -58,13 +60,16 @@ namespace Gear.Infrastructure.Events
                 var type = obj.GetType();
                 var implementedInterfaces = type.GetInterfaces();
 
-                foreach (var method in from implementedInterface in implementedInterfaces 
-                                       where implementedInterface.IsGenericType &&
-                                             implementedInterface.GetGenericTypeDefinition() == typeof(IEventHandler<>) 
-                                       select implementedInterface.GetGenericArguments().First() into eventType 
-                                       select this.registerEventHandlerMethod.MakeGenericMethod(eventType))
+                var methods = (from implementedInterface in implementedInterfaces
+                    where implementedInterface.IsGenericType &&
+                          implementedInterface.GetGenericTypeDefinition() == typeof (IEventHandler<>)
+                    select implementedInterface.GetGenericArguments().First()
+                    into eventType
+                    select this.registerEventHandlerMethod.MakeGenericMethod(eventType));
+
+                foreach (var method in methods)
                 {
-                    method.Invoke(this, new[] { obj });
+                    method.Invoke(this, new[] {obj});
                 }
             }
         }
