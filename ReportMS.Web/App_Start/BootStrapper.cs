@@ -3,11 +3,14 @@ using Gear.Infrastructure.Web.WebInitializer;
 using ReportMS.DataTransferObjects.DtoInitializer;
 using ReportMS.Domain.Repositories.EntityFramework.DbContextInitializer;
 
+[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(ReportMS.Web.BootStrapper), "PreStart")]
+[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(ReportMS.Web.BootStrapper), "PostStart")]
 namespace ReportMS.Web
 {
     /// <summary>
     /// 应用程序引导程序
     /// </summary>
+ 
     public static class BootStrapper
     {
         /// <summary>
@@ -28,5 +31,17 @@ namespace ReportMS.Web
             AppRuntime.Initialize();
             AppRuntime.Instance.CurrentApplication.Start();
         }
+
+        
+        public static void PreStart()
+        {
+
+        }
+
+        public static void PostStart()
+        {
+            
+        }
+
     }
 }

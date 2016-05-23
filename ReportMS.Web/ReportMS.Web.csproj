@@ -672,6 +672,7 @@
     <Content Include="Js\jquery.dialog.js" />
     <None Include="Properties\PublishProfiles\RMS.Debug.pubxml" />
     <Content Include="README.md" />
+    <None Include="Properties\PublishProfiles\RMS.Release.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Js\reportTable.js" />
     <Content Include="Js\reportTransfer.js" />
@@ -976,6 +977,12 @@
     <TypeScriptOutDir>F:\Advantech\ReportMS\ReportMS\ReportMS.Web\Js</TypeScriptOutDir>
     <TypeScriptRemoveComments>True</TypeScriptRemoveComments>
     <TypeScriptSourceMap>False</TypeScriptSourceMap>
+    <TypeScriptModuleKind>none</TypeScriptModuleKind>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <TypeScriptRemoveComments>True</TypeScriptRemoveComments>
+    <TypeScriptSourceMap>False</TypeScriptSourceMap>
+    <TypeScriptJsxEmit>react</TypeScriptJsxEmit>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />

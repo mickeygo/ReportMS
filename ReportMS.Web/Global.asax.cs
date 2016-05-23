@@ -24,7 +24,7 @@ namespace ReportMS.Web
 
             // Start Job
             // Todo: Pack the job configuration to a package.
-            GlobalConfiguration.Configuration.UseSqlServerStorage(GetDbConnectionName("rms"));
+            GlobalConfiguration.Configuration.UseSqlServerStorage(GetRealDbConnectionName("rms"));
             _backgroundJobServer = new BackgroundJobServer();
             Client.Jobs.JobClient.Start();
         }
@@ -55,7 +55,7 @@ namespace ReportMS.Web
             StackExchange.Profiling.EntityFramework6.MiniProfilerEF6.Initialize();
         }
 
-        string GetDbConnectionName(string name)
+        string GetRealDbConnectionName(string name)
         {
 #if DEBUG
             return name + "Debug";

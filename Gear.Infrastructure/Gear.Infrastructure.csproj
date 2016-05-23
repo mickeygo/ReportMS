@@ -158,7 +158,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Auditing\" />
-    <Folder Include="Journal\" />
+    <Folder Include="Logging\" />
     <Folder Include="Net\Sockets\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
