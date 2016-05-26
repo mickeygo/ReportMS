@@ -20,7 +20,7 @@ namespace Gear.Infrastructure.Storage
         /// 注：用具体的列名，不要使用 * 匹配符</param>
         /// <param name="param">查询参数</param>
         /// <returns><c>T</c></returns>
-        public override T SelectFirstOrDefault<T>(string sqlQuery, object param = null)
+        public T SelectFirstOrDefault<T>(string sqlQuery, object param = null)
         {
             return this.Select<T>(sqlQuery, 1, 1, param).FirstOrDefault();
         }
@@ -33,7 +33,7 @@ namespace Gear.Infrastructure.Storage
         /// 注：用具体的列名，不要使用 * 匹配符</param>
         /// <param name="param">查询参数</param>
         /// <returns><c>T</c>集合</returns>
-        public override IEnumerable<T> Select<T>(string sqlQuery, object param = null)
+        public IEnumerable<T> Select<T>(string sqlQuery, object param = null)
         {
             return this.Connection.Query<T>(new CommandDefinition(sqlQuery, param));
         }
@@ -53,7 +53,7 @@ namespace Gear.Infrastructure.Storage
         /// <param name="count">每页的数量</param>
         /// <param name="param">查询参数</param>
         /// <returns><c>T</c>集合</returns>
-        public override IEnumerable<T> Select<T>(string sqlQuery, int start, int count, object param = null)
+        public IEnumerable<T> Select<T>(string sqlQuery, int start, int count, object param = null)
         {
             var sqlBuilder = new SqlSelectPagingClauseBuilder(sqlQuery, start, count);
             return this.Select<T>(sqlBuilder.ToString(), param);
@@ -66,7 +66,7 @@ namespace Gear.Infrastructure.Storage
         /// 注：用具体的列名，不要使用 * 匹配符</param>
         /// <param name="param">查询参数</param>
         /// <returns><see cref="System.Int32"/></returns>
-        public override int GetRecordCount(string sqlQuery, object param = null)
+        public int GetRecordCount(string sqlQuery, object param = null)
         {
             var sqlBuilder = new SqlSelectCountClauseBuilder(sqlQuery);
             return this.Connection.ExecuteScalar<int>(sqlBuilder.ToString(), param);
@@ -86,7 +86,7 @@ namespace Gear.Infrastructure.Storage
         /// 注：用具体的列名，不要使用 * 匹配符</param>
         /// <param name="param">查询参数</param>
         /// <returns><see cref="System.Data.Common.DbDataReader"/></returns>
-        public override IDataReader GetDataReader(string sqlQuery, object param = null)
+        public IDataReader GetDataReader(string sqlQuery, object param = null)
         {
             try
             {
@@ -132,7 +132,7 @@ namespace Gear.Infrastructure.Storage
         /// <param name="count">每页的数量</param>
         /// <param name="param">查询参数</param>
         /// <returns><see cref="System.Data.Common.DbDataReader"/></returns>
-        public override IDataReader GetDataReader(string sqlQuery, int start, int count, object param = null)
+        public IDataReader GetDataReader(string sqlQuery, int start, int count, object param = null)
         {
             var sqlBuilder = new SqlSelectPagingClauseBuilder(sqlQuery, start, count);
             return this.GetDataReader(sqlBuilder.ToString(), param);

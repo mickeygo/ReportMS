@@ -1,27 +1,28 @@
-﻿/*===== RMS Report =====*/
--- RMS_Database
-CREATE TABLE [dbo].[RMS_Database](
-	[DatabaseId]	uniqueidentifier	NOT NULL,
+﻿
+/*===== RMS Report =====*/
+
+-- RMS_Rdbms
+CREATE TABLE [dbo].[RMS_Rdbms](
+	[RdbmsId]		uniqueidentifier	NOT NULL,
 	[Name]			varchar(30)			NOT NULL,
 	[Description]	nvarchar(100)		NULL,
-	[Server]		varchar(30)			NOT NULL,
+	[Server]		varchar(200)		NOT NULL,
 	[Catalog]		varchar(30)			NOT NULL,
 	[UserId]		varchar(40)			NOT NULL,
 	[Password]		varchar(40)			NOT NULL,
+	[ReadOnly]		bit					NOT NULL,
 	[Provider]		varchar(50)			NOT NULL,
-	[Enabled]		bit					NOT NULL
- CONSTRAINT [PK_RMS_Database] PRIMARY KEY CLUSTERED 
-(
-	[DatabaseId] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY];
+	[Enabled]		bit					NOT NULL,
+	[CreatedDate]	datetime			NULL,
+	CONSTRAINT	[PK_RMS_Rdbms] PRIMARY KEY ([RdbmsId])
+);
 
 
 /*===== RMS_User =====*/
 
 -- RMS_User
 CREATE TABLE [dbo].[RMS_User](
-	[UserId]					uniqueidentifier	NOT NULL,
+	[UserId]					uniqueidentifier	NOT NULL	PRIMARY KEY,
 	[UserName]					varchar(80)			NOT NULL,
 	[Password]					varchar(128)		NOT NULL,
 	[EmployeeNo]				varchar(30)			NULL,
@@ -30,7 +31,7 @@ CREATE TABLE [dbo].[RMS_User](
 	[LocalName]					nvarchar(100)		NULL,
 	[Company]					varchar(20)			NULL,
 	[Organization]				varchar(30)			NULL,
-	[OrganizationDescription	nvarchar(100)		NULL,
+	[OrganizationDescription]	nvarchar(100)		NULL,
 	[Department]				nvarchar(100)		NULL,
 	[Job]						nvarchar(100)		NULL,
 	[Tel]						varchar(60)			NULL,
@@ -45,16 +46,12 @@ CREATE TABLE [dbo].[RMS_User](
 	[CreatedBy]					varchar(50)			NULL,
 	[CreatedDate]				datetime			NULL,
 	[UpdatedBy]					varchar(50)			NULL,
-	[UpdatedDate]				datetime			NULL,
- CONSTRAINT [PK_RMS_User] PRIMARY KEY CLUSTERED 
-(
-	[UserId] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
+	[UpdatedDate]				datetime			NULL
+);
 
 -- RMS_Action
 CREATE TABLE [dbo].[RMS_Action](
-	[ActionId]		uniqueidentifier	NOT NULL,
+	[ActionId]		uniqueidentifier	NOT NULL	PRIMARY KEY,
 	[Area]			varchar(30)			NULL,
 	[Controller]	varchar(30)			NOT NULL,
 	[Action]		varchar(30)			NOT NULL,
@@ -63,12 +60,8 @@ CREATE TABLE [dbo].[RMS_Action](
 	[CreatedBy]		varchar(50)			NULL,
 	[CreatedDate]	datetime			NULL,
 	[UpdatedBy]		varchar(50)			NULL,
-	[UpdatedDate]	datetime			NULL,
- CONSTRAINT [PK_RMS_Action] PRIMARY KEY CLUSTERED 
-(
-	[ActionId] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY];
+	[UpdatedDate]	datetime			NULL
+);
 
 /*===== Subscriber =====*/
 

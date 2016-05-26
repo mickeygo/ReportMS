@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Gear.Infrastructure.Algorithms.Cryptography;
 using ReportMS.DataTransferObjects.Dtos;
 using ReportMS.Reports.Dao;
 using ReportMS.ServiceContracts;
@@ -16,9 +17,10 @@ namespace ReportMS.Reports.Services
 
         public IEnumerable<ReportDto> GetReports()
         {
-            var sqlQuery = "SELECT ReportId AS ID, ReportName, DisplayName, Description, Database_Name AS [Database], Database_Schema AS [Schema] ";
+            var sqlQuery = "SELECT ReportId AS ID, ReportName, DisplayName, Description, [Schema] ";
             sqlQuery += " FROM  RMS_Report ";
             sqlQuery += " WHERE Enabled = 1 ";
+
             return DatabaseReader.Default.Reader.Select<ReportDto>(sqlQuery);
         }
 
@@ -26,7 +28,7 @@ namespace ReportMS.Reports.Services
         public IEnumerable<ReportDto> GetReports(Guid roleId)
         {
             var sqlQuery = new StringBuilder();
-            sqlQuery.AppendLine("SELECT rep.ReportId AS ID, rep.ReportName, rep.DisplayName, rep.Description, rep.Database_Name AS [Database], rep.Database_Schema AS [Schema] ");
+            sqlQuery.AppendLine("SELECT rep.ReportId AS ID, rep.ReportName, rep.DisplayName, rep.Description, [Schema] ");
             sqlQuery.AppendLine(" FROM  RMS_Role ro ");
             sqlQuery.AppendLine("       INNER JOIN RMS_ReportGroupRole rgr ON rgr.RoleId = ro.RoleId ");
             sqlQuery.AppendLine("       INNER JOIN RMS_ReportGroup rg ON rg.ReportGroupId = rgr.ReportGroupId AND rg.Enabled = 1 ");
@@ -57,11 +59,12 @@ namespace ReportMS.Reports.Services
 
         public ReportDto GetReport(Guid reportId, bool includeFields = true)
         {
-            var sqlQuery = "SELECT ReportId AS ID, ReportName, DisplayName, Description, Database_Name AS [Database], Database_Schema AS [Schema] ";
+            var sqlQuery = "SELECT ReportId AS ID, ReportName, DisplayName, Description ";
             sqlQuery += " FROM  RMS_Report ";
             sqlQuery += " WHERE Enabled = 1 AND ReportId = @ReportId";
 
             var report = DatabaseReader.Default.Reader.SelectFirstOrDefault<ReportDto>(sqlQuery, new { ReportId = reportId });
+            report.Rdbms = this.GetRdbms(reportId);
 
             if (includeFields)
             {
@@ -101,12 +104,15 @@ namespace ReportMS.Reports.Services
         private ReportDto GetReportViaProfile(Guid reportProfileId)
         {
             var sqlQuery = new StringBuilder();
-            sqlQuery.AppendLine("SELECT rep.ReportId AS ID, rep.ReportName, rep.DisplayName, rep.Description, rep.Database_Name AS [Database], rep.Database_Schema AS [Schema] ");
+            sqlQuery.AppendLine("SELECT rep.ReportId AS ID, rep.ReportName, rep.DisplayName, rep.Description ");
             sqlQuery.AppendLine(" FROM  RMS_Report rep ");
             sqlQuery.AppendLine("       INNER JOIN RMS_ReportProfile rp ON rp.ReportId = rep.ReportId AND rp.Enabled = 1 ");
             sqlQuery.AppendLine(" WHERE rep.Enabled = 1 AND rp.ReportProfileId = @ReportProfileId ");
 
-            return DatabaseReader.Default.Reader.SelectFirstOrDefault<ReportDto>(sqlQuery.ToString(), new { ReportProfileId = reportProfileId });
+            var report = DatabaseReader.Default.Reader.SelectFirstOrDefault<ReportDto>(sqlQuery.ToString(), new { ReportProfileId = reportProfileId });
+            report.Rdbms = this.GetRdbms(report.ID);
+
+            return report;
         }
 
         private IEnumerable<ReportFieldDto> GetFieldsViaProfile(Guid reportProfileId)
@@ -120,6 +126,23 @@ namespace ReportMS.Reports.Services
             sqlQuery.AppendLine(" WHERE rp.Enabled = 1 AND rp.ReportProfileId = @ReportProfileId ");
 
             return DatabaseReader.Default.Reader.Select<ReportFieldDto>(sqlQuery.ToString(), new { ReportProfileId = reportProfileId });
+        }
+
+        private RdbmsDto GetRdbms(Guid reportId)
+        {
+            var sqlQuery = "SELECT rdbms.RdbmsId AS ID, rdbms.Name, rdbms.Description, rdbms.Server, rdbms.Catalog, rdbms.UserId, rdbms.Password, rdbms.Provider, rdbms.ReadOnly ";
+            sqlQuery += " FROM  RMS_Rdbms rdbms ";
+            sqlQuery += " INNER JOIN RMS_Report report ON report.RdbmsId = rdbms.RdbmsId ";
+            sqlQuery += " WHERE report.Enabled = 1 AND rdbms.Enabled = 1 AND report.ReportId = @ReportId";
+
+            var rdbms = DatabaseReader.Default.Reader.SelectFirstOrDefault<RdbmsDto>(sqlQuery, new { ReportId = reportId });
+            if (rdbms == null)
+                return null;
+
+            rdbms.UserId = CryptoFactory.AES.Decrypt(rdbms.UserId);
+            rdbms.Password = CryptoFactory.AES.Decrypt(rdbms.Password);
+
+            return rdbms;
         }
 
         #endregion

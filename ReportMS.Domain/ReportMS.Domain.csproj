@@ -48,10 +48,8 @@
     <Compile Include="Models\AccountModule\MenuLevel.cs" />
     <Compile Include="Models\AccountModule\MenuRole.cs" />
     <Compile Include="Models\AccountModule\UserRole.cs" />
-    <Compile Include="Models\ReportModule\DatabaseAggregate\Database.cs" />
-    <Compile Include="Models\ReportModule\DatabaseAggregate\DatabaseProvider.cs" />
+    <Compile Include="Models\ReportModule\RdbmsAggregate\Rdbms.cs" />
     <Compile Include="Models\ReportModule\ReportAggregate\Report.cs" />
-    <Compile Include="Models\ReportModule\ReportAggregate\Database.cs" />
     <Compile Include="Models\ReportModule\ReportAggregate\ReportField.cs" />
     <Compile Include="Models\ReportModule\ReportGroupAggregate\ReportGroup.cs" />
     <Compile Include="Models\ReportModule\ReportGroupAggregate\ReportGroupItem.cs" />
@@ -73,6 +71,7 @@
     <Compile Include="Repositories\IAttachmentTopicRepository.cs" />
     <Compile Include="Repositories\IMenuRepository.cs" />
     <Compile Include="Repositories\IMenuRoleRepository.cs" />
+    <Compile Include="Repositories\IRdbmsRepository.cs" />
     <Compile Include="Repositories\IReportGroupRepository.cs" />
     <Compile Include="Repositories\IReportGroupRoleRepository.cs" />
     <Compile Include="Repositories\IReportProfileRepository.cs" />

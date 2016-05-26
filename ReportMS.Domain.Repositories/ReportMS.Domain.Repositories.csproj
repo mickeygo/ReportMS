@@ -56,7 +56,7 @@
     <Compile Include="EntityFramework\ModelConfigurations\ActionEntityTypeConfiguration.cs" />
     <Compile Include="EntityFramework\ModelConfigurations\ActionRoleEntityTypeConfiguration.cs" />
     <Compile Include="EntityFramework\ModelConfigurations\AttachmentTopicEntityTypeConfiguration.cs" />
-    <Compile Include="EntityFramework\ModelConfigurations\DatabaseComplexTypeConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\RdbmsEntityTypeConfiguration.cs" />
     <Compile Include="EntityFramework\ModelConfigurations\ReportGroupEntityTypeConfiguration.cs" />
     <Compile Include="EntityFramework\ModelConfigurations\MenuEntityTypeConfiguration.cs" />
     <Compile Include="EntityFramework\ModelConfigurations\MenuRoleEntityTypeConfiguration.cs" />
@@ -79,6 +79,7 @@
     <Compile Include="EntityFramework\Repository\AttachmentTopicRepository.cs" />
     <Compile Include="EntityFramework\Repository\MenuRepository.cs" />
     <Compile Include="EntityFramework\Repository\MenuRoleRepository.cs" />
+    <Compile Include="EntityFramework\Repository\RdbmsRepository.cs" />
     <Compile Include="EntityFramework\Repository\ReportGroupRepository.cs" />
     <Compile Include="EntityFramework\Repository\ReportGroupRoleRepository.cs" />
     <Compile Include="EntityFramework\Repository\ReportProfileRepository.cs" />

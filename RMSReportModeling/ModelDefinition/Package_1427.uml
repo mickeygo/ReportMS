@@ -40,7 +40,7 @@
       <annotatedElements>
         <classMoniker
           Id="231f46a1-c0dd-40fd-9866-2ea12179d889"
-          LastKnownName="Database"
+          LastKnownName="Rdbms"
           LastKnownLocation="Package_1427.uml" />
       </annotatedElements>
     </comment>
@@ -522,6 +522,15 @@
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false">
+        <suppliersInternal>
+          <dependency
+            Id="79a9457a-fdde-49d8-a420-75d4248c245f">
+            <classMoniker
+              Id="231f46a1-c0dd-40fd-9866-2ea12179d889"
+              LastKnownName="Rdbms"
+              LastKnownLocation="Package_1427.uml" />
+          </dependency>
+        </suppliersInternal>
         <targetEnds>
           <association
             Id="9c9ac4aa-c6bc-423d-8b91-6b277c2717ec"
@@ -743,7 +752,7 @@
     <packageHasNamedElement>
       <class
         Id="231f46a1-c0dd-40fd-9866-2ea12179d889"
-        name="Database"
+        name="Rdbms"
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false">

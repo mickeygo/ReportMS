@@ -17,9 +17,9 @@
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(m => m.Database, new { @class = "col-md-3 control-label" })
+            <label class="col-md-3 control-label" for="RdbmsId">Database</label>
             <div class="col-md-9">
-                @Html.TextBoxFor(m => m.Database, new { @class = "form-control", maxlength = "20", placeholder = "Input the initial catalog ..." })
+                @Html.DropDownListFor(m => m.RdbmsId, (SelectList)ViewBag.Databases, "-----", new { @class = "form-control", required = ""})
             </div>
         </div>
         <div class="form-group">

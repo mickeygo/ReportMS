@@ -22,7 +22,7 @@ namespace ReportMS.Test.Dtos.DataTransferObject
         [TestMethod]
         public void ReportDtoMapper_Test()
         {
-            var report = new Report("ReportNameTest", "ReportDisplayNameTest", "ReportDescTest", new Database("RMS", "dbo"), "gang.yang");
+            var report = new Report("ReportNameTest", "ReportDisplayNameTest", "ReportDescTest", Guid.NewGuid(),  "dbo", "gang.yang");
             var reportDto = AutoMapperAdapter.Adapt<ReportDto>(report);
 
             Assert.IsTrue(reportDto.Schema == "dbo");

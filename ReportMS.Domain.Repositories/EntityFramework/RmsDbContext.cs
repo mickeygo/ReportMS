@@ -49,9 +49,10 @@ namespace ReportMS.Domain.Repositories.EntityFramework
             modelBuilder.Configurations.Add(new ActionRoleEntityTypeConfiguration());
 
             // Report
+            modelBuilder.Configurations.Add(new RdbmsEntityTypeConfiguration());
+
             modelBuilder.Configurations.Add(new ReportEntityTypeConfiguration());
             modelBuilder.Configurations.Add(new ReportFieldEntityTypeConfiguration());
-            modelBuilder.Configurations.Add(new DatabaseComplexTypeConfiguration());
             modelBuilder.Configurations.Add(new ReportGroupEntityTypeConfiguration());
             modelBuilder.Configurations.Add(new ReportGroupItemEntityTypeConfiguration());
             modelBuilder.Configurations.Add(new ReportProfileEntityTypeConfiguration());

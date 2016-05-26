@@ -139,10 +139,15 @@
     <Compile Include="Storage\Builder\SqlSelectClauseBuilder.cs" />
     <Compile Include="Storage\Builder\SqlSelectCountClauseBuilder.cs" />
     <Compile Include="Storage\Builder\SqlSelectPagingClauseBuilder.cs" />
+    <Compile Include="Storage\Config\ConnectionOptions.cs" />
+    <Compile Include="Storage\Config\DocConnectionConfig.cs" />
     <Compile Include="Storage\IStorage.cs" />
     <Compile Include="Storage\IStorageProvider.cs" />
+    <Compile Include="Storage\RdbmsConnectTest.cs" />
+    <Compile Include="Storage\RdbmsProvider.cs" />
+    <Compile Include="Storage\Config\SelfConnectionConfig.cs" />
     <Compile Include="Storage\SortOrder.cs" />
-    <Compile Include="Storage\StorageConfiguration.cs" />
+    <Compile Include="Storage\Config\ConnectionConfig.cs" />
     <Compile Include="Storage\StorageException.cs" />
     <Compile Include="Storage\StorageManager.cs" />
     <Compile Include="Storage\StorageProvider.cs" />

@@ -36,10 +36,16 @@ namespace ReportMS.DataTransferObjects.Dtos
         public string Description { get; set; }
 
         /// <summary>
-        /// 获取或设置报表所在的数据库
+        /// 获取或设置关系型数据库 Id
         /// </summary>
         [DataMember]
-        public string Database { get; set; }
+        public Guid RdbmsId { get; set; }
+
+        /// <summary>
+        /// 获取关系型数据库信息
+        /// </summary>
+        [DataMember]
+        public RdbmsDto Rdbms { get; set; }
 
         /// <summary>
         /// 获取或设置数据库的 Schema, 一般为 dbo

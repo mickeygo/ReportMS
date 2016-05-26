@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Gear.Infrastructure;
+using Gear.Infrastructure.Algorithms.Cryptography;
+using Gear.Infrastructure.Storage.Config;
 using ReportMS.DataTransferObjects.Dtos;
 using ReportMS.ServiceContracts;
 using ReportMS.Web.Client.Attributes;
@@ -36,6 +38,7 @@ namespace ReportMS.Web.Controllers.Manages
         public ActionResult CreateReport()
         {
             var model = new ReportDto {Schema = "dbo"};
+            this.GetViewBags();
             return PartialView(model);
         }
 
@@ -50,8 +53,6 @@ namespace ReportMS.Web.Controllers.Manages
                 if (isExistReport)
                     return Json(false, string.Format("The report name:[{0}] already exists.", model.ReportName));
 
-                // Todo: Check the database can connect successfully
-
                 // Create the report header
                 model.CreatedBy = this.LoginUser.Identity.Name;
                 var report = service.CreateReport(model);
@@ -65,9 +66,10 @@ namespace ReportMS.Web.Controllers.Manages
             using (var service = ServiceLocator.Instance.Resolve<IReportService>())
             {
                 var report = service.FindReport(reportId);
-                var tableSchemas = this.GetTableSchema(report.Database, report.ReportName);
+                var tableSchemas = this.GetTableSchema(report.Rdbms, report.ReportName);
 
                 var model = new ReportModifyViewModel {Report = report, TableSchemas = tableSchemas};
+                this.GetViewBags();
 
                 return PartialView(model);
             }
@@ -88,7 +90,7 @@ namespace ReportMS.Web.Controllers.Manages
 
                     // modify the report fields (add / remove)
                     var report = service.FindReport(reportDto.ID);
-                    var tableSchemas = this.GetTableSchema(report.Database, report.ReportName);
+                    var tableSchemas = this.GetTableSchema(report.Rdbms, report.ReportName);
 
                     // firstly remove all，then add and sort
                     IEnumerable<ReportFieldDto> addingFileds = null;
@@ -136,18 +138,31 @@ namespace ReportMS.Web.Controllers.Manages
 
         #region Others Query
 
-        // 显示所有的可用的配置
-        private IEnumerable<DatabaseSchemaDto> GetDatabaseSchema(string connectionName)
-        {
-            var schemaService = ServiceLocator.Instance.Resolve<IReportSchemaQueryService>();
-            return schemaService.GetDatabaseSchema(connectionName);
-        }
 
         // 显示 Table / View 的信息(字段名及类型等)
-        private IEnumerable<TableSchemaDto> GetTableSchema(string connectionName, string table)
+
+        private IEnumerable<TableSchemaDto> GetTableSchema(RdbmsDto rdbms, string table)
         {
+            var connOpt = new ConnectionOptions
+            {
+                DataSource = rdbms.Server,
+                InitialCatalog = rdbms.Catalog,
+                UserId = CryptoFactory.AES.Decrypt(rdbms.UserId),
+                Password = CryptoFactory.AES.Decrypt(rdbms.Password),
+                ReadOnly = rdbms.ReadOnly
+            };
+
             var schemaService = ServiceLocator.Instance.Resolve<IReportSchemaQueryService>();
-            return schemaService.GetTableSchema(connectionName, "dbo", table);
+            return schemaService.GetTableSchema(connOpt, rdbms.Provider, "dbo", table);
+        }
+
+        private void GetViewBags()
+        {
+            using (var service = ServiceLocator.Instance.Resolve<IRdbmsService>())
+            {
+                var rdbms = service.FindAllRdbms();
+                ViewBag.Databases = new SelectList(rdbms, "ID", "Name");
+            }
         }
 
         #endregion

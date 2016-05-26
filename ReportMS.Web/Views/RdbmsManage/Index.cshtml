@@ -1,0 +1,51 @@
+﻿@using ReportMS.DataTransferObjects.Dtos
+@model IEnumerable<RdbmsDto>
+
+@{
+    ViewBag.Title = "RDBMS Manage";
+}
+
+@section scripts
+{
+    <script>
+        function createRdbmsSuccess(data) {
+            if (data.status === "success") {
+                reloadRdbms();
+            } else {
+                alert(data.message);
+            }
+        }
+
+        function modifyRdbmsSuccess(data) {
+            if (data.status === "success") {
+                reloadRdbms();
+            } else {
+                alert(data.message);
+            }
+        }
+
+        function deleteRdbms(element) {
+            if (!confirm("Do you want to delete it ?"))
+                return false;
+
+            var url = $(element).attr("data-href");
+            var id = $(element).attr("data-rdbms-id");
+            $.post(url, { rdbmsId: id }, function (data) {
+                if (data.status === "success")
+                    reloadRdbms();
+                else
+                    alert(data.message);
+            });
+            return true;
+        }
+
+        function reloadRdbms() {
+            var href = "@Url.Action("Index")" + " #table_rdbms";
+            $("#rdbms").load(href);
+        }
+    </script>
+}
+
+@Html.Navigate("Manage", "RDBMS")
+
+@Html.Partial("_Index", Model)

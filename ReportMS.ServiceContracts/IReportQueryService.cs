@@ -24,7 +24,7 @@ namespace ReportMS.ServiceContracts
         IEnumerable<ReportDto> GetReports();
 
         /// <summary>
-        /// 获取指定的角色所拥有的所有报表，不包含字段
+        /// 获取指定的角色所拥有的所有报表，不包含字段.
         /// </summary>
         /// <param name="roleId">指定的角色 Id</param>
         /// <returns>报表数据集合</returns>
@@ -33,7 +33,7 @@ namespace ReportMS.ServiceContracts
         IEnumerable<ReportDto> GetReports(Guid roleId);
 
         /// <summary>
-        /// 获取指定的角色所拥有的所有报表配置，不包含字段
+        /// 获取指定的角色所拥有的所有报表配置，不包含字段。
         /// </summary>
         /// <param name="roleId">指定的角色 Id</param>
         /// <returns>报表配置集合</returns>
@@ -42,7 +42,8 @@ namespace ReportMS.ServiceContracts
         IEnumerable<ReportProfileDto> GetReportProfiles(Guid roleId);
 
         /// <summary>
-        /// 获取报表数据
+        /// 获取报表数据。
+        /// 用户名和密码已解密
         /// </summary>
         /// <param name="reportId">报表 Id</param>
         /// <param name="includeFields">是否包含关联项（Field），默认包含</param>
@@ -53,7 +54,8 @@ namespace ReportMS.ServiceContracts
 
         /// <summary>
         /// 获取配置了的报表的信息。
-        /// 不同的配置信息呈现的字段不同
+        /// 不同的配置信息呈现的字段不同。
+        /// 用户名和密码已解密
         /// </summary>
         /// <param name="reportProfileId">报表配置 Id</param>
         /// <returns>报表 Dto 对象，包含字段</returns>

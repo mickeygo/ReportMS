@@ -11,7 +11,7 @@
         </div>
     </div>
 
-    <div class="ibox-content" id="retport">
+    <div class="ibox-content" id="report">
         @if (Model.HasAny())
         {
             <table id="table_report" class="table table-bordered table-striped table-hover">
@@ -32,7 +32,7 @@
                             <td>@Html.DisplayFor(m => item.ReportName)</td>
                             <td>@Html.DisplayFor(m => item.DisplayName)</td>
                             <td>@Html.DisplayFor(m => item.Description)</td>
-                            <td>@Html.DisplayFor(m => item.Database)</td>
+                            <td>@Html.DisplayFor(m => item.Rdbms.Name)</td>
                             <td>@Html.DisplayFor(m => item.Schema)</td>
                             <td>
                                 <a class="btn btn-primary btn-xs" data-dialog="true" data-ajax-form="true" data-dialog-href="@Url.Action("EditReport", new {reportId = item.ID})"

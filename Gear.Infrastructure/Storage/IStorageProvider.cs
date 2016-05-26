@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data;
+using Gear.Infrastructure.Storage.Config;
 
 namespace Gear.Infrastructure.Storage
 {
@@ -9,10 +10,15 @@ namespace Gear.Infrastructure.Storage
     public interface IStorageProvider
     {
         /// <summary>
+        /// 获取数据源连接对象
+        /// </summary>
+        IDbConnection Connection { get; }
+
+        /// <summary>
         /// 建制数据源连接
         /// </summary>
         /// <param name="connection">数据源连接</param>
-        void BuildConnection(StorageConfiguration connection);
+        void BuildConnection(ConnectionConfig connection);
 
         /// <summary>
         /// 获取第一个对象，若没有，则返回为 null

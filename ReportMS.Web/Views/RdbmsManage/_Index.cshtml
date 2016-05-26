@@ -1,0 +1,55 @@
+﻿@using ReportMS.DataTransferObjects.Dtos
+@model IEnumerable<RdbmsDto>
+
+<div>
+    <div class="ibox-title">
+        <div class="ibox-tools rboor">
+            <a class="btn btn-primary btn-xs" data-dialog="true" data-ajax-form="true" data-dialog-href="@Url.Action("Create")" data-dialog-title="Create RDBMS"
+               data-ajax-success="createRdbmsSuccess" data-ajax-failure="createRdbmsFailure">
+                <span class="glyphicon glyphicon-plus"></span> Add RDBMS
+            </a>
+        </div>
+    </div>
+
+    <div class="ibox-content" id="rdbms">
+        @if (Model.HasAny())
+        {
+            <table id="table_rdbms" class="table table-bordered table-striped table-hover">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Server</th>
+                    <th>Catalog</th>
+                    <th>Provider</th>
+                    <th>ReadOnly</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(m => item.Name)</td>
+                        <td>@Html.DisplayFor(m => item.Description)</td>
+                        <td>@Html.DisplayFor(m => item.Server)</td>
+                        <td>@Html.DisplayFor(m => item.Catalog)</td>
+                        <td>@Html.DisplayFor(m => item.Provider)</td>
+                        <td>@Html.DisplayFor(m => item.ReadOnly)</td>
+                        <td>
+                            <a class="btn btn-primary btn-xs" data-dialog="true" data-ajax-form="true" data-dialog-href="@Url.Action("Edit", new {rdbmsId = item.ID})"
+                               data-dialog-title="Edit" data-ajax-success="modifyRdbmsSuccess">
+                                <span class="glyphicon glyphicon-edit"></span>
+                            </a>
+                            <a class="btn btn-danger btn-xs" data-href="@Url.Action("Delete")" data-rdbms-id="@item.ID" onclick=" deleteRdbms(this); ">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </a>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        }
+    </div>
+</div>
+

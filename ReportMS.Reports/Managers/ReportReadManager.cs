@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using Gear.Infrastructure.Algorithms.Cryptography;
+using Gear.Infrastructure.Storage.Config;
 using Gear.Utility.IO.Excels;
 using ReportMS.DataTransferObjects.Dtos;
 using ReportMS.Reports.Dao;
@@ -43,12 +45,13 @@ namespace ReportMS.Reports.Managers
         public IEnumerable<ReportData> ExecuteSqlQuery()
         {
             var sqlQueryAndParms = this.GetSqlQueryAndParms(SelectClauseBuildMode.StringWithAlias);
-            return this.dataDao.Query<ReportData>(this.report.Database, sqlQueryAndParms.Item1, sqlQueryAndParms.Item2);
+
+            var connectionOpt = this.GetConnectionOption();
+            return this.dataDao.Query<ReportData>(connectionOpt.Item1, connectionOpt.Item2, sqlQueryAndParms.Item1, sqlQueryAndParms.Item2);
         }
 
         public object ExecuteDataTablesQuery()
         {
-            var conn = this.report.Database;
             var sqlQueryAndParms = this.GetSqlQueryAndParms(SelectClauseBuildMode.StringWithAlias);
 
             var sqlQuery = sqlQueryAndParms.Item1;
@@ -56,8 +59,9 @@ namespace ReportMS.Reports.Managers
             var start = DataTablesOption.Start + 1; // 分页中 start 为起始行，不是要跳过的行值
             var length = DataTablesOption.Length;
 
-            var itemCount = this.dataDao.QueryCount(conn, sqlQuery, sqlWhere);
-            var items = this.dataDao.Query<ReportData>(conn, sqlQuery, sqlWhere, start, length);
+            var connectionOpt = this.GetConnectionOption();
+            var itemCount = this.dataDao.QueryCount(connectionOpt.Item1, connectionOpt.Item2, sqlQuery, sqlWhere);
+            var items = this.dataDao.Query<ReportData>(connectionOpt.Item1, connectionOpt.Item2, sqlQuery, sqlWhere, start, length);
 
             var datatable = new DataTables<ReportData>(items, itemCount);
             return datatable.WrapDataTablesObject();
@@ -65,8 +69,9 @@ namespace ReportMS.Reports.Managers
 
         public byte[] ExecuteExcelExport(string sheetName)
         {
+            var connectionOpt = this.GetConnectionOption();
             var sqlQueryAndParms = this.GetSqlQueryAndParms(SelectClauseBuildMode.Raw);
-            var reader = DatabaseReader.Create(this.report.Database)
+            var reader = DatabaseReader.Create(connectionOpt.Item1, connectionOpt.Item2)
                 .Reader.GetDataReader(sqlQueryAndParms.Item1, sqlQueryAndParms.Item2);
 
             var excel = ExcelFactory.Create(sheetName, reader);
@@ -110,6 +115,20 @@ namespace ReportMS.Reports.Managers
             return Tuple.Create(sqlQuery, parameters);
         }
 
+        private Tuple<ConnectionOptions, string> GetConnectionOption()
+        {
+            var rdbms = this.report.Rdbms;
+            var connectionOpt = new ConnectionOptions
+            {
+                DataSource = rdbms.Server,
+                InitialCatalog = rdbms.Catalog,
+                UserId = rdbms.UserId,
+                Password = rdbms.Password,
+                ReadOnly = rdbms.ReadOnly
+            };
+
+            return Tuple.Create(connectionOpt, rdbms.Provider);
+        }
         #endregion
     }
 }

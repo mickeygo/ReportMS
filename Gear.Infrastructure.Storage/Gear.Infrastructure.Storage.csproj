@@ -57,7 +57,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DapperStorage.cs" />
-    <Compile Include="StorageProviderSetting.cs" />
     <Compile Include="MySql\MySqlStorage.cs" />
     <Compile Include="Oracle\OracleStorage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

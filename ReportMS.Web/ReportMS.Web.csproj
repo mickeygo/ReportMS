@@ -244,6 +244,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\Manages\JobManageController.cs" />
     <Compile Include="Controllers\Manages\MenuPermissionManageController.cs" />
+    <Compile Include="Controllers\Manages\RdbmsManageController.cs" />
     <Compile Include="Controllers\Manages\ReportGroupManageController.cs" />
     <Compile Include="Controllers\Manages\ReportManageController.cs" />
     <Compile Include="Controllers\Manages\ReportProfileManageController.cs" />
@@ -867,6 +868,10 @@
     <Content Include="Views\TopicManage\Index.cshtml" />
     <Content Include="Views\TopicManage\Edit.cshtml" />
     <Content Include="Views\Shared\Blank.cshtml" />
+    <Content Include="Views\RdbmsManage\Index.cshtml" />
+    <Content Include="Views\RdbmsManage\_Index.cshtml" />
+    <Content Include="Views\RdbmsManage\Create.cshtml" />
+    <Content Include="Views\RdbmsManage\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

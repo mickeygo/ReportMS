@@ -55,6 +55,7 @@
     <Compile Include="Dtos\MenuDto.cs" />
     <Compile Include="Dtos\MenuLevelDto.cs" />
     <Compile Include="Dtos\MenuRoleDto.cs" />
+    <Compile Include="Dtos\RdbmsDto.cs" />
     <Compile Include="Dtos\ReportDto.cs" />
     <Compile Include="Dtos\ReportFieldDto.cs" />
     <Compile Include="Dtos\ReportGroupDto.cs" />
@@ -77,6 +78,7 @@
     <Compile Include="Profiles\ActionsMapperProfile.cs" />
     <Compile Include="Profiles\MenuMapperProfile.cs" />
     <Compile Include="Profiles\MenuRoleMapperProfile.cs" />
+    <Compile Include="Profiles\RdbmsMapperProfile.cs" />
     <Compile Include="Profiles\ReportGroupMapperProfile.cs" />
     <Compile Include="Profiles\ReportGroupRoleMapperProfile.cs" />
     <Compile Include="Profiles\ReportMapperProfile.cs" />

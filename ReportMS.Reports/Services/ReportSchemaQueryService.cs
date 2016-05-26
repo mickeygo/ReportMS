@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Text;
+using Gear.Infrastructure.Storage.Config;
 using ReportMS.DataTransferObjects.Dtos;
 using ReportMS.Reports.Dao;
 using ReportMS.ServiceContracts;
@@ -13,7 +14,8 @@ namespace ReportMS.Reports.Services
     {
         #region IReportSchemaQueryService Members
 
-        public IEnumerable<DatabaseSchemaDto> GetDatabaseSchema(string connectionName, string database)
+
+        public IEnumerable<DatabaseSchemaDto> GetDatabaseSchema(ConnectionOptions connectionOptions, string providerName, string database)
         {
             var sqlQuery = new StringBuilder();
             sqlQuery.AppendLine("WITH T AS (");
@@ -27,10 +29,10 @@ namespace ReportMS.Reports.Services
             sqlQuery.AppendLine(" ROM       T ");
             sqlQuery.AppendLine(" WHERE     TableCatalog = @TableCatalog ");
 
-            return DatabaseReader.Create(connectionName).Reader.Select<DatabaseSchemaDto>(sqlQuery.ToString(), new { TableCatalog = database });
+            return DatabaseReader.Create(connectionOptions, providerName).Reader.Select<DatabaseSchemaDto>(sqlQuery.ToString(), new { TableCatalog = database });
         }
 
-        public IEnumerable<DatabaseSchemaDto> GetDatabaseSchema(string connectionName)
+        public IEnumerable<DatabaseSchemaDto> GetDatabaseSchema(ConnectionOptions connectionOptions, string providerName)
         {
             var sqlQuery = new StringBuilder();
             sqlQuery.AppendLine("WITH T AS (");
@@ -43,10 +45,10 @@ namespace ReportMS.Reports.Services
             sqlQuery.AppendLine(" SELECT    TableCatalog, TableSchema, TableName, TableType ");
             sqlQuery.AppendLine(" ROM       T ");
 
-            return DatabaseReader.Create(connectionName).Reader.Select<DatabaseSchemaDto>(sqlQuery.ToString());
+            return DatabaseReader.Create(connectionOptions, providerName).Reader.Select<DatabaseSchemaDto>(sqlQuery.ToString());
         }
 
-        public IEnumerable<TableSchemaDto> GetTableSchema(string connectionName, string database, string schema, string table)
+        public IEnumerable<TableSchemaDto> GetTableSchema(ConnectionOptions connectionOptions, string providerName, string database, string schema, string table)
         {
             var sqlQuery = new StringBuilder();
             sqlQuery.AppendLine(" SELECT	TABLE_CATALOG AS TableCatalog, TABLE_SCHEMA AS TableSchema, TABLE_NAME AS TableName ");
@@ -61,11 +63,11 @@ namespace ReportMS.Reports.Services
             sqlQuery.AppendLine(" FROM	    INFORMATION_SCHEMA.COLUMNS ");
             sqlQuery.AppendLine(" WHERE	    TABLE_CATALOG = @TableCatalog AND TABLE_SCHEMA = @TableSchema AND TABLE_NAME = @TableName ");
 
-            return DatabaseReader.Create(connectionName).Reader.Select<TableSchemaDto>(sqlQuery.ToString(), 
+            return DatabaseReader.Create(connectionOptions, providerName).Reader.Select<TableSchemaDto>(sqlQuery.ToString(), 
                 new { TableCatalog = database, TableSchema = schema, TableName = table });
         }
 
-        public IEnumerable<TableSchemaDto> GetTableSchema(string connectionName, string schema, string table)
+        public IEnumerable<TableSchemaDto> GetTableSchema(ConnectionOptions connectionOptions, string providerName, string schema, string table)
         {
             var sqlQuery = new StringBuilder();
             sqlQuery.AppendLine(" SELECT	TABLE_CATALOG AS TableCatalog, TABLE_SCHEMA AS TableSchema, TABLE_NAME AS TableName ");
@@ -80,7 +82,7 @@ namespace ReportMS.Reports.Services
             sqlQuery.AppendLine(" FROM	    INFORMATION_SCHEMA.COLUMNS ");
             sqlQuery.AppendLine(" WHERE	    TABLE_SCHEMA = @TableSchema AND TABLE_NAME = @TableName ");
 
-            return DatabaseReader.Create(connectionName).Reader.Select<TableSchemaDto>(sqlQuery.ToString(),
+            return DatabaseReader.Create(connectionOptions, providerName).Reader.Select<TableSchemaDto>(sqlQuery.ToString(),
                 new { TableSchema = schema, TableName = table });
         }
 

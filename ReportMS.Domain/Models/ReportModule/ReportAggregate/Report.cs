@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using Gear.Infrastructure;
 using Gear.Infrastructure.Repositories;
+using ReportMS.Domain.Models.ReportModule.RdbmsAggregate;
 
 namespace ReportMS.Domain.Models.ReportModule.ReportAggregate
 {
@@ -32,9 +33,19 @@ namespace ReportMS.Domain.Models.ReportModule.ReportAggregate
         public string Description { get; private set; }
 
         /// <summary>
-        /// 获取报表所在的数据库，值对象
+        /// 获取关系型数据库 Id
         /// </summary>
-        public Database Database { get; private set; }
+        public Guid RdbmsId { get; private set; }
+
+        /// <summary>
+        /// 获取关系型数据库信息
+        /// </summary>
+        public virtual Rdbms Rdbms { get; private set; }
+
+        /// <summary>
+        /// 获取报表所在的数据库的 Schema
+        /// </summary>
+        public string Schema { get; private set; }
 
         /// <summary>
         /// 获取一个<see cref="System.Boolean"/>值,表示此报表是否可用
@@ -83,31 +94,16 @@ namespace ReportMS.Domain.Models.ReportModule.ReportAggregate
         /// <param name="reportName">报表名</param>
         /// <param name="displayName">报表显示名</param>
         /// <param name="description">报表描述</param>
-        /// <param name="dbName">报表所在 DB</param>
-        /// <param name="schema">报表所在 DB 的 schema</param>
+        /// <param name="rdbmsId">报表所在 DB</param>
+        /// <param name="schema">数据表 schema</param>
         /// <param name="createdBy">创建人</param>
-        public Report(string reportName, string displayName, string description, string dbName, string schema,
-            string createdBy)
-            : this(reportName, displayName, description, null, createdBy)
-        {
-            this.Database = new Database(dbName, schema);
-        }
-
-        /// <summary>
-        /// 创建一个新的<c>Report</c>对象
-        /// </summary>
-        /// <param name="reportName">报表名</param>
-        /// <param name="displayName">报表显示名</param>
-        /// <param name="description">报表描述</param>
-        /// <param name="database">报表所在 DB</param>
-        /// <param name="createdBy">创建人</param>
-        public Report(string reportName, string displayName, string description, Database database, string createdBy)
-            : this()
+        public Report(string reportName, string displayName, string description, Guid rdbmsId, string schema, string createdBy)
         {
             this.ReportName = reportName;
             this.DisplayName = displayName;
             this.Description = description;
-            this.Database = database;
+            this.RdbmsId = rdbmsId;
+            this.Schema = schema;
             this.CreatedBy = createdBy;
             this.CreatedDate = DateTime.Now;
 
@@ -124,12 +120,13 @@ namespace ReportMS.Domain.Models.ReportModule.ReportAggregate
         /// </summary>
         /// <param name="displayName">报表显示名</param>
         /// <param name="description">报表描述</param>
-        /// <param name="dbName">报表所在 DB</param>
-        /// <param name="schema">报表所在 DB 的 schema</param>
+        /// <param name="rdbmsId">报表所在 DB</param>
+        /// <param name="schema">数据表 schema</param>
         /// <param name="updatedBy">更新人</param>
-        public void UpdateReport(string displayName, string description, string dbName, string schema, string updatedBy)
+        public void UpdateReport(string displayName, string description, Guid rdbmsId, string schema, string updatedBy)
         {
-            this.Database = new Database(dbName, schema);
+            this.RdbmsId = rdbmsId;
+            this.Schema = schema;
 
             this.DisplayName = displayName;
             this.Description = description;
@@ -219,10 +216,7 @@ namespace ReportMS.Domain.Models.ReportModule.ReportAggregate
             if (String.IsNullOrWhiteSpace(this.DisplayName))
                 yield return new ValidationResult("The report display name is null or empty.");
 
-            var hasDatabaseValue = this.Database != null
-                                   && !String.IsNullOrWhiteSpace(this.Database.Name)
-                                   && !String.IsNullOrWhiteSpace(this.Database.Name);
-            if (!hasDatabaseValue)
+            if (this.RdbmsId == Guid.Empty || String.IsNullOrWhiteSpace(this.Schema))
                 yield return new ValidationResult("The report database value is null or empty.");
 
             if (!this.ValidateReportName(this.ReportName))

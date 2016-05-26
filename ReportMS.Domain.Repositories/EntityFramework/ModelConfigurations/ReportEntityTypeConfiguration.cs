@@ -12,6 +12,7 @@ namespace ReportMS.Domain.Repositories.EntityFramework.ModelConfigurations
         {
             this.HasKey(p => p.ID);
             this.Property(p => p.ID).HasColumnName("ReportId");
+            this.HasRequired(p => p.Rdbms);
 
             this.ToTable("RMS_Report");
         }

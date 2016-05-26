@@ -21,7 +21,7 @@
       <elementDefinition Id="560299ba-0062-4bf1-81f5-32eacaa91d73" />
       <body>数据库连接信息存储，其中敏感信息加密(用户、密码)</body>
       <annotatedElements>
-        <classMoniker Id="06d53d93-d745-497c-82ad-51038431b894" LastKnownName="Database" />
+        <classMoniker Id="06d53d93-d745-497c-82ad-51038431b894" LastKnownName="Rdbms" />
       </annotatedElements>
     </comment>
     <comment Id="079c56ec-a07d-4919-b3e9-345f19cef421">
@@ -728,6 +728,12 @@
           <packageHasNamedElement>
             <class Id="934032f9-b61e-4b67-b30c-192038591892" name="Report" isAbstract="false" isLeaf="false" isActiveClass="false">
               <elementDefinition Id="0d996a06-69b1-46f8-97e6-0354a689d162" />
+              <suppliersInternal>
+                <dependency Id="31c2d9a8-d635-412c-82cd-fbc3b62113ea">
+                  <classMoniker Id="06d53d93-d745-497c-82ad-51038431b894" LastKnownName="Rdbms" />
+                  <elementDefinition Id="79a9457a-fdde-49d8-a420-75d4248c245f" />
+                </dependency>
+              </suppliersInternal>
               <targetEnds>
                 <association Id="a4949879-7a22-4db8-a87a-0a29ededc1db" isDerived="false" sourceEndRoleName="Report" targetEndRoleName="ReportField" isLeaf="false" isAbstract="false">
                   <classMoniker Id="41d6a961-f1c1-416b-8d81-32c47d1c8e34" LastKnownName="ReportField" />
@@ -798,7 +804,7 @@
             </class>
           </packageHasNamedElement>
           <packageHasNamedElement>
-            <class Id="06d53d93-d745-497c-82ad-51038431b894" name="Database" isAbstract="false" isLeaf="false" isActiveClass="false">
+            <class Id="06d53d93-d745-497c-82ad-51038431b894" name="Rdbms" isAbstract="false" isLeaf="false" isActiveClass="false">
               <elementDefinition Id="231f46a1-c0dd-40fd-9866-2ea12179d889" />
               <ownedAttributesInternal>
                 <property Id="0e4d4000-5b05-471b-9707-e3cadd1e9e6a" name="ID" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">

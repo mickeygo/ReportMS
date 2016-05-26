@@ -55,7 +55,7 @@ namespace ReportMS.Application.Services
         public ReportDto CreateReport(ReportDto reportDto)
         {
             var report = new Report(reportDto.ReportName, reportDto.DisplayName, reportDto.Description,
-                reportDto.Database, reportDto.Schema, reportDto.CreatedBy);
+                reportDto.RdbmsId, reportDto.Schema, reportDto.CreatedBy);
             this._reportRepository.Add(report);
 
             return report.MapAs<ReportDto>();

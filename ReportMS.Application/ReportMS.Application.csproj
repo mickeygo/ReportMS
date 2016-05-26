@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="QueryServices\UserQueryService.cs" />
     <Compile Include="Services\MenuPermissionService.cs" />
+    <Compile Include="Services\RdbmsService.cs" />
     <Compile Include="Services\ReportGroupService.cs" />
     <Compile Include="Services\ReportProfileService.cs" />
     <Compile Include="Services\ReportService.cs" />

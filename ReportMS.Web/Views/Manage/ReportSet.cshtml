@@ -6,6 +6,43 @@
 @section scripts
 {
     <script>
+        // ********* Rdbms ******** //
+        function createRdbmsSuccess(data) {
+            if (data.status === "success") {
+                reloadRdbms();
+            } else {
+                alert(data.message);
+            }
+        }
+
+        function modifyRdbmsSuccess(data) {
+            if (data.status === "success") {
+                reloadRdbms();
+            } else {
+                alert(data.message);
+            }
+        }
+
+        function deleteRdbms(element) {
+            if (!confirm("Do you want to delete it ?"))
+                return false;
+
+            var url = $(element).attr("data-href");
+            var id = $(element).attr("data-rdbms-id");
+            $.post(url, { rdbmsId: id }, function (data) {
+                if (data.status === "success")
+                    reloadRdbms();
+                else
+                    alert(data.message);
+            });
+            return true;
+        }
+
+        function reloadRdbms() {
+            var href = "@Url.Action("Index", "RdbmsManage")" + " #table_rdbms";
+            $("#rdbms").load(href);
+        }
+
         // ********* Report ******** //
         function createReportSuccess(data) {
             if (data.status === "success") {
@@ -39,8 +76,8 @@
         }
 
         function reloadReport() {
-            var href = "@Url.Action("Index", "ReportManage")" + "#table_report";
-            $("#retport").load(href);
+            var href = "@Url.Action("Index", "ReportManage")" + " #table_report";
+            $("#report").load(href);
         }
 
         // ********* Report Profile ******** //
@@ -78,7 +115,7 @@
         }
 
         function reloadReportProfile() {
-            var url = "@Url.Action("Index", "ReportProfileManage")" + "#reportprofile table";
+            var url = "@Url.Action("Index", "ReportProfileManage")" + " #reportprofile table";
             $("#reportprofile").load(url);
         }
 
@@ -143,7 +180,7 @@
         }
 
         function reloadReportGroup() {
-            var url = "@Url.Action("Index", "ReportGroupManage")" + "#reportgroup table";
+            var url = "@Url.Action("Index", "ReportGroupManage")" + " #reportgroup table";
             $("#reportgroup").load(url);
         }
 
@@ -169,13 +206,17 @@
 @Html.Navigate("Manage", "Report Set")
 
 <div>
+    <!-- Rdbms -->
+    @Html.Action("_Index", "RdbmsManage")
+
+    <hr/>
     <!-- Report -->
     @Html.Action("_Index", "ReportManage")
 
     <hr/>
     <!-- Report Profile -->
     @Html.Action("_Index", "ReportProfileManage")
-        
+
     <hr/>
     <!-- Report Group -->
     @Html.Action("_Index", "ReportGroupManage")

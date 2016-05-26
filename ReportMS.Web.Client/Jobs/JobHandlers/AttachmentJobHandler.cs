@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using Gear.Infrastructure;
 using Gear.Infrastructure.Storage;
+using Gear.Infrastructure.Storage.Config;
 using Gear.Utility.IO.Excels;
 using ReportMS.DataTransferObjects.Dtos;
 using ReportMS.ServiceContracts;
@@ -141,15 +142,24 @@ namespace ReportMS.Web.Client.Jobs.JobHandlers
                 return null;
             }
 
-            var connect = report.Database;
+            var connectOpt = new ConnectionOptions
+            {
+                DataSource = report.Rdbms.Server,
+                InitialCatalog = report.Rdbms.Catalog,
+                UserId = report.Rdbms.UserId,
+                Password = report.Rdbms.Password,
+                ReadOnly = report.Rdbms.ReadOnly
+            };
+            var provider = report.Rdbms.Provider;
+
             var sqlStatement = this._attachmentTopic.SqlStatement;
             var parameters = this._attachmentTopic.Parameter;
 
             if (String.IsNullOrWhiteSpace(parameters))
-                return StorageManager.CreateInstance(connect).GetDataReader(sqlStatement);
+                return StorageManager.CreateInstance(connectOpt, provider).GetDataReader(sqlStatement);
 
             var parms = StorageParameter.ConvertStringToParameter(parameters);
-            return StorageManager.CreateInstance(connect).GetDataReader(sqlStatement, parms);
+            return StorageManager.CreateInstance(connectOpt, provider).GetDataReader(sqlStatement, parms);
         }
 
         private ReportDto GetReport(Guid reportId)
