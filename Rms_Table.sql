@@ -124,6 +124,4 @@ CREATE TABLE RMS_TaskRecord (
 	CONSTRAINT	[PK_RMS_TaskRecord] PRIMARY KEY ([TaskRecordId])
 );
 
-ALTER TABLE [RMS_TaskRecord] ADD CONSTRAINT [FK_RMS_TaskRecord_TopicTaskId] FOREIGN KEY ([TopicTaskId]) REFERENCES [RMS_TopicTask]([TopicTaskId]);
-
 /*===== End Subscriber =====*/
