@@ -55,7 +55,7 @@ namespace ReportMS.Web
         // Register dataTables
         static void RegisterDataTablesBundles(BundleCollection bundles)
         {
-            bundles.Add(new StyleBundle("~/Content/dataTables").Include(
+            bundles.Add(new StyleBundle("~/Content/data_tables").Include(
                 "~/Content/DataTables/css/dataTables.bootstrap.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/dataTables").Include(
